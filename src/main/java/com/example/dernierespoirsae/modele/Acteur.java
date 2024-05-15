@@ -9,14 +9,19 @@ public class Acteur {
     private String nom;
     private Environnement environnement;
 
-    public Acteur(int x,int y, String nom, Environnement environnement) {
+    private int vie;
+    private int puissance;
+
+    public Acteur(int x,int y, String nom, Environnement environnement,int vie, int puissnace) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
         this.environnement = environnement;
+        this.vie = vie;
+        this.puissance = puissnace;
     }
     public Acteur( String nom, Environnement environnement) {
-        this(300,260,nom, environnement);
+        this(300,260,nom, environnement, 20, 100);
     }
 
 
