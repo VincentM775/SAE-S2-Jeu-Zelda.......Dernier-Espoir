@@ -29,7 +29,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
         Environnement environnement = new Environnement(375);
-        Acteur joueur = new Acteur("Johnny", environnement);
+        Acteur joueur = new Acteur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
         this.keyHandler = new KeyHandler(environnement);
         creerSprite(environnement.getJoueur());
