@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="La puissance est passée par défaut a 5 lors de la creation d'un acteur">
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Ajout des fonctionnalité d'Alexis">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/KeyHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Acteur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Acteur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715779889046</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Ajout des fonctionnalité d'Alexis">
+      <option name="closed" value="true" />
+      <created>1715794443768</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1715794443768</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -224,6 +227,7 @@
     <MESSAGE value="cration class ennemi et Zombie" />
     <MESSAGE value="Ajout des attributs vie et puissance pour tout les acteurs" />
     <MESSAGE value="La puissance est passée par défaut a 5 lors de la creation d'un acteur" />
-    <option name="LAST_COMMIT_MESSAGE" value="La puissance est passée par défaut a 5 lors de la creation d'un acteur" />
+    <MESSAGE value="Ajout des fonctionnalité d'Alexis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout des fonctionnalité d'Alexis" />
   </component>
 </project>
