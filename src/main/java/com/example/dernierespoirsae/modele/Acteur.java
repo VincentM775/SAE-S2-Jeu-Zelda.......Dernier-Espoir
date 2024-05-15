@@ -21,7 +21,7 @@ public class Acteur {
         this.puissance = puissnace;
     }
     public Acteur( String nom, Environnement environnement) {
-        this(300,260,nom, environnement, 20, 100);
+        this(300,260,nom, environnement, 20, 5);
     }
 
 
