@@ -31,8 +31,14 @@ public class Controleur implements Initializable {
         Environnement environnement = new Environnement(375);
         Acteur joueur = new Acteur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
+        MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        environnement.addActeurs(zombie1);
         this.keyHandler = new KeyHandler(environnement);
         creerSprite(environnement.getJoueur());
+        for (Acteur acteur : environnement.getActeurs()){
+            creerSprite(acteur);
+        }
         afficherMap(environnement.getMap());
 
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED,this.keyHandler);
@@ -54,12 +60,21 @@ public class Controleur implements Initializable {
             mapPane.getChildren().add(imageView);
         }
     }
-    public void creerSprite(Acteur acteur){
-        Circle cercle = new Circle(20 );
-        cercle.setFill(Color.RED);
-        cercle.translateXProperty().bind(acteur.xProperty());
-        cercle.translateYProperty().bind(acteur.yProperty());
-        persoPane.getChildren().add(cercle);
+    public void creerSprite(Acteur acteur) {
+        if (!(acteur instanceof Zombie)) {
+            Circle cercle = new Circle(10);
+            cercle.setFill(Color.BLUE);
+            cercle.translateXProperty().bind(acteur.xProperty());
+            cercle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(cercle);
+        }
+        else if (acteur instanceof MasticatorZ){
+            Circle cercle = new Circle(15);
+            cercle.setFill(Color.RED);
+            cercle.translateXProperty().bind(acteur.xProperty());
+            cercle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(cercle);
+        }
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {

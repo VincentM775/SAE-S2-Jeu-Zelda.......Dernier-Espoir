@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
 public class Acteur {
-
+    private static int id=0;
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
@@ -27,11 +27,15 @@ public class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
+        id++;  //Id qui sauto incrémente à chaque création d'un acteur
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
     }
 
+    protected int getId() {
+        return id;
+    }
 
     public void setX(int x){
         this.xProperty.setValue(x);
