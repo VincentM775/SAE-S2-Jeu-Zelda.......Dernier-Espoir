@@ -2,6 +2,8 @@ package com.example.dernierespoirsae.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
+import javafx.scene.layout.TilePane;
 
 public class Acteur {
 
