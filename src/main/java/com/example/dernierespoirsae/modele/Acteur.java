@@ -11,26 +11,30 @@ public class Acteur {
     private String nom;
     private Environnement environnement;
     private int vie;
+    private int vitesse;
     private int nombreDeDegat;
 
     private int longTuile;
     private int largeTuile;
     private int nbTuile;
+    private HitBox hitBox;
 
-    public Acteur(int x,int y, String nom, Environnement environnement,int vie, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
         this.environnement = environnement;
         this.vie = vie;
+        this.vitesse = vitesse;
         this.nombreDeDegat = nombreDeDegat;
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
+        hitBox = new HitBox(10, 10, this);
         id++;  //Id qui sauto incrémente à chaque création d'un acteur
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
+        this(300,260,nom, environnement, 20, 5, 5,longTuile, largeTuile, nbTuile);
     }
 
     protected int getId() {
@@ -65,37 +69,59 @@ public class Acteur {
         return nom;
     }
 
+    public int getLongTuile() {
+        return longTuile;
+    }
+
+    public int getLargeTuile() {
+        return largeTuile;
+    }
+
+    public int getNbTuile() {
+        return nbTuile;
+    }
+
+    public Environnement getEnvironnement() {
+        return environnement;
+    }
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
     public void seDeplacer(String direction){
         switch (direction){
             case "up" :
                 this.yProperty.setValue(getY()-5);
-                if(!collision(environnement))
-                    this.yProperty.setValue(getY()+5);
+
                 break;
 
             case "right" :
-                this.xProperty.setValue(getX()+5);
-                if(!collision(environnement))
-                    this.xProperty.setValue(getX()-5);
+//                if(!collision(hitBox.hitBoxDroite()))
+//                    this.xProperty.setValue(getX()-5);
+                if(hitBox.hitBoxDroite())
+                    this.xProperty.setValue(getX()+5);
                 break;
 
             case "down" :
+//                if(!collision(hitBox.hitBoxBas()))
+//                    this.yProperty.setValue(getY()-5);
                 this.yProperty.setValue(getY()+5);
-                if(!collision(environnement))
-                    this.yProperty.setValue(getY()-5);
                 break;
 
             case "left" :
-                this.xProperty.setValue(getX()-5);
-                if(!collision(environnement))
-                    this.xProperty.setValue(getX()+5);
+//                if(!collision(hitBox.hitBoxGauche()))
+//                    this.xProperty.setValue(getX()+5);
+                if(hitBox.hitBoxGauche())
+                    this.xProperty.setValue(getX()-5);
                 break;
         }
     }
 
-    public boolean collision(Environnement environnement){
+    public boolean collision(int positionHitBox){
 
-        int position = (int) ((this.getX() / this.longTuile) + (this.getY() / this.largeTuile * nbTuile));
+        int position = ((this.getX() / this.longTuile) + (this.getY() / this.largeTuile * nbTuile));
+        System.out.println(position);
 //        int position = (int) ((this.getX() / 40) + (this.getY() / 40 * 25));
 
         if(position % 25 == 0 || position % 25 == 24 || position > 0 && position < 25 || position > 350 && position < 375 || environnement.getMap().getListTuiles().get(position) != 0)
