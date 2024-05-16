@@ -32,7 +32,9 @@ public class Acteur {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
     }
 
-
+    public void perdPV(int decrement){
+        this.vie-= decrement;
+    }
     public void setX(int x){
         this.xProperty.setValue(x);
     }
