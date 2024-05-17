@@ -37,7 +37,9 @@ public class Controleur implements Initializable {
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
 
-        MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
+        zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(zombie1);
 
         creerSprite(environnement.getJoueur());
@@ -73,9 +75,8 @@ public class Controleur implements Initializable {
                 environnement.getJoueur().seDeplacer();
                 if (temps%5==0){
                     for (Acteur acteur : this.environnement.getActeurs()) {
-                        if (acteur instanceof MasticatorZ) {
-
-                            ((MasticatorZ) acteur).seDeplacer();
+                        if (acteur instanceof Ennemi) {
+                            ((Ennemi) acteur).seDeplacer();
                         }
                     }
                 }
