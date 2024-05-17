@@ -36,13 +36,7 @@ public class KeyHandler implements EventHandler<KeyEvent>{
                 System.out.println("down");
                 environnement.getJoueur().seDeplacer("down");
                 break;
-            case M:
-                System.out.println("déplacement ennemi");
-                for (Acteur acteur : environnement.getActeurs()){
-                    if (acteur instanceof MasticatorZ){
-                        ((MasticatorZ) acteur).seDeplacerAleatoirement();
-                    }
-                }
+
             default:
                 break;
         }

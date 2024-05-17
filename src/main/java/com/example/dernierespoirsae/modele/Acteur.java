@@ -68,27 +68,27 @@ public class Acteur {
     public void seDeplacer(String direction){
         switch (direction){
             case "up" :
-                this.yProperty.setValue(getY()-5);
+                this.yProperty.setValue(getY()-1);
                 if(!collision(environnement))
-                    this.yProperty.setValue(getY()+5);
+                    this.yProperty.setValue(getY()+1);
                 break;
 
             case "right" :
-                this.xProperty.setValue(getX()+5);
+                this.xProperty.setValue(getX()+1);
                 if(!collision(environnement))
-                    this.xProperty.setValue(getX()-5);
+                    this.xProperty.setValue(getX()-1);
                 break;
 
             case "down" :
-                this.yProperty.setValue(getY()+5);
+                this.yProperty.setValue(getY()+1);
                 if(!collision(environnement))
-                    this.yProperty.setValue(getY()-5);
+                    this.yProperty.setValue(getY()-1);
                 break;
 
             case "left" :
-                this.xProperty.setValue(getX()-5);
+                this.xProperty.setValue(getX()-1);
                 if(!collision(environnement))
-                    this.xProperty.setValue(getX()+5);
+                    this.xProperty.setValue(getX()+1);
                 break;
         }
     }
