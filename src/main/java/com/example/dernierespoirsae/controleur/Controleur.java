@@ -31,9 +31,10 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
 
+
     public void initialize(URL location, ResourceBundle ressource) {
         this.environnement = new Environnement(375);
-        Acteur joueur = new Acteur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
 
         MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
@@ -58,32 +59,32 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.05),
-                // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
-                (ev ->{
-
-
+            // on définit le FPS (nbre de frame par seconde)
+            Duration.seconds((0.07)),
+            // on définit ce qui se passe à chaque frame
+            // c'est un eventHandler d'ou le lambda
+            (ev ->{
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
+                System.out.println("un tour");
+                environnement.getJoueur().seDeplacer();
+                if (temps%5==0){
+                    for (Acteur acteur : this.environnement.getActeurs()) {
+                        if (acteur instanceof MasticatorZ) {
+                            ((MasticatorZ) acteur).seDeplacerAleatoirement();
+                        }
+                    }
+                }
 
-                        System.out.println("un tour");
+                environnement.getJoueur().seDeplacer();
 
-                        for (Acteur acteur : this.environnement.getActeurs()){
-                            if (acteur instanceof MasticatorZ){
-                                for (int i=0;i<10;i++) {
-                                    ((MasticatorZ) acteur).seDeplacerAleatoirement();
-                                }
-                            }
+                temps++;
 
-}
-                    temps++;
-
-                })
+            })
         );
+        System.out.println("test");
         gameLoop.getKeyFrames().add(kf);
     }
 
