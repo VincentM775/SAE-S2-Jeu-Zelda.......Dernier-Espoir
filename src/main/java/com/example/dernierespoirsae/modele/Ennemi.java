@@ -2,15 +2,19 @@ package com.example.dernierespoirsae.modele;
 
 public  class Ennemi extends Acteur{
 
-
-
+    private int attentePourDeplacement = 0;
+    private int vitesse = 1; // Vitesse de déplacement de l'ennemi
 
     public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
         super(x, y, nom, environnement, vie, nombreDeDegat, longTuile, largeTuile, nbTuile);
     }
 
     public void seDeplacer(){
-        seDeplacerAleatoirement();
+        if (this.attentePourDeplacement<=0) {
+            seDeplacerAleatoirement();
+            this.attentePourDeplacement = 20;
+        } else
+            this.attentePourDeplacement--;
     }
     /**
      * Méthode permettant le déplacement aléatoire des zombies
@@ -19,13 +23,13 @@ public  class Ennemi extends Acteur{
         System.out.println("deplacement ennemi");
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1; //choisi un nombre aléatoire entre 1 et 100 inclus
         int directionAleatoire;
-        int nombreDePixelDeplacer;
+        int nombreDePixelDeplacer=5;
 
         String nouvelleDirection;
 
-        if (chanceDeDeplacement <= 5) { //TODO la chance que le zombie se déplace est de ** 5% ** (A MODIFIER)
+        if (chanceDeDeplacement <= 100) { //TODO la chance que le zombie se déplace est de ** 30% ** (A MODIFIER)
             chanceDeDeplacement = (int) (Math.random() * 100) + 1; //choisi un nombre aléatoire entre 1 et 100 inclus
-            nombreDePixelDeplacer = (int) (Math.random() * 20) + 1;
+//          nombreDePixelDeplacer = (int) (Math.random() * 5) + 1;
 
             if (chanceDeDeplacement <=10){ //10% de chance de changer de direction
                 do {
@@ -42,36 +46,33 @@ public  class Ennemi extends Acteur{
             }
 
             System.out.println("la direction est " + this.getDirection());
-            for (int i=0;i<nombreDePixelDeplacer;i++)
-                seDeplacerDirection(this.getDirection());
+            seDeplacerDirection();
 
         }
     }
-    public void seDeplacerDirection(String direction){
-        switch (this.getDirection()){
-            case "up" :
-                this.yProperty().setValue(getY()-2);
-//                if(acteurQuiSeDeplace.getHitBox())
-//                    this.yProperty().setValue(getY()+1);
-                break;
+    public void seDeplacerDirection() {
+        int nombreDePixelDeplacer =10; //(int) (Math.random() * 5) + 1;
+        int dx = 0;
+        int dy = 0;
 
-            case "right" :
-                this.xProperty().setValue(getX()+2);
-//                if(!collision(environnement))
-//                    this.xProperty().setValue(getX()-1);
-                break;
-
-            case "down" :
-                this.yProperty().setValue(getY()+2);
-//                if(!collision(environnement))
-//                    this.yProperty.setValue(getY()-1);
-                break;
-
-            case "left" :
-                this.xProperty().setValue(getX()-2);
-//                if(!collision(environnement))
-//                    this.xProperty.setValue(getX()+1);
-                break;
+        if (getDirection().contains("up")) {
+            dy -= this.vitesse;
         }
+        if (getDirection().contains("down")) {
+            dy += this.vitesse;
+        }
+        if (getDirection().contains("left")) {
+            dx -= this.vitesse;
+        }
+        if (getDirection().contains("right")) {
+            dx += this.vitesse;
+        }
+        for (int i=0;i<nombreDePixelDeplacer;i++)
+            moveCharacter(dx, dy);
+    }
+
+    private void moveCharacter(int dx, int dy) {
+        setX(getX() + dx);
+        setY(getY() + dy);
     }
 }

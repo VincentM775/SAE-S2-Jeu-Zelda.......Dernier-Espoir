@@ -46,10 +46,11 @@ public class Controleur implements Initializable {
             creerSprite(acteur);
         }
 
-        persoPane.addEventHandler(KeyEvent.KEY_PRESSED,new KeyHandler(environnement));
+        KeyHandler keyHandler = new KeyHandler(environnement);
+        persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+        persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         afficherMap(environnement.getMap());
         initAnimation();
-        // demarre l'animation
         gameLoop.play();
     }
 
@@ -60,7 +61,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.07)),
+            Duration.seconds((0.016)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -73,7 +74,8 @@ public class Controleur implements Initializable {
                 if (temps%5==0){
                     for (Acteur acteur : this.environnement.getActeurs()) {
                         if (acteur instanceof MasticatorZ) {
-                            ((MasticatorZ) acteur).seDeplacerAleatoirement();
+
+                            ((MasticatorZ) acteur).seDeplacer();
                         }
                     }
                 }
@@ -84,7 +86,6 @@ public class Controleur implements Initializable {
 
             })
         );
-        System.out.println("test");
         gameLoop.getKeyFrames().add(kf);
     }
 

@@ -10,10 +10,4 @@ public class MasticatorZ extends Zombie{
     protected int getId() {
         return super.getId();
     }
-
-    @Override
-    public void seDeplacerAleatoirement() {
-        super.seDeplacerAleatoirement();
-        System.out.println("déplacement MasticatorZ réussi");
-    }
 }
