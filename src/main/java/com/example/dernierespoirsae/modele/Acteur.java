@@ -30,11 +30,11 @@ public class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
-        hitBox = new HitBox(10, 10, this);
+        hitBox = new HitBox(15, 15, this);
         id++;  //Id qui sauto incrémente à chaque création d'un acteur
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        this(300,260,nom, environnement, 20, 5, 5,longTuile, largeTuile, nbTuile);
+        this(300,260,nom, environnement, 20, 1, 5,longTuile, largeTuile, nbTuile);
     }
 
     protected int getId() {
@@ -89,31 +89,30 @@ public class Acteur {
         return vitesse;
     }
 
+    public HitBox getHitBox() {
+        return hitBox;
+    }
+
     public void seDeplacer(String direction){
         switch (direction){
             case "up" :
-                this.yProperty.setValue(getY()-5);
-
+                if(hitBox.hitBoxHaut())
+                    this.yProperty.setValue(getY()-this.vitesse);
                 break;
 
             case "right" :
-//                if(!collision(hitBox.hitBoxDroite()))
-//                    this.xProperty.setValue(getX()-5);
                 if(hitBox.hitBoxDroite())
-                    this.xProperty.setValue(getX()+5);
+                    this.xProperty.setValue(getX()+this.vitesse);
                 break;
 
             case "down" :
-//                if(!collision(hitBox.hitBoxBas()))
-//                    this.yProperty.setValue(getY()-5);
-                this.yProperty.setValue(getY()+5);
+                if(hitBox.hitBoxBas())
+                    this.yProperty.setValue(getY()+this.vitesse);
                 break;
 
             case "left" :
-//                if(!collision(hitBox.hitBoxGauche()))
-//                    this.xProperty.setValue(getX()+5);
                 if(hitBox.hitBoxGauche())
-                    this.xProperty.setValue(getX()-5);
+                    this.xProperty.setValue(getX()-this.vitesse);
                 break;
         }
     }

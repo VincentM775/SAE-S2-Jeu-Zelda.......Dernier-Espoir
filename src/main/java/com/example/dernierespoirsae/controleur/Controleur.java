@@ -11,6 +11,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.scene.shape.Rectangle;
+
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -62,11 +64,11 @@ public class Controleur implements Initializable {
     }
     public void creerSprite(Acteur acteur) {
         if (!(acteur instanceof Zombie)) {
-            Circle cercle = new Circle(10);
-            cercle.setFill(Color.BLUE);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15, 15);
+            rectangle.setFill(Color.BLUE);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
         else if (acteur instanceof MasticatorZ){
             Circle cercle = new Circle(15);
