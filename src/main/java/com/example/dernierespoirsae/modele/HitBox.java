@@ -56,12 +56,12 @@ public class HitBox {
 
     public boolean hitBoxGauche() {
 
-        int positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse()) / acteur.getLongTuile()) + (this.acteur.getY() / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+        int positionPointHitBox = ((this.acteur.getX() - acteur.getVitesse()) / acteur.getLongTuile()) + (this.acteur.getY() / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
         if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
             return false;
 
         for(int i = 1; i <= hauteur; i++){
-            positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse()) / acteur.getLongTuile()) + ((this.acteur.getY() + i) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+            positionPointHitBox = ((this.acteur.getX() - acteur.getVitesse()) / acteur.getLongTuile()) + ((this.acteur.getY() + i) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
                 return false;
         }
@@ -71,12 +71,12 @@ public class HitBox {
 
     public boolean hitBoxHaut() {
 
-        int positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse()) / acteur.getLongTuile()) + (this.acteur.getY() / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+        int positionPointHitBox = (this.acteur.getX() / acteur.getLongTuile()) + ((this.acteur.getY() - acteur.getVitesse()) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
         if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
             return false;
 
         for(int i = 1; i <= longueur; i++){
-            positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse() + i) / acteur.getLongTuile()) + (this.acteur.getY() / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+            positionPointHitBox = ((this.acteur.getX() + i) / acteur.getLongTuile()) + ((this.acteur.getY() - acteur.getVitesse()) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
                 return false;
         }
@@ -86,12 +86,12 @@ public class HitBox {
 
     public boolean hitBoxBas() {
 
-        int positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse()) / acteur.getLongTuile()) + ((this.acteur.getY() + this.hauteur) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+        int positionPointHitBox = (this.acteur.getX() / acteur.getLongTuile()) + ((this.acteur.getY() + this.hauteur + acteur.getVitesse()) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
         if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
             return false;
 
         for(int i = 1; i <= hauteur; i++){
-            positionPointHitBox = ((this.acteur.getX() + acteur.getVitesse() + i) / acteur.getLongTuile()) + ((this.acteur.getY()  + this.hauteur) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
+            positionPointHitBox = ((this.acteur.getX() + i) / acteur.getLongTuile()) + ((this.acteur.getY()  + this.hauteur + acteur.getVitesse()) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(positionPointHitBox % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(positionPointHitBox) != 0)
                 return false;
         }
