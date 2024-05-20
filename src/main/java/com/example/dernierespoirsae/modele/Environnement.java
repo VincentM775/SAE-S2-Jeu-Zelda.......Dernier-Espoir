@@ -23,7 +23,7 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ArrayList<Acteur> getActeurs(){
+    public ArrayList<Acteur> getListActeurs(){
         return this.acteurs;
     }
     public Acteur getJoueur() {
@@ -32,6 +32,8 @@ public class Environnement{
     public Map getMap() {
         return this.map;
     }
+
+
 
     public void setJoueur(Acteur joueur) {
         Joueur = joueur;

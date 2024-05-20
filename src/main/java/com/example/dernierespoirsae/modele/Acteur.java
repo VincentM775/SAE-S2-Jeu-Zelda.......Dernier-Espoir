@@ -12,6 +12,10 @@ public class Acteur {
     private Environnement environnement;
     private int vie;
     private int nombreDeDegat;
+    
+    private static int idStatic=0;
+
+    private int id;
 
     private int longTuile;
     private int largeTuile;
@@ -27,6 +31,7 @@ public class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
+        this.id=idStatic++;
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
@@ -38,6 +43,17 @@ public class Acteur {
     public void setX(int x){
         this.xProperty.setValue(x);
     }
+
+    public void meurt(){
+        if(this.vie <= 0){
+            environnement.getListActeurs().remove(this);
+        }
+    }
+
+    public  int getIdStatic() {
+        return this.id;
+    }
+
 
     public void setY(int y){
         this.yProperty.setValue(y);
@@ -100,4 +116,6 @@ public class Acteur {
             return false;
         return true;
     }
+
+
 }
