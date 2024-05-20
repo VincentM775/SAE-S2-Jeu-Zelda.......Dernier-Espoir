@@ -50,7 +50,7 @@ public class Acteur {
         }
     }
 
-    public  int getIdStatic() {
+    public  int getId() {
         return this.id;
     }
 

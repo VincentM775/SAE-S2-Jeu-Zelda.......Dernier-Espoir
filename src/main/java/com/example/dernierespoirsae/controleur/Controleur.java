@@ -60,9 +60,12 @@ public class Controleur implements Initializable {
         cercle.translateXProperty().bind(acteur.xProperty());
         cercle.translateYProperty().bind(acteur.yProperty());
         persoPane.getChildren().add(cercle);
+        cercle.setId(""+acteur.getId());
+
     }
 
     public void suprimerSprite(Acteur acteur){
+        this.persoPane.getChildren().remove(this.persoPane.lookup("#"+acteur.getId()));
 
     }
 
