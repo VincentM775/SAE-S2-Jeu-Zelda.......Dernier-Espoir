@@ -1,4 +1,5 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.modele.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,13 +29,46 @@ public class Controleur implements Initializable {
     private Environnement environnement;
 
     public void initialize(URL location, ResourceBundle ressource) {
+
+        //Creé un environement de taille n
         Environnement environnement = new Environnement(375);
-        Acteur joueur = new Acteur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        environnement.setJoueur(joueur);
         this.keyHandler = new KeyHandler(environnement);
-        creerSprite(environnement.getJoueur());
+
+        //Affiche cet envirenoement
         afficherMap(environnement.getMap());
 
+        //Crer un joueur et l'ajoute dans l'environement
+        Joueur joueur = new Joueur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        environnement.setJoueur(joueur);
+
+        //ObservateurActeurs c'est une methode qui va observer les changement (ajout ou supression)
+        //dans la liste d'acteur de l'environement (qui est une liste Observable)
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+
+        //Lie l'observateur d'acteur a l'envirenoment
+        environnement.setListenerActeurs(observateurActeurs );
+
+        Acteur acteur1 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
+        environnement.addActeurs(acteur1);
+
+        Acteur acteur2 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
+        environnement.addActeurs(acteur1);
+
+        Acteur acteur3 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
+        environnement.addActeurs(acteur1);
+
+        Acteur acteur4 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
+        environnement.addActeurs(acteur1);
+
+        Acteur acteur5 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
+        environnement.addActeurs(acteur1);
+
+
+
+        //Creer un sprite qui represente le joueur
+        observateurActeurs.creerSprite(joueur);
+
+        //Je sais pas
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED,this.keyHandler);
         persoPane.requestFocus();
     }
@@ -53,20 +87,6 @@ public class Controleur implements Initializable {
             }
             mapPane.getChildren().add(imageView);
         }
-    }
-    public void creerSprite(Acteur acteur){
-        Circle cercle = new Circle(20 );
-        cercle.setFill(Color.RED);
-        cercle.translateXProperty().bind(acteur.xProperty());
-        cercle.translateYProperty().bind(acteur.yProperty());
-        persoPane.getChildren().add(cercle);
-        cercle.setId(""+acteur.getId());
-
-    }
-
-    public void suprimerSprite(Acteur acteur){
-        this.persoPane.getChildren().remove(this.persoPane.lookup("#"+acteur.getId()));
-
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
