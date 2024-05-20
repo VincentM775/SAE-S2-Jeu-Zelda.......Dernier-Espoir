@@ -10,7 +10,7 @@ public class Acteur {
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
-    private int vie;
+    private IntegerProperty vie;
     private int nombreDeDegat;
     
     private static int idStatic=0;
@@ -26,7 +26,7 @@ public class Acteur {
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
         this.environnement = environnement;
-        this.vie = vie;
+        this.vie = new SimpleIntegerProperty(vie);
         this.nombreDeDegat = nombreDeDegat;
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
@@ -38,14 +38,14 @@ public class Acteur {
     }
 
     public void perdPV(int decrement){
-        this.vie-= decrement;
+        this.vie.setValue(this.vie.getValue()-decrement);
     }
     public void setX(int x){
         this.xProperty.setValue(x);
     }
 
     public void meurt(){
-        if(this.vie <= 0){
+        if(this.vie.getValue() < 0){
             environnement.getListActeurs().remove(this);
         }
     }
@@ -53,7 +53,6 @@ public class Acteur {
     public  int getIdStatic() {
         return this.id;
     }
-
 
     public void setY(int y){
         this.yProperty.setValue(y);

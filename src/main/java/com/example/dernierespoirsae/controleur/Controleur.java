@@ -62,6 +62,10 @@ public class Controleur implements Initializable {
         persoPane.getChildren().add(cercle);
     }
 
+    public void suprimerSprite(Acteur acteur){
+
+    }
+
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
