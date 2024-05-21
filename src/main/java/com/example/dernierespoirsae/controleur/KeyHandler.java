@@ -1,51 +1,47 @@
 package com.example.dernierespoirsae.controleur;
 
-import com.example.dernierespoirsae.modele.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.MasticatorZ;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import java.util.Objects;
 
-public class KeyHandler implements EventHandler<KeyEvent>{
-    private Environnement environnement;
-    
-    public KeyHandler(Environnement environnement){
-        this.environnement=environnement;
+import java.util.HashSet;
+import java.util.Set;
+
+public class KeyHandler implements EventHandler<KeyEvent> {
+    private final Environnement environnement;
+    private final Set<KeyCode> pressedKeys;
+
+    public KeyHandler(Environnement environnement) {
+        this.environnement = environnement;
+        this.pressedKeys = new HashSet<>();
     }
 
     @Override
-    public void handle(KeyEvent keyEvent){
-        switch (keyEvent.getCode()){
-            case Q :
-                System.out.println("left");
-                environnement.getJoueur().seDeplacer("left");
-                break;
-
-            case D :
-                System.out.println("right");
-                environnement.getJoueur().seDeplacer("right");
-                break;
-
-            case Z : 
-                System.out.println("up");
-                environnement.getJoueur().seDeplacer("up");
-                break;
-
-            case S : 
-                System.out.println("down");
-                environnement.getJoueur().seDeplacer("down");
-                break;
-            case M:
-                System.out.println("déplacement ennemi");
-                for (Acteur acteur : environnement.getActeurs()){
-                    if (acteur instanceof MasticatorZ){
-                        ((MasticatorZ) acteur).seDeplacerAleatoirement();
-                    }
-                }
-            default:
-                break;
+    public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED) {
+            pressedKeys.add(keyEvent.getCode());
+        } else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
+            pressedKeys.remove(keyEvent.getCode());
         }
-    }
 
+        // Mise à jour de la direction du joueur en fonction des touches enfoncées
+        String direction = "";
+
+        if (pressedKeys.contains(KeyCode.Z)) {
+            direction += "up";
+        }
+        if (pressedKeys.contains(KeyCode.S)) {
+            direction += "down";
+        }
+        if (pressedKeys.contains(KeyCode.Q)) {
+            direction += "left";
+        }
+        if (pressedKeys.contains(KeyCode.D)) {
+            direction += "right";
+        }
+
+        // Set de la nouvelle direction pour le joueur
+        environnement.getJoueur().setDirection(direction);
+    }
 }

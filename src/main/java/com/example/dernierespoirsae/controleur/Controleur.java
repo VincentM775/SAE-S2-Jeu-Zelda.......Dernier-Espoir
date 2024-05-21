@@ -1,5 +1,7 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.modele.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -11,6 +13,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.util.Duration;
+
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -21,28 +25,69 @@ public class Controleur implements Initializable {
     private TilePane mapPane;
     @FXML
     private Pane persoPane;
-    @FXML
-    private Pane premierPane;
-    private KeyHandler keyHandler;
-
     private Environnement environnement;
 
+    //sert la gameloop :
+    private Timeline gameLoop;
+    private int temps;
+
+
     public void initialize(URL location, ResourceBundle ressource) {
-        Environnement environnement = new Environnement(375);
-        Acteur joueur = new Acteur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        this.environnement = new Environnement(375);
+        Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
 
-        MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
+        zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(zombie1);
-        this.keyHandler = new KeyHandler(environnement);
+
         creerSprite(environnement.getJoueur());
+
         for (Acteur acteur : environnement.getActeurs()){
             creerSprite(acteur);
         }
-        afficherMap(environnement.getMap());
 
-        persoPane.addEventHandler(KeyEvent.KEY_PRESSED,this.keyHandler);
-        persoPane.requestFocus();
+        KeyHandler keyHandler = new KeyHandler(environnement);
+        persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+        persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
+        afficherMap(environnement.getMap());
+        initAnimation();
+        gameLoop.play();
+    }
+
+    private void initAnimation() {
+        gameLoop = new Timeline();
+        temps=0;
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame kf = new KeyFrame(
+            // on définit le FPS (nbre de frame par seconde)
+            Duration.seconds((0.016)),
+            // on définit ce qui se passe à chaque frame
+            // c'est un eventHandler d'ou le lambda
+            (ev ->{
+//                    if(temps==10){
+//                        System.out.println("boucle fini");
+//                        gameLoop.stop();
+//                    }
+                System.out.println("un tour");
+                environnement.getJoueur().seDeplacer();
+                if (temps%5==0){
+                    for (Acteur acteur : this.environnement.getActeurs()) {
+                        if (acteur instanceof Ennemi) {
+                            ((Ennemi) acteur).seDeplacer();
+                        }
+                    }
+                }
+
+                environnement.getJoueur().seDeplacer();
+
+                temps++;
+
+            })
+        );
+        gameLoop.getKeyFrames().add(kf);
     }
 
 
