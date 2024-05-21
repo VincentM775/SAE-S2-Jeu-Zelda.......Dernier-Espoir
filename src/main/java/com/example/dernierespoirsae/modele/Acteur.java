@@ -6,13 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
 public class Acteur {
-
+    private static int id=0;
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
     private IntegerProperty vie;
     private int nombreDeDegat;
-    
+
     private static int idStatic=0;
 
     private int id;
@@ -40,6 +40,10 @@ public class Acteur {
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
     }
+    protected int getId() {
+        return this.id;
+    }
+
     public void setX(int x){
         this.xProperty.setValue(x);
     }
@@ -49,11 +53,6 @@ public class Acteur {
             environnement.getListActeurs().remove(this);
         }
     }
-
-    public  int getId() {
-        return this.id;
-    }
-
     public void setY(int y){
         this.yProperty.setValue(y);
     }
@@ -115,6 +114,4 @@ public class Acteur {
             return false;
         return true;
     }
-
-
 }

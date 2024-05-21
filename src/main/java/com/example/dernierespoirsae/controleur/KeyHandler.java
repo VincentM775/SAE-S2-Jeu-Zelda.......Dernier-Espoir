@@ -1,6 +1,8 @@
 package com.example.dernierespoirsae.controleur;
 
+import com.example.dernierespoirsae.modele.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.MasticatorZ;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import java.util.Objects;
@@ -34,7 +36,13 @@ public class KeyHandler implements EventHandler<KeyEvent>{
                 System.out.println("down");
                 environnement.getJoueur().seDeplacer("down");
                 break;
-                
+            case M:
+                System.out.println("déplacement ennemi");
+                for (Acteur acteur : environnement.getActeurs()){
+                    if (acteur instanceof MasticatorZ){
+                        ((MasticatorZ) acteur).seDeplacerAleatoirement();
+                    }
+                }
             default:
                 break;
         }

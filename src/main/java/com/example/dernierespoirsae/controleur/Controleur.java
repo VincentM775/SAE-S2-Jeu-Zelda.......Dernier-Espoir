@@ -60,10 +60,11 @@ public class Controleur implements Initializable {
         Acteur acteur4 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
         environnement.addActeurs(acteur1);
 
+        MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        environnement.addActeurs(zombie1);
+
         Acteur acteur5 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
         environnement.addActeurs(acteur1);
-
-
 
         //Creer un sprite qui represente le joueur
         observateurActeurs.creerSprite(joueur);
@@ -88,6 +89,21 @@ public class Controleur implements Initializable {
             mapPane.getChildren().add(imageView);
         }
     }
+    public void creerSprite(Acteur acteur){
+        Circle cercle = new Circle(20 );
+        cercle.setFill(Color.RED);
+        cercle.translateXProperty().bind(acteur.xProperty());
+        cercle.translateYProperty().bind(acteur.yProperty());
+        persoPane.getChildren().add(cercle);
+    }
+
+    //else if (acteur instanceof MasticatorZ){
+      //  Circle cercle = new Circle(15);
+        //cercle.setFill(Color.RED);
+        //cercle.translateXProperty().bind(acteur.xProperty());
+       // cercle.translateYProperty().bind(acteur.yProperty());
+     //   persoPane.getChildren().add(cercle);
+   // } acteur instanceof Zombie
 
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
