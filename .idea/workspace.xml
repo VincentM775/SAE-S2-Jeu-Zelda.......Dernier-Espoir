@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Ajout des fonctionnalité d'Alexis">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/MasticatorZ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Ennemi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Zombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Zombie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/KeyHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Acteur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Acteur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Ajout des fonctionnalité d'Alexis" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,8 +34,8 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="2cfa1685-bf2f-4e7a-a6b0-daa33f60f317" />
-        <option name="url" value="https://github.com/VincentM775/SAE-Dernier-Espoir-Vincent-Ariles-Alexis.git" />
+        <option name="accountId" value="92f2b861-f62a-40f3-be5b-39b08e0af525" />
+        <option name="url" value="https://github.com/VincentM775/SAE-sprint2et3-Dernier-Espoir-Vincent-Ariles-Alexis-V2.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -70,9 +58,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "creation-ennemi",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/etudiants/info/abournon/IdeaProjects/LoupMouton24",
+    "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.46666667",
@@ -91,9 +80,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.example.dernierespoirsae.Main1" />
-      <module name="saeDEV-sprint2et3" />
+      <module name="DernierEspoirSAE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -210,7 +199,31 @@
       <option name="project" value="LOCAL" />
       <updated>1715794443768</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Recupération de la release sur la branche combat">
+      <option name="closed" value="true" />
+      <created>1716284649534</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716284649534</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Recupération de la release sur la branche combat">
+      <option name="closed" value="true" />
+      <created>1716284672702</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716284672702</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Recupération de la release sur la branche combat">
+      <option name="closed" value="true" />
+      <created>1716284709796</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716284709796</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -237,6 +250,7 @@
     <MESSAGE value="Ajout des attributs vie et puissance pour tout les acteurs" />
     <MESSAGE value="La puissance est passée par défaut a 5 lors de la creation d'un acteur" />
     <MESSAGE value="Ajout des fonctionnalité d'Alexis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout des fonctionnalité d'Alexis" />
+    <MESSAGE value="Recupération de la release sur la branche combat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recupération de la release sur la branche combat" />
   </component>
 </project>
