@@ -2,8 +2,6 @@ package com.example.dernierespoirsae.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
-import javafx.scene.layout.TilePane;
 
 public class Acteur {
     private static int id=0;
@@ -17,7 +15,7 @@ public class Acteur {
     private int longTuile;
     private int largeTuile;
     private int nbTuile;
-    private HitBox hitBox;
+    private Collision collision;
 
     public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -30,7 +28,7 @@ public class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
-        hitBox = new HitBox(15, 15, this);
+        collision = new Collision(15, 15, this);
         id++;  //Id qui sauto incrémente à chaque création d'un acteur
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
@@ -89,29 +87,29 @@ public class Acteur {
         return vitesse;
     }
 
-    public HitBox getHitBox() {
-        return hitBox;
+    public Collision getHitBox() {
+        return collision;
     }
 
     public void seDeplacer(String direction){
         switch (direction){
             case "up" :
-                if(hitBox.hitBoxHaut())
+                if(collision.collisionHaut())
                     this.yProperty.setValue(getY()-this.vitesse);
                 break;
 
             case "right" :
-                if(hitBox.hitBoxDroite())
+                if(collision.collisionDroite())
                     this.xProperty.setValue(getX()+this.vitesse);
                 break;
 
             case "down" :
-                if(hitBox.hitBoxBas())
+                if(collision.collisionBas())
                     this.yProperty.setValue(getY()+this.vitesse);
                 break;
 
             case "left" :
-                if(hitBox.hitBoxGauche())
+                if(collision.collisionGauche())
                     this.xProperty.setValue(getX()-this.vitesse);
                 break;
         }
@@ -121,7 +119,6 @@ public class Acteur {
 
         int position = ((this.getX() / this.longTuile) + (this.getY() / this.largeTuile * nbTuile));
         System.out.println(position);
-//        int position = (int) ((this.getX() / 40) + (this.getY() / 40 * 25));
 
         if(position % 25 == 0 || position % 25 == 24 || position > 0 && position < 25 || position > 350 && position < 375 || environnement.getMap().getListTuiles().get(position) != 0)
             return false;

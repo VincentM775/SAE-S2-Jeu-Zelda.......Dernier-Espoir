@@ -71,11 +71,11 @@ public class Controleur implements Initializable {
             persoPane.getChildren().add(rectangle);
         }
         else if (acteur instanceof MasticatorZ){
-            Circle cercle = new Circle(15);
-            cercle.setFill(Color.RED);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15, 15);
+            rectangle.setFill(Color.RED);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
     }
 
