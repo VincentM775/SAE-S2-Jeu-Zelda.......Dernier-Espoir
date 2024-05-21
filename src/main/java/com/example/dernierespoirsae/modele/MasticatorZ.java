@@ -6,8 +6,4 @@ public class MasticatorZ extends Zombie{
         super(x, y, "MasticatorZ", environnement, 20, 4, longTuile, largeTuile, nbTuile);
     }
 
-    @Override
-    protected int getId() {
-        return super.getId();
-    }
 }

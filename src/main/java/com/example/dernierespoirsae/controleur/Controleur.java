@@ -78,19 +78,29 @@ public class Controleur implements Initializable {
  */
     public void initialize(URL location, ResourceBundle ressource) {
         this.environnement = new Environnement(375);
+
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+        /*
+        ObservateurActeurs c'est une methode qui va observer les changement (ajout ou supression)
+        dans la liste d'acteur de l'environement (qui est une liste Observable)
+        */
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+
+        //Lie l'observateur d'acteur a l'envirenoment
+        environnement.setListenerActeurs(observateurActeurs);
 
         Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
         zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(zombie1);
 
-        creerSprite(environnement.getJoueur());
 
-        for (Acteur acteur : environnement.getActeurs()){
-            creerSprite(acteur);
-        }
+        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        environnement.addActeurs(acteur1);
+
+        //Creer un sprite qui represente le joueur
+        observateurActeurs.creerSprite(joueur);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -111,6 +121,8 @@ public class Controleur implements Initializable {
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
+
+
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
@@ -118,7 +130,7 @@ public class Controleur implements Initializable {
                 System.out.println("un tour");
                 environnement.getJoueur().seDeplacer();
                 if (temps%5==0){
-                    for (Acteur acteur : this.environnement.getActeurs()) {
+                    for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
                             ((Ennemi) acteur).seDeplacer();
                         }

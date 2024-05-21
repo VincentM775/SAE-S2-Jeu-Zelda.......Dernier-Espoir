@@ -32,15 +32,15 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     public void creerSprite(Acteur acteur){
         if (acteur instanceof Joueur){
             Circle cercle = new Circle(10 );
-            cercle.setFill(Color.RED);
+            cercle.setFill(Color.BLUE);
             cercle.translateXProperty().bind(acteur.xProperty());
             cercle.translateYProperty().bind(acteur.yProperty());
             persoPane.getChildren().add(cercle);
             cercle.setId(""+acteur.getId());
         }
         else{
-            Circle cercle = new Circle(5 );
-            cercle.setFill(Color.BLUE);
+            Circle cercle = new Circle(8 );
+            cercle.setFill(Color.RED);
             cercle.translateXProperty().bind(acteur.xProperty());
             cercle.translateYProperty().bind(acteur.yProperty());
             persoPane.getChildren().add(cercle);

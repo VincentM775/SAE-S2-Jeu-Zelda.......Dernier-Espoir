@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Environnement{
 
     private ObservableList<Acteur> acteurs;
-    private Joueur joueur;
+    private Acteur joueur;
 
     private Map map;
 
@@ -36,7 +36,7 @@ public class Environnement{
         return this.map;
     }
 
-    public void setJoueur(Joueur joueur) {
+    public void setJoueur(Acteur joueur) {
         this.joueur = joueur;
     }
 
