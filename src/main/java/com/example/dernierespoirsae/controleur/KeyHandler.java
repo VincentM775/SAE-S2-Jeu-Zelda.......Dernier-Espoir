@@ -41,7 +41,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             direction += "right";
         }
 
-        // Définir la direction pour le joueur dans l'environnement
+        // Set de la nouvelle direction pour le joueur
         environnement.getJoueur().setDirection(direction);
     }
 }

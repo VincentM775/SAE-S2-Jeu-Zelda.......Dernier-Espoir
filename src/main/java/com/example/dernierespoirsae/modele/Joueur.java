@@ -2,7 +2,7 @@ package com.example.dernierespoirsae.modele;
 
 public class Joueur extends Acteur{
 
-    private final int SPEED = 1; // Vitesse de déplacement du joueur
+    private final int vitesse = 1; // Vitesse de déplacement du joueur
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(340, 260, "Johnny", environnement, 20, 7, longTuile, largeTuile, nbTuile);
@@ -14,22 +14,22 @@ public class Joueur extends Acteur{
         int dy = 0;
 
         if (getDirection().contains("up")) {
-            dy -= SPEED;
+            dy -= vitesse;
         }
         if (getDirection().contains("down")) {
-            dy += SPEED;
+            dy += vitesse;
         }
         if (getDirection().contains("left")) {
-            dx -= SPEED;
+            dx -= vitesse;
         }
         if (getDirection().contains("right")) {
-            dx += SPEED;
+            dx += vitesse;
         }
 
-        moveCharacter(dx, dy);
+        deplacementActeur(dx, dy);
     }
 
-    private void moveCharacter(int dx, int dy) {
+    private void deplacementActeur(int dx, int dy) {
         setX(getX() + dx);
         setY(getY() + dy);
     }
