@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
 public class Acteur {
-    private static int id=0;
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
@@ -40,7 +39,7 @@ public class Acteur {
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
     }
-    protected int getId() {
+    public int getId() {
         return this.id;
     }
 

@@ -38,7 +38,7 @@ public class KeyHandler implements EventHandler<KeyEvent>{
                 break;
             case M:
                 System.out.println("déplacement ennemi");
-                for (Acteur acteur : environnement.getActeurs()){
+                for (Acteur acteur : environnement.getListActeurs()){
                     if (acteur instanceof MasticatorZ){
                         ((MasticatorZ) acteur).seDeplacerAleatoirement();
                     }
