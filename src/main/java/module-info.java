@@ -1,6 +1,8 @@
 module com.example.dernierespoirsae {
     requires javafx.controls;
+    requires javafx.graphics;
     requires javafx.fxml;
+    exports com.example.dernierespoirsae.modele;
 
     requires org.controlsfx.controls;
 

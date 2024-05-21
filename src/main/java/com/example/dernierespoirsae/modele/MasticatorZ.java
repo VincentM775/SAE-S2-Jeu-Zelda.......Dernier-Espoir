@@ -7,8 +7,7 @@ public class MasticatorZ extends Zombie{
     }
 
     @Override
-    public void seDeplacerAleatoirement() {
-        super.seDeplacerAleatoirement();
-        System.out.println("déplacement MasticatorZ réussi");
+    protected int getId() {
+        return super.getId();
     }
 }

@@ -5,10 +5,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
-public class Acteur {
+public abstract class Acteur {
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
+    private String direction;
     private IntegerProperty vie;
     private int nombreDeDegat;
 
@@ -31,6 +32,7 @@ public class Acteur {
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
         this.id=idStatic++;
+        this.direction = "null";
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
@@ -76,32 +78,14 @@ public class Acteur {
         return nom;
     }
 
-    public void seDeplacer(String direction){
-        switch (direction){
-            case "up" :
-                this.yProperty.setValue(getY()-5);
-                if(!collision(environnement))
-                    this.yProperty.setValue(getY()+5);
-                break;
+    public abstract void seDeplacer();
 
-            case "right" :
-                this.xProperty.setValue(getX()+5);
-                if(!collision(environnement))
-                    this.xProperty.setValue(getX()-5);
-                break;
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 
-            case "down" :
-                this.yProperty.setValue(getY()+5);
-                if(!collision(environnement))
-                    this.yProperty.setValue(getY()-5);
-                break;
-
-            case "left" :
-                this.xProperty.setValue(getX()-5);
-                if(!collision(environnement))
-                    this.xProperty.setValue(getX()+5);
-                break;
-        }
+    public String getDirection() {
+        return direction;
     }
 
     public boolean collision(Environnement environnement){
