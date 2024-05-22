@@ -23,7 +23,8 @@ public class Ennemi extends Acteur {
         }
 
         if (deplacementRestant > 0) {
-            moveCharacter(dx, dy);
+            setX(getX() + dx);
+            setY(getY() + dy);
             deplacementRestant -= Math.abs(dx) + Math.abs(dy);
         }
     }
@@ -75,10 +76,6 @@ public class Ennemi extends Acteur {
         }
     }
 
-    private void moveCharacter(int dx, int dy) {
-        setX(getX() + dx);
-        setY(getY() + dy);
-    }
 
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;

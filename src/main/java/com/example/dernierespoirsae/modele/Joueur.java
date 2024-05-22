@@ -12,7 +12,7 @@ public class Joueur extends Acteur{
     public void seDeplacer() {
         int dx = 0;
         int dy = 0;
-
+        System.out.println(getDirection());
         if (getDirection().contains("up")) {
             dy -= vitesse;
         }
@@ -26,7 +26,8 @@ public class Joueur extends Acteur{
             dx += vitesse;
         }
 
-        deplacementActeur(dx, dy);
+        setX(getX() + dx);
+        setY(getY() + dy);
     }
 
     private void deplacementActeur(int dx, int dy) {
