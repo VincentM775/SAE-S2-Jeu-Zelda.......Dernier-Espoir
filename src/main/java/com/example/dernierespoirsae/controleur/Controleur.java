@@ -72,7 +72,6 @@ public class Controleur implements Initializable {
 //                        gameLoop.stop();
 //                    }
                 System.out.println("un tour");
-                environnement.getJoueur().seDeplacer();
                 if (temps%5==0){
                     for (Acteur acteur : this.environnement.getActeurs()) {
                         if (acteur instanceof Ennemi) {

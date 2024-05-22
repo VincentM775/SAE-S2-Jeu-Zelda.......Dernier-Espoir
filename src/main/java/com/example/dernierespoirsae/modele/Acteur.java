@@ -4,11 +4,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Acteur {
+    private int vitesse = 1; // Vitesse de déplacement de l'acteur
     private static int id=0;
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
     private String direction;
+    private String derniereDirection;
     private int vie;
     private int nombreDeDegat;
 
@@ -16,7 +18,7 @@ public abstract class Acteur {
     private int largeTuile;
     private int nbTuile;
 
-    public Acteur(int x,int y, String nom, Environnement environnement,int vie, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
+    public Acteur(int x,int y, String nom, Environnement environnement,int vie,int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -28,13 +30,27 @@ public abstract class Acteur {
         this.nbTuile = nbTuile;
         id++;  //Id qui sauto incrémente à chaque création d'un acteur
         this.direction = "null";
-    }
-    public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
+        this.vitesse=vitesse;
     }
 
     protected int getId() {
         return id;
+    }
+
+    public String getDerniereDirection() {
+        return derniereDirection;
+    }
+
+    public void setDerniereDirection(String derniereDirection) {
+        this.derniereDirection = derniereDirection;
+    }
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
     }
 
     public void setX(int x){
