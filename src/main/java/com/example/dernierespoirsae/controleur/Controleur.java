@@ -35,59 +35,14 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
 
-/*
-//Creé un environement de taille n
-        Environnement environnement = new Environnement(375);
-        this.keyHandler = new KeyHandler(environnement);
-
-        //Affiche cet envirenoement
-        afficherMap(environnement.getMap());
-
-        //Crer un joueur et l'ajoute dans l'environement
-        Joueur joueur = new Joueur("Johnny", environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        environnement.setJoueur(joueur);
-
-        //ObservateurActeurs c'est une methode qui va observer les changement (ajout ou supression)
-        //dans la liste d'acteur de l'environement (qui est une liste Observable)
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
-
-        //Lie l'observateur d'acteur a l'envirenoment
-        environnement.setListenerActeurs(observateurActeurs );
-
-        Acteur acteur1 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
-        environnement.addActeurs(acteur1);
-
-        Acteur acteur2 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
-        environnement.addActeurs(acteur1);
-
-        Acteur acteur3 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
-        environnement.addActeurs(acteur1);
-
-        Acteur acteur4 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
-        environnement.addActeurs(acteur1);
-
-        MasticatorZ zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        environnement.addActeurs(zombie1);
-
-        Acteur acteur5 = new Acteur("Ariles",environnement, (int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns() );
-        environnement.addActeurs(acteur1);
-
-        //Creer un sprite qui represente le joueur
-        observateurActeurs.creerSprite(joueur);
-
-        //Je sais pas
-        persoPane.addEventHandler(KeyEvent.KEY_PRESSED,this.keyHandler);
-        persoPane.requestFocus();
- */
     public void initialize(URL location, ResourceBundle ressource) {
 
         this.environnement = new Environnement(375);
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
-        System.out.println(joueur.getId());
         /*
-        ObservateurActeurs c'est une methode qui va observer les changement (ajout ou supression)
+        ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
         */
         ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
@@ -147,15 +102,7 @@ public class Controleur implements Initializable {
                     }
                 }
 
-                if(temps%50==0){
-                    System.out.println();
-                    System.out.println(environnement.getListActeurs());
-                    System.out.println();
-
-                }
-
-                //System.out.println("un tour");
-                 environnement.getJoueur().seDeplacer();
+                environnement.getJoueur().seDeplacer();
                 if (temps%3==0){
                     for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {

@@ -36,7 +36,7 @@ public class Ennemi extends Acteur {
         if (chanceDeDeplacement <= 100) {//50% de chance de se déplacer aléatoirement
             chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
 
-            if (chanceDeNouvelleDirection <= 0) {
+            if (chanceDeNouvelleDirection <= 50) {
                 do {
                     directionAleatoire = (int) (Math.random() * 4) + 1;
                     nouvelleDirection = switch (directionAleatoire) {

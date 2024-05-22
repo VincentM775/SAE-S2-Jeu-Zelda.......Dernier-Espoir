@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Mort des zombies si présents dans une zonne autours du joueur donnée">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueArmes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Armes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Hache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurActeurs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurActeurs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Environnement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Optimisation du code et creation de class VueActeur pour creer les sprite ainsi qu'une class Arme et vueArme">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Ennemi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Ennemi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +113,7 @@
       <workItem from="1716292142687" duration="8226000" />
       <workItem from="1716316716007" duration="8065000" />
       <workItem from="1716361933529" duration="12427000" />
-      <workItem from="1716382170140" duration="4705000" />
+      <workItem from="1716382170140" duration="5145000" />
     </task>
     <task id="LOCAL-00001" summary="Ajout des fichers xml">
       <created>1714982475327</created>
@@ -262,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716369016297</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Optimisation du code et creation de class VueActeur pour creer les sprite ainsi qu'une class Arme et vueArme">
+      <option name="closed" value="true" />
+      <created>1716388693158</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1716388693158</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +291,7 @@
     <MESSAGE value="Recupération de la release sur la branche combat" />
     <MESSAGE value="recuperation de la branche main" />
     <MESSAGE value="Mort des zombies si présents dans une zonne autours du joueur donnée" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mort des zombies si présents dans une zonne autours du joueur donnée" />
+    <MESSAGE value="Optimisation du code et creation de class VueActeur pour creer les sprite ainsi qu'une class Arme et vueArme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimisation du code et creation de class VueActeur pour creer les sprite ainsi qu'une class Arme et vueArme" />
   </component>
 </project>
