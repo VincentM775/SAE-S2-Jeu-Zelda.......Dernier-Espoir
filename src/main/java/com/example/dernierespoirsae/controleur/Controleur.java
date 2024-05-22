@@ -15,6 +15,8 @@ import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
 
+import javafx.scene.shape.Rectangle;
+
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -38,7 +40,7 @@ public class Controleur implements Initializable {
         environnement.setJoueur(joueur);
 
         Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
+
         zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(zombie1);
 
@@ -107,18 +109,18 @@ public class Controleur implements Initializable {
     }
     public void creerSprite(Acteur acteur) {
         if (!(acteur instanceof Zombie)) {
-            Circle cercle = new Circle(10);
-            cercle.setFill(Color.BLUE);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15, 15);
+            rectangle.setFill(Color.BLUE);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
         else if (acteur instanceof MasticatorZ){
-            Circle cercle = new Circle(15);
-            cercle.setFill(Color.RED);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15, 15);
+            rectangle.setFill(Color.RED);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
     }
 
