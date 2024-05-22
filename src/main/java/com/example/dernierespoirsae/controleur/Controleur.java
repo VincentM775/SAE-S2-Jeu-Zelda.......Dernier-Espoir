@@ -14,6 +14,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.ResourceBundle;
@@ -91,12 +92,14 @@ public class Controleur implements Initializable {
         environnement.setListenerActeurs(observateurActeurs);
 
         Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
+        zombie1.setVitesse(5); // Exemple : régler la vitesse à 2
         zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(zombie1);
 
 
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
+        acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
         //Creer un sprite qui represente le joueur
@@ -122,14 +125,38 @@ public class Controleur implements Initializable {
             // c'est un eventHandler d'ou le lambda
             (ev ->{
 
-
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
-                System.out.println("un tour");
-                environnement.getJoueur().seDeplacer();
-                if (temps%5==0){
+
+                int zoneDegat = 5;
+
+                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+
+                    Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
+
+                    if (temps % 50 == 0) {
+
+                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
+                        if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                            //Enlève 10 pv au Zombie
+                            environnement.getListActeurs().get(i).perdPV(10);
+                            environnement.getListActeurs().get(i).meurtOuVie();
+                        }
+                    }
+                }
+
+                if(temps%50==0){
+                    System.out.println();
+                    System.out.println(environnement.getListActeurs());
+                    System.out.println();
+
+                }
+
+                //System.out.println("un tour");
+                 environnement.getJoueur().seDeplacer();
+                if (temps%3==0){
                     for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
                             ((Ennemi) acteur).seDeplacer();
@@ -159,22 +186,6 @@ public class Controleur implements Initializable {
                     break;
             }
             mapPane.getChildren().add(imageView);
-        }
-    }
-    public void creerSprite(Acteur acteur) {
-        if (!(acteur instanceof Zombie)) {
-            Circle cercle = new Circle(10);
-            cercle.setFill(Color.BLUE);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
-        }
-        else if (acteur instanceof MasticatorZ){
-            Circle cercle = new Circle(15);
-            cercle.setFill(Color.RED);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
         }
     }
 

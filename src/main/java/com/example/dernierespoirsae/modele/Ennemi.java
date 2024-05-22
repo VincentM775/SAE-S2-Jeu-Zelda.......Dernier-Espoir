@@ -3,8 +3,7 @@ package com.example.dernierespoirsae.modele;
 public class Ennemi extends Acteur {
 
     private int attentePourDeplacement = 0;
-    private int vitesse = 1; // Vitesse de déplacement de l'ennemi en pixels par frame
-    private int nombreDePixelDeplacer = 10; // Distance totale à parcourir en pixels
+    private int nombreDePixelDeplacer = 20; // Distance totale à parcourir en pixels
     private int dx = 0;
     private int dy = 0;
     private int deplacementRestant = 0;
@@ -30,14 +29,14 @@ public class Ennemi extends Acteur {
 
     private void seDeplacerAleatoirement() {
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1;
-        int chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
+        int chanceDeNouvelleDirection;
         int directionAleatoire;
         String nouvelleDirection;
 
-        if (chanceDeDeplacement <= 50) {//50% de chance de se déplacer aléatoirement
-            chanceDeDeplacement = (int) (Math.random() * 100) + 1;
+        if (chanceDeDeplacement <= 100) {//50% de chance de se déplacer aléatoirement
+            chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
 
-            if (chanceDeNouvelleDirection <= 75) {
+            if (chanceDeNouvelleDirection <= 0) {
                 do {
                     directionAleatoire = (int) (Math.random() * 4) + 1;
                     nouvelleDirection = switch (directionAleatoire) {
@@ -62,16 +61,16 @@ public class Ennemi extends Acteur {
         deplacementRestant = nombreDePixelDeplacer;
 
         if (getDirection().contains("up")) {
-            dy = -vitesse;
+            dy = -super.getVitesse();
         }
         if (getDirection().contains("down")) {
-            dy = vitesse;
+            dy = super.getVitesse();
         }
         if (getDirection().contains("left")) {
-            dx = -vitesse;
+            dx = -super.getVitesse();
         }
         if (getDirection().contains("right")) {
-            dx = vitesse;
+            dx = super.getVitesse();
         }
     }
 
@@ -81,7 +80,7 @@ public class Ennemi extends Acteur {
     }
 
     public void setVitesse(int vitesse) {
-        this.vitesse = vitesse;
+        super.setVitesse(vitesse);
     }
 
     public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {

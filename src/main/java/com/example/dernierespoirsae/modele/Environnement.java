@@ -23,11 +23,10 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ArrayList<Acteur> getListActeurs(){
-
-        ArrayList<Acteur> acteurs = new ArrayList<>();
-        acteurs.addAll(this.acteurs);
-        return acteurs;
+    public ObservableList<Acteur> getListActeurs(){
+        //ArrayList<Acteur> acteurs = new ArrayList<>();
+        //acteurs.addAll(this.acteurs);
+        return this.acteurs;
     }
     public Acteur getJoueur() {
         return joueur;

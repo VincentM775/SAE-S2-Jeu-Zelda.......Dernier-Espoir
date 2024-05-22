@@ -6,17 +6,17 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
 public abstract class Acteur {
+
+    private int vitesse = 1; // Vitesse de déplacement du joueur
+
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
     private int nombreDeDegat;
-
     private static int idStatic=0;
-
     private int id;
-
     private int longTuile;
     private int largeTuile;
     private int nbTuile;
@@ -38,6 +38,22 @@ public abstract class Acteur {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
     }
 
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public int getVie() {
+        return vie.get();
+    }
+
+    public IntegerProperty vieProperty() {
+        return vie;
+    }
+
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
     }
@@ -49,8 +65,8 @@ public abstract class Acteur {
         this.xProperty.setValue(x);
     }
 
-    public void meurt(){
-        if(this.vie.getValue() < 0){
+    public void meurtOuVie(){
+        if(this.vie.getValue() <= 0) {
             environnement.getListActeurs().remove(this);
         }
     }
@@ -91,7 +107,7 @@ public abstract class Acteur {
     public boolean collision(Environnement environnement){
 
         int position = (int) ((this.getX() / this.longTuile) + (this.getY() / this.largeTuile * nbTuile));
-//        int position = (int) ((this.getX() / 40) + (this.getY() / 40 * 25));
+//      int position = (int) ((this.getX() / 40) + (this.getY() / 40 * 25));
 
         if(position % 25 == 0 || position % 25 == 24 || position > 0 && position < 25 || position > 350 && position < 375 || environnement.getMap().getListTuiles().get(position) != 0)
             return false;
