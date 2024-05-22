@@ -10,4 +10,5 @@ module com.example.dernierespoirsae {
     exports com.example.dernierespoirsae;
     exports com.example.dernierespoirsae.controleur;
     opens com.example.dernierespoirsae.controleur to javafx.fxml;
+    exports com.example.dernierespoirsae.modele.Armes;
 }

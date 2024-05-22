@@ -1,5 +1,7 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
+import com.example.dernierespoirsae.Vue.VueActeur;
+import com.example.dernierespoirsae.Vue.VueArmes;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -78,10 +80,12 @@ public class Controleur implements Initializable {
         persoPane.requestFocus();
  */
     public void initialize(URL location, ResourceBundle ressource) {
+
         this.environnement = new Environnement(375);
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+        System.out.println(joueur.getId());
         /*
         ObservateurActeurs c'est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
@@ -91,19 +95,15 @@ public class Controleur implements Initializable {
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
 
-        Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        zombie1.setVitesse(5); // Exemple : régler la vitesse à 2
-        zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
-        environnement.addActeurs(zombie1);
-
-
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
         //Creer un sprite qui represente le joueur
-        observateurActeurs.creerSprite(joueur);
+        VueActeur vueActeur = new VueActeur(joueur, persoPane);
+
+        new VueActeur(joueur, persoPane);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -172,7 +172,6 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
 
     public void afficherMap(Map map) {
         for (int x = 0; x < map.getListTuiles().size(); x++) {

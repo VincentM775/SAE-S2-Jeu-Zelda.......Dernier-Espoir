@@ -104,13 +104,4 @@ public abstract class Acteur {
         return direction;
     }
 
-    public boolean collision(Environnement environnement){
-
-        int position = (int) ((this.getX() / this.longTuile) + (this.getY() / this.largeTuile * nbTuile));
-//      int position = (int) ((this.getX() / 40) + (this.getY() / 40 * 25));
-
-        if(position % 25 == 0 || position % 25 == 24 || position > 0 && position < 25 || position > 350 && position < 375 || environnement.getMap().getListTuiles().get(position) != 0)
-            return false;
-        return true;
-    }
 }
