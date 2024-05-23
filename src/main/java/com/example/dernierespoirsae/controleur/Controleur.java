@@ -23,6 +23,7 @@ import java.net.URL;
 
 
 public class Controleur implements Initializable {
+    public Pane premierPane;
     @FXML
     private TilePane mapPane;
     @FXML
