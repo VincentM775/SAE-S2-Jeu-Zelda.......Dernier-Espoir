@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Déplacement de l'ennemi aléatoirement et fluidement FINI">
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Correction de la collision, les acteurs ne peuvent plus se traverser.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="combat-simple" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,7 +85,14 @@
       <recent name="com.example.dernierespoirsae" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Unnamed">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.dernierespoirsae.Main1" />
+      <module name="DernierEspoirSAE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SmoothMovement" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.dernierespoirsae.modele.SmoothMovement" />
       <module name="saeDEV-sprint2et3" />
@@ -93,13 +102,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.dernierespoirsae.Main1" />
-      <module name="saeDEV-sprint2et3" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -285,5 +287,8 @@
     <MESSAGE value="Déplacement du joueur en translatant fini -&gt; fluide !" />
     <MESSAGE value="Déplacement de l'ennemi aléatoirement et fluidement FINI" />
     <option name="LAST_COMMIT_MESSAGE" value="Déplacement de l'ennemi aléatoirement et fluidement FINI" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SAE_sprint2et3_Dernier_Espoir_Vincent_Ariles_Alexis_V2$Main.ic" NAME="Main Coverage Results" MODIFIED="1716387236371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

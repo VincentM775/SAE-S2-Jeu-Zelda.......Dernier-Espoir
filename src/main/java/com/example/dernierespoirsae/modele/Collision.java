@@ -21,7 +21,7 @@ public class Collision {
     }
 
     /**
-     * Quand l'Acteur veut aller à droite, il vérifie que tous ses pixels de droite ne rentrent pas en collision avec une tuile "obstacle"
+     * Quand l'Acteur veut aller à droite, il vérifie que tous ses pixels de droite ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionDroite(){
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
@@ -32,8 +32,9 @@ public class Collision {
         for(int i = 0; i < hauteur; i++){
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + ((positionPixelY) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
-            if(tuileSousPosition % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+//            if(tuileSousPosition % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("right", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
@@ -42,7 +43,7 @@ public class Collision {
     }
 
     /**
-     * Quand l'Acteur veut aller à gauche, il vérifie que tous ses pixels de gauche ne rentrent pas en collision avec une tuile "obstacle"
+     * Quand l'Acteur veut aller à gauche, il vérifie que tous ses pixels de gauche ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionGauche() {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
@@ -53,7 +54,7 @@ public class Collision {
         for(int i = 0; i < hauteur; i++){
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
-            if(tuileSousPosition % 25 == 0 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("left", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -63,7 +64,7 @@ public class Collision {
     }
 
     /**
-     * Quand l'Acteur veut aller en haut, il vérifie que tous ses pixels du haut ne rentrent pas en collision avec une tuile "obstacle"
+     * Quand l'Acteur veut aller en haut, il vérifie que tous ses pixels du haut ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionHaut() {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
@@ -74,7 +75,7 @@ public class Collision {
         for(int i = 1; i <= longueur; i++){
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
-            if(tuileSousPosition >= 350 && tuileSousPosition < 375 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("up", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -84,7 +85,7 @@ public class Collision {
     }
 
     /**
-     * Quand l'Acteur veut aller en bas, il vérifie que tous ses pixels du bas ne rentrent pas en collision avec une tuile "obstacle"
+     * Quand l'Acteur veut aller en bas, il vérifie que tous ses pixels du bas ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionBas() {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
@@ -95,7 +96,7 @@ public class Collision {
         for(int i = 1; i <= longueur; i++){
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = ((this.acteur.getX() + i) / acteur.getLongTuile()) + ((this.acteur.getY()  + this.hauteur ) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
-            if(tuileSousPosition % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -107,7 +108,7 @@ public class Collision {
     /**
      * Vérifie la collision entre l'acteur et les autres acteurs
      */
-    private boolean collisionEntreActeurs(int xActeur, int yActeur) {
+    public boolean collisionEntreActeurs(int xActeur, int yActeur) {
         for (Acteur autreActeur : this.acteur.getEnvironnement().getActeurs()) {
             if (autreActeur != this.acteur) {
                 if (xActeur >= autreActeur.getX() && xActeur <= autreActeur.getX() + autreActeur.getHitBox().getLongueur() &&
@@ -115,6 +116,33 @@ public class Collision {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    public boolean collisionMap(String direction, int x, int y){
+        int longMap = this.acteur.getLongTuile() * 25;
+        int largeMap = this.acteur.getLargeTuile() * 15;
+
+
+        if(direction.equals("right")){
+            if(x >= longMap)
+                return true;
+        }
+
+        if(direction.equals("left")){
+            if(x <= 0)
+                return true;
+        }
+
+        if(direction.equals("up")){
+            if(y <= 0)
+                return true;
+        }
+
+        if(direction.equals("down")){
+            if(y >= largeMap)
+                return true;
         }
         return false;
     }
