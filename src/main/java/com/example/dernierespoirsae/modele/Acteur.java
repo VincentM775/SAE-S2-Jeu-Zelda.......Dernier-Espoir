@@ -122,9 +122,6 @@ public abstract class Acteur {
         return environnement;
     }
 
-    public int getVitesse() {
-        return vitesse;
-    }
 
     public Collision getHitBox() {
         return collision;

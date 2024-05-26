@@ -34,11 +34,11 @@ public class Collision {
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + ((positionPixelY) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
 //            if(tuileSousPosition % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
             if(collisionMap("right", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-            this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+            this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -55,11 +55,11 @@ public class Collision {
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("left", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -76,11 +76,11 @@ public class Collision {
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("up", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -97,11 +97,11 @@ public class Collision {
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = ((this.acteur.getX() + i) / acteur.getLongTuile()) + ((this.acteur.getY()  + this.hauteur ) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -109,7 +109,7 @@ public class Collision {
      * Vérifie la collision entre l'acteur et les autres acteurs
      */
     public boolean collisionEntreActeurs(int xActeur, int yActeur) {
-        for (Acteur autreActeur : this.acteur.getEnvironnement().getActeurs()) {
+        for (Acteur autreActeur : this.acteur.getEnvironnement().getListActeurs()) {
             if (autreActeur != this.acteur) {
                 if (xActeur >= autreActeur.getX() && xActeur <= autreActeur.getX() + autreActeur.getHitBox().getLongueur() &&
                         yActeur >= autreActeur.getY() && yActeur <= autreActeur.getY() + autreActeur.getHitBox().getHauteur()) {
