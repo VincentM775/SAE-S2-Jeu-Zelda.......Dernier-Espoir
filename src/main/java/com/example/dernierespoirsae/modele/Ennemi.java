@@ -58,7 +58,6 @@ public class Ennemi extends Acteur {
 
             Deplacement();
             this.setDirection("null");
-
         }
     }
 

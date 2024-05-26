@@ -2,18 +2,22 @@ package com.example.dernierespoirsae.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
+import javafx.scene.layout.TilePane;
 
 public abstract class Acteur {
-    private static int id=0;
+
+    private int vitesse = 1; // Vitesse de déplacement du joueur
+
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
     private String direction;
     private String derniereDirection;
-    private int vie;
-    private int vitesse;
+    private IntegerProperty vie;
     private int nombreDeDegat;
-
+    private static int idStatic=0;
+    private int id;
     private int longTuile;
     private int largeTuile;
     private int nbTuile;
@@ -24,26 +28,50 @@ public abstract class Acteur {
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
         this.environnement = environnement;
-        this.vie = vie;
         this.vitesse = vitesse;
+        this.vie = new SimpleIntegerProperty(vie);
         this.nombreDeDegat = nombreDeDegat;
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
         collision = new Collision(longBox, largeBox, this);
-        id++;  //Id qui sauto incrémente à chaque création d'un acteur
+        this.id=idStatic++;
         this.direction = "null";
         this.derniereDirection="null";
     }
 
-    protected int getId() {
-        return id;
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public int getVie() {
+        return vie.get();
+    }
+
+    public IntegerProperty vieProperty() {
+        return vie;
+    }
+
+    public void perdPV(int decrement){
+        this.vie.setValue(this.vie.getValue()-decrement);
+    }
+    public int getId() {
+        return this.id;
     }
 
     public void setX(int x){
         this.xProperty.setValue(x);
     }
 
+    public void meurtOuVie(){
+        if(this.vie.getValue() <= 0) {
+            environnement.getListActeurs().remove(this);
+        }
+    }
     public void setY(int y){
         this.yProperty.setValue(y);
     }

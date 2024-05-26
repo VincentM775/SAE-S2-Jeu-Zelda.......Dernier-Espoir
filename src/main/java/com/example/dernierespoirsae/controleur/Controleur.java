@@ -1,4 +1,7 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.Vue.ObservateurActeurs;
+import com.example.dernierespoirsae.Vue.VueActeur;
+import com.example.dernierespoirsae.Vue.VueArmes;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +16,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javafx.scene.shape.Rectangle;
@@ -23,7 +27,6 @@ import java.net.URL;
 
 
 public class Controleur implements Initializable {
-    public Pane premierPane;
     @FXML
     private TilePane mapPane;
     @FXML
@@ -34,22 +37,30 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
 
-
     public void initialize(URL location, ResourceBundle ressource) {
+
         this.environnement = new Environnement(375);
+
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+        /*
+        ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
+        dans la liste d'acteur de l'environement (qui est une liste Observable)
+        */
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
 
-        Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        //Lie l'observateur d'acteur a l'envirenoment
+        environnement.setListenerActeurs(observateurActeurs);
 
-        zombie1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
-        environnement.addActeurs(zombie1);
+        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
+        acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
+        environnement.addActeurs(acteur1);
 
-        creerSprite(environnement.getJoueur());
+        //Creer un sprite qui represente le joueur
+        VueActeur vueActeur = new VueActeur(joueur, persoPane);
 
-        for (Acteur acteur : environnement.getActeurs()){
-            creerSprite(acteur);
-        }
+        new VueActeur(joueur, persoPane);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -70,14 +81,32 @@ public class Controleur implements Initializable {
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
+
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
-                System.out.println("un tour");
+
+                int zoneDegat = 5;
+
+                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+
+                    Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
+
+                    if (temps % 50 == 0) {
+
+                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
+                        if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                            //Enlève 10 pv au Zombie
+                            environnement.getListActeurs().get(i).perdPV(10);
+                            environnement.getListActeurs().get(i).meurtOuVie();
+                        }
+                    }
+                }
+
                 environnement.getJoueur().seDeplacer();
-                if (temps%5==0){
-                    for (Acteur acteur : this.environnement.getActeurs()) {
+                if (temps%3==0){
+                    for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
                             ((Ennemi) acteur).seDeplacer();
                         }
@@ -93,7 +122,6 @@ public class Controleur implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-
     public void afficherMap(Map map) {
         for (int x = 0; x < map.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
@@ -106,22 +134,6 @@ public class Controleur implements Initializable {
                     break;
             }
             mapPane.getChildren().add(imageView);
-        }
-    }
-    public void creerSprite(Acteur acteur) {
-        if (!(acteur instanceof Zombie)) {
-            Rectangle rectangle = new Rectangle(15, 15);
-            rectangle.setFill(Color.BLUE);
-            rectangle.translateXProperty().bind(acteur.xProperty());
-            rectangle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(rectangle);
-        }
-        else if (acteur instanceof MasticatorZ){
-            Rectangle rectangle = new Rectangle(15, 15);
-            rectangle.setFill(Color.RED);
-            rectangle.translateXProperty().bind(acteur.xProperty());
-            rectangle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(rectangle);
         }
     }
 
