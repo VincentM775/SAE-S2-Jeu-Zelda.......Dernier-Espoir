@@ -9,7 +9,6 @@ import javafx.scene.shape.Rectangle;
 
 public class VueActeur {
     private Pane persoPane;
-
     private Acteur acteur;
 
     public VueActeur(Acteur acteur, Pane persoPane) {
@@ -19,8 +18,9 @@ public class VueActeur {
     }
 
     public void creerSprite(Acteur acteur){
+        System.out.println("AAAAAAAAAAAAAAA");
 
-            if(acteur instanceof Joueur){
+        if(acteur instanceof Joueur){
                 Rectangle rectangle = new Rectangle(15, 15);
                 rectangle.setFill(Color.BLUE);
                 rectangle.translateXProperty().bind(acteur.xProperty());

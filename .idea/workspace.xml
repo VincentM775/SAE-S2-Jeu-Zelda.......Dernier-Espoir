@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Recuperation de la branche combat simple">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueMap.java" afterDir="false" />
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Creation d'une Class VueMap pour l'afficheg de la map">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurArmes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae/images/hache.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurActeurs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurActeurs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueArmes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueArmes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Armes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Armes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Hache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Hache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Environnement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/modele/Environnement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +76,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Inventaire-et-Armes",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/etudiants/info/abournon/IdeaProjects/LoupMouton24",
+    "last_opened_file_path": "C:/Users/Ariles Fellah/Documents/Perso/IUT/SAE-sprint2et3-Dernier-Espoir-Vincent-Ariles-Alexis-V2/src/main/resources/com/example/dernierespoirsae/images",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -85,7 +92,11 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.dernierespoirsae.Vue" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ariles Fellah\Documents\Perso\IUT\SAE-sprint2et3-Dernier-Espoir-Vincent-Ariles-Alexis-V2\src\main\resources\com\example\dernierespoirsae\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ariles Fellah\Documents\Perso\IUT\SAE-sprint2et3-Dernier-Espoir-Vincent-Ariles-Alexis-V2\src\main\resources\com\example\dernierespoirsae\images" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/images" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur" />
@@ -275,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716391007466</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Creation d'une Class VueMap pour l'afficheg de la map">
+      <option name="closed" value="true" />
+      <created>1716723502907</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1716723502907</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +329,8 @@
     <MESSAGE value="Mort des zombies si présents dans une zonne autours du joueur donnée" />
     <MESSAGE value="Optimisation du code et creation de class VueActeur pour creer les sprite ainsi qu'une class Arme et vueArme" />
     <MESSAGE value="Recuperation de la branche combat simple" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recuperation de la branche combat simple" />
+    <MESSAGE value="Creation d'une Class VueMap pour l'afficheg de la map" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creation d'une Class VueMap pour l'afficheg de la map" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SAE_sprint2et3_Dernier_Espoir_Vincent_Ariles_Alexis_V2$Main.ic" NAME="Main Coverage Results" MODIFIED="1716387236371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

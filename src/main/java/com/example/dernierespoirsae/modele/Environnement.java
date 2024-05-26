@@ -1,19 +1,19 @@
 package com.example.dernierespoirsae.modele;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
+import com.example.dernierespoirsae.Vue.ObservateurArmes;
 import com.example.dernierespoirsae.modele.Armes.Armes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 public class Environnement{
 
     private ObservableList<Acteur> acteurs;
     private Acteur joueur;
+    private  ObservableList<Armes> listArmes;
     private Map map;
 
     public Environnement(int n){
-//        this.map = new Map(n);
+        this.listArmes = FXCollections.observableArrayList();
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
@@ -22,9 +22,10 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
+    public ObservableList<Armes> getListArmes() {
+        return this.listArmes;
+    }
     public ObservableList<Acteur> getListActeurs(){
-        //ArrayList<Acteur> acteurs = new ArrayList<>();
-        //acteurs.addAll(this.acteurs);
         return this.acteurs;
     }
     public Acteur getJoueur() {
@@ -41,4 +42,10 @@ public class Environnement{
     public void setListenerActeurs(ObservateurActeurs acteursObserve){
         acteurs.addListener(acteursObserve);
     }
+
+    public void setListenerArmes(ObservateurArmes armesObserve){
+        listArmes.addListener(armesObserve);
+    }
+
+
 }

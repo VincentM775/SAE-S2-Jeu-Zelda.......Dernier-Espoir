@@ -1,8 +1,8 @@
 package com.example.dernierespoirsae.controleur;
-import com.example.dernierespoirsae.Vue.ObservateurActeurs;
-import com.example.dernierespoirsae.Vue.VueActeur;
-import com.example.dernierespoirsae.Vue.VueMap;
+import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
+import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.modele.Armes.Hache;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -41,8 +41,22 @@ public class Controleur implements Initializable {
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
 
+        VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
+        map.afficherMap();
+
+        ObservateurArmes observateurArme = new ObservateurArmes(armePane, joueur);
+        environnement.setListenerArmes(observateurArme);
+
+        //Creer une hache
+        Armes hache = new Hache();
+
+        //Ajoute la hache a l'environnement
+        environnement.getListArmes().add(hache);
+
+
         //Creer un sprite qui represente le joueur
         VueActeur vueActeur = new VueActeur(joueur, persoPane);
+
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
@@ -52,19 +66,16 @@ public class Controleur implements Initializable {
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
 
+
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
-        new VueActeur(joueur, persoPane);
-
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
-        VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
 
-        map.afficherMap();
         initAnimation();
         gameLoop.play();
     }

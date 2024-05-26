@@ -1,11 +1,12 @@
 package com.example.dernierespoirsae.modele.Armes;
 
+import com.example.dernierespoirsae.modele.Joueur;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Armes {
 
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private IntegerProperty xProperty, yProperty;
     private int degats;
     private static int idStatic=0;
     private int id;
@@ -13,13 +14,15 @@ public class Armes {
     public Armes(int degats) {
         this.degats = degats;
         this.id = idStatic++;
+        this.xProperty = new SimpleIntegerProperty();
+        this.yProperty = new SimpleIntegerProperty();
     }
 
     public Armes(int degats, int x, int y) {
         this.degats = degats;
         this.id = idStatic++;
-        this.x.set(x);
-        this.y.set(y);
+        this.xProperty = new SimpleIntegerProperty();
+        this.yProperty = new SimpleIntegerProperty();
     }
 
     public int getDegats() {
@@ -31,26 +34,30 @@ public class Armes {
     }
 
     public int getX() {
-        return x.get();
+        return xProperty.get();
     }
 
     public IntegerProperty xProperty() {
-        return x;
+        return xProperty;
     }
 
     public int getY() {
-        return y.get();
+        return yProperty.get();
     }
 
     public IntegerProperty yProperty() {
-        return y;
+        return yProperty;
     }
 
     public void setX(int x) {
-        this.x.set(x);
+        this.xProperty.set(x);
     }
 
     public void setY(int y) {
-        this.y.set(y);
+        this.yProperty.set(y);
+    }
+
+    public int getId() {
+        return id;
     }
 }
