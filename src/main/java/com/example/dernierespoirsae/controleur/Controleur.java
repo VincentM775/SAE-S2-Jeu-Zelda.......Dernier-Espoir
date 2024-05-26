@@ -1,21 +1,18 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.VueActeur;
-import com.example.dernierespoirsae.Vue.VueArmes;
+import com.example.dernierespoirsae.Vue.VueMap;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -29,6 +26,8 @@ public class Controleur implements Initializable {
     private TilePane mapPane;
     @FXML
     private Pane persoPane;
+    @FXML
+    private Pane armePane;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -41,6 +40,9 @@ public class Controleur implements Initializable {
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
+        //Creer un sprite qui represente le joueur
+        VueActeur vueActeur = new VueActeur(joueur, persoPane);
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
@@ -55,19 +57,17 @@ public class Controleur implements Initializable {
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
-        //Creer un sprite qui represente le joueur
-        VueActeur vueActeur = new VueActeur(joueur, persoPane);
-
         new VueActeur(joueur, persoPane);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
-        afficherMap(environnement.getMap());
+        VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
+
+        map.afficherMap();
         initAnimation();
         gameLoop.play();
     }
-
     private void initAnimation() {
         gameLoop = new Timeline();
         temps=0;
@@ -118,21 +118,6 @@ public class Controleur implements Initializable {
             })
         );
         gameLoop.getKeyFrames().add(kf);
-    }
-
-    public void afficherMap(Map map) {
-        for (int x = 0; x < map.getListTuiles().size(); x++) {
-            ImageView imageView = new ImageView();
-            switch (map.getListTuiles().get(x)) {
-                case 0:
-                    Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
-                    imageView.setImage(image);
-                    imageView.setFitWidth(39);
-                    imageView.setFitHeight(39);
-                    break;
-            }
-            mapPane.getChildren().add(imageView);
-        }
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {

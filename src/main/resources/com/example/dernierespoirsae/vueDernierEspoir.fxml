@@ -11,5 +11,6 @@
    <children>
       <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="600.0" prefTileHeight="40.0" prefTileWidth="40.0" prefWidth="1000.0" />
       <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
+      <Pane fx:id="armePane" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </Pane>
