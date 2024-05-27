@@ -18,10 +18,10 @@ public class VueMap {
     public void afficherMap() {
         for (int x = 0; x < this.map.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
+            Image pelouse = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
             switch (this.map.getListTuiles().get(x)) {
                 case 0:
-                    Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
-                    imageView.setImage(image);
+                    imageView.setImage(pelouse);
                     imageView.setFitWidth(39);
                     imageView.setFitHeight(39);
                     break;

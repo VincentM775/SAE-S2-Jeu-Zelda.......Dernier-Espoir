@@ -6,7 +6,7 @@ import java.util.jar.JarEntry;
 
 public class Hache extends Armes {
 
-    public Hache() {
-        super(20, 40, 60);
+    public Hache(int x, int y) {
+        super(20, x, y);
     }
 }

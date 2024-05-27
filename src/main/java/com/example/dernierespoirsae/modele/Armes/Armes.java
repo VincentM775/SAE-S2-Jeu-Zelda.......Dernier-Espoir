@@ -10,7 +10,6 @@ public class Armes {
     private int degats;
     private static int idStatic=0;
     private int id;
-
     public Armes(int degats) {
         this.degats = degats;
         this.id = idStatic++;
@@ -21,8 +20,8 @@ public class Armes {
     public Armes(int degats, int x, int y) {
         this.degats = degats;
         this.id = idStatic++;
-        this.xProperty = new SimpleIntegerProperty();
-        this.yProperty = new SimpleIntegerProperty();
+        this.xProperty = new SimpleIntegerProperty(x);
+        this.yProperty = new SimpleIntegerProperty(y);
     }
 
     public int getDegats() {

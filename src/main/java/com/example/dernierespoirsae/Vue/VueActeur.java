@@ -18,8 +18,6 @@ public class VueActeur {
     }
 
     public void creerSprite(Acteur acteur){
-        System.out.println("AAAAAAAAAAAAAAA");
-
         if(acteur instanceof Joueur){
                 Rectangle rectangle = new Rectangle(15, 15);
                 rectangle.setFill(Color.BLUE);

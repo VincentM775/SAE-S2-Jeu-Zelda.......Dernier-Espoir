@@ -1,16 +1,19 @@
 package com.example.dernierespoirsae.modele;
-
+import com.example.dernierespoirsae.modele.Armes.Armes;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
-import javafx.scene.layout.TilePane;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public abstract class Acteur {
 
-    private int vitesse = 1; // Vitesse de déplacement du joueur
+    private ObservableList<Armes> armes;
 
+    private int vitesse = 1; // Vitesse de déplacement du joueur
     private IntegerProperty xProperty, yProperty;
     private String nom;
+    private Inventaire inventaire;
+
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
@@ -33,6 +36,9 @@ public abstract class Acteur {
         this.nbTuile = nbTuile;
         this.id=idStatic++;
         this.direction = "null";
+        this.inventaire = new Inventaire(this.armes, this);
+        this.armes = FXCollections.observableArrayList();
+
     }
     public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
@@ -104,4 +110,20 @@ public abstract class Acteur {
         return direction;
     }
 
+    public ObservableList<Armes> getArmes() {
+        return armes;
+    }
+
+    public void setArmes(ObservableList<Armes> armes) {
+        this.armes = armes;
+    }
+
+
+    private void ajoutInventaire(Armes armes){
+        inventaire.getArmes().add(armes);
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 }

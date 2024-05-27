@@ -6,19 +6,8 @@ import javafx.collections.ObservableList;
 
 public class Joueur extends Acteur{
 
-    private ObservableList<Armes> armes;
-
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(340, 260, "Johnny", environnement, 20, 7, longTuile, largeTuile, nbTuile);
-        this.armes = FXCollections.observableArrayList();
-    }
-
-    public ObservableList<Armes> getArmes() {
-        return armes;
-    }
-
-    public void setArmes(ObservableList<Armes> armes) {
-        this.armes = armes;
     }
 
     @Override

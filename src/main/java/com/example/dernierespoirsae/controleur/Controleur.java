@@ -48,10 +48,19 @@ public class Controleur implements Initializable {
         environnement.setListenerArmes(observateurArme);
 
         //Creer une hache
-        Armes hache = new Hache();
+        Armes hache = new Hache(60,150);
+
+        //Creer une hache
+        Armes hache1 = new Hache(500,300);
+
+        //Creer une hache
+        Armes hache2 = new Hache(380,500);
 
         //Ajoute la hache a l'environnement
         environnement.getListArmes().add(hache);
+        environnement.getListArmes().add(hache1);
+        environnement.getListArmes().add(hache2);
+
 
 
         //Creer un sprite qui represente le joueur
@@ -98,6 +107,7 @@ public class Controleur implements Initializable {
 
                 int zoneDegat = 5;
 
+
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
                     Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
@@ -112,6 +122,15 @@ public class Controleur implements Initializable {
                         }
                     }
                 }
+                for (int i = 0; i < environnement.getListArmes().size(); i++) {
+                    ImageView imageView = (ImageView) armePane.lookup("#" + environnement.getListArmes().get(i).getId());
+                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY() && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY()) && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX() && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
+                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
+                        environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
+                        environnement.getListArmes().remove(i);
+                    }
+                }
+
 
                 environnement.getJoueur().seDeplacer();
                 if (temps%3==0){

@@ -21,8 +21,7 @@ public class ObservateurArmes implements ListChangeListener<Armes> {
         while (c.next()){
             VueArmes vueArmes;
             for(int i = 0; i < c.getAddedSize(); i++){
-                System.out.println("Je suis dans ObsArme");
-                vueArmes = new VueArmes(armePane, c.getAddedSubList().get(i), this.joueur);
+                vueArmes = new VueArmes(armePane, c.getAddedSubList().get(i), this.joueur, this.joueur.getInventaire());
             }
             for(int i = 0; i < c.getRemovedSize(); i++){
                 suprimerArme(c.getRemoved().get(i));
