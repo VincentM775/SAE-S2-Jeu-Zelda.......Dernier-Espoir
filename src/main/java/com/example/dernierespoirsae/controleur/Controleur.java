@@ -28,6 +28,9 @@ public class Controleur implements Initializable {
     private Pane persoPane;
     @FXML
     private Pane armePane;
+
+    @FXML
+    private Pane inventairePane;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -56,12 +59,10 @@ public class Controleur implements Initializable {
         //Creer une hache
         Armes hache2 = new Hache(380,500);
 
-        //Ajoute la hache a l'environnement
+        //Ajoute des haches a l'environnement
         environnement.getListArmes().add(hache);
         environnement.getListArmes().add(hache1);
         environnement.getListArmes().add(hache2);
-
-
 
         //Creer un sprite qui represente le joueur
         VueActeur vueActeur = new VueActeur(joueur, persoPane);
@@ -74,8 +75,6 @@ public class Controleur implements Initializable {
 
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
-
-
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
@@ -125,12 +124,11 @@ public class Controleur implements Initializable {
                 for (int i = 0; i < environnement.getListArmes().size(); i++) {
                     ImageView imageView = (ImageView) armePane.lookup("#" + environnement.getListArmes().get(i).getId());
                     if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY() && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY()) && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX() && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
-                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
                         environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
                         environnement.getListArmes().remove(i);
+                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
                     }
                 }
-
 
                 environnement.getJoueur().seDeplacer();
                 if (temps%3==0){

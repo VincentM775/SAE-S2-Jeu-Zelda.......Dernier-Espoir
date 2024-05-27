@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Creation listeObservable d'arme dans l'environement et affichage des armes suivant la position du joueur">
+    <list default="true" id="c817d878-8eee-45df-ae44-6d8ba6b58dcc" name="Changes" comment="Le joueur peux ajouter des objets dans son inventaire s'il passe dessus">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurArmes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/ObservateurArmes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueActeur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueArmes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueArmes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/Vue/VueMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/controleur/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Acteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Armes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Armes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Hache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Armes/Hache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Invantaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Inventaire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/dernierespoirsae/modele/Joueur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/controleur/Controleur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/dernierespoirsae/vueDernierEspoir.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +125,8 @@
       <workItem from="1716316716007" duration="8065000" />
       <workItem from="1716361933529" duration="12427000" />
       <workItem from="1716382170140" duration="5145000" />
-      <workItem from="1716795041111" duration="294000" />
+      <workItem from="1716795041111" duration="1637000" />
+      <workItem from="1716798823297" duration="3927000" />
     </task>
     <task id="LOCAL-00001" summary="Ajout des fichers xml">
       <created>1714982475327</created>
@@ -303,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716734218633</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Le joueur peux ajouter des objets dans son inventaire s'il passe dessus">
+      <option name="closed" value="true" />
+      <created>1716795661511</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1716795661511</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +340,8 @@
     <MESSAGE value="Recuperation de la branche combat simple" />
     <MESSAGE value="Creation d'une Class VueMap pour l'afficheg de la map" />
     <MESSAGE value="Creation listeObservable d'arme dans l'environement et affichage des armes suivant la position du joueur" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creation listeObservable d'arme dans l'environement et affichage des armes suivant la position du joueur" />
+    <MESSAGE value="Le joueur peux ajouter des objets dans son inventaire s'il passe dessus" />
+    <option name="LAST_COMMIT_MESSAGE" value="Le joueur peux ajouter des objets dans son inventaire s'il passe dessus" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SAE_sprint2et3_Dernier_Espoir_Vincent_Ariles_Alexis_V2$Main.ic" NAME="Main Coverage Results" MODIFIED="1716387236371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

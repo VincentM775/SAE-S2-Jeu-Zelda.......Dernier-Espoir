@@ -24,11 +24,12 @@ public class VueArmes {
 
         Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/hache.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(15);
-        imageView.setFitHeight(15);
+        imageView.setFitWidth(95);
+        imageView.setFitHeight(95);
         armePane.getChildren().add(imageView);
         imageView.translateXProperty().setValue(arme.getX());
         imageView.translateYProperty().setValue(arme.getY());
         imageView.setId(""+this.arme.getId());
+
     }
 }
