@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(375);
+        this.environnement = new Environnement(40, 25, 15);
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
@@ -123,14 +123,22 @@ public class Controleur implements Initializable {
     }
 
     public void afficherMap(Map map) {
+        Image pelouse = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
+        Image mur = new Image("file:src/main/resources/com/example/dernierespoirsae/images/mur.png");
         for (int x = 0; x < map.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
-            switch (map.getListTuiles().get(x)) {
+            int tuile = map.getListTuiles().get(x);
+            switch (tuile) {
                 case 0:
-                    Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
-                    imageView.setImage(image);
-                    imageView.setFitWidth(39);
-                    imageView.setFitHeight(39);
+                    imageView.setImage(pelouse);
+                    imageView.setFitWidth(40);
+                    imageView.setFitHeight(40);
+                    break;
+
+                case 1:
+                    imageView.setImage(mur);
+                    imageView.setFitWidth(40);
+                    imageView.setFitHeight(40);
                     break;
             }
             mapPane.getChildren().add(imageView);
