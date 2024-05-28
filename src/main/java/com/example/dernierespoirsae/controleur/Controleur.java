@@ -1,26 +1,21 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
+import com.example.dernierespoirsae.Vue.ObservateurPositionX;
+import com.example.dernierespoirsae.Vue.ObservateurPositionY;
 import com.example.dernierespoirsae.Vue.VueActeur;
-import com.example.dernierespoirsae.Vue.VueArmes;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.*;
 import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import javafx.scene.shape.Rectangle;
-
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -31,6 +26,8 @@ public class Controleur implements Initializable {
     private TilePane mapPane;
     @FXML
     private Pane persoPane;
+    @FXML
+    private Pane principalPane;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -61,6 +58,12 @@ public class Controleur implements Initializable {
         VueActeur vueActeur = new VueActeur(joueur, persoPane);
 
         new VueActeur(joueur, persoPane);
+
+        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane);
+        joueur.xProperty().addListener(listenerX);
+
+        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane);
+        joueur.yProperty().addListener(listenerY);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -148,4 +151,5 @@ public class Controleur implements Initializable {
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
+
 }
