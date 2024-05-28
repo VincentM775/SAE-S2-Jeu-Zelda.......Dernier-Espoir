@@ -10,6 +10,7 @@ public class Joueur extends Acteur{
     private ObservableList<Armes> armes;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
+        //super(340, 260, "Johnny", environnement, 20,2, 7, longTuile, largeTuile, nbTuile);
         super(340, 260, "Johnny", environnement, 20, 1, 7, longTuile, largeTuile, nbTuile, 15, 15);
         this.armes = FXCollections.observableArrayList();
     }
@@ -28,22 +29,26 @@ public class Joueur extends Acteur{
         int dy = 0;
 
         if (getDirection().contains("up") && getHitBox().collisionHaut()) {
-            dy -= vitesse;
+            dy -= this.getVitesse();
         }
         if (getDirection().contains("down") && getHitBox().collisionBas()) {
-            dy += vitesse;
+            dy += this.getVitesse();
         }
         if (getDirection().contains("left") && getHitBox().collisionGauche()) {
-            dx -= vitesse;
+            dx -= this.getVitesse();
         }
         if (getDirection().contains("right") && getHitBox().collisionDroite()) {
-            dx += vitesse;
+            dx += this.getVitesse();
         }
 
-        deplacementActeur(dx, dy);
-    }
-
-    private void deplacementActeur(int dx, int dy) {
+        // Démarrer la recherche récursive
+       getEnvironnement().getBfs().lancementBFS();
+        for (int[] tab : getEnvironnement().getBfs().getTableauDesDistances()) {
+            for (int val : tab) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
+        }
         setX(getX() + dx);
         setY(getY() + dy);
     }

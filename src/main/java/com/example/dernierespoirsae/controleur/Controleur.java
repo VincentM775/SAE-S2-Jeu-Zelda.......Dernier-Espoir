@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.VueActeur;
 import com.example.dernierespoirsae.Vue.VueArmes;
+import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,9 +19,7 @@ import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
 import javafx.scene.shape.Rectangle;
-
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -36,11 +35,10 @@ public class Controleur implements Initializable {
     //sert la gameloop :
     private Timeline gameLoop;
     private int temps;
+    private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
-
-        this.environnement = new Environnement(375);
-
+        this.environnement = new Environnement(40,25,15);
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
         /*
@@ -48,6 +46,9 @@ public class Controleur implements Initializable {
         dans la liste d'acteur de l'environement (qui est une liste Observable)
         */
         ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+        this.environnement.setJoueur(joueur);
+        this.bfs = new BFS(this.environnement);
+        this.environnement.setBfs(this.bfs);
 
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
@@ -81,7 +82,6 @@ public class Controleur implements Initializable {
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
-
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
@@ -113,6 +113,19 @@ public class Controleur implements Initializable {
                     }
                 }
 
+
+
+                // Démarrer la recherche récursive
+//                bfs.algoBFS(environnement.getJoueur().getY() / environnement.getInfoTuile()[0], environnement.getJoueur().getX() / environnement.getInfoTuile()[0], 0);
+
+                // Afficher le résultat
+//                for (int[] tab : bfs.getTableauDesDistances()) {
+//                    for (int val : tab) {
+//                        System.out.print(val + " ");
+//                    }
+//                    System.out.println();
+//                }
+
                 environnement.getJoueur().seDeplacer();
 
                 temps++;
@@ -121,11 +134,10 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
-    public void afficherMap(Map map) {
-        for (int x = 0; x < map.getListTuiles().size(); x++) {
+    public void afficherMap(Terrain terrain) {
+        for (int x = 0; x < terrain.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
-            switch (map.getListTuiles().get(x)) {
+            switch (terrain.getListTuiles().get(x)) {
                 case 0:
                     Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
                     imageView.setImage(image);
@@ -134,6 +146,22 @@ public class Controleur implements Initializable {
                     break;
             }
             mapPane.getChildren().add(imageView);
+        }
+    }
+    public void creerSprite(Acteur acteur) {
+        if (!(acteur instanceof Zombie)) {
+            Rectangle rectangle = new Rectangle(15,15);
+            rectangle.setFill(Color.BLUE);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
+        }
+        else if (acteur instanceof MasticatorZ){
+            Rectangle rectangle = new Rectangle(15,15);
+            rectangle.setFill(Color.RED);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
     }
 
