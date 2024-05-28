@@ -15,34 +15,83 @@ public class Ennemi extends Acteur {
     private int deplacementRestant = 0;
 
     public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile);//15,15
+        super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
 
     }
 
     @Override
     public void seDeplacer() {
-        if (this.attentePourDeplacement <= 0) {
-            seDeplacerAleatoirement();
-            this.attentePourDeplacement = 30;
-        } else {
-            this.attentePourDeplacement--;
-        }
+//        seDeplacerAvecModeDeDeplacement(0);
+        seDeplacerAvecModeDeDeplacement(1);
 
-        if (deplacementRestant > 0) {
-            moveCharacter(dx, dy);
-            deplacementRestant -= Math.abs(dx) + Math.abs(dy);
+    }
+    public void seDeplacerEnBFS(){
+        int positionLigne = getY() / getEnvironnement().getInfoTuile()[0];
+        int positionColonne = getX() / getEnvironnement().getInfoTuile()[0];
+        int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
+        ArrayList<int[]> cheminOuAller = new ArrayList<>();
+        int[][] directions = {
+                {0, 1},  //right
+                {0, -1}, //left
+                {1, 0},  //down
+                {-1, 0}  //up
+        };
+        int[] directionChoisiTabInt;
+        String directionchoisi;
+        //coordonnée ancienne qui servent a testé le bon déplacement de l'ennemi.
+
+        int ancienneCooX = getX();
+        int ancienneCooY = getY();
+
+        // Parcourir toutes les directions
+        for (int[] direction : directions) {
+            int newLigne = positionLigne + direction[0];
+            int newColonne = positionColonne + direction[1];
+            if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
+                if (tabDesDistances[newLigne][newColonne]==tabDesDistances[positionLigne][positionColonne]-1)
+                    cheminOuAller.add(direction);//les directions où aller
+            }
+        }
+        if (!cheminOuAller.isEmpty()) { //Si l'ennemi a trouvé un chemin
+            //Choisi une direction aléatoire entre toutes celle disponible
+            directionChoisiTabInt = cheminOuAller.get((int) (Math.random() * cheminOuAller.size()));
+
+            //converti le tab en string
+            if (directionChoisiTabInt[0]==0 && directionChoisiTabInt[1]==1)
+                directionchoisi = "right";
+            else if (directionChoisiTabInt[0]==0 && directionChoisiTabInt[1]==-1)
+                directionchoisi = "left";
+            else if (directionChoisiTabInt[0]==1 && directionChoisiTabInt[1]==0)
+                directionchoisi = "down";
+            else
+                directionchoisi = "up";
+            setUneDirection(directionchoisi); //On définit la nouvelle direction (chemin vers le joueur)
+            deplacement();
+            if (ancienneCooX==getX() && ancienneCooY == getY()) {
+                setX(getX() + 15);
+                setY(getY() + 15);
+                seDeplacerEnBFS();
+                setX(getX() - 15);
+                setY(getY() - 15);
+            }
+            System.out.println("direction : "+getDirection());
+            this.setDirection("null");
+        }
+    }
+    public void seDeplacerAvecModeDeDeplacement(int modeDeDeplacement){
+        if (modeDeDeplacement==0){
+            if (this.attentePourDeplacement <= 0) {
+                seDeplacerAleatoirement();
+                this.attentePourDeplacement = 30;
+            } else
+                this.attentePourDeplacement--;
+            if (deplacementRestant > 0) {
+                deplacement();
+                deplacementRestant -= Math.abs(dx) + Math.abs(dy);
+            }
         }
         if (modeDeDeplacement==1){
             seDeplacerEnBFS();
-//            if (this.attentePourDeplacement <= 0) {
-//                seDeplacerEnBFS();
-//                this.attentePourDeplacement = 30;
-//            } else
-//                this.attentePourDeplacement--;
-//            if (deplacementRestant > 0) {
-//                seDeplacerEnBFS();
-//                deplacementRestant -= Math.abs(dx) + Math.abs(dy);
-//            }
         }
     }
 
@@ -78,23 +127,24 @@ public class Ennemi extends Acteur {
 
     private void deplacement() {
         this.setDirection(this.getDerniereDirection());
+        System.out.println("la direction est :" +getDirection());
         dx = 0;
         dy = 0;
         deplacementRestant = nombreDePixelDeplacer;
 
-        if (getDirection().contains("up")){//&& getHitBox().collisionHaut()
+        if (getDirection().contains("up") && getHitBox().collisionHaut()){
             System.out.println("test Haut");
             dy = -this.getVitesse();
         }
-        if (getDirection().contains("down")) {// && getHitBox().collisionBas()
+        if (getDirection().contains("down") && getHitBox().collisionBas()) {
             System.out.println("test Bas");
             dy = this.getVitesse();
         }
-        if (getDirection().contains("left") ) {//&& getHitBox().collisionGauche()
+        if (getDirection().contains("left") && getHitBox().collisionGauche()) {
             System.out.println("test Gauche");
             dx = -this.getVitesse();
         }
-        if (getDirection().contains("right") ) {//&& getHitBox().collisionDroite()
+        if (getDirection().contains("right") && getHitBox().collisionDroite()) {
             System.out.println("test Droite");
             dx = this.getVitesse();
         }
@@ -105,4 +155,6 @@ public class Ennemi extends Acteur {
     public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
         this.nombreDePixelDeplacer = nombreDePixelDeplacer;
     }
+
 }
+

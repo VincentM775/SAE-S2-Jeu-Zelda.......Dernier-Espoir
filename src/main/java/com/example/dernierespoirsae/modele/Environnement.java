@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Environnement{
 
-    private Acteur Joueur;
+    private Acteur joueur;
     private Terrain terrain;
     private BFS bfs;
 
@@ -25,7 +25,7 @@ public class Environnement{
         this.infoTuile[2] = nombreDeTuileLargeur; //nombre de lignes
         this.terrain = new Terrain();
         this.acteurs = FXCollections.observableArrayList();
-        this.Joueur = null;
+        this.joueur = null;
     }
     public void addActeurs(Acteur acteur) {
         this.acteurs.add(acteur);
@@ -37,7 +37,7 @@ public class Environnement{
         return this.acteurs;
     }
     public Acteur getJoueur() {
-        return joueur;
+        return this.joueur;
     }
     public Terrain getMap() {
         return this.terrain;
