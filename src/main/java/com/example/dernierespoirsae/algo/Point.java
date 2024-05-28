@@ -4,30 +4,43 @@ import java.util.Objects;
 
 public class Point {
 
-    private int x, y;
+    private int colonne, ligne;
 
-    Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
+    Point(int ligne, int colonne) {
+        this.colonne = colonne;
+        this.ligne = ligne;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return x == point.x && y == point.y;
+    public int getLigne() {
+        return this.ligne;
+    }
+    public int getColonne() {
+        return this.colonne;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
+    public void setligne(int ligne) {
+        this.ligne = ligne;
     }
+
+    public void setColonne(int colonne) {
+        this.colonne = colonne;
+    }
+
+    public int[] getPoint(){
+        int[] point = new int[2];
+        point[0]=this.ligne;
+        point[1]=this.colonne;
+        return point;
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o)
+//            return true;
+//        if (o == null || getClass() != o.getClass())
+//            return false;
+//        Point point = (Point) o;
+//        return x == point.x && y == point.y;
+//    }
+
 }

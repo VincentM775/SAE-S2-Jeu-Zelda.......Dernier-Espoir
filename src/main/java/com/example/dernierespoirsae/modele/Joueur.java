@@ -24,6 +24,14 @@ public class Joueur extends Acteur{
             dx += this.getVitesse();
         }
 
+        // Démarrer la recherche récursive
+       getEnvironnement().getBfs().lancementBFS();
+        for (int[] tab : getEnvironnement().getBfs().getTableauDesDistances()) {
+            for (int val : tab) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
+        }
         setX(getX() + dx);
         setY(getY() + dy);
     }

@@ -1,87 +1,77 @@
 package com.example.dernierespoirsae.algo;
 
+import com.example.dernierespoirsae.modele.Acteur;
+import com.example.dernierespoirsae.modele.Ennemi;
+import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.Terrain;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.util.Pair;
+
 import java.util.*;
 
 public class BFS {
+    private Environnement environnement;
+    private int[][] tableauDesDistances;
 
-    private static final int[] dLigne = {-1, 1, 0, 0};
-    private static final int[] dColonne = {0, 0, -1, 1};
-
-    public static List<Point> bfs2D(int[][] grille, Point src, Point dest) {
-        int ligne = grille.length;
-        int colonne = grille[0].length;
-        boolean[][] visite = new boolean[ligne][colonne];
-
-        // Création de la file pour BFS
-        LinkedList<Point> fifo = new LinkedList<>();
-        fifo.add(src);
-        visite[src.getX()][src.getY()] = true;
-
-        // Pour garder la trace des parents pour reconstruire le chemin
-        Map<Point, Point> parentMap = new HashMap<>();
-        parentMap.put(src, null);
-
-        // Boucle principale de BFS
-        while (!fifo.isEmpty()) {
-            Point actuel = fifo.poll();
-            int x = actuel.getX();
-            int y = actuel.getY();
-
-            // Vérifier si nous avons atteint la position de destination
-            if (actuel.equals(dest)) {
-                return constructChemin(parentMap, dest);
-            }
-
-            // Exploration des voisins
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dLigne[i];
-                int ny = y + dColonne[i];
-
-                // Vérifier si le voisin est dans les limites du tableau et non visité
-                if (nx >= 0 && nx < ligne && ny >= 0 && ny < colonne && !visite[nx][ny] && grille[nx][ny] == 232) {
-                    Point voisin = new Point(nx, ny);
-                    fifo.add(voisin);
-                    visite[nx][ny] = true;
-                    parentMap.put(voisin, actuel);
-                }
+    public BFS(Environnement environnement) {
+        this.environnement = environnement;
+        this.tableauDesDistances = new int[this.environnement.getInfoTuile()[2]][this.environnement.getInfoTuile()[1]];
+        lancementBFS();
+    }
+    public void lancementBFS(){
+        int val=0;
+        for (int ligne = 0; ligne < this.environnement.getInfoTuile()[2]; ligne++) {
+            for (int colonne = 0; colonne < this.environnement.getInfoTuile()[1]; colonne++) {
+                if (this.environnement.getMap().getListTuiles().get(val) == 0)
+                    this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
+                else
+                    this.tableauDesDistances[ligne][colonne] = -2; //les murs
+                val++;
             }
         }
+        algoBFS(this.environnement.getJoueur().getY() / this.environnement.getInfoTuile()[0], this.environnement.getJoueur().getX() / this.environnement.getInfoTuile()[0], 0);
 
-        // Retourner une liste vide si aucun chemin n'est trouvé
-        return new ArrayList<>();
     }
 
-    // Méthode pour reconstruire le chemin à partir de la destination en utilisant le parentMap
-    private static List<Point> constructChemin(Map<Point, Point> parentMap, Point dest) {
-        LinkedList<Point> chemin = new LinkedList<>();
-        for (Point actuel = dest; actuel != null; actuel = parentMap.get(actuel)) {
-            chemin.add(0, actuel);
+    public void algoBFS(int ligne, int colonne, int value) {
+        // Vérifier les limites de la grille
+        if (ligne < 0 || ligne >= this.tableauDesDistances.length || colonne < 0 || colonne >= this.tableauDesDistances[0].length) {
+            return;
         }
-        return chemin;
+
+        // Vérifier si la case est -1
+        if (this.tableauDesDistances[ligne][colonne] != -1 && this.tableauDesDistances[ligne][colonne] <= value) {
+            return;
+        }
+        // Mettre à jour la valeur de la case courante
+        this.tableauDesDistances[ligne][colonne] = value;
+
+        // Définir les directions (droite, gauche, bas, haut)
+        int[][] directions = {
+                {0, 1}, {0, -1}, {1, 0}, {-1, 0}
+        };
+
+        // Parcourir toutes les directions
+        for (int[] direction : directions) {
+            int newLigne = ligne + direction[0];
+            int newColonne = colonne + direction[1];
+            algoBFS(newLigne, newColonne, value + 1);
+        }
+    }
+    /**
+     * Retourne le tableau des distances
+    * */
+    public int[][] getTableauDesDistances() {
+        return tableauDesDistances;
     }
 
-    private static int[][] convertListTo2DArray(ArrayList<Integer> liste, int ligne, int colonne) {
-        if (liste.size() != ligne * colonne) {
-            throw new IllegalArgumentException("La taille de la liste ne correspond pas aux dimensions du tableau 2D.");
-        }
-
-        int[][] tab = new int[ligne][colonne];
-        int index = 0;
-
-        for (int i = 0; i < ligne; i++) {
-            for (int j = 0; j < colonne; j++) {
-                tab[i][j] = liste.get(index++);
+    public void tabRempliSimple(){
+        //On crée le tableau des distances
+        for (int ligne = 0; ligne < environnement.getInfoTuile()[2]; ligne++) {
+            for (int colonne = 0; colonne < environnement.getInfoTuile()[1]; colonne++) {
+                this.tableauDesDistances[ligne][colonne] = -1;
             }
         }
-
-        return tab;
-    }
-
-    public static int[] prochainMouvement(ArrayList<Integer> terrain, int lignes, int colonnes, int[] src, int[] dest){
-        int[][] grille = convertListTo2DArray(terrain, colonnes, lignes);
-        List<Point> chemin = bfs2D(grille, new Point(src[0],src[1]), new Point(dest[0], dest[1]));
-        if (chemin.size() > 1)
-            return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};
-        return null;
     }
 }

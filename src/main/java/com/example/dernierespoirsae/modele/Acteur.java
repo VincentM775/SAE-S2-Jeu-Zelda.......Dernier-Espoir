@@ -10,7 +10,7 @@ public abstract class Acteur {
     private String nom;
     private Environnement environnement;
     private String direction;
-    private String derniereDirection;
+    private String derniereDirection="null";
     private int vie;
     private int nombreDeDegat;
 

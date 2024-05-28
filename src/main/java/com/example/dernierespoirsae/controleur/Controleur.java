@@ -1,8 +1,8 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,8 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.fxml.Initializable;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.ResourceBundle;
@@ -30,12 +30,14 @@ public class Controleur implements Initializable {
     //sert la gameloop :
     private Timeline gameLoop;
     private int temps;
-
+    private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
-        this.environnement = new Environnement(375);
+        this.environnement = new Environnement(40,25,15);
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        environnement.setJoueur(joueur);
+        this.environnement.setJoueur(joueur);
+        this.bfs = new BFS(this.environnement);
+        this.environnement.setBfs(this.bfs);
 
         Ennemi zombie1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         zombie1.setVitesse(2); // Exemple : régler la vitesse à 2
@@ -80,6 +82,19 @@ public class Controleur implements Initializable {
                     }
                 }
 
+
+
+                // Démarrer la recherche récursive
+//                bfs.algoBFS(environnement.getJoueur().getY() / environnement.getInfoTuile()[0], environnement.getJoueur().getX() / environnement.getInfoTuile()[0], 0);
+
+                // Afficher le résultat
+//                for (int[] tab : bfs.getTableauDesDistances()) {
+//                    for (int val : tab) {
+//                        System.out.print(val + " ");
+//                    }
+//                    System.out.println();
+//                }
+
                 environnement.getJoueur().seDeplacer();
 
                 temps++;
@@ -90,10 +105,10 @@ public class Controleur implements Initializable {
     }
 
 
-    public void afficherMap(Map map) {
-        for (int x = 0; x < map.getListTuiles().size(); x++) {
+    public void afficherMap(Terrain terrain) {
+        for (int x = 0; x < terrain.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
-            switch (map.getListTuiles().get(x)) {
+            switch (terrain.getListTuiles().get(x)) {
                 case 0:
                     Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
                     imageView.setImage(image);
@@ -106,18 +121,18 @@ public class Controleur implements Initializable {
     }
     public void creerSprite(Acteur acteur) {
         if (!(acteur instanceof Zombie)) {
-            Circle cercle = new Circle(10);
-            cercle.setFill(Color.BLUE);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15,15);
+            rectangle.setFill(Color.BLUE);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
         else if (acteur instanceof MasticatorZ){
-            Circle cercle = new Circle(15);
-            cercle.setFill(Color.RED);
-            cercle.translateXProperty().bind(acteur.xProperty());
-            cercle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(cercle);
+            Rectangle rectangle = new Rectangle(15,15);
+            rectangle.setFill(Color.RED);
+            rectangle.translateXProperty().bind(acteur.xProperty());
+            rectangle.translateYProperty().bind(acteur.yProperty());
+            persoPane.getChildren().add(rectangle);
         }
     }
 
