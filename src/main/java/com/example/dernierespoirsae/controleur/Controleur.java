@@ -16,6 +16,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import javafx.scene.shape.Rectangle;
+
 import java.util.ResourceBundle;
 import java.net.URL;
 

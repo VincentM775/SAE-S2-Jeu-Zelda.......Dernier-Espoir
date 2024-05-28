@@ -27,7 +27,7 @@ public class VueActeur {
                 rectangle.setId(""+acteur.getId());
             }
             else {
-                Rectangle rectangle = new Rectangle(10, 10);
+                Rectangle rectangle = new Rectangle(15, 15);
                 rectangle.setFill(Color.BLACK);
                 rectangle.translateXProperty().bind(acteur.xProperty());
                 rectangle.translateYProperty().bind(acteur.yProperty());

@@ -3,41 +3,45 @@ package com.example.dernierespoirsae.modele;
 public class Ennemi extends Acteur {
 
     private int attentePourDeplacement = 0;
-    private int nombreDePixelDeplacer = 20; // Distance totale à parcourir en pixels
+    private int nombreDePixelDeplacer = 10; // Distance totale à parcourir en pixels
     private int dx = 0;
     private int dy = 0;
     private int deplacementRestant = 0;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, nom, environnement, vie, nombreDeDegat, longTuile, largeTuile, nbTuile);
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
+        super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile, 15, 15);
     }
 
     @Override
     public void seDeplacer() {
-        if (this.attentePourDeplacement <= 0) {
-            seDeplacerAleatoirement();
-            this.attentePourDeplacement = 30;
-        } else {
-            this.attentePourDeplacement--;
-        }
+        seDeplacerAleatoirement();
+    }
+    public void seDeplacer(String modeDeDeplacement){
+        if (modeDeDeplacement.equals("deplacementAleatoire")){
+            if (this.attentePourDeplacement <= 0) {
+                seDeplacerAleatoirement();
+                this.attentePourDeplacement = 30;
+            } else {
+                this.attentePourDeplacement--;
+            }
 
-        if (deplacementRestant > 0) {
-            moveCharacter(dx, dy);
-            deplacementRestant -= Math.abs(dx) + Math.abs(dy);
+            if (deplacementRestant > 0) {
+
+                Deplacement();
+                deplacementRestant -= Math.abs(dx) + Math.abs(dy);
+            }
         }
     }
 
     private void seDeplacerAleatoirement() {
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1;
-        int chanceDeNouvelleDirection;
+        int chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
         int directionAleatoire;
         String nouvelleDirection;
 
-        if (chanceDeDeplacement <= 100) {//50% de chance de se déplacer aléatoirement
-            chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
-
-            if (chanceDeNouvelleDirection <= 50) {
-                do {
+        if (chanceDeDeplacement <=100) { //75% de chance de se déplacer
+            if (chanceDeNouvelleDirection <= 75) { //75% de chance de changer de direction
+                do {//Tant que on a pas changer de directin
                     directionAleatoire = (int) (Math.random() * 4) + 1;
                     nouvelleDirection = switch (directionAleatoire) {
                         case 1 -> "up";
@@ -46,41 +50,41 @@ public class Ennemi extends Acteur {
                         case 4 -> "left";
                         default -> "null";
                     };
-                } while (nouvelleDirection.equals(this.getDirection()));
+                }while (nouvelleDirection.equals(this.getDerniereDirection()));
                 this.setDirection(nouvelleDirection);
+                this.setDerniereDirection(this.getDirection());
             }
+            //sinon il se déplace dans la meme direction
 
-            definirDeplacement();
+            Deplacement();
             this.setDirection("null");
         }
     }
 
-    private void definirDeplacement() {
+    private void Deplacement() {
+        this.setDirection(this.getDerniereDirection());
         dx = 0;
         dy = 0;
         deplacementRestant = nombreDePixelDeplacer;
 
-        if (getDirection().contains("up")) {
-            dy = -super.getVitesse();
+        if (getDirection().contains("up") && getHitBox().collisionHaut()) {
+            System.out.println("test Haut");
+            dy = -this.getVitesse();
         }
-        if (getDirection().contains("down")) {
-            dy = super.getVitesse();
+        if (getDirection().contains("down") && getHitBox().collisionBas()) {
+            System.out.println("test Bas");
+            dy = this.getVitesse();
         }
-        if (getDirection().contains("left")) {
-            dx = -super.getVitesse();
+        if (getDirection().contains("left") && getHitBox().collisionGauche()) {
+            System.out.println("test Gauche");
+            dx = -this.getVitesse();
         }
-        if (getDirection().contains("right")) {
-            dx = super.getVitesse();
+        if (getDirection().contains("right") && getHitBox().collisionDroite()) {
+            System.out.println("test Droite");
+            dx = this.getVitesse();
         }
-    }
-
-    private void moveCharacter(int dx, int dy) {
         setX(getX() + dx);
         setY(getY() + dy);
-    }
-
-    public void setVitesse(int vitesse) {
-        super.setVitesse(vitesse);
     }
 
     public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
