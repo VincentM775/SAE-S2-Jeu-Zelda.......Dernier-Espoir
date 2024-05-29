@@ -29,20 +29,22 @@ public class Terrain {
 
     }
 
-    public void generMap(int n){
+    public void generMap(int n) {
         double chiffre;
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             chiffre = Math.random();
-            if(chiffre < 0.75)
+            if (chiffre < 0.75)
                 this.map.add(0);
             else
                 this.map.add(1);
         }
-
-    public void creeMapJSON(){
     }
+
+//    public void creeMapJSON(){
+//    }
+
     public ObservableList<Integer> getListTuiles() {
-        return map;
+        return this.map;
     }
 
     public void afficherMap(){

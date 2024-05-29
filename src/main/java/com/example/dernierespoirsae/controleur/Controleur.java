@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(35, 125, 125);
+        this.environnement = new Environnement(35, 25, 25);
 
         environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
@@ -65,7 +65,7 @@ public class Controleur implements Initializable {
         environnement.setListenerActeurs(observateurActeurs);
 
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
+        acteur1.setVitesse(2); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
@@ -95,7 +95,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.016)),
+            Duration.seconds((0.040)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -126,12 +126,13 @@ public class Controleur implements Initializable {
                 if (temps%3==0){
                     for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
-                            ((Ennemi) acteur).seDeplacer();
+                            acteur.seDeplacer();
                         }
                     }
+                    environnement.getJoueur().seDeplacer();
                 }
 
-                environnement.getJoueur().seDeplacer();
+
 
                 temps++;
 
