@@ -41,7 +41,7 @@ public class BFS {
             return;
         }
 
-        // Vérifier si la case est -1
+        // Vérifier si la case est -1 et inférieur ou égal à value
         if (this.tableauDesDistances[ligne][colonne] != -1 && this.tableauDesDistances[ligne][colonne] <= value) {
             return;
         }
@@ -49,9 +49,7 @@ public class BFS {
         this.tableauDesDistances[ligne][colonne] = value;
 
         // Définir les directions (droite, gauche, bas, haut)
-        int[][] directions = {
-                {0, 1}, {0, -1}, {1, 0}, {-1, 0}
-        };
+        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
         // Parcourir toutes les directions
         for (int[] direction : directions) {

@@ -26,9 +26,32 @@ public class Ennemi extends Acteur {
 
     }
     public void seDeplacerEnBFS(){
-        algoBFS(getX(),getY());
+        prochaineDirection(getX(),getY()); //cherche la prochaine direction et la set automatiquement
     }
-    public void algoBFS(int positionX,int positionY){
+    public void suivreJoueurMemeCase(){
+        int joueurX = getEnvironnement().getJoueur().getX();
+        int joueurY = getEnvironnement().getJoueur().getY();
+        int ennemiX = getX();
+        int ennemiY = getY();
+
+        int deltaX = joueurX - ennemiX;
+        int deltaY = joueurY - ennemiY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                setUneDirection("right");
+            } else {
+                setUneDirection("left");
+            }
+        } else {
+            if (deltaY > 0) {
+                setUneDirection("down");
+            } else {
+                setUneDirection("up");
+            }
+        }
+    }
+    public void prochaineDirection(int positionX,int positionY){
         String directionchoisi;
         int positionLigne = positionY / getEnvironnement().getInfoTuile()[0];
         int positionColonne = positionX / getEnvironnement().getInfoTuile()[0];
@@ -72,9 +95,13 @@ public class Ennemi extends Acteur {
             if (ancienneCooX==getX() && ancienneCooY == getY()) { //on regarde qu'il a bien avancer
                 positionX = positionX + 15;
                 positionY = positionY + 14;
-                algoBFS(positionX,positionY); //Pour éviter qu'il rste bloqué on lui donne la positon de son coins opposé
+                prochaineDirection(positionX,positionY); //Pour éviter qu'il rste bloqué on lui donne la positon de son coins opposé
             }
             this.setDirection("null"); //On remet la position à null pour qu'il arrête d'avancer dans la gameLoop
+        }
+        else if (tabDesDistances[positionLigne][positionColonne]==0) {//Si on est sur la même case que le joueur
+            suivreJoueurMemeCase();
+            deplacement();
         }
     }
     public void seDeplacerAvecModeDeDeplacement(int modeDeDeplacement){
