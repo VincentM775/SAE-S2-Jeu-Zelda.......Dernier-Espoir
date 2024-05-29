@@ -21,8 +21,6 @@ import javafx.scene.shape.Rectangle;
 import java.util.ResourceBundle;
 import java.net.URL;
 
-
-
 public class Controleur implements Initializable {
     @FXML
     private TilePane mapPane;
@@ -32,7 +30,10 @@ public class Controleur implements Initializable {
     private Pane armePane;
 
     @FXML
-    private Pane inventairePane;
+    private Pane armePaneMap;
+
+    @FXML
+    private Pane paneHache;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -49,7 +50,7 @@ public class Controleur implements Initializable {
         VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
         map.afficherMap();
 
-        ObservateurArmes observateurArme = new ObservateurArmes(armePane, joueur);
+        ObservateurArmes observateurArme = new ObservateurArmes(paneHache, joueur, armePaneMap);
         environnement.setListenerArmes(observateurArme);
 
         //Creer une hache
@@ -67,7 +68,7 @@ public class Controleur implements Initializable {
         environnement.getListArmes().add(hache2);
 
         //Creer un sprite qui represente le joueur
-        VueActeur vueActeur = new VueActeur(joueur, persoPane);
+        new VueActeur(persoPane, joueur);
 
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
@@ -124,11 +125,11 @@ public class Controleur implements Initializable {
                     }
                 }
                 for (int i = 0; i < environnement.getListArmes().size(); i++) {
-                    ImageView imageView = (ImageView) armePane.lookup("#" + environnement.getListArmes().get(i).getId());
+
+                    ImageView imageView = (ImageView) armePaneMap.lookup("#" + environnement.getListArmes().get(i).getId());
                     if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY() && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY()) && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX() && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
                         environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
                         environnement.getListArmes().remove(i);
-                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
                     }
                 }
 

@@ -68,19 +68,15 @@ public class Ennemi extends Acteur {
         deplacementRestant = nombreDePixelDeplacer;
 
         if (getDirection().contains("up") && getHitBox().collisionHaut()) {
-            System.out.println("test Haut");
             dy = -this.getVitesse();
         }
         if (getDirection().contains("down") && getHitBox().collisionBas()) {
-            System.out.println("test Bas");
             dy = this.getVitesse();
         }
         if (getDirection().contains("left") && getHitBox().collisionGauche()) {
-            System.out.println("test Gauche");
             dx = -this.getVitesse();
         }
         if (getDirection().contains("right") && getHitBox().collisionDroite()) {
-            System.out.println("test Droite");
             dx = this.getVitesse();
         }
         setX(getX() + dx);

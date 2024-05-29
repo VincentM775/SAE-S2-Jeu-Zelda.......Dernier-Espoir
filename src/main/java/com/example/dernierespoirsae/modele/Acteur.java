@@ -46,10 +46,6 @@ public abstract class Acteur {
         this.armes = FXCollections.observableArrayList();
     }
 
-    public Acteur(String nom, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        this(300,260,nom, environnement, 20, 5,longTuile, largeTuile, nbTuile);
-    }
-
     public int getVitesse() {
         return vitesse;
     }

@@ -9,11 +9,9 @@ import javafx.scene.shape.Rectangle;
 
 public class VueActeur {
     private Pane persoPane;
-    private Acteur acteur;
 
-    public VueActeur(Acteur acteur, Pane persoPane) {
+    public VueActeur(Pane persoPane, Acteur acteur) {
         this.persoPane = persoPane;
-        this.acteur = acteur;
         creerSprite(acteur);
     }
 

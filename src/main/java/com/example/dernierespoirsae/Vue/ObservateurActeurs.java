@@ -9,23 +9,26 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
-    private VueActeur vueActeur;
+
     private Pane persoPane;
     public ObservateurActeurs(Pane pane) {
         this.persoPane = pane;
     }
 
     @Override
-    public void onChanged(Change<? extends Acteur> c) {
+    public void onChanged(Change<? extends Acteur> acteurs) {
 
-        while (c.next()){
-            VueActeur vueActeur;
-            for(int i = 0; i < c.getAddedSize(); i++){
-                vueActeur = new VueActeur(c.getAddedSubList().get(i), persoPane);
+        while (acteurs.next()){
+            //Parcours la liste des acteurs ajoutés a la liste et le créer a l'affichage
+            for(int i = 0; i < acteurs.getAddedSize(); i++){
+                new VueActeur(persoPane, acteurs.getAddedSubList().get(i));
             }
-            for(int i = 0; i < c.getRemovedSize(); i++){
-                suprimerSprite(c.getRemoved().get(i));
+
+            //Parcours la liste des acteurs supprimés a la liste et le supprime a l'affichage
+            for(int i = 0; i < acteurs.getRemovedSize(); i++){
+                suprimerSprite(acteurs.getRemoved().get(i));
             }
         }
     }
