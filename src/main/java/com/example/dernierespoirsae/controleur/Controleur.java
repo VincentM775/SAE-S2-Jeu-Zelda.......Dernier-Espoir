@@ -36,7 +36,9 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(35, 25, 15);
+        this.environnement = new Environnement(35, 125, 125);
+
+        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
         this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
@@ -46,6 +48,7 @@ public class Controleur implements Initializable {
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
@@ -65,10 +68,10 @@ public class Controleur implements Initializable {
 
         new VueActeur(joueur, persoPane);
 
-        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane);
+        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
 
-        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane);
+        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
         joueur.yProperty().addListener(listenerY);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
