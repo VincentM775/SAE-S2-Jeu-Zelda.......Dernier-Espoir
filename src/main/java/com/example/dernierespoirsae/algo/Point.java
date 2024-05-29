@@ -26,21 +26,4 @@ public class Point {
         this.colonne = colonne;
     }
 
-    public int[] getPoint(){
-        int[] point = new int[2];
-        point[0]=this.ligne;
-        point[1]=this.colonne;
-        return point;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o)
-//            return true;
-//        if (o == null || getClass() != o.getClass())
-//            return false;
-//        Point point = (Point) o;
-//        return x == point.x && y == point.y;
-//    }
-
 }

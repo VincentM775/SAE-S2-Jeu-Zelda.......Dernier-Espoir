@@ -113,19 +113,6 @@ public class Controleur implements Initializable {
                     }
                 }
 
-
-
-                // Démarrer la recherche récursive
-//                bfs.algoBFS(environnement.getJoueur().getY() / environnement.getInfoTuile()[0], environnement.getJoueur().getX() / environnement.getInfoTuile()[0], 0);
-
-                // Afficher le résultat
-//                for (int[] tab : bfs.getTableauDesDistances()) {
-//                    for (int val : tab) {
-//                        System.out.print(val + " ");
-//                    }
-//                    System.out.println();
-//                }
-
                 environnement.getJoueur().seDeplacer();
 
                 temps++;

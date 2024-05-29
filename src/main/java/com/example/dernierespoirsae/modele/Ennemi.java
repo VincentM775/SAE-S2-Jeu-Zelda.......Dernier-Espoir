@@ -28,6 +28,7 @@ public class Ennemi extends Acteur {
     public void seDeplacerEnBFS(){
         int positionLigne = getY() / getEnvironnement().getInfoTuile()[0];
         int positionColonne = getX() / getEnvironnement().getInfoTuile()[0];
+        System.out.println("Ligne : "+positionLigne + "et colonne : "+ positionColonne);
         int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
         ArrayList<int[]> cheminOuAller = new ArrayList<>();
         int[][] directions = {
@@ -68,13 +69,20 @@ public class Ennemi extends Acteur {
             setUneDirection(directionchoisi); //On définit la nouvelle direction (chemin vers le joueur)
             deplacement();
             if (ancienneCooX==getX() && ancienneCooY == getY()) {
-                setX(getX() + 15);
-                setY(getY() + 15);
+                System.out.println("je passe par là");
+                setX(getX() + 14);
+                setY(getY() + 14);
                 seDeplacerEnBFS();
-                setX(getX() - 15);
-                setY(getY() - 15);
+                System.out.println("direction de l'ennmi quand il a avancé : "+getDirection()+" et l'ancienne direction : "+ getDerniereDirection());
+                setX(getX() - 14);
+                setY(getY() - 14);
             }
-            System.out.println("direction : "+getDirection());
+//            if (ancienneCooX==getX() && ancienneCooY == getY()) {
+//                setY(getY() + 15);
+//                seDeplacerEnBFS();
+//                setY(getY() - 15);
+//            }
+            System.out.println("direction de l'ennmi quand il a avancé : "+getDirection());
             this.setDirection("null");
         }
     }

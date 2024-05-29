@@ -19,6 +19,7 @@ public class BFS {
         this.tableauDesDistances = new int[this.environnement.getInfoTuile()[2]][this.environnement.getInfoTuile()[1]];
         lancementBFS();
     }
+
     public void lancementBFS(){
         int val=0;
         for (int ligne = 0; ligne < this.environnement.getInfoTuile()[2]; ligne++) {
