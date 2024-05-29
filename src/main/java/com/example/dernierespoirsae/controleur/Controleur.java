@@ -36,7 +36,13 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(40, 25, 15);
+        this.environnement = new Environnement(35, 25, 15);
+
+        this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
@@ -134,14 +140,14 @@ public class Controleur implements Initializable {
             switch (tuile) {
                 case 0:
                     imageView.setImage(pelouse);
-                    imageView.setFitWidth(40);
-                    imageView.setFitHeight(40);
+                    imageView.setFitWidth(this.environnement.getInfoTuile()[0]);
+                    imageView.setFitHeight(this.environnement.getInfoTuile()[0]);
                     break;
 
                 case 1:
                     imageView.setImage(mur);
-                    imageView.setFitWidth(40);
-                    imageView.setFitHeight(40);
+                    imageView.setFitWidth(this.environnement.getInfoTuile()[0]);
+                    imageView.setFitHeight(this.environnement.getInfoTuile()[0]);
                     break;
             }
             mapPane.getChildren().add(imageView);
