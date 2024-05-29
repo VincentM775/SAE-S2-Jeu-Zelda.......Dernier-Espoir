@@ -27,6 +27,7 @@ public class Environnement{
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
     }
+
     public void addActeurs(Acteur acteur) {
         this.acteurs.add(acteur);
     }
@@ -34,9 +35,11 @@ public class Environnement{
     public ObservableList<Acteur> getListActeurs(){
         return this.acteurs;
     }
+
     public Acteur getJoueur() {
         return this.joueur;
     }
+
     public Terrain getMap() {
         return this.terrain;
     }

@@ -1,25 +1,23 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
+import com.example.dernierespoirsae.Vue.ObservateurPositionX;
+import com.example.dernierespoirsae.Vue.ObservateurPositionY;
 import com.example.dernierespoirsae.Vue.VueActeur;
 import com.example.dernierespoirsae.Vue.VueArmes;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.*;
 import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.scene.shape.Rectangle;
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -30,6 +28,8 @@ public class Controleur implements Initializable {
     private TilePane mapPane;
     @FXML
     private Pane persoPane;
+    @FXML
+    private Pane principalPane;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -38,9 +38,20 @@ public class Controleur implements Initializable {
     private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
-        this.environnement = new Environnement(40,25,15);
+
+        this.environnement = new Environnement(35, 125, 125);
+
+        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
+
+        this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+
+
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
@@ -63,6 +74,12 @@ public class Controleur implements Initializable {
 
         new VueActeur(joueur, persoPane);
 
+        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
+        joueur.xProperty().addListener(listenerX);
+
+        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
+        joueur.yProperty().addListener(listenerY);
+
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
@@ -82,6 +99,7 @@ public class Controleur implements Initializable {
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
+
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
@@ -121,38 +139,32 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
     public void afficherMap(Terrain terrain) {
+        Image pelouse = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
+        Image mur = new Image("file:src/main/resources/com/example/dernierespoirsae/images/mur.png");
         for (int x = 0; x < terrain.getListTuiles().size(); x++) {
             ImageView imageView = new ImageView();
-            switch (terrain.getListTuiles().get(x)) {
+            int tuile = terrain.getListTuiles().get(x);
+            switch (tuile) {
                 case 0:
-                    Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
-                    imageView.setImage(image);
-                    imageView.setFitWidth(40);
-                    imageView.setFitHeight(40);
+                    imageView.setImage(pelouse);
+                    imageView.setFitWidth(this.environnement.getInfoTuile()[0]);
+                    imageView.setFitHeight(this.environnement.getInfoTuile()[0]);
+                    break;
+
+                case 1:
+                    imageView.setImage(mur);
+                    imageView.setFitWidth(this.environnement.getInfoTuile()[0]);
+                    imageView.setFitHeight(this.environnement.getInfoTuile()[0]);
                     break;
             }
             mapPane.getChildren().add(imageView);
-        }
-    }
-    public void creerSprite(Acteur acteur) {
-        if (!(acteur instanceof Zombie)) {
-            Rectangle rectangle = new Rectangle(15,15);
-            rectangle.setFill(Color.BLUE);
-            rectangle.translateXProperty().bind(acteur.xProperty());
-            rectangle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(rectangle);
-        }
-        else if (acteur instanceof MasticatorZ){
-            Rectangle rectangle = new Rectangle(15,15);
-            rectangle.setFill(Color.RED);
-            rectangle.translateXProperty().bind(acteur.xProperty());
-            rectangle.translateYProperty().bind(acteur.yProperty());
-            persoPane.getChildren().add(rectangle);
         }
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
+
 }
