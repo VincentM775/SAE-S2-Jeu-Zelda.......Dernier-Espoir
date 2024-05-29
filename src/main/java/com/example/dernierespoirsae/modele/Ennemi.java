@@ -28,14 +28,9 @@ public class Ennemi extends Acteur {
     public void seDeplacerEnBFS(){
         prochaineDirection(getX(),getY()); //cherche la prochaine direction et la set automatiquement
     }
-    public void suivreJoueurMemeCase(){
-        int joueurX = getEnvironnement().getJoueur().getX();
-        int joueurY = getEnvironnement().getJoueur().getY();
-        int ennemiX = getX();
-        int ennemiY = getY();
-
-        int deltaX = joueurX - ennemiX;
-        int deltaY = joueurY - ennemiY;
+    public void suivreJoueurDansMemeCase(){
+        int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcule en X  la différence entre le x du joueur et x de l'ennemi
+        int deltaY = getEnvironnement().getJoueur().getY() - getY(); //Calcule en Y  la différence entre le y du joueur et y de l'ennemi
 
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
@@ -100,7 +95,7 @@ public class Ennemi extends Acteur {
             this.setDirection("null"); //On remet la position à null pour qu'il arrête d'avancer dans la gameLoop
         }
         else if (tabDesDistances[positionLigne][positionColonne]==0) {//Si on est sur la même case que le joueur
-            suivreJoueurMemeCase();
+            suivreJoueurDansMemeCase();
             deplacement();
         }
     }
