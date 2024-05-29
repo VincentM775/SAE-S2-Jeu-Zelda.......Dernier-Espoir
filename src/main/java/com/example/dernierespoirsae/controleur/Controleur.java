@@ -128,8 +128,8 @@ public class Controleur implements Initializable {
                 case 0:
                     Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
                     imageView.setImage(image);
-                    imageView.setFitWidth(39);
-                    imageView.setFitHeight(39);
+                    imageView.setFitWidth(40);
+                    imageView.setFitHeight(40);
                     break;
             }
             mapPane.getChildren().add(imageView);

@@ -26,23 +26,22 @@ public class Ennemi extends Acteur {
 
     }
     public void seDeplacerEnBFS(){
-        int positionLigne = getY() / getEnvironnement().getInfoTuile()[0];
-        int positionColonne = getX() / getEnvironnement().getInfoTuile()[0];
-        System.out.println("Ligne : "+positionLigne + "et colonne : "+ positionColonne);
-        int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
-        ArrayList<int[]> cheminOuAller = new ArrayList<>();
-        int[][] directions = {
-                {0, 1},  //right
-                {0, -1}, //left
-                {1, 0},  //down
-                {-1, 0}  //up
-        };
-        int[] directionChoisiTabInt;
+        algoBFS(getX(),getY());
+    }
+    public void algoBFS(int positionX,int positionY){
         String directionchoisi;
-        //coordonnée ancienne qui servent a testé le bon déplacement de l'ennemi.
+        int positionLigne = positionY / getEnvironnement().getInfoTuile()[0];
+        int positionColonne = positionX / getEnvironnement().getInfoTuile()[0];
 
+        //coordonnée ancienne qui servent a testé le bon déplacement de l'ennemi.
         int ancienneCooX = getX();
         int ancienneCooY = getY();
+
+        int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
+        ArrayList<int[]> cheminOuAller = new ArrayList<>();
+        int[][] directions = {{0, 1},{0, -1},{1, 0},{-1, 0}};//right,left,down,up
+        int[] directionChoisiTabInt;
+
 
         // Parcourir toutes les directions
         for (int[] direction : directions) {
@@ -66,24 +65,16 @@ public class Ennemi extends Acteur {
                 directionchoisi = "down";
             else
                 directionchoisi = "up";
+
             setUneDirection(directionchoisi); //On définit la nouvelle direction (chemin vers le joueur)
-            deplacement();
-            if (ancienneCooX==getX() && ancienneCooY == getY()) {
-                System.out.println("je passe par là");
-                setX(getX() + 14);
-                setY(getY() + 14);
-                seDeplacerEnBFS();
-                System.out.println("direction de l'ennmi quand il a avancé : "+getDirection()+" et l'ancienne direction : "+ getDerniereDirection());
-                setX(getX() - 14);
-                setY(getY() - 14);
+            deplacement(); //on le fait avancer
+
+            if (ancienneCooX==getX() && ancienneCooY == getY()) { //on regarde qu'il a bien avancer
+                positionX = positionX + 15;
+                positionY = positionY + 14;
+                algoBFS(positionX,positionY); //Pour éviter qu'il rste bloqué on lui donne la positon de son coins opposé
             }
-//            if (ancienneCooX==getX() && ancienneCooY == getY()) {
-//                setY(getY() + 15);
-//                seDeplacerEnBFS();
-//                setY(getY() - 15);
-//            }
-            System.out.println("direction de l'ennmi quand il a avancé : "+getDirection());
-            this.setDirection("null");
+            this.setDirection("null"); //On remet la position à null pour qu'il arrête d'avancer dans la gameLoop
         }
     }
     public void seDeplacerAvecModeDeDeplacement(int modeDeDeplacement){
@@ -135,25 +126,20 @@ public class Ennemi extends Acteur {
 
     private void deplacement() {
         this.setDirection(this.getDerniereDirection());
-        System.out.println("la direction est :" +getDirection());
         dx = 0;
         dy = 0;
         deplacementRestant = nombreDePixelDeplacer;
 
         if (getDirection().contains("up") && getHitBox().collisionHaut()){
-            System.out.println("test Haut");
             dy = -this.getVitesse();
         }
         if (getDirection().contains("down") && getHitBox().collisionBas()) {
-            System.out.println("test Bas");
             dy = this.getVitesse();
         }
         if (getDirection().contains("left") && getHitBox().collisionGauche()) {
-            System.out.println("test Gauche");
             dx = -this.getVitesse();
         }
         if (getDirection().contains("right") && getHitBox().collisionDroite()) {
-            System.out.println("test Droite");
             dx = this.getVitesse();
         }
         setX(getX() + dx);
