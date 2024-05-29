@@ -1,10 +1,6 @@
 package com.example.dernierespoirsae.modele;
-
-import com.example.dernierespoirsae.algo.BFS;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Ennemi extends Acteur {
 
@@ -21,16 +17,17 @@ public class Ennemi extends Acteur {
 
     @Override
     public void seDeplacer() {
-//        seDeplacerAvecModeDeDeplacement(0);
-        seDeplacerAvecModeDeDeplacement(1);
+        //seDeplacerAvecModeDeDeplacement(0); //aléatoire
+
+        seDeplacerAvecModeDeDeplacement(1); //bfs
 
     }
     public void seDeplacerEnBFS(){
         prochaineDirection(getX(),getY()); //cherche la prochaine direction et la set automatiquement
     }
     public void suivreJoueurDansMemeCase(){
-        int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcule en X  la différence entre le x du joueur et x de l'ennemi
-        int deltaY = getEnvironnement().getJoueur().getY() - getY(); //Calcule en Y  la différence entre le y du joueur et y de l'ennemi
+        int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
+        int deltaY = getEnvironnement().getJoueur().getY() - getY(); //Calcul en Y  la différence entre le y du joueur et y de l'ennemi
 
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
