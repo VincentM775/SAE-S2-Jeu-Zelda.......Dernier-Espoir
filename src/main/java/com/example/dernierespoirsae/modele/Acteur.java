@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 
 public abstract class Acteur {
-    private int vitesse = 1; // Vitesse de déplacement de l'acteur
+    private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
