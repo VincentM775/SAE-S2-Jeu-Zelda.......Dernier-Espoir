@@ -1,4 +1,5 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.Main1;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.ObservateurPositionX;
 import com.example.dernierespoirsae.Vue.ObservateurPositionY;
@@ -25,6 +26,9 @@ import java.net.URL;
 
 public class Controleur implements Initializable {
     @FXML
+    private BorderPane borderPanePrincipal;
+
+    @FXML
     private TilePane mapPane;
     @FXML
     private Pane persoPane;
@@ -41,8 +45,8 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(32, 50, 50);
 
-        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
+        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
         this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
         this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
         this.mapPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
@@ -51,6 +55,9 @@ public class Controleur implements Initializable {
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
+        this.principalPane.setTranslateX(Main1.largeur/2 - joueur.getX()); //Centrer la vu sur le joueur
+        this.principalPane.setTranslateY(Main1.hauteur/2 - joueur.getY() - 20);
 
         /*
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
