@@ -16,14 +16,30 @@ public class BFS {
 
     public BFS(Environnement environnement) {
         this.environnement = environnement;
-        this.tableauDesDistances = new int[this.environnement.getInfoTuile()[2]][this.environnement.getInfoTuile()[1]];
+        this.tableauDesDistances = new int[19][35];
         lancementBFS();
     }
 
     public void lancementBFS(){
-        int val=0;
-        for (int ligne = 0; ligne < this.environnement.getInfoTuile()[2]; ligne++) {
-            for (int colonne = 0; colonne < this.environnement.getInfoTuile()[1]; colonne++) {
+        int val;
+
+        //Recupère la position dans la liste du joueur
+        int tuileJoueurDansLaListe =
+                this.environnement.getJoueur().getY()/this.environnement.getInfoTuile()[0]*this.environnement.getInfoTuile()[2]
+                +this.environnement.getJoueur().getX()/this.environnement.getInfoTuile()[0]*this.environnement.getInfoTuile()[1];
+        int tuileHautGauche = tuileJoueurDansLaListe-35*this.environnement.getInfoTuile()[1]-9;
+        int tuileHautDroite = tuileJoueurDansLaListe-35*this.environnement.getInfoTuile()[1]-9;
+        int tuileBasDroite = tuileJoueurDansLaListe-35*this.environnement.getInfoTuile()[1]-9;
+        int tuileBasGauche = tuileJoueurDansLaListe-35*this.environnement.getInfoTuile()[1]-9;
+
+
+        if (tuileHautGauche<0)
+            tuileHautGauche=0;
+        System.out.println("tuile haut gauche : "+tuileHautGauche);
+        System.out.println("nombre total de tuile : "+this.environnement.getMap().getListTuiles().size());
+        val = tuileHautGauche;
+        for (int ligne = 0; ligne < 19; ligne++) {
+            for (int colonne = 0; colonne <35; colonne++) {
                 if (this.environnement.getMap().getListTuiles().get(val) == 0)
                     this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
                 else
