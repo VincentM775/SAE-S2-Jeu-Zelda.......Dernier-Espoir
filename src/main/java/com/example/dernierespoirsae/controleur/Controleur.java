@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(35, 25, 25);
+        this.environnement = new Environnement(32, 25, 25);
 
         environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
@@ -95,7 +95,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.040)),
+            Duration.seconds((0.016)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -123,12 +123,12 @@ public class Controleur implements Initializable {
                 }
 
                 environnement.getJoueur().seDeplacer();
-                if (temps%3==0){
+
                     for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
                             acteur.seDeplacer();
                         }
-                    }
+
                     environnement.getJoueur().seDeplacer();
                 }
 
