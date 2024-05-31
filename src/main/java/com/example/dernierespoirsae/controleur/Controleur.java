@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(32,35, 25);
+        this.environnement = new Environnement(32,35, 35);
 
         environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
@@ -121,16 +121,13 @@ public class Controleur implements Initializable {
                         }
                     }
                 }
-
-                environnement.getJoueur().seDeplacer();
-
-                    for (Acteur acteur : this.environnement.getListActeurs()) {
-                        if (acteur instanceof Ennemi) {
-                            acteur.seDeplacer();
-                        }
-
-                    environnement.getJoueur().seDeplacer();
+                for (Acteur acteur : this.environnement.getListActeurs()) {
+                    if (acteur instanceof Ennemi) {
+                        acteur.seDeplacer();
+                    }
                 }
+                environnement.getJoueur().seDeplacer();
+                environnement.getJoueur().seDeplacer();
 
 
 
