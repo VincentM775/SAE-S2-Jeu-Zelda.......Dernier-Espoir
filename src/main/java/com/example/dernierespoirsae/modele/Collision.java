@@ -28,9 +28,9 @@ public class Collision {
     /**
      * Quand l'Acteur veut aller à droite, il vérifie que tous ses pixels de droite ne rentrent pas en collision avec un obstacle
      */
-    public boolean collisionDroite(){
+    public boolean collisionDroite(int vitesse){
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
-        int positionPixelX = this.acteur.getX() + acteur.getVitesse() + this.longueur;
+        int positionPixelX = this.acteur.getX() + vitesse + this.longueur;
         int positionPixelY;
         int tuileSousPosition;
 
@@ -49,9 +49,9 @@ public class Collision {
     /**
      * Quand l'Acteur veut aller à gauche, il vérifie que tous ses pixels de gauche ne rentrent pas en collision avec un obstacle
      */
-    public boolean collisionGauche() {
+    public boolean collisionGauche(int vitesse) {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
-        int positionPixelX = this.acteur.getX() - this.acteur.getVitesse();
+        int positionPixelX = this.acteur.getX() - vitesse;
         int positionPixelY;
         int tuileSousPosition;
 
@@ -70,10 +70,10 @@ public class Collision {
     /**
      * Quand l'Acteur veut aller en haut, il vérifie que tous ses pixels du haut ne rentrent pas en collision avec un obstacle
      */
-    public boolean collisionHaut() {
+    public boolean collisionHaut(int vitesse) {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX;
-        int positionPixelY = this.acteur.getY() - this.acteur.getVitesse();
+        int positionPixelY = this.acteur.getY() - vitesse;
         int tuileSousPosition;
 
         for(int i = 1; i <= longueur; i++){
@@ -91,15 +91,15 @@ public class Collision {
     /**
      * Quand l'Acteur veut aller en bas, il vérifie que tous ses pixels du bas ne rentrent pas en collision avec un obstacle
      */
-    public boolean collisionBas() {
+    public boolean collisionBas(int vitesse) {
         this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX;
-        int positionPixelY = this.acteur.getY() + this.hauteur + this.acteur.getVitesse();
+        int positionPixelY = this.acteur.getY() + this.hauteur + vitesse;
         int tuileSousPosition;
 
         for(int i = 1; i <= longueur; i++){
             positionPixelX = this.acteur.getX() + i;
-            tuileSousPosition = ((this.acteur.getX() + i) / this.tailleTuile) + ((this.acteur.getY()  + this.hauteur ) / this.tailleTuile * this.longMap);
+            tuileSousPosition = (positionPixelX / this.tailleTuile) + (positionPixelY / this.tailleTuile * this.longMap);
             if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;

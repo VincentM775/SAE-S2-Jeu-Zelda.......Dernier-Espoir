@@ -82,7 +82,7 @@ public class Ennemi extends Acteur {
                 directionchoisi = "up";
 
             setUneDirection(directionchoisi); //On définit la nouvelle direction (chemin vers le joueur)
-            deplacement(); //on le fait avancer
+            deplacement(getVitesse()); //on le fait avancer
 
             if (ancienneCooX==getX() && ancienneCooY == getY()) { //on regarde qu'il a bien avancer
                 positionX = positionX + 15;
@@ -93,7 +93,7 @@ public class Ennemi extends Acteur {
         }
         else if (tabDesDistances[positionLigne][positionColonne]==0) {//Si on est sur la même case que le joueur
             suivreJoueurDansMemeCase();
-            deplacement();
+            deplacement(1);
         }
     }
     public void seDeplacerAvecModeDeDeplacement(int modeDeDeplacement){
@@ -104,7 +104,7 @@ public class Ennemi extends Acteur {
             } else
                 this.attentePourDeplacement--;
             if (deplacementRestant > 0) {
-                deplacement();
+                deplacement(getVitesse());
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
             }
         }
@@ -134,7 +134,7 @@ public class Ennemi extends Acteur {
                 setUneDirection(nouvelleDirection);
             }
             //sinon il se déplace dans la meme direction
-            deplacement();
+            deplacement(getVitesse());
             this.setDirection("null");
         }
     }
@@ -143,27 +143,28 @@ public class Ennemi extends Acteur {
         this.setDerniereDirection(this.getDirection());
     }
 
-    private void deplacement() {
+    private void deplacement(int vitesse) {
         this.setDirection(this.getDerniereDirection());
         dx = 0;
         dy = 0;
         deplacementRestant = nombreDePixelDeplacer;
 
-        if (getDirection().contains("up") && getHitBox().collisionHaut()){
-            dy = -this.getVitesse();
+        if (getDirection().contains("up") && getHitBox().collisionHaut(vitesse)){
+            dy = -vitesse;
         }
-        if (getDirection().contains("down") && getHitBox().collisionBas()) {
-            dy = this.getVitesse();
+        if (getDirection().contains("down") && getHitBox().collisionBas(vitesse)) {
+            dy = vitesse;
         }
-        if (getDirection().contains("left") && getHitBox().collisionGauche()) {
-            dx = -this.getVitesse();
+        if (getDirection().contains("left") && getHitBox().collisionGauche(vitesse)) {
+            dx = -vitesse;
         }
-        if (getDirection().contains("right") && getHitBox().collisionDroite()) {
-            dx = this.getVitesse();
+        if (getDirection().contains("right") && getHitBox().collisionDroite(vitesse)) {
+            dx = vitesse;
         }
         setX(getX() + dx);
         setY(getY() + dy);
     }
+
 
     public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
         this.nombreDePixelDeplacer = nombreDePixelDeplacer;

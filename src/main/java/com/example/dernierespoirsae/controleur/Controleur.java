@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(32, 50, 50);
+        this.environnement = new Environnement(32, 70, 50);
 
         environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
@@ -65,14 +65,12 @@ public class Controleur implements Initializable {
         environnement.setListenerActeurs(observateurActeurs);
 
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(2); // Exemple : régler la vitesse à 2
+        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
         //Creer un sprite qui represente le joueur
         VueActeur vueActeur = new VueActeur(joueur, persoPane);
-
-        new VueActeur(joueur, persoPane);
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
@@ -95,7 +93,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.016)),
+            Duration.seconds((0.035)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -124,18 +122,12 @@ public class Controleur implements Initializable {
 
                 environnement.getJoueur().seDeplacer();
 
-                    for (Acteur acteur : this.environnement.getListActeurs()) {
-                        if (acteur instanceof Ennemi) {
-                            acteur.seDeplacer();
-                        }
-
-                    environnement.getJoueur().seDeplacer();
+                for (Acteur acteur : this.environnement.getListActeurs()) {
+                    if (acteur instanceof Ennemi) {
+                        acteur.seDeplacer();
+                    }
                 }
-
-
-
                 temps++;
-
             })
         );
         gameLoop.getKeyFrames().add(kf);
