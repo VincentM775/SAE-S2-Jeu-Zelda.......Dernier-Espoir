@@ -10,7 +10,7 @@ public class Ennemi extends Acteur {
     private int dy = 0;
     private int deplacementRestant = 0;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
+    public Ennemi(int x, int y, String nom, Environnement environnement, double vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
         super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
 
     }

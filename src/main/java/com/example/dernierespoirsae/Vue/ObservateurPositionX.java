@@ -22,6 +22,7 @@ public class ObservateurPositionX implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> obs, Number oldV, Number newV) {
         int deplacement = newV.intValue() - oldV.intValue();
+        if(this.joueur.getY() > Main1.hauteur/2 && this.joueur.getY() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[2] - Main1.hauteur/2) //300 = la moitié de la largeur de la Scene
 
         if(this.joueur.getX() > Main1.largeur/2 && this.joueur.getX() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[1] - Main1.largeur/2)
             this.principalPane.setTranslateX(Main1.largeur/2 - joueur.getX());

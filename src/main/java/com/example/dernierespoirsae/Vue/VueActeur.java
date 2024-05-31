@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteur;
 import com.example.dernierespoirsae.modele.Joueur;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ public class VueActeur {
         this.persoPane = persoPane;
         this.acteur = acteur;
         creerSprite(acteur);
+        creerBarreVie(acteur);
     }
 
     public void creerSprite(Acteur acteur){
@@ -36,5 +38,19 @@ public class VueActeur {
                 persoPane.getChildren().add(rectangle);
                 rectangle.setId(""+acteur.getId());
             }
+        }
+
+    public void creerBarreVie(Acteur acteur){
+        ProgressBar barreVie = new ProgressBar();
+        barreVie.setId(String.valueOf(acteur.getId()));
+        barreVie.getStyleClass().add("health-bar");
+        barreVie.setProgress(1);
+        barreVie.translateXProperty().bind(acteur.xProperty());
+        barreVie.translateYProperty().bind(acteur.yProperty().subtract(30));
+        barreVie.progressProperty().bind(acteur.vieProperty().divide(100));
+        System.out.println();
+        persoPane.getChildren().add(barreVie);
     }
+
+
 }

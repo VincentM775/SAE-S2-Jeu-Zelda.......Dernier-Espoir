@@ -1,6 +1,8 @@
 package com.example.dernierespoirsae.modele;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
@@ -11,7 +13,7 @@ public abstract class Acteur {
     private String nom;
     private Environnement environnement;
     private String direction;
-    private IntegerProperty vie;
+    private DoubleProperty vie;
     private String derniereDirection="null";
     private int nombreDeDegat;
     private static int idStatic=0;
@@ -21,13 +23,13 @@ public abstract class Acteur {
     private int nbTuile;
     private Collision collision;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, double vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
         this.environnement = environnement;
         this.vitesse = vitesse;
-        this.vie = new SimpleIntegerProperty(vie);
+        this.vie = new SimpleDoubleProperty(vie);
         this.nombreDeDegat = nombreDeDegat;
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
@@ -46,11 +48,11 @@ public abstract class Acteur {
         this.vitesse = vitesse;
     }
 
-    public int getVie() {
+    public double getVie() {
         return vie.getValue();
     }
 
-    public IntegerProperty vieProperty() {
+    public DoubleProperty vieProperty() {
         return vie;
     }
 

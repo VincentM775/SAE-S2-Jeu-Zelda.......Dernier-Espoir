@@ -1,0 +1,4 @@
+.health-bar{
+    -fx-accent: green;
+    -fx-background-color: red;
+}

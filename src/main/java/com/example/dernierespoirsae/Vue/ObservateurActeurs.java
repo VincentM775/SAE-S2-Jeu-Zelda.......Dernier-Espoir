@@ -22,13 +22,14 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     public void onChanged(Change<? extends Acteur> c) {
 
         while (c.next()){
-            VueActeur vueActeur;
             for(int i = 0; i < c.getAddedSize(); i++){
-                vueActeur = new VueActeur(c.getAddedSubList().get(i), persoPane);
+                new VueActeur(c.getAddedSubList().get(i), persoPane);
             }
 
             for(int i = 0; i < c.getRemovedSize(); i++){
                 suprimerSprite(c.getRemoved().get(i));
+                persoPane.getChildren().remove(this.persoPane.lookup("#"+c.getRemoved().get(i).getId())); //supprime la barre de vie
+
             }
         }
     }
@@ -36,6 +37,4 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     public void suprimerSprite(Acteur acteur){
         this.persoPane.getChildren().remove(this.persoPane.lookup("#"+acteur.getId()));
     }
-
-
 }
