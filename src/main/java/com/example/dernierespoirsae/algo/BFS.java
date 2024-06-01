@@ -26,8 +26,6 @@ public class BFS {
         int valTuile;
         int tuileJcolonne = environnement.getJoueur().getX()/environnement.getInfoTuile()[0];
         int tuileJligne = environnement.getJoueur().getY()/environnement.getInfoTuile()[0];
-        int xDebutTab;
-        int yDebutTab;
         int tuileJcolonneDansNvTab;
         int tuileJligneDansNvTab;
 

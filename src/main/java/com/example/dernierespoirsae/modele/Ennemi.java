@@ -73,12 +73,11 @@ public class Ennemi extends Acteur {
             int newLigne = tuileEligneDansNvTab + direction[0];
             int newColonne = tuileEcolonneDansNvTab + direction[1];
             if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
-                if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1)
+                 if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1) {
                     cheminOuAller.add(direction);//les directions où aller
+                }
             }
         }
-        System.out.println(tuileEcolonneDansNvTab);
-        System.out.println(tuileEligneDansNvTab);
         if (!cheminOuAller.isEmpty()) { //Si l'ennemi a trouvé un chemin
             //Choisi une direction aléatoire entre toutes celle disponible
             directionChoisiTabInt = cheminOuAller.get((int) (Math.random() * cheminOuAller.size()));

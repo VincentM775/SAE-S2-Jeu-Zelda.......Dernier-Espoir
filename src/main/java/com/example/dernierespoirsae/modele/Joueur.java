@@ -44,14 +44,14 @@ public class Joueur extends Acteur{
         }
 
         //AFFICHAGE DU BFS SUR LE TERMINAL
-        for (int[] tab : getEnvironnement().getBfs().getTableauDesDistances()) {
-            for (int val : tab) {
-                System.out.print(val + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println();
+//        for (int[] tab : getEnvironnement().getBfs().getTableauDesDistances()) {
+//            for (int val : tab) {
+//                System.out.print(val + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+//        System.out.println();
         setX(getX() + dx);
         setY(getY() + dy);
     }
