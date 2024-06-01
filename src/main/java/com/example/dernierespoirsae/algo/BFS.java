@@ -15,7 +15,7 @@ public class BFS {
     private int[][] tableauDesDistances;
     private int xDebutTab;
     private int yDebutTab;
-
+    
     public BFS(Environnement environnement) {
         this.environnement = environnement;
         this.tableauDesDistances = new int[20][34];
