@@ -66,7 +66,6 @@ public class Controleur implements Initializable {
 
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
-        acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
         environnement.addActeurs(acteur1);
 
         //Creer un sprite qui represente le joueur

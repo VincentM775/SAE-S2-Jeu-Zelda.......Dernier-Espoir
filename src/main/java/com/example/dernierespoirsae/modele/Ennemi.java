@@ -9,21 +9,28 @@ public class Ennemi extends Acteur {
     private int dx = 0;
     private int dy = 0;
     private int deplacementRestant = 0;
+    private int porteeDeVue;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile) {
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile,int porteeDeVue) {
         super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
-
+        this.porteeDeVue = porteeDeVue;
     }
 
     @Override
     public void seDeplacer() {
-        //seDeplacerAvecModeDeDeplacement(0); //aléatoire
-
-        seDeplacerAvecModeDeDeplacement(1); //bfs
-
-    }
-    public void seDeplacerEnBFS(){
-        prochaineDirection(getX(),getY()); //cherche la prochaine direction et la set automatiquement
+        if (joueurPresent()) //Si un joueur est présent dans la portée de l'ennemi
+            prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
+        else { //Sinon il bouge aléatoirement
+            if (this.attentePourDeplacement <= 0) {
+                seDeplacerAleatoirement();
+                this.attentePourDeplacement = 30;
+            } else
+                this.attentePourDeplacement--;
+            if (deplacementRestant > 0) {
+                deplacement(getVitesse());
+                deplacementRestant -= Math.abs(dx) + Math.abs(dy);
+            }
+        }
     }
     public void suivreJoueurDansMemeCase(){
         int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
@@ -96,23 +103,6 @@ public class Ennemi extends Acteur {
             deplacement(1);
         }
     }
-    public void seDeplacerAvecModeDeDeplacement(int modeDeDeplacement){
-        if (modeDeDeplacement==0){
-            if (this.attentePourDeplacement <= 0) {
-                seDeplacerAleatoirement();
-                this.attentePourDeplacement = 30;
-            } else
-                this.attentePourDeplacement--;
-            if (deplacementRestant > 0) {
-                deplacement(getVitesse());
-                deplacementRestant -= Math.abs(dx) + Math.abs(dy);
-            }
-        }
-        if (modeDeDeplacement==1){
-            seDeplacerEnBFS();
-        }
-    }
-
     private void seDeplacerAleatoirement() {
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1;
         int chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
@@ -165,10 +155,18 @@ public class Ennemi extends Acteur {
         setY(getY() + dy);
     }
 
-
     public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
         this.nombreDePixelDeplacer = nombreDePixelDeplacer;
     }
 
+    public boolean joueurPresent(){
+        //On récupère les numéros de ligne et de colonne sur la map
+        int aColonne = getX()/getEnvironnement().getInfoTuile()[0];
+        int aLigne = getY()/getEnvironnement().getInfoTuile()[0];
+
+        //On renvoie true si le joueur se trouve dans la portée de l'ennemi
+        return (Math.abs(getEnvironnement().getJoueur().getX()/getEnvironnement().getInfoTuile()[0]-aColonne)<=this.porteeDeVue
+            &&Math.abs(getEnvironnement().getJoueur().getY()/getEnvironnement().getInfoTuile()[0]-aLigne)<=this.porteeDeVue);
+    }
 }
 
