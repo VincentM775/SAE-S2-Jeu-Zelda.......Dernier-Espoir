@@ -13,49 +13,95 @@ import java.util.*;
 public class BFS {
     private Environnement environnement;
     private int[][] tableauDesDistances;
+    private int xDebutTab;
+    private int yDebutTab;
 
     public BFS(Environnement environnement) {
         this.environnement = environnement;
-        this.tableauDesDistances = new int[this.environnement.getInfoTuile()[2]][this.environnement.getInfoTuile()[1]];
+        this.tableauDesDistances = new int[20][34];
         lancementBFS();
     }
 
     public void lancementBFS(){
-        int val=0;
-        for (int ligne = 0; ligne < this.environnement.getInfoTuile()[2]; ligne++) {
-            for (int colonne = 0; colonne < this.environnement.getInfoTuile()[1]; colonne++) {
-                if (this.environnement.getMap().getListTuiles().get(val) == 0)
+        int valTuile;
+        int tuileJcolonne = environnement.getJoueur().getX()/environnement.getInfoTuile()[0];
+        int tuileJligne = environnement.getJoueur().getY()/environnement.getInfoTuile()[0];
+        int xDebutTab;
+        int yDebutTab;
+        int tuileJcolonneDansNvTab;
+        int tuileJligneDansNvTab;
+
+        if (tuileJcolonne<=16){
+            xDebutTab = 0;
+            if (tuileJligne <=9){
+                yDebutTab = 0;
+            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+                yDebutTab = environnement.getInfoTuile()[2]-19;
+            } else {
+                yDebutTab = tuileJligne - 9;
+            }
+        } else if (environnement.getInfoTuile()[1]-tuileJcolonne <=16) {
+            xDebutTab = environnement.getInfoTuile()[1]-33;
+            if (tuileJligne <=9){
+                yDebutTab = 0;
+            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+                yDebutTab = environnement.getInfoTuile()[2]-19;
+            } else {
+                yDebutTab = tuileJligne - 9;
+            }
+        }
+        else{
+            xDebutTab = tuileJcolonne - 16;
+            if (tuileJligne <=9){
+                yDebutTab = 0;
+            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+                yDebutTab = environnement.getInfoTuile()[2]-19;
+            } else {
+                yDebutTab = tuileJligne - 9;
+            }
+
+        }
+
+        valTuile = yDebutTab*environnement.getInfoTuile()[1]+xDebutTab; //Ici la valeur de la premiere tuile du tableau
+
+        for (int ligne=0;ligne<=19;ligne++){
+            for (int colonne=0;colonne<=33;colonne++){
+                if (this.environnement.getMap().getListTuiles().get(valTuile) == 0)
                     this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
                 else
                     this.tableauDesDistances[ligne][colonne] = -2; //les murs
-                val++;
+                valTuile++;
             }
+            valTuile = valTuile + environnement.getInfoTuile()[1]-34;
         }
-        algoBFS(this.environnement.getJoueur().getY() / this.environnement.getInfoTuile()[0], this.environnement.getJoueur().getX() / this.environnement.getInfoTuile()[0], 0);
+        tuileJcolonneDansNvTab = tuileJcolonne-xDebutTab;
+        tuileJligneDansNvTab = tuileJligne-yDebutTab;
+        algoBFS(tuileJligneDansNvTab, tuileJcolonneDansNvTab, 0);
 
     }
 
     public void algoBFS(int ligne, int colonne, int value) {
+        int newLigne;
+        int newColonne;
         // Vérifier les limites de la grille
-        if (ligne < 0 || ligne >= this.tableauDesDistances.length || colonne < 0 || colonne >= this.tableauDesDistances[0].length) {
-            return;
-        }
+        if (ligne >= 0 && ligne < this.tableauDesDistances.length && colonne >= 0 && colonne < this.tableauDesDistances[0].length) {
 
-        // Vérifier si la case est -1 et inférieur ou égal à value
-        if (this.tableauDesDistances[ligne][colonne] != -1 && this.tableauDesDistances[ligne][colonne] <= value) {
-            return;
-        }
-        // Mettre à jour la valeur de la case courante
-        this.tableauDesDistances[ligne][colonne] = value;
+            // Vérifier si la case est -1 et inférieur ou égal à value
+            if (this.tableauDesDistances[ligne][colonne] == -1 || this.tableauDesDistances[ligne][colonne] > value) {
 
-        // Définir les directions (droite, gauche, bas, haut)
-        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+                // Mettre à jour la valeur de la case courante
+                this.tableauDesDistances[ligne][colonne] = value;
 
-        // Parcourir toutes les directions
-        for (int[] direction : directions) {
-            int newLigne = ligne + direction[0];
-            int newColonne = colonne + direction[1];
-            algoBFS(newLigne, newColonne, value + 1);
+                // Définir les directions (droite, gauche, bas, haut)
+                int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+                // Parcourir toutes les directions
+                for (int[] direction : directions) {
+                    newLigne = ligne + direction[0];
+                    newColonne = colonne + direction[1];
+                    algoBFS(newLigne, newColonne, value + 1);
+                }
+            }
         }
     }
     /**
@@ -72,5 +118,13 @@ public class BFS {
                 this.tableauDesDistances[ligne][colonne] = -1;
             }
         }
+    }
+
+    public int getxDebutTab() {
+        return xDebutTab;
+    }
+
+    public int getyDebutTab() {
+        return yDebutTab;
     }
 }

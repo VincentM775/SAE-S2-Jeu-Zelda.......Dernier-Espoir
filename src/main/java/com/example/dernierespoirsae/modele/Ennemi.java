@@ -59,6 +59,9 @@ public class Ennemi extends Acteur {
         int ancienneCooX = getX();
         int ancienneCooY = getY();
 
+        int tuileEcolonneDansNvTab = positionColonne-getEnvironnement().getBfs().getxDebutTab();
+        int tuileEligneDansNvTab = positionLigne-getEnvironnement().getBfs().getyDebutTab();
+
         int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
         ArrayList<int[]> cheminOuAller = new ArrayList<>();
         int[][] directions = {{0, 1},{0, -1},{1, 0},{-1, 0}};//right,left,down,up
@@ -67,13 +70,15 @@ public class Ennemi extends Acteur {
 
         // Parcourir toutes les directions
         for (int[] direction : directions) {
-            int newLigne = positionLigne + direction[0];
-            int newColonne = positionColonne + direction[1];
+            int newLigne = tuileEligneDansNvTab + direction[0];
+            int newColonne = tuileEcolonneDansNvTab + direction[1];
             if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
-                if (tabDesDistances[newLigne][newColonne]==tabDesDistances[positionLigne][positionColonne]-1)
+                if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1)
                     cheminOuAller.add(direction);//les directions où aller
             }
         }
+        System.out.println(tuileEcolonneDansNvTab);
+        System.out.println(tuileEligneDansNvTab);
         if (!cheminOuAller.isEmpty()) { //Si l'ennemi a trouvé un chemin
             //Choisi une direction aléatoire entre toutes celle disponible
             directionChoisiTabInt = cheminOuAller.get((int) (Math.random() * cheminOuAller.size()));
@@ -94,11 +99,11 @@ public class Ennemi extends Acteur {
             if (ancienneCooX==getX() && ancienneCooY == getY()) { //on regarde qu'il a bien avancer
                 positionX = positionX + 15;
                 positionY = positionY + 14;
-                prochaineDirection(positionX,positionY); //Pour éviter qu'il rste bloqué on lui donne la positon de son coins opposé
+                prochaineDirection(positionX,positionY); //Pour éviter qu'il reste bloqué, on lui donne la position de son coin opposé
             }
             this.setDirection("null"); //On remet la position à null pour qu'il arrête d'avancer dans la gameLoop
         }
-        else if (tabDesDistances[positionLigne][positionColonne]==0) {//Si on est sur la même case que le joueur
+        else if (tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]==0) {//Si on est sur la même case que le joueur
             suivreJoueurDansMemeCase();
             deplacement(1);
         }
