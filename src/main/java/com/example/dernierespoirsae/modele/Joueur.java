@@ -30,7 +30,7 @@ public class Joueur extends Acteur{
             dy -= this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
-        else if (getDirection().contains("down") && getHitBox().collisionBas(getVitesse())) {
+        if (getDirection().contains("down") && getHitBox().collisionBas(getVitesse())) {
             dy += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
@@ -38,7 +38,7 @@ public class Joueur extends Acteur{
             dx -= this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
-        else if (getDirection().contains("right") && getHitBox().collisionDroite(getVitesse())) {
+        if (getDirection().contains("right") && getHitBox().collisionDroite(getVitesse())) {
             dx += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
