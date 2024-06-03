@@ -18,7 +18,7 @@ public class BFS {
     
     public BFS(Environnement environnement) {
         this.environnement = environnement;
-        this.tableauDesDistances = new int[20][34];
+        this.tableauDesDistances = new int[19][33];
         lancementBFS();
     }
 
@@ -28,12 +28,11 @@ public class BFS {
         int tuileJligne = environnement.getJoueur().getY()/environnement.getInfoTuile()[0];
         int tuileJcolonneDansNvTab;
         int tuileJligneDansNvTab;
-
         if (tuileJcolonne<=16){
             xDebutTab = 0;
             if (tuileJligne <=9){
                 yDebutTab = 0;
-            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+            } else if ((environnement.getInfoTuile()[2]-tuileJligne) <=9) {
                 yDebutTab = environnement.getInfoTuile()[2]-19;
             } else {
                 yDebutTab = tuileJligne - 9;
@@ -57,20 +56,20 @@ public class BFS {
             } else {
                 yDebutTab = tuileJligne - 9;
             }
-
+//
         }
 
         valTuile = yDebutTab*environnement.getInfoTuile()[1]+xDebutTab; //Ici la valeur de la premiere tuile du tableau
 
-        for (int ligne=0;ligne<=19;ligne++){
-            for (int colonne=0;colonne<=33;colonne++){
+        for (int ligne=0;ligne<19;ligne++){
+            for (int colonne=0;colonne<33;colonne++){
                 if (this.environnement.getMap().getListTuiles().get(valTuile) == 0)
                     this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
                 else
                     this.tableauDesDistances[ligne][colonne] = -2; //les murs
                 valTuile++;
             }
-            valTuile = valTuile + environnement.getInfoTuile()[1]-34;
+            valTuile = valTuile + environnement.getInfoTuile()[1]-33;
         }
         tuileJcolonneDansNvTab = tuileJcolonne-xDebutTab;
         tuileJligneDansNvTab = tuileJligne-yDebutTab;

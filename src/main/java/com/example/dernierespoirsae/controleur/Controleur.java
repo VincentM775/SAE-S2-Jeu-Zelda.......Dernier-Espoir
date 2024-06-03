@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(32, 125, 125);
+        this.environnement = new Environnement(32, 100, 100);
 
         environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
@@ -66,12 +66,12 @@ public class Controleur implements Initializable {
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
+        acteur1.setVitesse(8); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur1);
 
         //Création d'un 2e zombie LeZamikaze
         Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
+        acteur1.setVitesse(8); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur2);
 
 
