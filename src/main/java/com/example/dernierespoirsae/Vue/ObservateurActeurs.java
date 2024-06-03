@@ -5,17 +5,21 @@ import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Joueur;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
     private VueActeur vueActeur;
     private Acteur acteur;
     private Pane persoPane;
-    public ObservateurActeurs(Pane pane) {
-        this.persoPane = pane;
+    private HBox barreVieBox;
 
+    public ObservateurActeurs(Pane pane, HBox barreVieBox) {
+        this.persoPane = pane;
+        this.barreVieBox = barreVieBox;
     }
 
     @Override
@@ -23,7 +27,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
         while (c.next()){
             for(int i = 0; i < c.getAddedSize(); i++){
-                new VueActeur(c.getAddedSubList().get(i), persoPane);
+                new VueActeur(c.getAddedSubList().get(i), persoPane, barreVieBox);
             }
 
             for(int i = 0; i < c.getRemovedSize(); i++){

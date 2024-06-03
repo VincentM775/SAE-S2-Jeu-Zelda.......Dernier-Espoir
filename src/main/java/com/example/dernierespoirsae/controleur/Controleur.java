@@ -34,6 +34,8 @@ public class Controleur implements Initializable {
     private Pane persoPane;
     @FXML
     private Pane principalPane;
+    @FXML
+    private HBox barreVieBox;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -63,7 +65,7 @@ public class Controleur implements Initializable {
         ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         dans la liste d'acteur de l'environement (qui est une liste Observable)
         */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane, barreVieBox);
         this.environnement.setJoueur(joueur);
         this.bfs = new BFS(this.environnement);
         this.environnement.setBfs(this.bfs);
@@ -77,9 +79,9 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur1);
 
         //Creer un sprite qui represente le joueur
-        VueActeur vueActeur = new VueActeur(joueur, persoPane);
+        VueActeur vueActeur = new VueActeur(joueur, persoPane, barreVieBox);
 
-        new VueActeur(joueur, persoPane);
+        new VueActeur(joueur, persoPane, barreVieBox);
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
