@@ -1,22 +1,21 @@
 package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
-import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Armes.Hache;
+import com.example.dernierespoirsae.modele.Armes.Pistolet;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import javafx.scene.shape.Rectangle;
 
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -29,11 +28,16 @@ public class Controleur implements Initializable {
     @FXML
     private Pane armePane;
 
+    private VueInventaire vueInventaire;
+
+    @FXML
+    private VBox inventairePane;
+
     @FXML
     private Pane armePaneMap;
 
     @FXML
-    private Pane paneHache;
+    private Pane hache;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -44,28 +48,38 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(375);
 
+
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.setJoueur(joueur);
+
+        this.vueInventaire = new VueInventaire(inventairePane, joueur.getInventaire());
 
         VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
         map.afficherMap();
 
-        ObservateurArmes observateurArme = new ObservateurArmes(paneHache, joueur, armePaneMap);
+        ObservateurArmes observateurArme = new ObservateurArmes(hache, joueur, armePaneMap);
         environnement.setListenerArmes(observateurArme);
 
-        //Creer une hache
-        Armes hache = new Hache(60,150);
+        //Creer des haches
+        Arme hache = new Hache(60,150);
+        Arme hache1 = new Hache(80,50);
+        Arme hache3 = new Hache(100,200);
 
-        //Creer une hache
-        Armes hache1 = new Hache(500,300);
 
-        //Creer une hache
-        Armes hache2 = new Hache(380,500);
+
+        //Creer un pistolet
+        Arme pistolet = new Pistolet(500,300);
+        Arme pistolet1 = new Pistolet(300,500);
+        Arme pistolet2 = new Pistolet(200,300);
+
 
         //Ajoute des haches a l'environnement
         environnement.getListArmes().add(hache);
+        environnement.getListArmes().add(pistolet);
         environnement.getListArmes().add(hache1);
-        environnement.getListArmes().add(hache2);
+        environnement.getListArmes().add(hache3);
+        environnement.getListArmes().add(pistolet1);
+        environnement.getListArmes().add(pistolet2);
 
         //Creer un sprite qui represente le joueur
         new VueActeur(persoPane, joueur);
@@ -107,8 +121,9 @@ public class Controleur implements Initializable {
 //                        gameLoop.stop();
 //                    }
 
-                int zoneDegat = 5;
+                //A modifier
 
+                int zoneDegat = 5;
 
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
@@ -124,10 +139,18 @@ public class Controleur implements Initializable {
                         }
                     }
                 }
+
+                //A modifier
                 for (int i = 0; i < environnement.getListArmes().size(); i++) {
 
                     ImageView imageView = (ImageView) armePaneMap.lookup("#" + environnement.getListArmes().get(i).getId());
-                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY() && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY()) && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX() && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
+
+                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY()
+                       && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY())
+                       && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX()
+                       && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
+
+                        this.vueInventaire.addViewArmeIventaire(environnement.getListArmes().get(i));
                         environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
                         environnement.getListArmes().remove(i);
                     }

@@ -1,25 +1,27 @@
 package com.example.dernierespoirsae.modele.Armes;
 
-import com.example.dernierespoirsae.modele.Joueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Armes {
+public class Arme {
 
+    private String type;
     private IntegerProperty xProperty, yProperty;
     private int degats;
     private static int idStatic=0;
     private int id;
-    public Armes(int degats) {
+    public Arme(int degats, String type) {
+        this.type = type;
         this.degats = degats;
         this.id = idStatic++;
         this.xProperty = new SimpleIntegerProperty();
         this.yProperty = new SimpleIntegerProperty();
     }
 
-    public Armes(int degats, int x, int y) {
+    public Arme(int degats, int x, int y, String type) {
         this.degats = degats;
         this.id = idStatic++;
+        this.type = type;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
     }
@@ -58,5 +60,17 @@ public class Armes {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Arme{" +
+                "type='" + type + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    public String getType() {
+        return type;
     }
 }

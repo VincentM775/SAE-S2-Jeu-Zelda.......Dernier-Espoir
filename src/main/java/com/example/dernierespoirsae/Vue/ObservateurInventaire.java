@@ -1,32 +1,29 @@
 package com.example.dernierespoirsae.Vue;
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Armes.Armes;
+
+import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.collections.ListChangeListener;
-import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
-public class ObservateurInventaire implements ListChangeListener<Armes> {
 
-    @FXML
-    public Pane armePaneMap;
-    @FXML
-    private Pane paneHache;
-    private Acteur joueur;
+public class ObservateurInventaire implements ListChangeListener<Arme> {
 
-    public ObservateurInventaire(Pane paneHache, Acteur joueur, Pane armePaneMap) {
-        this.armePaneMap = armePaneMap;
-        this.joueur = joueur;
-        this.paneHache = paneHache;
+    private Pane hache;
+
+    public ObservateurInventaire(Inventaire inventaire, Label compteur) {
+
     }
 
-    public void onChanged(ListChangeListener.Change<? extends Armes> Arme) {
+    public void onChanged(ListChangeListener.Change<? extends Arme> Arme) {
 
         while (Arme.next()){
             for(int i = 0; i < Arme.getAddedSize(); i++){
+               // new VueInventaire();
 
             }
             for(int i = 0; i < Arme.getRemovedSize(); i++){
+                //new VueInventaire(paneHache, Arme.getRemoved().get(i));
             }
         }
     }

@@ -10,21 +10,20 @@
       <BorderPane>
          <center>
             <VBox fx:id="inventairePane" layoutX="989.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #ff0000;">
-               <children>
-                  <Pane fx:id="paneHache" prefHeight="100.0" prefWidth="200.0" />
-                  <Pane fx:id="paneHache1" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
-               </children>
+                <children>
+
+                </children>
             </VBox>
-         </center>
-      </BorderPane>
-   </right>
-   <center>
-      <Pane fx:id="premierPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40">
-         <children>
-            <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="600.0" prefTileHeight="40.0" prefTileWidth="40.0" prefWidth="1000.0" />
-            <Pane fx:id="armePaneMap" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </Pane>
-   </center>
-</BorderPane>
+          </center>
+       </BorderPane>
+    </right>
+    <center>
+       <Pane fx:id="premierPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40">
+          <children>
+             <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="600.0" prefTileHeight="40.0" prefTileWidth="40.0" prefWidth="1000.0" />
+             <Pane fx:id="armePaneMap" prefHeight="200.0" prefWidth="200.0" />
+             <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
+          </children>
+       </Pane>
+    </center>
+ </BorderPane>

@@ -1,7 +1,7 @@
 package com.example.dernierespoirsae.modele;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.ObservateurArmes;
-import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,7 +9,7 @@ public class Environnement{
 
     private ObservableList<Acteur> acteurs;
     private Acteur joueur;
-    private  ObservableList<Armes> listArmes;
+    private  ObservableList<Arme> listArmes;
     private Map map;
 
     public Environnement(int n){
@@ -22,7 +22,7 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ObservableList<Armes> getListArmes() {
+    public ObservableList<Arme> getListArmes() {
         return this.listArmes;
     }
     public ObservableList<Acteur> getListActeurs(){

@@ -1,5 +1,5 @@
 package com.example.dernierespoirsae.modele;
-import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public abstract class Acteur {
 
-    private ObservableList<Armes> armes;
+    private ObservableList<Arme> armes;
 
     private int vitesse = 1; // Vitesse de déplacement du joueur
 
@@ -142,17 +142,17 @@ public abstract class Acteur {
         return direction;
     }
 
-    public ObservableList<Armes> getArmes() {
+    public ObservableList<Arme> getArmes() {
         return armes;
     }
 
-    public void setArmes(ObservableList<Armes> armes) {
+    public void setArmes(ObservableList<Arme> armes) {
         this.armes = armes;
     }
 
 
-    private void ajoutInventaire(Armes armes){
-        inventaire.getArmes().add(armes);
+    private void ajoutInventaire(Arme arme){
+        inventaire.getArmes().add(arme);
     }
 
     public Inventaire getInventaire() {
