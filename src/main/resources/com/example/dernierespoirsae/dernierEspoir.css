@@ -1,4 +1,21 @@
 .health-bar{
-    -fx-accent: green;
-    -fx-background-color: red;
+
+    -fx-pref-height: 10px; /* Hauteur de la barre */
+    -fx-pref-width: 40px;
+    -fx-border-radius: 5px;
+    -fx-bordure-color: red;
+
+}
+
+.health-bar .track {
+    -fx-background-color: transparent; /* Fond transparent pour le track */
+    -fx-padding: 0; /* Pas de padding pour le track */
+    -fx-margin: 0; /* Pas de marge pour le track */
+}
+
+.health-bar .bar {
+    -fx-background-color: red; /* Couleur de la barre de progression */
+    -fx-padding: 0; /* Pas de padding pour la barre */
+    -fx-background-radius: 5px; /* Coins arrondis pour la barre */
+    -fx-pref-height: 1px; /* Hauteur de la barre de progression */
 }

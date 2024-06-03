@@ -2,8 +2,8 @@ package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteur;
 import com.example.dernierespoirsae.modele.Joueur;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -41,16 +41,17 @@ public class VueActeur {
         }
 
     public void creerBarreVie(Acteur acteur){
+        double vieMax;
         ProgressBar barreVie = new ProgressBar();
         barreVie.setId(String.valueOf(acteur.getId()));
         barreVie.getStyleClass().add("health-bar");
-        barreVie.setProgress(1);
-        barreVie.translateXProperty().bind(acteur.xProperty());
-        barreVie.translateYProperty().bind(acteur.yProperty().subtract(30));
-        barreVie.progressProperty().bind(acteur.vieProperty().divide(100));
+        barreVie.setProgress(1.0);
+        barreVie.translateXProperty().bind(acteur.xProperty().subtract(20 - acteur.getHitBox().getLongueur()/2));
+        barreVie.translateYProperty().bind(acteur.yProperty().subtract(15));
+        barreVie.progressProperty().bind((acteur.vieProperty().add(100 - this.acteur.getVie()).divide(100)));
+
         System.out.println();
         persoPane.getChildren().add(barreVie);
+
     }
-
-
 }

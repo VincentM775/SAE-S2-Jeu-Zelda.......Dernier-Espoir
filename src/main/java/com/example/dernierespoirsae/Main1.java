@@ -15,6 +15,7 @@ public class Main1 extends Application {
     public void start(Stage stage) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(Main1.class.getResource("vueDernierEspoir.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),largeur,hauteur);
+        scene.getStylesheets().add(getClass().getResource("dernierEspoir.css").toExternalForm());
         stage.setTitle("Dernier Espoir");
         stage.setScene((scene));
         stage.show();
