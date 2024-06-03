@@ -47,13 +47,6 @@ public class Terrain {
         return this.map;
     }
 
-    public void afficherMap(){
-        for(int i = 0; i < this.map.size(); i++){
-            System.out.print(this.map.get(i));
-        }
-        System.out.println();
-    }
-
     public boolean estObstacle(int val){
         return !(this.map.get(val)==0 ||this.map.get(val)==2);
     }
