@@ -125,6 +125,7 @@ public class Controleur implements Initializable {
                         }
                     }
                 }
+                //Code pour l'explosion du LeZamikaze
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof Zamikaze){
                         Rectangle joueur = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
@@ -133,7 +134,6 @@ public class Controleur implements Initializable {
                         if ((environnement.getJoueur().getY() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
                             ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
 
-                            System.out.println("index : "+i);
                             if (((Zamikaze) environnement.getListActeurs().get(i)).aExploser()){//Si le Zamikaze explose
                                 int tuileAcolonne = environnement.getListActeurs().get(i).getX()/environnement.getInfoTuile()[0];
                                 int tuileAligne = environnement.getListActeurs().get(i).getY()/environnement.getInfoTuile()[0];
