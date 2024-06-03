@@ -37,7 +37,7 @@ public class Collision {
         for(int i = 0; i < hauteur; i++){
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / this.tailleTuile) + ((positionPixelY) / this.tailleTuile * this.longMap);
-            if(collisionMap("right", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("right", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().estObstacle(tuileSousPosition) || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -58,7 +58,7 @@ public class Collision {
         for(int i = 0; i < hauteur; i++){
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / this.tailleTuile) + (positionPixelY / this.tailleTuile * this.longMap);
-            if(collisionMap("left", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("left", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().estObstacle(tuileSousPosition) || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -79,7 +79,7 @@ public class Collision {
         for(int i = 1; i <= longueur; i++){
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = (positionPixelX / this.tailleTuile) + (positionPixelY / this.tailleTuile * this.longMap);
-            if(collisionMap("up", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("up", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().estObstacle(tuileSousPosition) || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
@@ -100,7 +100,7 @@ public class Collision {
         for(int i = 1; i <= longueur; i++){
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = (positionPixelX / this.tailleTuile) + (positionPixelY / this.tailleTuile * this.longMap);
-            if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
+            if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().estObstacle(tuileSousPosition) || collisionEntreActeurs(positionPixelX, positionPixelY)){
                 this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }

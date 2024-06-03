@@ -64,9 +64,16 @@ public class Controleur implements Initializable {
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
 
+        //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur1);
+
+        //Création d'un 2e zombie LeZamikaze
+        Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
+        environnement.addActeurs(acteur2);
+
 
         //Creer un sprite qui represente le joueur
         VueActeur vueActeur = new VueActeur(joueur, persoPane);
@@ -102,29 +109,39 @@ public class Controleur implements Initializable {
 //                        gameLoop.stop();
 //                    }
 
-                int zoneDegat = 5;
+                int zoneDegat = 20;
 
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
                     Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
 
                     if (temps % 50 == 0) {
-
                         //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
                         if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
                             //Enlève 10 pv au Zombie
                             environnement.getListActeurs().get(i).perdPV(10);
-                            environnement.getListActeurs().get(i).meurtOuVie();
+//                            environnement.getListActeurs().get(i).meurtOuVie();
                         }
+                    }
+                }
+                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+                    if (environnement.getListActeurs().get(i) instanceof Zamikaze){
+                        Rectangle joueur = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
+
+                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
+                        if ((environnement.getJoueur().getY() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                            ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
+                        }
+
                     }
                 }
 
                 environnement.getJoueur().seDeplacer();
 
-                for (Acteur acteur : this.environnement.getListActeurs()) {
-                    if (acteur instanceof Ennemi) {
-                        acteur.seDeplacer();
-                    }
+                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+
+                    environnement.getListActeurs().get(i).seDeplacer();
+
                 }
                 temps++;
 

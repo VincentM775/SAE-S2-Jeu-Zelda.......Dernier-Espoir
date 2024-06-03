@@ -54,9 +54,7 @@ public class Terrain {
         System.out.println();
     }
 
-
-
-    public void creationDuneCase(){
-        this.map.add(1);
+    public boolean estObstacle(int val){
+        return !(this.map.get(val)==0 ||this.map.get(val)==2);
     }
 }
