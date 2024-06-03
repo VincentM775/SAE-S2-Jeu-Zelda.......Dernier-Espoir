@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.modele;
 
 public class Zamikaze extends Zombie{
     private static int compteur=0;
+    private boolean aExplosee=false; //Par défaut, il n'a pas explosé (0 pas explosé, 1 explosé)
     public Zamikaze(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(x, y, "MasticatorZ", environnement, 100, 5, 10, longTuile, largeTuile, nbTuile, 8+(int) (Math.random()*2));
     }
@@ -24,7 +25,8 @@ public class Zamikaze extends Zombie{
                         getEnvironnement().getMap().getListTuiles().remove(caseAExploser(y,x)); //case à remplacer selon x et y
                         getEnvironnement().getMap().getListTuiles().add(caseAExploser(y,x),2); //case à remplacer selon x et y
                         System.out.println("explosion");
-                        this.perdPV(this.getVie());
+                        this.aExplosee=true;
+//                        getEnvironnement().getJoueur().perdPV(1000); //Le joueur prend des dégâts
                     }
                 }
             }
@@ -33,6 +35,14 @@ public class Zamikaze extends Zombie{
     }
     public int caseAExploser(int caseY,int caseX){
         return (((getY()/getEnvironnement().getInfoTuile()[0])+caseY)*getEnvironnement().getInfoTuile()[1]+(getX()/getEnvironnement().getInfoTuile()[0])+caseX);
+    }
+
+    public void meurt() {
+        this.perdPV(this.getVie()); //l'acteur meurt
+    }
+
+    public boolean aExploser(){
+        return this.aExplosee;
     }
     public void tuileAExploser(int positionTuile){
         //TODO Méthode qui servira à l'animation de l'explosion, elle prend en paramètre une

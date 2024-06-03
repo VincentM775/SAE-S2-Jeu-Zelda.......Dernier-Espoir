@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -131,18 +132,37 @@ public class Controleur implements Initializable {
                         //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
                         if ((environnement.getJoueur().getY() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
                             ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
+
+                            System.out.println("index : "+i);
+                            if (((Zamikaze) environnement.getListActeurs().get(i)).aExploser()){//Si le Zamikaze explose
+                                int tuileAcolonne = environnement.getListActeurs().get(i).getX()/environnement.getInfoTuile()[0];
+                                int tuileAligne = environnement.getListActeurs().get(i).getY()/environnement.getInfoTuile()[0];
+                                int tuilePositionEListe; //recupere la position de l'ennemi dans la liste
+                                addGifToPane(environnement.getListActeurs().get(i).getX(),environnement.getListActeurs().get(i).getY(),96,"file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif");
+
+                                for (int y=-1;y<=1;y++){
+                                    for (int x=-1;x<=1;x++){
+                                        if (tuileAligne+y>=0 && tuileAligne+y < environnement.getInfoTuile()[1] && tuileAcolonne+x>=0 && tuileAcolonne+x < environnement.getInfoTuile()[1]){
+                                            tuilePositionEListe = environnement.getInfoTuile()[1]*(tuileAligne+y)+(tuileAcolonne+x);
+                                            setImageAtIndex(tuilePositionEListe, "file:src/main/resources/com/example/dernierespoirsae/images/Grass_burned.png");
+
+                                        }
+                                    }
+                                }
+                                ((Zamikaze) environnement.getListActeurs().get(i)).meurt();
+                            }
                         }
 
                     }
                 }
 
-                environnement.getJoueur().seDeplacer();
+
 
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-
                     environnement.getListActeurs().get(i).seDeplacer();
-
                 }
+
+                environnement.getJoueur().seDeplacer();
                 temps++;
 
             })
@@ -176,5 +196,39 @@ public class Controleur implements Initializable {
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
+    public void setImageAtIndex(int index, String imagePath) {
+        // Obtenir le nœud à l'index spécifique
+        Node node = mapPane.getChildren().get(index);
+
+        // Vérifier si le nœud est bien une instance d'ImageView
+        if (node instanceof ImageView) {
+            ImageView imageView = (ImageView) node;
+
+            // Définir la nouvelle image
+            Image image = new Image(imagePath);
+            imageView.setImage(image);
+        }
+    }
+    public void addGifToPane(int x, int y,int taille, String image) {
+        // Charger le GIF
+        Image gifImage = new Image(image);
+
+        // Créer un ImageView pour contenir le GIF
+        ImageView imageView = new ImageView(gifImage);
+
+        // Définir la position et la taille du ImageView
+        imageView.setX((int) x-((double) taille /2));
+        imageView.setY(y-taille+15+15);
+        imageView.setFitWidth(taille);
+        imageView.setFitHeight(taille);
+        // Ajouter le ImageView au Pane
+        persoPane.getChildren().add(imageView);
+        persoPane.getChildren().remove(persoPane.lookup("#"+imageView.getId()));
+
+
+
+    }
+
+
 
 }

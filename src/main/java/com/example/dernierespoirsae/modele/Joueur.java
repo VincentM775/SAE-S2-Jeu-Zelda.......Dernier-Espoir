@@ -55,4 +55,7 @@ public class Joueur extends Acteur{
         setX(getX() + dx);
         setY(getY() + dy);
     }
+    public boolean meurt(){
+        return this.getVie()<=0;
+    }
 }

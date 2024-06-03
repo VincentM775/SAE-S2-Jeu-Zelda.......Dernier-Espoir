@@ -77,7 +77,10 @@ public abstract class Acteur {
 
     public void meurtOuVie(){
         if(this.vie.getValue() <= 0) {
-            environnement.getListActeurs().remove(this);
+            if (this instanceof Ennemi)
+                environnement.getListActeurs().remove(this);
+            else if (this instanceof Joueur)
+                environnement.setJoueur(null);
         }
     }
     public void setY(int y){
