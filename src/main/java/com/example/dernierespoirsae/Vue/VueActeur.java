@@ -1,8 +1,7 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Joueur;
-import javafx.scene.image.ImageView;
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
+import com.example.dernierespoirsae.modele.Acteur.Joueur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

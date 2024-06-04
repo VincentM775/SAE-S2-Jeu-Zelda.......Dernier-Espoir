@@ -1,14 +1,6 @@
 package com.example.dernierespoirsae.algo;
 
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Ennemi;
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Terrain;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.util.Pair;
-
-import java.util.*;
 
 public class BFS {
     private Environnement environnement;

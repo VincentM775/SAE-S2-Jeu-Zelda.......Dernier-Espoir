@@ -1,12 +1,13 @@
 package com.example.dernierespoirsae.modele;
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
-import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.Vue.ObservateurProjectile;
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
+import com.example.dernierespoirsae.modele.Armes.Balle;
+import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import com.example.dernierespoirsae.algo.BFS;
-
-import java.util.ArrayList;
 
 public class Environnement{
 
@@ -16,6 +17,7 @@ public class Environnement{
 
     private int[] infoTuile;
     private ObservableList<Acteur> acteurs;
+    private ObservableList<Projectile> Listprojectile;
 
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -26,6 +28,7 @@ public class Environnement{
         this.terrain = new Terrain();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
+        this.Listprojectile = FXCollections.observableArrayList();
     }
 
     public void addActeurs(Acteur acteur) {
@@ -62,5 +65,15 @@ public class Environnement{
 
     public BFS getBfs() {
         return bfs;
+    }
+
+    public ObservableList<Projectile> getListProjectile() {
+        return Listprojectile;
+    }
+    public void setListenerProjectile(ObservateurProjectile projectileObserve){
+        Listprojectile.addListener(projectileObserve);
+    }
+    public void addProjectile(Projectile projectile){
+        this.Listprojectile.add(projectile);
     }
 }

@@ -1,10 +1,12 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteur;
 
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
 import com.example.dernierespoirsae.modele.Armes.Armes;
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Joueur extends Acteur{
+public class Joueur extends Acteur {
 
     private ObservableList<Armes> armes;
 

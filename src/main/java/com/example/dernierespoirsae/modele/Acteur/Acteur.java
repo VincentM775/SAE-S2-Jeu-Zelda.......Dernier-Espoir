@@ -1,9 +1,9 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteur;
 
+import com.example.dernierespoirsae.modele.Collision;
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
-import javafx.scene.layout.TilePane;
 
 public abstract class Acteur {
     private int vitesse; // Vitesse de déplacement de l'acteur
@@ -116,6 +116,7 @@ public abstract class Acteur {
     }
 
     public abstract void seDeplacer();
+//    public abstract void agie();
     public int getLongTuile() {
         return longTuile;
     }
@@ -146,5 +147,7 @@ public abstract class Acteur {
         return direction;
     }
 
-
+    public int getNombreDeDegat() {
+        return nombreDeDegat;
+    }
 }

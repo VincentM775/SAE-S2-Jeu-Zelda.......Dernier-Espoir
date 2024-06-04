@@ -1,11 +1,8 @@
 package com.example.dernierespoirsae.controleur;
-import com.example.dernierespoirsae.Vue.ObservateurActeurs;
-import com.example.dernierespoirsae.Vue.ObservateurPositionX;
-import com.example.dernierespoirsae.Vue.ObservateurPositionY;
-import com.example.dernierespoirsae.Vue.VueActeur;
-import com.example.dernierespoirsae.Vue.VueArmes;
+import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.modele.*;
+import com.example.dernierespoirsae.modele.Acteur.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -31,12 +28,15 @@ public class Controleur implements Initializable {
     private Pane persoPane;
     @FXML
     private Pane principalPane;
+    @FXML
+    private Pane ballePane;
     private Environnement environnement;
 
     //sert la gameloop :
     private Timeline gameLoop;
     private int temps;
     private BFS bfs;
+
 
     public void initialize(URL location, ResourceBundle ressource) {
 
@@ -67,17 +67,21 @@ public class Controleur implements Initializable {
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur1);
 
         //Création d'un 2e zombie LeZamikaze
         Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur2);
 
+        //Création d'un 3e zombie le Bave-Zmort
+        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        environnement.addActeurs(acteur3);
+
+        //Créer le lien entre la liste Des Projectiles et la class observableBalle
+        environnement.getListProjectile().addListener(new ObservateurProjectile(this.ballePane,environnement));
 
         //Creer un sprite qui represente le joueur
-        VueActeur vueActeur = new VueActeur(joueur, persoPane);
+        new VueActeur(joueur, persoPane);
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
@@ -155,7 +159,11 @@ public class Controleur implements Initializable {
 
                     }
                 }
-
+                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+                    if (environnement.getListActeurs().get(i) instanceof BaveZmort){
+                        ((BaveZmort) environnement.getListActeurs().get(i)).attaque(temps);
+                    }
+                }
 
 
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
@@ -223,7 +231,7 @@ public class Controleur implements Initializable {
         imageView.setFitHeight(taille);
         // Ajouter le ImageView au Pane
         persoPane.getChildren().add(imageView);
-        persoPane.getChildren().remove(persoPane.lookup("#"+imageView.getId()));
+//        persoPane.getChildren().remove(imageView);
 
 
 

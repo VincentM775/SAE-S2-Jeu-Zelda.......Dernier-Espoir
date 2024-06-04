@@ -1,14 +1,9 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Joueur;
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
     private VueActeur vueActeur;
     private Acteur acteur;

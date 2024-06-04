@@ -1,10 +1,12 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteur;
 
-public class Zamikaze extends Zombie{
+import com.example.dernierespoirsae.modele.Environnement;
+
+public class Zamikaze extends Zombie {
     private static int compteur=0;
     private boolean aExplosee=false; //Par défaut, il n'a pas explosé (0 pas explosé, 1 explosé)
     public Zamikaze(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, "MasticatorZ", environnement, 100, 4, 10, longTuile, largeTuile, nbTuile, 8+(int) (Math.random()*2));
+        super(x, y, "MasticatorZ", environnement, 100, 4, 10, longTuile, largeTuile, nbTuile, 5+(int) (Math.random()*2));
     }
 
     public void explose(int temps){

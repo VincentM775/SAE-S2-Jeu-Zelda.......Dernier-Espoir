@@ -1,4 +1,7 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteur;
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
+import com.example.dernierespoirsae.modele.Environnement;
+
 import java.util.ArrayList;
 
 
@@ -11,7 +14,7 @@ public class Ennemi extends Acteur {
     private int deplacementRestant = 0;
     private int porteeDeVue;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile,int porteeDeVue) {
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue) {
         super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
         this.porteeDeVue = porteeDeVue;
     }
@@ -172,5 +175,10 @@ public class Ennemi extends Acteur {
         return (Math.abs(getEnvironnement().getJoueur().getX()/getEnvironnement().getInfoTuile()[0]-aColonne)<=this.porteeDeVue
             &&Math.abs(getEnvironnement().getJoueur().getY()/getEnvironnement().getInfoTuile()[0]-aLigne)<=this.porteeDeVue);
     }
+
+    public int getPorteeDeVue() {
+        return porteeDeVue;
+    }
+
 }
 

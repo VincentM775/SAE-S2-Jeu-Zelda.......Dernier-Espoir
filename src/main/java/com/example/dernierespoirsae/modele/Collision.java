@@ -1,5 +1,7 @@
 package com.example.dernierespoirsae.modele;
 
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
+
 public class Collision {
 
     private int longueur;
