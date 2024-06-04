@@ -37,6 +37,7 @@ public class Environnement{
 
     public void setJoueur(Acteur joueur) {
         this.joueur = joueur;
+        addActeurs(this.joueur);
     }
 
     public void setListenerActeurs(ObservateurActeurs acteursObserve){

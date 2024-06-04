@@ -21,12 +21,12 @@ import java.util.ResourceBundle;
 import java.net.URL;
 
 public class Controleur implements Initializable {
+
     @FXML
     private TilePane mapPane;
+
     @FXML
     private Pane persoPane;
-    @FXML
-    private Pane armePane;
 
     private VueInventaire vueInventaire;
 
@@ -50,6 +50,13 @@ public class Controleur implements Initializable {
 
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+
+    /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
+     * dans la liste d'acteur de l'environement (qui est une liste Observable)
+     */ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+
+        //Lie l'observateur d'acteur a l'envirenoment
+        environnement.setListenerActeurs(observateurActeurs);
         environnement.setJoueur(joueur);
 
         this.vueInventaire = new VueInventaire(inventairePane, joueur.getInventaire());
@@ -57,15 +64,13 @@ public class Controleur implements Initializable {
         VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
         map.afficherMap();
 
-        ObservateurArmes observateurArme = new ObservateurArmes(hache, joueur, armePaneMap);
+        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
         environnement.setListenerArmes(observateurArme);
 
         //Creer des haches
         Arme hache = new Hache(60,150);
         Arme hache1 = new Hache(80,50);
         Arme hache3 = new Hache(100,200);
-
-
 
         //Creer un pistolet
         Arme pistolet = new Pistolet(500,300);
@@ -81,17 +86,6 @@ public class Controleur implements Initializable {
         environnement.getListArmes().add(pistolet1);
         environnement.getListArmes().add(pistolet2);
 
-        //Creer un sprite qui represente le joueur
-        new VueActeur(persoPane, joueur);
-
-        /*
-        ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
-        dans la liste d'acteur de l'environement (qui est une liste Observable)
-        */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
-
-        //Lie l'observateur d'acteur a l'envirenoment
-        environnement.setListenerActeurs(observateurActeurs);
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
@@ -122,24 +116,27 @@ public class Controleur implements Initializable {
 //                    }
 
                 //A modifier
+               int zoneDegat = 5;
 
-                int zoneDegat = 5;
+               for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
-                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
+                   Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
 
-                    Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
+                   if (temps % 50 == 0) {
 
-                    if (temps % 50 == 0) {
-
-                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
-                        if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
-                            //Enlève 10 pv au Zombie
-                            environnement.getListActeurs().get(i).perdPV(10);
-                            environnement.getListActeurs().get(i).meurtOuVie();
-                        }
-                    }
-                }
-
+                       //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
+                       if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY()
+                               && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY())
+                               && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX()
+                               && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                           if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
+                               //Enlève 10 pv au Zombie
+                               environnement.getListActeurs().get(i).perdPV(10);
+                               environnement.getListActeurs().get(i).meurtOuVie();
+                           }
+                       }
+                   }
+               }
                 //A modifier
                 for (int i = 0; i < environnement.getListArmes().size(); i++) {
 
@@ -156,19 +153,17 @@ public class Controleur implements Initializable {
                     }
                 }
 
-                environnement.getJoueur().seDeplacer();
+               environnement.getJoueur().seDeplacer();
                 if (temps%3==0){
                     for (Acteur acteur : this.environnement.getListActeurs()) {
                         if (acteur instanceof Ennemi) {
-                            ((Ennemi) acteur).seDeplacer();
+                          (acteur).seDeplacer();
                         }
                     }
                 }
 
                 environnement.getJoueur().seDeplacer();
-
                 temps++;
-
             })
         );
         gameLoop.getKeyFrames().add(kf);

@@ -24,7 +24,7 @@ public class Collision {
      * Quand l'Acteur veut aller à droite, il vérifie que tous ses pixels de droite ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionDroite(){
-        this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
+        //this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX = this.acteur.getX() + acteur.getVitesse() + this.longueur;
         int positionPixelY;
         int tuileSousPosition;
@@ -34,11 +34,11 @@ public class Collision {
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + ((positionPixelY) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
 //            if(tuileSousPosition % 25 == 24 || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
             if(collisionMap("right", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-            this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+           // this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        //this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -46,7 +46,7 @@ public class Collision {
      * Quand l'Acteur veut aller à gauche, il vérifie que tous ses pixels de gauche ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionGauche() {
-        this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
+       //this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX = this.acteur.getX() - this.acteur.getVitesse();
         int positionPixelY;
         int tuileSousPosition;
@@ -55,11 +55,11 @@ public class Collision {
             positionPixelY = this.acteur.getY() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("left", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+                //this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+       // this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -67,7 +67,7 @@ public class Collision {
      * Quand l'Acteur veut aller en haut, il vérifie que tous ses pixels du haut ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionHaut() {
-        this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
+        //this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX;
         int positionPixelY = this.acteur.getY() - this.acteur.getVitesse();
         int tuileSousPosition;
@@ -76,11 +76,11 @@ public class Collision {
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = (positionPixelX / acteur.getLongTuile()) + (positionPixelY / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("up", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+                //this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        //this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 
@@ -88,7 +88,7 @@ public class Collision {
      * Quand l'Acteur veut aller en bas, il vérifie que tous ses pixels du bas ne rentrent pas en collision avec un obstacle
      */
     public boolean collisionBas() {
-        this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
+       // this.acteur.getEnvironnement().addActeurs(this.acteur.getEnvironnement().getJoueur());
         int positionPixelX;
         int positionPixelY = this.acteur.getY() + this.hauteur + this.acteur.getVitesse();
         int tuileSousPosition;
@@ -97,11 +97,11 @@ public class Collision {
             positionPixelX = this.acteur.getX() + i;
             tuileSousPosition = ((this.acteur.getX() + i) / acteur.getLongTuile()) + ((this.acteur.getY()  + this.hauteur ) / this.acteur.getLargeTuile() * this.acteur.getNbTuile());
             if(collisionMap("down", positionPixelX, positionPixelY) || acteur.getEnvironnement().getMap().getListTuiles().get(tuileSousPosition) != 0 || collisionEntreActeurs(positionPixelX, positionPixelY)){
-                this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+               // this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
                 return false;
             }
         }
-        this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
+        //this.acteur.getEnvironnement().getListActeurs().remove(this.acteur.getEnvironnement().getJoueur());
         return true;
     }
 

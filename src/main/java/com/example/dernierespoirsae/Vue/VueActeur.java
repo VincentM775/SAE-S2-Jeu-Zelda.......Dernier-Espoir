@@ -1,8 +1,8 @@
 package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteur;
+import com.example.dernierespoirsae.modele.Ennemi;
 import com.example.dernierespoirsae.modele.Joueur;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,21 +16,17 @@ public class VueActeur {
     }
 
     public void creerSprite(Acteur acteur){
+
+        Rectangle rectangle = new Rectangle(15, 15);
+        rectangle.translateXProperty().bind(acteur.xProperty());
+        rectangle.translateYProperty().bind(acteur.yProperty());
+        persoPane.getChildren().add(rectangle);
+        rectangle.setId(""+acteur.getId());
+
         if(acteur instanceof Joueur){
-                Rectangle rectangle = new Rectangle(15, 15);
-                rectangle.setFill(Color.BLUE);
-                rectangle.translateXProperty().bind(acteur.xProperty());
-                rectangle.translateYProperty().bind(acteur.yProperty());
-                persoPane.getChildren().add(rectangle);
-                rectangle.setId(""+acteur.getId());
-            }
-            else {
-                Rectangle rectangle = new Rectangle(15, 15);
-                rectangle.setFill(Color.BLACK);
-                rectangle.translateXProperty().bind(acteur.xProperty());
-                rectangle.translateYProperty().bind(acteur.yProperty());
-                persoPane.getChildren().add(rectangle);
-                rectangle.setId(""+acteur.getId());
-            }
+            rectangle.setFill(Color.BLUE);
+        } else if(acteur instanceof Ennemi){
+            rectangle.setFill(Color.BLACK);
+        }
     }
 }

@@ -24,49 +24,9 @@ public class VueInventaire {
         this.inventaire = inventaire;
     }
 
-    public void addViewArmeIventaire(Arme arme) {
-
-        Image hache = new Image("file:src/main/resources/com/example/dernierespoirsae/images/hache.png");
-        Image pistolet = new Image("file:src/main/resources/com/example/dernierespoirsae/images/pistolet.png");
-
-        //Si on appelle addViewIventaire() c'est qu'il y a déja 1 objet du type cherché dans l'inventaire
-        int nbHache = 1;
-        int nbPistolet = 1;
-
-        //Si le type de l'arme est une hache
-        if(arme.getType().equals("hache")) {
-
-            //Créer la case de type Pane qui va contenire la Hache
-            Pane emplacementHache = new Pane();
-
-            //Stock l'image de la Hache dans une imageView pour pouvoir les afficher
-            ImageView imageView = new ImageView(hache);
-
-            //creation d'un emplacement pour l'affichage de l'arme et d'un label affichant le nombre de haches en sa possédé
-            creationEmplacementInventaire(emplacementHache, imageView, arme, nbHache, "labelNbHache");
-
-        } else if(arme.getType().equals("pistolet")){
-
-            //Créer la case de type Pane qui va contenire la Hache
-            Pane emplacementPistolet = new Pane();
-
-            //Stock l'image du pistolet dans une imageView  pour pouvoir les afficher
-            ImageView imageView = new ImageView(pistolet);
-
-            //creation d'un emplacement pour l'affichage de du pistolet et d'un label affichant le nombre de pistolet possédé
-            creationEmplacementInventaire(emplacementPistolet, imageView, arme, nbPistolet, "labelNbPistolet");
-
-        }
-
-    }
-
     /**
      *
-     * @param emplacement       -> La Pane mère qui contiendra l'image et le Label
-     * @param imageView         -> L'image a afficher
      * @param arme              -> L'arme associée a l'image à la Pane mère
-     * @param quantitePosssede  -> La quantité de l'arme possédé
-     * @param idLabel           -> Un ID qui va être attribué au label, pour pouvoir le retrouver plus tard s'il existe
      *
      * Cette methode créer un Pane qui contient:    - L'affichage de l'arme
      *                                              - Un label indiquant sa quantitée
@@ -74,10 +34,19 @@ public class VueInventaire {
      *
      */
 
-    public void creationEmplacementInventaire(Pane emplacement, ImageView imageView, Arme arme, int quantitePosssede, String idLabel){
+    public void addViewArmeIventaire(Arme arme){
+
+        Pane emplacement =  new Pane();
+        int quantitePosssede = 1;
+        String idLabel = "labelNb"+arme.getType();
 
         //S'il n'existe pas d'emplacement hache dans l'inventaire alors en créer une
         if (!this.inventaire.existe(arme)) {
+
+            Image imageArme = new Image("file:src/main/resources/com/example/dernierespoirsae/images/"+arme.getType()+".png");
+
+            //Stock l'image de la Hache dans une imageView pour pouvoir les afficher
+            ImageView imageView = new ImageView(imageArme);
 
             //Ajoute ce Pane a la vue Inventaire
             this.inventairePane.getChildren().add(emplacement);
