@@ -107,6 +107,7 @@ public class Controleur implements Initializable {
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur1);
 
         //Création d'un 2e zombie LeZamikaze
         Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
@@ -211,7 +212,7 @@ public class Controleur implements Initializable {
                         this.vueInventaire.addViewArmeInventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
                     }
                 }
-
+                rayonInteraction = 20;
                 //Code pour l'explosion du LeZamikaze
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof Zamikaze){
@@ -254,7 +255,6 @@ public class Controleur implements Initializable {
                     environnement.getListActeurs().get(i).seDeplacer();
                 }
 
-                environnement.getJoueur().seDeplacer();
                 temps++;
             })
         );
@@ -280,7 +280,6 @@ public class Controleur implements Initializable {
         }
     }
     public void addGifToPane(int x, int y,int taille, String image) {
-
         // Charger le GIF
         Image gifImage = new Image(image);
 

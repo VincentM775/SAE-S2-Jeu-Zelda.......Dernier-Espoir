@@ -6,11 +6,10 @@ public class Zamikaze extends Zombie {
     private static int compteur=0;
     private boolean aExplosee=false; //Par défaut, il n'a pas explosé (0 pas explosé, 1 explosé)
     public Zamikaze(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, "MasticatorZ", environnement, 100, 4, 10, longTuile, largeTuile, nbTuile, 5+(int) (Math.random()*2));
+        super(x, y, "Zamikaze", environnement, 100, 4, 10, longTuile, largeTuile, nbTuile, 5+(int) (Math.random()*2));
     }
 
     public void explose(int temps){
-
         int tuileAcolonne;
         int tuileAligne;
 
@@ -29,6 +28,8 @@ public class Zamikaze extends Zombie {
                         getEnvironnement().getTerrain().getListTuiles().remove(caseAExploser(y,x)); //case à remplacer selon x et y
                         getEnvironnement().getTerrain().getListTuiles().add(caseAExploser(y,x),2); //case à remplacer selon x et y
                         this.aExplosee=true;
+//                        getEnvironnement().getJoueur().perdPV(10); //Le joueur prend des dégâts
+
                     }
                 }
             }

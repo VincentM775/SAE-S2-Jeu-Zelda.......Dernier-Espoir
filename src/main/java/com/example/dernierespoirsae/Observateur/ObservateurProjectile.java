@@ -32,9 +32,7 @@ public class ObservateurProjectile implements ListChangeListener<Projectile> {
         }
     }
     public void creerVueProjectil(Projectile balle){
-
         if(balle instanceof Balle){
-
             // Définir la nouvelle image
             Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/bave_projectile.png");
             ImageView imageView = new ImageView(image);

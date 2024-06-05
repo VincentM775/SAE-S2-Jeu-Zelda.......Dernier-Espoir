@@ -20,29 +20,24 @@ public class Ennemi extends Acteur {
     @Override
     public boolean seDeplacer() {
         if (joueurPresent()){
-
             //Si un joueur est présent dans la portée de l'ennemi
             prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
         }
-
         else { //Sinon il bouge aléatoirement
             if (this.attentePourDeplacement <= 0) {
                 seDeplacerAleatoirement();
                 this.attentePourDeplacement = 30;
-
             } else
                 this.attentePourDeplacement--;
 
             if (deplacementRestant > 0) {
                 deplacement(getVitesse());
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
-
             }
         }
         return true;
     }
     public void suivreJoueurDansMemeCase(){
-
         int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
         int deltaY = getEnvironnement().getJoueur().getY() - getY(); //Calcul en Y  la différence entre le y du joueur et y de l'ennemi
 
@@ -64,7 +59,6 @@ public class Ennemi extends Acteur {
         }
     }
     public void prochaineDirection(int positionX,int positionY){
-
         String directionchoisi;
 
         int positionLigne = positionY / getEnvironnement().getInfoTuile()[0];
@@ -77,6 +71,9 @@ public class Ennemi extends Acteur {
         int tuileEcolonneDansNvTab = positionColonne-getEnvironnement().getBfs().getxDebutTab();
         int tuileEligneDansNvTab = positionLigne-getEnvironnement().getBfs().getyDebutTab();
 
+        int newLigne;
+        int newColonne;
+
         int[][] tabDesDistances = getEnvironnement().getBfs().getTableauDesDistances();
         ArrayList<int[]> cheminOuAller = new ArrayList<>();
         int[][] directions = {{0, 1},{0, -1},{1, 0},{-1, 0}};//right,left,down,up
@@ -86,8 +83,8 @@ public class Ennemi extends Acteur {
         // Parcourir toutes les directions
         for (int[] direction : directions) {
 
-            int newLigne = tuileEligneDansNvTab + direction[0];
-            int newColonne = tuileEcolonneDansNvTab + direction[1];
+            newLigne = tuileEligneDansNvTab + direction[0];
+            newColonne = tuileEcolonneDansNvTab + direction[1];
 
             if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
                  if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1) {

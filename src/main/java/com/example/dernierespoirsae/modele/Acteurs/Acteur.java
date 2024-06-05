@@ -39,7 +39,7 @@ public abstract class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
-        collision = new Collision(longBox, largeBox, this);
+        this.collision = new Collision(longBox, largeBox, this);
         this.id=idStatic++;
         this.direction = "null";
         this.derniereDirection="null";
@@ -65,6 +65,7 @@ public abstract class Acteur {
 
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
+        meurtOuVie();
     }
     public int getId() {
         return this.id;
