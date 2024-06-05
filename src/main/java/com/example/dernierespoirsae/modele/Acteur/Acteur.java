@@ -115,7 +115,7 @@ public abstract class Acteur {
         return nom;
     }
 
-    public abstract void seDeplacer();
+    public abstract boolean seDeplacer();
 //    public abstract void agie();
     public int getLongTuile() {
         return longTuile;

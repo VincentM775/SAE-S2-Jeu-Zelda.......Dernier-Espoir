@@ -24,7 +24,7 @@ public class Joueur extends Acteur {
     }
 
     @Override
-    public void seDeplacer() {
+    public boolean seDeplacer() {
         int dx = 0;
         int dy = 0;
 
@@ -56,6 +56,7 @@ public class Joueur extends Acteur {
 //        System.out.println();
         setX(getX() + dx);
         setY(getY() + dy);
+        return true;
     }
     public boolean meurt(){
         return this.getVie()<=0;

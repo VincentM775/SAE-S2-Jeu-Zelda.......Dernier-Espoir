@@ -7,6 +7,8 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.beans.binding.Bindings;
+
 
 public class ObservateurProjectile implements ListChangeListener<Projectile> {
     private Pane ballePane;
@@ -37,10 +39,17 @@ public class ObservateurProjectile implements ListChangeListener<Projectile> {
             // Définir la nouvelle image
             Image image = new Image("file:src/main/resources/com/example/dernierespoirsae/images/bave_projectile.png");
             ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(10);
+            imageView.setFitHeight(15);
+
+            // Lier les propriétés de position
             imageView.translateXProperty().bind(balle.xProperty());
             imageView.translateYProperty().bind(balle.yProperty());
-            imageView.setFitWidth(30);
-            imageView.setFitHeight(30);
+
+            // Lier la propriété de rotation
+            // Lier la propriété de rotation
+            imageView.rotateProperty().bind(Bindings.createDoubleBinding(() -> balle.getAngle(), balle.xProperty(), balle.yProperty()));
+
             ballePane.getChildren().add(imageView);
             imageView.setId(""+balle.getId());
         }

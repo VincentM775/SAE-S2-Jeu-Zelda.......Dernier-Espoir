@@ -29,7 +29,9 @@ public class Controleur implements Initializable {
     @FXML
     private Pane principalPane;
     @FXML
-    private Pane ballePane;
+    private Pane projectilePane;
+    @FXML
+    private TilePane animationPane;
     private Environnement environnement;
 
     //sert la gameloop :
@@ -77,11 +79,24 @@ public class Controleur implements Initializable {
         Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
-        //Créer le lien entre la liste Des Projectiles et la class observableBalle
-        environnement.getListProjectile().addListener(new ObservateurProjectile(this.ballePane,environnement));
+        //Créer le lien entre la liste Des Projectiles et la class observableProjectile
+        environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
 
         //Creer un sprite qui represente le joueur
         new VueActeur(joueur, persoPane);
+
+        //Créer le lien entre la liste Des flaques de baves et la class observableBave
+        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.mapPane));
+
+//        ObservateurTrainerBave trainerBave = new ObservateurTrainerBave(this.environnement,this.animationPane);
+//        ((BaveZmort) acteur3).getCaseOuIlEstProperty()[0].addListener(trainerBave);
+//        ((BaveZmort) acteur3).getCaseOuIlEstProperty()[1].addListener(trainerBave);
+//
+//        ((BaveZmort) acteur3).getCase1DerriereLuiProperty()[0].addListener(trainerBave);
+//        ((BaveZmort) acteur3).getCase1DerriereLuiProperty()[1].addListener(trainerBave);
+//
+//        ((BaveZmort) acteur3).getCase2DerriereLuiProperty()[0].addListener(trainerBave);
+//        ((BaveZmort) acteur3).getCase2DerriereLuiProperty()[1].addListener(trainerBave);
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
@@ -162,6 +177,8 @@ public class Controleur implements Initializable {
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof BaveZmort){
                         ((BaveZmort) environnement.getListActeurs().get(i)).attaque(temps);
+//                        if ((environnement.getJoueur().getX()/environnement.getInfoTuile()[0]))
+                        ((BaveZmort) environnement.getListActeurs().get(i)).joueurDansBave();
                     }
                 }
 

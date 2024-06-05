@@ -20,7 +20,7 @@ public class Ennemi extends Acteur {
     }
 
     @Override
-    public void seDeplacer() {
+    public boolean seDeplacer() {
         if (joueurPresent()) //Si un joueur est présent dans la portée de l'ennemi
             prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
         else { //Sinon il bouge aléatoirement
@@ -34,6 +34,7 @@ public class Ennemi extends Acteur {
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
             }
         }
+        return true;
     }
     public void suivreJoueurDansMemeCase(){
         int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
@@ -110,7 +111,7 @@ public class Ennemi extends Acteur {
             deplacement(1);
         }
     }
-    private void seDeplacerAleatoirement() {
+    public void seDeplacerAleatoirement() {
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1;
         int chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
         int directionAleatoire;
@@ -140,7 +141,7 @@ public class Ennemi extends Acteur {
         this.setDerniereDirection(this.getDirection());
     }
 
-    private void deplacement(int vitesse) {
+    public void deplacement(int vitesse) {
         this.setDirection(this.getDerniereDirection());
         dx = 0;
         dy = 0;
@@ -180,5 +181,28 @@ public class Ennemi extends Acteur {
         return porteeDeVue;
     }
 
+    public int getAttentePourDeplacement() {
+        return attentePourDeplacement;
+    }
+
+    public int getDeplacementRestant() {
+        return deplacementRestant;
+    }
+
+    public void setAttentePourDeplacement(int attentePourDeplacement) {
+        this.attentePourDeplacement = attentePourDeplacement;
+    }
+
+    public void setDeplacementRestant(int deplacementRestant) {
+        this.deplacementRestant = deplacementRestant;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
+    }
 }
 

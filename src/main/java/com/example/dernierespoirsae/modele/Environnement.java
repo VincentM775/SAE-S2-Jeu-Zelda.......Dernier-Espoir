@@ -3,6 +3,7 @@ import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.ObservateurProjectile;
 import com.example.dernierespoirsae.modele.Acteur.Acteur;
 import com.example.dernierespoirsae.modele.Armes.Balle;
+import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ public class Environnement{
     private int[] infoTuile;
     private ObservableList<Acteur> acteurs;
     private ObservableList<Projectile> Listprojectile;
+    private ObservableList<Bave> ListBave;
 
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -29,6 +31,7 @@ public class Environnement{
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
         this.Listprojectile = FXCollections.observableArrayList();
+        this.ListBave = FXCollections.observableArrayList();
     }
 
     public void addActeurs(Acteur acteur) {
@@ -76,4 +79,12 @@ public class Environnement{
     public void addProjectile(Projectile projectile){
         this.Listprojectile.add(projectile);
     }
+
+    public ObservableList<Bave> getListBave() {
+        return ListBave;
+    }
+    public void addBave(Bave bave){
+        this.ListBave.add(bave);
+    }
+
 }
