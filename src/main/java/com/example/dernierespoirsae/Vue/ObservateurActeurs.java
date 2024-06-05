@@ -2,8 +2,11 @@ package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteur;
 import javafx.collections.ListChangeListener;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
     private Pane persoPane;

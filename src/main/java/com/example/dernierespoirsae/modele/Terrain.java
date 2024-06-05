@@ -25,4 +25,7 @@ public class Terrain {
         return this.map;
     }
 
+    public boolean estObstacle(int val){
+        return !(this.map.get(val)==0 ||this.map.get(val)==2);
+    }
 }

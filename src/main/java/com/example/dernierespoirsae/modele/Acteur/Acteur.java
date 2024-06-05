@@ -1,5 +1,8 @@
 package com.example.dernierespoirsae.modele;
+
 import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Collision;
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -80,7 +83,10 @@ public abstract class Acteur {
 
     public void meurtOuVie(){
         if(this.vie.getValue() <= 0) {
-            environnement.getListActeurs().remove(this);
+            if (this instanceof Ennemi)
+                environnement.getListActeurs().remove(this);
+            else if (this instanceof Joueur)
+                environnement.setJoueur(null);
         }
     }
     public void setY(int y){
@@ -115,7 +121,8 @@ public abstract class Acteur {
         return nom;
     }
 
-    public abstract void seDeplacer();
+    public abstract boolean seDeplacer();
+//    public abstract void agie();
     public int getLongTuile() {
         return longTuile;
     }
@@ -159,4 +166,7 @@ public abstract class Acteur {
         return inventaire;
     }
 
+    public int getNombreDeDegat() {
+        return nombreDeDegat;
+    }
 }

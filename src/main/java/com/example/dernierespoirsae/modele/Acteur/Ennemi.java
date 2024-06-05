@@ -1,4 +1,7 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteur;
+import com.example.dernierespoirsae.modele.Acteur.Acteur;
+import com.example.dernierespoirsae.modele.Environnement;
+
 import java.util.ArrayList;
 
 
@@ -11,17 +14,17 @@ public class Ennemi extends Acteur {
     private int deplacementRestant = 0;
     private int porteeDeVue;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile,int porteeDeVue) {
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue) {
         super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
         this.porteeDeVue = porteeDeVue;
     }
 
     @Override
-    public void seDeplacer() {
-
-        if (joueurPresent()) //Si un joueur est présent dans la portée de l'ennemi
-
+    public boolean seDeplacer() {
+        if (joueurPresent()){
+            //Si un joueur est présent dans la portée de l'ennemi
             prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
+        }
 
         else { //Sinon il bouge aléatoirement
             if (this.attentePourDeplacement <= 0) {
@@ -38,6 +41,7 @@ public class Ennemi extends Acteur {
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
             }
         }
+        return true;
     }
     public void suivreJoueurDansMemeCase(){
         int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
@@ -46,19 +50,24 @@ public class Ennemi extends Acteur {
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
                 setUneDirection("right");
-            } else {
+            }
+            else {
                 setUneDirection("left");
             }
-        } else {
+        }
+        else {
             if (deltaY > 0) {
                 setUneDirection("down");
-            } else {
+            }
+            else {
                 setUneDirection("up");
             }
         }
     }
     public void prochaineDirection(int positionX,int positionY){
+
         String directionchoisi;
+
         int positionLigne = positionY / getEnvironnement().getInfoTuile()[0];
         int positionColonne = positionX / getEnvironnement().getInfoTuile()[0];
 
@@ -116,7 +125,7 @@ public class Ennemi extends Acteur {
             deplacement(1);
         }
     }
-    private void seDeplacerAleatoirement() {
+    public void seDeplacerAleatoirement() {
         int chanceDeDeplacement = (int) (Math.random() * 100) + 1;
         int chanceDeNouvelleDirection = (int) (Math.random() * 100) + 1;
         int directionAleatoire;
@@ -146,7 +155,7 @@ public class Ennemi extends Acteur {
         this.setDerniereDirection(this.getDirection());
     }
 
-    private void deplacement(int vitesse) {
+    public void deplacement(int vitesse) {
         this.setDirection(this.getDerniereDirection());
         dx = 0;
         dy = 0;
@@ -168,6 +177,10 @@ public class Ennemi extends Acteur {
         setY(getY() + dy);
     }
 
+    public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
+        this.nombreDePixelDeplacer = nombreDePixelDeplacer;
+    }
+
     public boolean joueurPresent(){
         //On récupère les numéros de ligne et de colonne sur la map
         int aColonne = getX()/getEnvironnement().getInfoTuile()[0];
@@ -176,5 +189,33 @@ public class Ennemi extends Acteur {
         //On renvoie true si le joueur se trouve dans la portée de l'ennemi
         return (Math.abs(getEnvironnement().getJoueur().getX()/getEnvironnement().getInfoTuile()[0]-aColonne)<=this.porteeDeVue
             &&Math.abs(getEnvironnement().getJoueur().getY()/getEnvironnement().getInfoTuile()[0]-aLigne)<=this.porteeDeVue);
+    }
+
+    public int getPorteeDeVue() {
+        return porteeDeVue;
+    }
+
+    public int getAttentePourDeplacement() {
+        return attentePourDeplacement;
+    }
+
+    public int getDeplacementRestant() {
+        return deplacementRestant;
+    }
+
+    public void setAttentePourDeplacement(int attentePourDeplacement) {
+        this.attentePourDeplacement = attentePourDeplacement;
+    }
+
+    public void setDeplacementRestant(int deplacementRestant) {
+        this.deplacementRestant = deplacementRestant;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 }
