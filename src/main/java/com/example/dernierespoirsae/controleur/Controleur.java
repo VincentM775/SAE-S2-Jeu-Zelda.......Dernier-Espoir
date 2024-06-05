@@ -7,12 +7,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.*;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -24,64 +22,45 @@ import java.net.URL;
 public class Controleur implements Initializable {
 
     @FXML
-    private TilePane mapPane;
-
+    private TilePane terrainPane;
     @FXML
     private Pane persoPane;
     @FXML
     private Pane principalPane;
-
     private VueInventaire vueInventaire;
-
     @FXML
     private VBox inventairePane;
-
     @FXML
     private Pane armePaneMap;
-
-    @FXML
-    private Pane hache;
     private Environnement environnement;
-
-    //sert la gameloop :
     private Timeline gameLoop;
     private int temps;
     private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
 
+        //creation de l'environement
         this.environnement = new Environnement(32, 125, 125);
 
-        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
+        //Creation du joueur
+        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
-        this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
-        this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
-        this.mapPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
-        this.mapPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+        /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
+         * dans la liste d'acteur de l'environement (qui est une liste Observable)
+         */
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
 
-
-
-        Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-
-    /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
-     * dans la liste d'acteur de l'environement (qui est une liste Observable)
-     */ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
-
-        //Lie l'observateur d'acteur a l'envirenoment
-        environnement.setListenerActeurs(observateurActeurs);
-        environnement.setJoueur(joueur);
-
+        //Initialisation du BFS
         this.bfs = new BFS(this.environnement);
-        this.environnement.setBfs(this.bfs);
 
-
+        //Initialisation de la vueInventaire
         this.vueInventaire = new VueInventaire(inventairePane);
 
-        VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
-        map.afficherMap();
+        //Initialisation de la vue Terrain
+        VueTerrain terrain =  new VueTerrain(environnement.getMap(), this.terrainPane);
 
+        //Initialise un observateur pour une liste d'arme
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
-        environnement.setListenerArmes(observateurArme);
 
         //Creer des haches
         Arme hache = new Hache(60,150);
@@ -89,10 +68,35 @@ public class Controleur implements Initializable {
         Arme hache3 = new Hache(100,200);
 
         //Creer un pistolet
-        Arme pistolet = new Pistolet(500,300);
-        Arme pistolet1 = new Pistolet(300,500);
-        Arme pistolet2 = new Pistolet(200,300);
+        Arme pistolet = new Pistolet(800,300);
+        Arme pistolet1 = new Pistolet(300,1000);
+        Arme pistolet2 = new Pistolet(900,300);
 
+        //Génére un terrain avec des tuile aléatoire
+        environnement.getMap().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
+
+        //Initialisation de la taille des tuiles du FXML dépendamment de celles indiquées lors de la création de l'environnement
+        this.terrainPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
+        this.terrainPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
+
+        //Initialisation du nombre de colonnes et nombres de ligne du Terrain, dépendamment de celles indiquées lors de la création de l'environnement
+        this.terrainPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
+        this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+
+        //Lie l'observateur d'acteur a l'environnement
+        environnement.setListenerActeurs(observateurActeurs);
+
+        //Ajout du joueur a l'environnement
+        environnement.setJoueur(joueur);
+
+        //Ajout du BFS dans l'environnement
+        this.environnement.setBfs(this.bfs);
+
+        //Affiche le terrain
+        terrain.afficherTerrain();
+
+        //Lie cet observateur a la liste d'arme dans l'environnement
+        environnement.setListenerArmes(observateurArme);
 
         //Ajoute des haches a l'environnement
         environnement.getListArmes().add(hache);
@@ -102,9 +106,8 @@ public class Controleur implements Initializable {
         environnement.getListArmes().add(pistolet1);
         environnement.getListArmes().add(pistolet2);
 
-
-        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
+        //Crée un Ennemi et l'ajoute a l'environnement
+        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur1);
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
@@ -113,10 +116,12 @@ public class Controleur implements Initializable {
         ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
         joueur.yProperty().addListener(listenerY);
 
+        //Initialialisation du keyHandler pour les gestions des entrée clavier utilisateur
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
-        afficherMap(environnement.getMap());
+
+        //Demarrage de la gameLoop
         initAnimation();
         gameLoop.play();
     }

@@ -1,13 +1,11 @@
 package com.example.dernierespoirsae.modele;
+
 import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.ObservateurArmes;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import com.example.dernierespoirsae.algo.BFS;
-
-import java.util.ArrayList;
 
 public class Environnement{
 
@@ -61,8 +59,6 @@ public class Environnement{
     public void setListenerArmes(ObservateurArmes armesObserve){
         listArmes.addListener(armesObserve);
     }
-
-
 
     public int[] getInfoTuile() {
         return this.infoTuile;

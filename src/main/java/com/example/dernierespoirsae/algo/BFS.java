@@ -1,14 +1,6 @@
 package com.example.dernierespoirsae.algo;
 
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Ennemi;
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Terrain;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.util.Pair;
-
-import java.util.*;
 
 public class BFS {
     private Environnement environnement;
@@ -23,6 +15,7 @@ public class BFS {
     }
 
     public void lancementBFS(){
+
         int valTuile;
         int tuileJcolonne = environnement.getJoueur().getX()/environnement.getInfoTuile()[0];
         int tuileJligne = environnement.getJoueur().getY()/environnement.getInfoTuile()[0];
@@ -33,18 +26,24 @@ public class BFS {
             xDebutTab = 0;
             if (tuileJligne <=9){
                 yDebutTab = 0;
-            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+            }
+            else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
                 yDebutTab = environnement.getInfoTuile()[2]-19;
-            } else {
+            }
+            else {
                 yDebutTab = tuileJligne - 9;
             }
-        } else if (environnement.getInfoTuile()[1]-tuileJcolonne <=16) {
+        }
+        else if (environnement.getInfoTuile()[1]-tuileJcolonne <=16) {
             xDebutTab = environnement.getInfoTuile()[1]-33;
+
             if (tuileJligne <=9){
                 yDebutTab = 0;
-            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+            }
+            else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
                 yDebutTab = environnement.getInfoTuile()[2]-19;
-            } else {
+            }
+            else {
                 yDebutTab = tuileJligne - 9;
             }
         }
@@ -52,9 +51,11 @@ public class BFS {
             xDebutTab = tuileJcolonne - 16;
             if (tuileJligne <=9){
                 yDebutTab = 0;
-            } else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
+            }
+            else if (environnement.getInfoTuile()[2]-tuileJligne <=9) {
                 yDebutTab = environnement.getInfoTuile()[2]-19;
-            } else {
+            }
+            else {
                 yDebutTab = tuileJligne - 9;
             }
 
@@ -64,14 +65,17 @@ public class BFS {
 
         for (int ligne=0;ligne<=19;ligne++){
             for (int colonne=0;colonne<=33;colonne++){
+
                 if (this.environnement.getMap().getListTuiles().get(valTuile) == 0)
                     this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
-                else
-                    this.tableauDesDistances[ligne][colonne] = -2; //les murs
+
+                else {this.tableauDesDistances[ligne][colonne] = -2; } //les murs
+
                 valTuile++;
             }
             valTuile = valTuile + environnement.getInfoTuile()[1]-34;
         }
+
         tuileJcolonneDansNvTab = tuileJcolonne-xDebutTab;
         tuileJligneDansNvTab = tuileJligne-yDebutTab;
         algoBFS(tuileJligneDansNvTab, tuileJcolonneDansNvTab, 0);
@@ -79,8 +83,10 @@ public class BFS {
     }
 
     public void algoBFS(int ligne, int colonne, int value) {
+
         int newLigne;
         int newColonne;
+
         // Vérifier les limites de la grille
         if (ligne >= 0 && ligne < this.tableauDesDistances.length && colonne >= 0 && colonne < this.tableauDesDistances[0].length) {
 
@@ -95,6 +101,7 @@ public class BFS {
 
                 // Parcourir toutes les directions
                 for (int[] direction : directions) {
+
                     newLigne = ligne + direction[0];
                     newColonne = colonne + direction[1];
                     algoBFS(newLigne, newColonne, value + 1);
@@ -102,20 +109,12 @@ public class BFS {
             }
         }
     }
+
     /**
      * Retourne le tableau des distances
     * */
     public int[][] getTableauDesDistances() {
         return tableauDesDistances;
-    }
-
-    public void tabRempliSimple(){
-        //On crée le tableau des distances
-        for (int ligne = 0; ligne < environnement.getInfoTuile()[2]; ligne++) {
-            for (int colonne = 0; colonne < environnement.getInfoTuile()[1]; colonne++) {
-                this.tableauDesDistances[ligne][colonne] = -1;
-            }
-        }
     }
 
     public int getxDebutTab() {

@@ -18,15 +18,22 @@ public class Ennemi extends Acteur {
 
     @Override
     public void seDeplacer() {
+
         if (joueurPresent()) //Si un joueur est présent dans la portée de l'ennemi
+
             prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
+
         else { //Sinon il bouge aléatoirement
             if (this.attentePourDeplacement <= 0) {
+
                 seDeplacerAleatoirement();
                 this.attentePourDeplacement = 30;
             } else
+
                 this.attentePourDeplacement--;
+
             if (deplacementRestant > 0) {
+
                 deplacement(getVitesse());
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
             }
@@ -70,8 +77,10 @@ public class Ennemi extends Acteur {
 
         // Parcourir toutes les directions
         for (int[] direction : directions) {
+
             int newLigne = tuileEligneDansNvTab + direction[0];
             int newColonne = tuileEcolonneDansNvTab + direction[1];
+
             if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
                  if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1) {
                     cheminOuAller.add(direction);//les directions où aller
@@ -157,10 +166,6 @@ public class Ennemi extends Acteur {
         }
         setX(getX() + dx);
         setY(getY() + dy);
-    }
-
-    public void setNombreDePixelDeplacer(int nombreDePixelDeplacer) {
-        this.nombreDePixelDeplacer = nombreDePixelDeplacer;
     }
 
     public boolean joueurPresent(){

@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 
 public class Joueur extends Acteur{
 
-    private final int vitesse = 1; // Vitesse de déplacement du joueur
     private ObservableList<Arme> armes;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
@@ -44,15 +43,6 @@ public class Joueur extends Acteur{
             getEnvironnement().getBfs().lancementBFS();
         }
 
-        //AFFICHAGE DU BFS SUR LE TERMINAL
-//        for (int[] tab : getEnvironnement().getBfs().getTableauDesDistances()) {
-//            for (int val : tab) {
-//                System.out.print(val + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
-//        System.out.println();
         setX(getX() + dx);
         setY(getY() + dy);
     }
