@@ -12,10 +12,10 @@ public class VueActeur {
 
     public VueActeur(Pane persoPane, Acteur acteur) {
         this.persoPane = persoPane;
-        creerSprite(acteur);
+        creerRectangle(acteur);
     }
 
-    public void creerSprite(Acteur acteur){
+    public void creerRectangle(Acteur acteur){
 
         Rectangle rectangle = new Rectangle(15, 15);
         rectangle.translateXProperty().bind(acteur.xProperty());
@@ -23,7 +23,7 @@ public class VueActeur {
         persoPane.getChildren().add(rectangle);
         rectangle.setId(String.valueOf(acteur.getId()));
 
-
+        //Modifie la couleur du rectangle
         if(acteur instanceof Joueur){
             rectangle.setFill(Color.BLUE);
         } else if(acteur instanceof Ennemi){

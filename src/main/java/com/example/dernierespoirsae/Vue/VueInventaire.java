@@ -12,11 +12,9 @@
     public class VueInventaire {
 
         private VBox inventairePane;
-        private Inventaire inventaire;
 
-        public VueInventaire(VBox inventairePane, Inventaire inventaire) {
+        public VueInventaire(VBox inventairePane) {
             this.inventairePane = inventairePane;
-            this.inventaire = inventaire;
         }
 
         /**
@@ -29,7 +27,7 @@
          *
          */
 
-        public void addViewArmeIventaire(Arme arme){
+        public void addViewArmeInventaire(Arme arme){
 
             Pane emplacement =  new Pane();
 

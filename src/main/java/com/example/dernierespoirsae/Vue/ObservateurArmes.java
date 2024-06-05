@@ -18,7 +18,7 @@ public class ObservateurArmes implements ListChangeListener<Arme> {
         while (Arme.next()){ //Tant qu'il y a un acteur dans la liste des armes ayant été ajouté/supprimé
             for(int i = 0; i < Arme.getAddedSize(); i++){
 
-                //Creer affichage de l'arme i ajouté
+                //Crée l'affichage de l'arme i ajouté
                 new VueArmes( Arme.getAddedSubList().get(i), armePaneMap);
             }
             for(int i = 0; i < Arme.getRemovedSize(); i++){

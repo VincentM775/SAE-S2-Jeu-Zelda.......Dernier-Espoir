@@ -59,7 +59,7 @@ public class Controleur implements Initializable {
         environnement.setListenerActeurs(observateurActeurs);
         environnement.setJoueur(joueur);
 
-        this.vueInventaire = new VueInventaire(inventairePane, joueur.getInventaire());
+        this.vueInventaire = new VueInventaire(inventairePane);
 
         VueMap map =  new VueMap(environnement.getMap(), this.mapPane);
         map.afficherMap();
@@ -163,7 +163,7 @@ public class Controleur implements Initializable {
                         environnement.getListArmes().remove(i);
 
                         //Affiche cette arme dans l'inventaire
-                        this.vueInventaire.addViewArmeIventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
+                        this.vueInventaire.addViewArmeInventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
                     }
                 }
 
