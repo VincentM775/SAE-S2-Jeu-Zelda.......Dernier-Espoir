@@ -1,12 +1,9 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Acteur;
+import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
     private Pane persoPane;
@@ -23,7 +20,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
             //Parcours la liste des acteurs ajoutés a la liste et le créer a l'affichage
             for(int i = 0; i < acteurs.getAddedSize(); i++){
 
-                //Creer affichage de l'acteur i ajouté
+                //Crée l'affichage de l'acteur i ajouté
                 new VueActeur(persoPane, acteurs.getAddedSubList().get(i));
             }
 

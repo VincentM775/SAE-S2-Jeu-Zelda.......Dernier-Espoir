@@ -1,8 +1,7 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Acteur;
-import com.example.dernierespoirsae.modele.Ennemi;
-import com.example.dernierespoirsae.modele.Joueur;
+import com.example.dernierespoirsae.modele.Acteurs.*;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,14 +19,18 @@ public class VueActeur {
         Rectangle rectangle = new Rectangle(15, 15);
         rectangle.translateXProperty().bind(acteur.xProperty());
         rectangle.translateYProperty().bind(acteur.yProperty());
-        persoPane.getChildren().add(rectangle);
         rectangle.setId(String.valueOf(acteur.getId()));
+        persoPane.getChildren().add(rectangle);
 
         //Modifie la couleur du rectangle
         if(acteur instanceof Joueur){
             rectangle.setFill(Color.BLUE);
-        } else if(acteur instanceof Ennemi){
+
+        }
+        else if(acteur instanceof Ennemi){
             rectangle.setFill(Color.BLACK);
         }
+
+
     }
 }

@@ -65,7 +65,7 @@ public class BFS {
 
         for (int ligne=0;ligne<19;ligne++){
             for (int colonne=0;colonne<33;colonne++){
-                if (!environnement.getMap().estObstacle(valTuile))
+                if (!environnement.getTerrain().estObstacle(valTuile))
                     this.tableauDesDistances[ligne][colonne] = -1; //case où il peut aller
 
                 else {this.tableauDesDistances[ligne][colonne] = -2; } //les murs

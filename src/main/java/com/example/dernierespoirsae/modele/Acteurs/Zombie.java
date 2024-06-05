@@ -1,6 +1,5 @@
-package com.example.dernierespoirsae.modele.Acteur;
+package com.example.dernierespoirsae.modele.Acteurs;
 
-import com.example.dernierespoirsae.modele.Acteur.Ennemi;
 import com.example.dernierespoirsae.modele.Environnement;
 
 public class Zombie extends Ennemi {

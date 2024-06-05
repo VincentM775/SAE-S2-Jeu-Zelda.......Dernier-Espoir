@@ -1,21 +1,25 @@
 package com.example.dernierespoirsae.modele.Armes;
 
-import com.example.dernierespoirsae.modele.Acteur.Acteur;
+import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Projectile {
 
-
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
+
     private int degats;
+
     private static int idStatic=0;
+
     private int id;
 
     private int jX; // valeur de x à la création de la balle
+
     private int jY; // valeur de y à la création de la balle
+
     private int vitesse; // Vitesse de déplacement de la balle
     private Environnement environnement;
     private Acteur acteurQuiALancer;
@@ -90,7 +94,7 @@ public class Projectile {
         int[][] directions = {{0, 0},{5, 0},{5, 5},{0, 5}};
         for (int[] tab : directions){
             tuileATester = (prochaineValY+tab[0])/environnement.getInfoTuile()[0]*environnement.getInfoTuile()[1]+(prochaineValX+tab[1])/environnement.getInfoTuile()[0];
-            if (environnement.getMap().getListTuiles().get(tuileATester)==1)
+            if (environnement.getTerrain().getListTuiles().get(tuileATester)==1)
                 flag=true;
         }
 

@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.beans.binding.Bindings;
 
-
 public class ObservateurProjectile implements ListChangeListener<Projectile> {
     private Pane ballePane;
 
@@ -25,14 +24,14 @@ public class ObservateurProjectile implements ListChangeListener<Projectile> {
 
         while (projectile.next()){
             for(int i = 0; i < projectile.getAddedSize(); i++){
-                creerSprite(projectile.getAddedSubList().get(i));
+                creerVueProjectil(projectile.getAddedSubList().get(i));
             }
             for(int i = 0; i < projectile.getRemovedSize(); i++){
                 suprimerSprite(projectile.getRemoved().get(i));
             }
         }
     }
-    public void creerSprite(Projectile balle){
+    public void creerVueProjectil(Projectile balle){
 
         if(balle instanceof Balle){
 

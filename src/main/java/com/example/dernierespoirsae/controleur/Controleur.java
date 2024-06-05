@@ -2,11 +2,14 @@ package com.example.dernierespoirsae.controleur;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
+import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Armes.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -34,8 +37,6 @@ public class Controleur implements Initializable {
     private Pane armePaneMap;
     @FXML
     private Pane projectilePane;
-    @FXML
-    private TilePane animationPane;
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
@@ -46,25 +47,38 @@ public class Controleur implements Initializable {
         //creation de l'environement
         this.environnement = new Environnement(32, 100, 100);
 
+        //Definition de la taille des tuiles du FXML dépendamment de celles indiquées lors de la création de l'environnement
+        this.terrainPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
+        this.terrainPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
+
+        //Definition du nombre de colonnes et nombres de ligne du Terrain, dépendamment de celles indiquées lors de la création de l'environnement
+        this.terrainPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
+        this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+
         //Creation du joueur
         Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
-         * dans la liste d'acteur de l'environement (qui est une liste Observable)
-         */
+        *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
         ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
 
-        //Initialisation du BFS
-        this.bfs = new BFS(this.environnement);
+        //Lie l'observateur d'acteur a l'environnement
+        environnement.setListenerActeurs(observateurActeurs);
+
+        //Ajout du joueur a l'environnement
+        environnement.setJoueur(joueur);
 
         //Initialisation de la vueInventaire
         this.vueInventaire = new VueInventaire(inventairePane);
 
         //Initialisation de la vue Terrain
-        VueTerrain terrain =  new VueTerrain(environnement.getMap(), this.terrainPane);
+        VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
 
         //Initialise un observateur pour une liste d'arme
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
+
+        //Lie cet observateur a la liste d'arme dans l'environnement
+        environnement.setListenerArmes(observateurArme);
 
         //Creer des haches
         Arme hache = new Hache(60,150);
@@ -76,7 +90,7 @@ public class Controleur implements Initializable {
         Arme pistolet1 = new Pistolet(300,1000);
         Arme pistolet2 = new Pistolet(900,300);
 
-        //Ajoute des haches a l'environnement
+        //Ajoute les armes a l'environnement
         environnement.getListArmes().add(hache);
         environnement.getListArmes().add(pistolet);
         environnement.getListArmes().add(hache1);
@@ -85,54 +99,27 @@ public class Controleur implements Initializable {
         environnement.getListArmes().add(pistolet2);
 
         //Génére un terrain avec des tuile aléatoire
-        environnement.getMap().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
-
-        //Initialisation de la taille des tuiles du FXML dépendamment de celles indiquées lors de la création de l'environnement
-        this.terrainPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
-        this.terrainPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
-
-        //Initialisation du nombre de colonnes et nombres de ligne du Terrain, dépendamment de celles indiquées lors de la création de l'environnement
-        this.terrainPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
-        this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
-
-        //Lie l'observateur d'acteur a l'environnement
-        environnement.setListenerActeurs(observateurActeurs);
-
-        //Ajout du joueur a l'environnement
-        environnement.setJoueur(joueur);
-
-        //Ajout du BFS dans l'environnement
-        this.environnement.setBfs(this.bfs);
+        environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Affiche le terrain
         terrain.afficherTerrain();
 
-        //Lie cet observateur a la liste d'arme dans l'environnement
-        environnement.setListenerArmes(observateurArme);
-
         //Création d'un premier zombie MasticartorZ
-        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-
-        //Crée un Ennemi et l'ajoute a l'environnement
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
-        environnement.addActeurs(acteur1);
 
         //Création d'un 2e zombie LeZamikaze
-        Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur2);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
         environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
 
-        //Creer un sprite qui represente le joueur
-        new VueActeur(joueur, persoPane);
-
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
-        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.mapPane));
+        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane));
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
@@ -144,6 +131,12 @@ public class Controleur implements Initializable {
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
+
+        //Initialisation du BFS
+        this.bfs = new BFS(this.environnement);
+
+        //Ajout du BFS dans l'environnement
+        this.environnement.setBfs(this.bfs);
 
         //Demarrage de la gameLoop
         initAnimation();
@@ -217,13 +210,15 @@ public class Controleur implements Initializable {
                         this.vueInventaire.addViewArmeInventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
                     }
                 }
+
                 //Code pour l'explosion du LeZamikaze
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof Zamikaze){
+
                         Rectangle joueur = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
 
                         //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
-                        if ((environnement.getJoueur().getY() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                        if ((environnement.getJoueur().getY() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
                             ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
 
                             if (((Zamikaze) environnement.getListActeurs().get(i)).aExploser()){//Si le Zamikaze explose
@@ -250,11 +245,9 @@ public class Controleur implements Initializable {
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof BaveZmort){
                         ((BaveZmort) environnement.getListActeurs().get(i)).attaque(temps);
-//                        if ((environnement.getJoueur().getX()/environnement.getInfoTuile()[0]))
                         ((BaveZmort) environnement.getListActeurs().get(i)).joueurDansBave();
                     }
                 }
-
 
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     environnement.getListActeurs().get(i).seDeplacer();
@@ -271,9 +264,10 @@ public class Controleur implements Initializable {
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
+
     public void setImageAtIndex(int index, String imagePath) {
         // Obtenir le nœud à l'index spécifique
-        Node node = mapPane.getChildren().get(index);
+        Node node = terrainPane.getChildren().get(index);
 
         // Vérifier si le nœud est bien une instance d'ImageView
         if (node instanceof ImageView) {
@@ -285,6 +279,7 @@ public class Controleur implements Initializable {
         }
     }
     public void addGifToPane(int x, int y,int taille, String image) {
+
         // Charger le GIF
         Image gifImage = new Image(image);
 
@@ -296,14 +291,7 @@ public class Controleur implements Initializable {
         imageView.setY(y-taille+15+15);
         imageView.setFitWidth(taille);
         imageView.setFitHeight(taille);
-        // Ajouter le ImageView au Pane
         persoPane.getChildren().add(imageView);
-//        persoPane.getChildren().remove(imageView);
-
-
 
     }
-
-
-
 }

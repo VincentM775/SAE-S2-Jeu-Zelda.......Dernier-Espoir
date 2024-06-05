@@ -4,7 +4,6 @@ import com.example.dernierespoirsae.modele.Environnement;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,9 +18,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
+
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED) {
             pressedKeys.add(keyEvent.getCode());
-        } else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
+        }
+        else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
             pressedKeys.remove(keyEvent.getCode());
         }
 

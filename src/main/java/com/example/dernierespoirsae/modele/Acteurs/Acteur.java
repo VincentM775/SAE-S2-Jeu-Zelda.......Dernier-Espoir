@@ -1,8 +1,9 @@
-package com.example.dernierespoirsae.modele;
+package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +19,7 @@ public abstract class Acteur {
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
-    private String derniereDirection="null";
+    private String derniereDirection;
     private int nombreDeDegat;
     private static int idStatic=0;
     private int id;
@@ -122,7 +123,7 @@ public abstract class Acteur {
     }
 
     public abstract boolean seDeplacer();
-//    public abstract void agie();
+
     public int getLongTuile() {
         return longTuile;
     }
@@ -139,16 +140,13 @@ public abstract class Acteur {
         return environnement;
     }
 
-
     public Collision getHitBox() {
         return collision;
     }
 
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
-
 
     public String getDirection() {
         return direction;

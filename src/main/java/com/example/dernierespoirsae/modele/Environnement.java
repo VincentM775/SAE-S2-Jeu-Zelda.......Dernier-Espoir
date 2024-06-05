@@ -4,8 +4,7 @@ import com.example.dernierespoirsae.Vue.ObservateurActeurs;
 import com.example.dernierespoirsae.Vue.ObservateurArmes;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.Vue.ObservateurProjectile;
-import com.example.dernierespoirsae.modele.Acteur.Acteur;
-import com.example.dernierespoirsae.modele.Armes.Balle;
+import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
@@ -14,7 +13,6 @@ import com.example.dernierespoirsae.algo.BFS;
 
 public class Environnement{
 
-    private ObservableList<Acteur> acteurs;
     private Acteur joueur;
     private Terrain terrain;
     private BFS bfs;
@@ -53,7 +51,7 @@ public class Environnement{
         return this.joueur;
     }
 
-    public Terrain getMap() {
+    public Terrain getTerrain() {
         return this.terrain;
     }
 
@@ -85,9 +83,7 @@ public class Environnement{
     public ObservableList<Projectile> getListProjectile() {
         return Listprojectile;
     }
-    public void setListenerProjectile(ObservateurProjectile projectileObserve){
-        Listprojectile.addListener(projectileObserve);
-    }
+
     public void addProjectile(Projectile projectile){
         this.Listprojectile.add(projectile);
     }
@@ -95,6 +91,7 @@ public class Environnement{
     public ObservableList<Bave> getListBave() {
         return ListBave;
     }
+
     public void addBave(Bave bave){
         this.ListBave.add(bave);
     }

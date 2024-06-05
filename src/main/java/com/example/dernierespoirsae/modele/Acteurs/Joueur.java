@@ -1,9 +1,7 @@
-package com.example.dernierespoirsae.modele.Acteur;
+package com.example.dernierespoirsae.modele.Acteurs;
 
-import com.example.dernierespoirsae.modele.Acteur.Acteur;
-import com.example.dernierespoirsae.modele.Armes.Armes;
-import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -49,8 +47,5 @@ public class Joueur extends Acteur {
         setX(getX() + dx);
         setY(getY() + dy);
         return true;
-    }
-    public boolean meurt(){
-        return this.getVie()<=0;
     }
 }
