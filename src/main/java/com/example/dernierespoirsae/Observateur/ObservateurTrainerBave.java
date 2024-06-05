@@ -1,4 +1,4 @@
-package com.example.dernierespoirsae.Vue;
+package com.example.dernierespoirsae.Observateur;
 
 import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Environnement;

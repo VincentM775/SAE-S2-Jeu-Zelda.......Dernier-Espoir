@@ -1,9 +1,8 @@
 package com.example.dernierespoirsae.modele;
 
-import com.example.dernierespoirsae.Vue.ObservateurActeurs;
-import com.example.dernierespoirsae.Vue.ObservateurArmes;
+import com.example.dernierespoirsae.Observateur.ObservateurActeurs;
+import com.example.dernierespoirsae.Observateur.ObservateurArmes;
 import com.example.dernierespoirsae.modele.Armes.Arme;
-import com.example.dernierespoirsae.Vue.ObservateurProjectile;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Armes.Projectile;

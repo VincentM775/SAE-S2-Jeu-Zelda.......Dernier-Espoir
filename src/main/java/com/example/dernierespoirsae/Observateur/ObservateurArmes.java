@@ -1,5 +1,6 @@
-package com.example.dernierespoirsae.Vue;
+package com.example.dernierespoirsae.Observateur;
 
+import com.example.dernierespoirsae.Vue.VueArmes;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;

@@ -1,4 +1,4 @@
-package com.example.dernierespoirsae.Vue;
+package com.example.dernierespoirsae.Observateur;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import javafx.beans.value.ChangeListener;

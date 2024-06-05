@@ -1,5 +1,6 @@
-package com.example.dernierespoirsae.Vue;
+package com.example.dernierespoirsae.Observateur;
 
+import com.example.dernierespoirsae.Vue.VueActeur;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;

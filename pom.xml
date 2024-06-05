@@ -94,7 +94,7 @@
                         <configuration>
                             <classifier>spring-boot</classifier>
                             <mainClass>
-                                com.example.dernierespoirsae.Main1
+                                com.example.dernierespoirsae.Main
                             </mainClass>
                         </configuration>
                     </execution>

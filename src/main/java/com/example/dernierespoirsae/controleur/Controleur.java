@@ -1,4 +1,5 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.Observateur.*;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
