@@ -8,14 +8,14 @@ import javafx.collections.ObservableList;
 public abstract class Acteur {
 
     private ObservableList<Arme> armes;
-    private int vitesse = 1; // Vitesse de déplacement du joueur
+    private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Inventaire inventaire;
     private Environnement environnement;
     private String direction;
-    private String derniereDirection;
     private IntegerProperty vie;
+    private String derniereDirection="null";
     private int nombreDeDegat;
     private static int idStatic=0;
     private int id;
@@ -52,7 +52,7 @@ public abstract class Acteur {
     }
 
     public int getVie() {
-        return vie.get();
+        return vie.getValue();
     }
 
     public IntegerProperty vieProperty() {
@@ -64,6 +64,14 @@ public abstract class Acteur {
     }
     public int getId() {
         return this.id;
+    }
+
+    public String getDerniereDirection() {
+        return derniereDirection;
+    }
+
+    public void setDerniereDirection(String derniereDirection) {
+        this.derniereDirection = derniereDirection;
     }
 
     public void setX(int x){
@@ -101,6 +109,10 @@ public abstract class Acteur {
 
     public final IntegerProperty yProperty() {
         return yProperty;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public abstract void seDeplacer();
@@ -146,11 +158,5 @@ public abstract class Acteur {
     public Inventaire getInventaire() {
         return inventaire;
     }
-    public String getDerniereDirection() {
-        return derniereDirection;
-    }
 
-    public void setDerniereDirection(String derniereDirection) {
-        this.derniereDirection = derniereDirection;
-    }
 }

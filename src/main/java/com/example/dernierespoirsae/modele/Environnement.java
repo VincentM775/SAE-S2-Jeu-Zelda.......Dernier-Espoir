@@ -5,19 +5,31 @@ import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import com.example.dernierespoirsae.algo.BFS;
+
+import java.util.ArrayList;
+
 public class Environnement{
 
     private ObservableList<Acteur> acteurs;
     private Acteur joueur;
+    private Terrain terrain;
+    private BFS bfs;
+    private int[] infoTuile;
     private  ObservableList<Arme> listArmes;
-    private Map map;
 
-    public Environnement(int n){
+
+    public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
+        this.infoTuile = new int[3];
+        this.infoTuile[0] = tailleTuile;
+        this.infoTuile[1] = nombreDeTuileLongueur; //nombre de colonnes
+        this.infoTuile[2] = nombreDeTuileLargeur; //nombre de lignes
+        this.terrain = new Terrain();
         this.listArmes = FXCollections.observableArrayList();
-        this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
     }
+
     public void addActeurs(Acteur acteur) {
         this.acteurs.add(acteur);
     }
@@ -28,11 +40,13 @@ public class Environnement{
     public ObservableList<Acteur> getListActeurs(){
         return this.acteurs;
     }
+
     public Acteur getJoueur() {
-        return joueur;
+        return this.joueur;
     }
-    public Map getMap() {
-        return this.map;
+
+    public Terrain getMap() {
+        return this.terrain;
     }
 
     public void setJoueur(Acteur joueur) {
@@ -49,4 +63,16 @@ public class Environnement{
     }
 
 
+
+    public int[] getInfoTuile() {
+        return this.infoTuile;
+    }
+
+    public void setBfs(BFS bfs) {
+        this.bfs = bfs;
+    }
+
+    public BFS getBfs() {
+        return bfs;
+    }
 }

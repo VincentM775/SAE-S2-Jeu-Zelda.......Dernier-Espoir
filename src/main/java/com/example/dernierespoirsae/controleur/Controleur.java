@@ -1,22 +1,23 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
-import com.example.dernierespoirsae.modele.Armes.Arme;
-import com.example.dernierespoirsae.modele.Armes.Hache;
-import com.example.dernierespoirsae.modele.Armes.Pistolet;
+import com.example.dernierespoirsae.modele.Armes.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -27,6 +28,8 @@ public class Controleur implements Initializable {
 
     @FXML
     private Pane persoPane;
+    @FXML
+    private Pane principalPane;
 
     private VueInventaire vueInventaire;
 
@@ -43,10 +46,19 @@ public class Controleur implements Initializable {
     //sert la gameloop :
     private Timeline gameLoop;
     private int temps;
+    private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
 
-        this.environnement = new Environnement(375);
+        this.environnement = new Environnement(32, 125, 125);
+
+        environnement.getMap().generMap(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
+
+        this.mapPane.setPrefTileWidth(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefTileHeight(this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefWidth(this.environnement.getInfoTuile()[1] * this.environnement.getInfoTuile()[0]);
+        this.mapPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
+
 
 
         Acteur joueur = new Joueur(environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
@@ -58,6 +70,10 @@ public class Controleur implements Initializable {
         //Lie l'observateur d'acteur a l'envirenoment
         environnement.setListenerActeurs(observateurActeurs);
         environnement.setJoueur(joueur);
+
+        this.bfs = new BFS(this.environnement);
+        this.environnement.setBfs(this.bfs);
+
 
         this.vueInventaire = new VueInventaire(inventairePane);
 
@@ -88,17 +104,23 @@ public class Controleur implements Initializable {
 
 
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
-        acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
-        acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
+        acteur1.setVitesse(4); // Exemple : régler la vitesse à 2
         environnement.addActeurs(acteur1);
+
+        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
+        joueur.xProperty().addListener(listenerX);
+
+        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
+        joueur.yProperty().addListener(listenerY);
 
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
-
+        afficherMap(environnement.getMap());
         initAnimation();
         gameLoop.play();
     }
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps=0;
@@ -106,7 +128,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.016)),
+            Duration.seconds((0.040)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -167,12 +189,11 @@ public class Controleur implements Initializable {
                     }
                 }
 
-               environnement.getJoueur().seDeplacer();
-                if (temps%3==0){
-                    for (Acteur acteur : this.environnement.getListActeurs()) {
-                        if (acteur instanceof Ennemi) {
-                          (acteur).seDeplacer();
-                        }
+                environnement.getJoueur().seDeplacer();
+
+                for (Acteur acteur : this.environnement.getListActeurs()) {
+                    if (acteur instanceof Ennemi) {
+                        acteur.seDeplacer();
                     }
                 }
 
@@ -183,7 +204,9 @@ public class Controleur implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();
     }
+
 }
