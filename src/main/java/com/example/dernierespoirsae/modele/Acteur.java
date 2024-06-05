@@ -39,7 +39,7 @@ public abstract class Acteur {
         this.id=idStatic++;
         this.direction = "null";
         this.derniereDirection="null";
-        this.inventaire = new Inventaire(this.armes, this);
+        this.inventaire = new Inventaire();
         this.armes = FXCollections.observableArrayList();
     }
 
@@ -62,7 +62,6 @@ public abstract class Acteur {
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
     }
-
     public int getId() {
         return this.id;
     }
@@ -76,7 +75,6 @@ public abstract class Acteur {
             environnement.getListActeurs().remove(this);
         }
     }
-
     public void setY(int y){
         this.yProperty.setValue(y);
     }
@@ -106,7 +104,6 @@ public abstract class Acteur {
     }
 
     public abstract void seDeplacer();
-
     public int getLongTuile() {
         return longTuile;
     }
@@ -123,13 +120,16 @@ public abstract class Acteur {
         return environnement;
     }
 
+
     public Collision getHitBox() {
         return collision;
     }
 
+
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
 
     public String getDirection() {
         return direction;

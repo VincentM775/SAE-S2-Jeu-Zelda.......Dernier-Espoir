@@ -21,7 +21,8 @@ public class VueActeur {
         rectangle.translateXProperty().bind(acteur.xProperty());
         rectangle.translateYProperty().bind(acteur.yProperty());
         persoPane.getChildren().add(rectangle);
-        rectangle.setId(""+acteur.getId());
+        rectangle.setId(String.valueOf(acteur.getId()));
+
 
         if(acteur instanceof Joueur){
             rectangle.setFill(Color.BLUE);

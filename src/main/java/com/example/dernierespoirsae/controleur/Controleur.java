@@ -86,6 +86,7 @@ public class Controleur implements Initializable {
         environnement.getListArmes().add(pistolet1);
         environnement.getListArmes().add(pistolet2);
 
+
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.mapPane.getPrefTileWidth(), (int) this.mapPane.getPrefTileHeight(), this.mapPane.getPrefColumns());
         acteur1.setVitesse(5); // Exemple : régler la vitesse à 2
         acteur1.setNombreDePixelDeplacer(100); // Exemple : régler la distance à 100 pixels
@@ -116,7 +117,7 @@ public class Controleur implements Initializable {
 //                    }
 
                 //A modifier
-               int zoneDegat = 5;
+               int rayonInteraction = 5;//Nombre de pixel
 
                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
@@ -124,14 +125,18 @@ public class Controleur implements Initializable {
 
                    if (temps % 50 == 0) {
 
-                       //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
-                       if ((environnement.getJoueur().getY() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getY()
-                               && ((environnement.getJoueur().getY() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getY())
-                               && (environnement.getJoueur().getX() + rectangle.getWidth() + zoneDegat) >= environnement.getListActeurs().get(i).getX()
-                               && ((environnement.getJoueur().getX() - rectangle.getWidth() - zoneDegat) <= environnement.getListActeurs().get(i).getX())) {
+                       //Si un acteur est dans un rayon de 'rayonInteraction' autours du joueur alors
+                       if ((environnement.getJoueur().getY() + rectangle.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
+                               && ((environnement.getJoueur().getY() - rectangle.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getY())
+                               && (environnement.getJoueur().getX() + rectangle.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getX()
+                               && ((environnement.getJoueur().getX() - rectangle.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
+
                            if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
-                               //Enlève 10 pv au Zombie
+
+                               //Enlève 10 pv a l'acteur
                                environnement.getListActeurs().get(i).perdPV(10);
+
+                               //Vérifie si l'acteur doit mourir, si Oui il le supprime de l'environnement
                                environnement.getListActeurs().get(i).meurtOuVie();
                            }
                        }
@@ -142,14 +147,23 @@ public class Controleur implements Initializable {
 
                     ImageView imageView = (ImageView) armePaneMap.lookup("#" + environnement.getListArmes().get(i).getId());
 
-                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getY()
-                       && ((environnement.getJoueur().getY() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getY())
-                       && (environnement.getJoueur().getX() + imageView.getFitWidth() + zoneDegat) >= environnement.getListArmes().get(i).getX()
-                       && ((environnement.getJoueur().getX() - imageView.getFitWidth() - zoneDegat) <= environnement.getListArmes().get(i).getX())) {
+                    //Si le joueur est entré dans un rayon de 'rayonInteraction' autour d'une arme alors
+                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + rayonInteraction) >= environnement.getListArmes().get(i).getY()
+                       && ((environnement.getJoueur().getY() - imageView.getFitWidth() - rayonInteraction) <= environnement.getListArmes().get(i).getY())
+                       && (environnement.getJoueur().getX() + imageView.getFitWidth() + rayonInteraction) >= environnement.getListArmes().get(i).getX()
+                       && ((environnement.getJoueur().getX() - imageView.getFitWidth() - rayonInteraction) <= environnement.getListArmes().get(i).getX())) {
 
-                        this.vueInventaire.addViewArmeIventaire(environnement.getListArmes().get(i));
+                        //Ajoute l'arme a l'inventaire
                         environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
+
+                        //Recupère la position de l'arme ajouté dans l'inventaire
+                        int dernierElement = environnement.getJoueur().getInventaire().getArmes().size() - 1;
+
+                        //Supprime l'arme de la liste d'armes contenue dans l'environnement
                         environnement.getListArmes().remove(i);
+
+                        //Affiche cette arme dans l'inventaire
+                        this.vueInventaire.addViewArmeIventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
                     }
                 }
 

@@ -3,13 +3,13 @@ package com.example.dernierespoirsae.modele.Armes;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Arme {
-
+public abstract class Arme {
     private String type;
     private IntegerProperty xProperty, yProperty;
     private int degats;
     private static int idStatic=0;
     private int id;
+
     public Arme(int degats, String type) {
         this.type = type;
         this.degats = degats;
@@ -26,9 +26,9 @@ public class Arme {
         this.yProperty = new SimpleIntegerProperty(y);
     }
 
-    public int getDegats() {
-        return degats;
-    }
+    public abstract void incremeterQuantiteInventaire();
+
+    public abstract int getQuantite();
 
     public void setDegats(int degats) {
         this.degats = degats;
