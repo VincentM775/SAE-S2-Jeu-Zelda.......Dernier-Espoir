@@ -65,7 +65,6 @@ public abstract class Acteur {
 
     public void perdPV(int decrement){
         this.vie.setValue(this.vie.getValue()-decrement);
-        meurtOuVie();
     }
     public int getId() {
         return this.id;

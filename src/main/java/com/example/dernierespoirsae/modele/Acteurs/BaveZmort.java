@@ -4,7 +4,7 @@ import com.example.dernierespoirsae.modele.Armes.Balle;
 import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Environnement;
 
-public class BaveZmort extends Zombie {
+public class BaveZmort extends Ennemi {
     public BaveZmort(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(x, y, "BaveZmort", environnement, 60, 1, 5, longTuile, largeTuile, nbTuile, 6+(int) (Math.random()*2));
     }
@@ -14,6 +14,8 @@ public class BaveZmort extends Zombie {
         int tuileOuIlEstAvant = (getY()/getEnvironnement().getInfoTuile()[0])*getEnvironnement().getInfoTuile()[1]+(getX()/getEnvironnement().getInfoTuile()[0]);
         int tuileOuIlEst;
         boolean flag=false;
+
+        super.seDeplacer();
 
         if (joueurPresent()) { //Si un joueur est présent dans la portée de l'ennemi
             prochaineDirection(getX(), getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
@@ -43,6 +45,12 @@ public class BaveZmort extends Zombie {
 
         return flag;
     }
+
+    @Override
+    public void agit() {
+
+    }
+
     public void attaque(int temps){
         Balle bave;
         boolean val;
@@ -65,8 +73,6 @@ public class BaveZmort extends Zombie {
         }
     }
     public void joueurDansBave(){
-        boolean flag = false;
-
         if (detectJoueurDansBave()){
             getEnvironnement().getJoueur().setVitesse(2);
 //            getEnvironnement().getJoueur().perdPV(1);

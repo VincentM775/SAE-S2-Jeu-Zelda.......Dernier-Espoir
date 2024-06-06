@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.modele;
 
 import com.example.dernierespoirsae.Observateur.ObservateurActeurs;
 import com.example.dernierespoirsae.Observateur.ObservateurArmes;
+import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Armes.Bave;
@@ -19,7 +20,8 @@ public class Environnement{
     private ObservableList<Acteur> acteurs;
     private ObservableList<Projectile> Listprojectile;
     private ObservableList<Bave> ListBave;
-    private  ObservableList<Arme> listArmes;
+    private ObservableList<Arme> listArmes;
+    private int temps;
 
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -33,6 +35,7 @@ public class Environnement{
         this.joueur = null;
         this.Listprojectile = FXCollections.observableArrayList();
         this.ListBave = FXCollections.observableArrayList();
+        temps=0;
     }
 
     public void addActeurs(Acteur acteur) {
@@ -94,5 +97,17 @@ public class Environnement{
     public void addBave(Bave bave){
         this.ListBave.add(bave);
     }
+    public void agit(int index){
+        //TODO A FAIRE le 06/06/2024
+        // Faire agir tout le monde
 
+    }
+
+    public int getTemps() {
+        return temps;
+    }
+
+    public void setTemps(int temps) {
+        this.temps = temps;
+    }
 }

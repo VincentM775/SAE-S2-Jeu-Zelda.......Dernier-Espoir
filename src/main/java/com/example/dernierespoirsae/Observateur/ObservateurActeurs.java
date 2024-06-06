@@ -1,16 +1,26 @@
 package com.example.dernierespoirsae.Observateur;
 
-import com.example.dernierespoirsae.Vue.VueActeur;
+import com.example.dernierespoirsae.Vue.*;
+import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
+import com.example.dernierespoirsae.modele.Acteurs.BaveZmort;
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
+import com.example.dernierespoirsae.modele.Acteurs.MasticatorZ;
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
     private Pane persoPane;
+    private TilePane terrainPane;
+    private Environnement environnement;
 
-    public ObservateurActeurs(Pane pane) {
+    public ObservateurActeurs(Pane pane,TilePane terrainPane, Environnement environnement) {
         this.persoPane = pane;
+        this.environnement = environnement;
+        this.terrainPane = terrainPane;
     }
 
     @Override
@@ -22,7 +32,17 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
             for(int i = 0; i < acteurs.getAddedSize(); i++){
 
                 //Crée l'affichage de l'acteur i ajouté
-                new VueActeur(persoPane, acteurs.getAddedSubList().get(i));
+                if (acteurs.getAddedSubList().get(i) instanceof Joueur)
+                    new VueJoueur(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+
+                else if (acteurs.getAddedSubList().get(i) instanceof MasticatorZ)
+                    new VueMasticatorZ(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+
+                else if (acteurs.getAddedSubList().get(i) instanceof Zamikaze)
+                    new VueZamikaze(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+
+                else if (acteurs.getAddedSubList().get(i) instanceof BaveZmort)
+                    new VueBaveZmort(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
             }
 
             //Parcours la liste des acteurs supprimés a la liste et le supprime a l'affichage

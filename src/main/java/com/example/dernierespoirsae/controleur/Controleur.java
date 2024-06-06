@@ -61,7 +61,7 @@ public class Controleur implements Initializable {
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,terrainPane,environnement);
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -152,7 +152,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.040)),
+            Duration.seconds((0.050)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
@@ -163,6 +163,8 @@ public class Controleur implements Initializable {
 //                    }
 
                 //A modifier
+                environnement.setTemps(environnement.getTemps());
+
                int rayonInteraction = 5;//Nombre de pixel
 
                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
@@ -179,11 +181,8 @@ public class Controleur implements Initializable {
 
                            if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
 
-                               //Enlève 10 pv a l'acteur
+                               //Enlève 10 pv a l'acteur et Vérifie si l'acteur doit mourir, si Oui il le supprime de l'environnement
                                environnement.getListActeurs().get(i).perdPV(10);
-
-                               //Vérifie si l'acteur doit mourir, si Oui il le supprime de l'environnement
-                               environnement.getListActeurs().get(i).meurtOuVie();
                            }
                        }
                    }
@@ -213,37 +212,50 @@ public class Controleur implements Initializable {
                     }
                 }
                 rayonInteraction = 20;
-                //Code pour l'explosion du LeZamikaze
+
+                //Code pour faire agir les ennemi
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-                    if (environnement.getListActeurs().get(i) instanceof Zamikaze){
 
-                        Rectangle joueur = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
-
-                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
-                        if ((environnement.getJoueur().getY() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
-                            ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
-
-                            if (((Zamikaze) environnement.getListActeurs().get(i)).aExploser()){//Si le Zamikaze explose
-                                int tuileAcolonne = environnement.getListActeurs().get(i).getX()/environnement.getInfoTuile()[0];
-                                int tuileAligne = environnement.getListActeurs().get(i).getY()/environnement.getInfoTuile()[0];
-                                int tuilePositionEListe; //recupere la position de l'ennemi dans la liste
-                                addGifToPane(environnement.getListActeurs().get(i).getX(),environnement.getListActeurs().get(i).getY(),96,"file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif");
-
-                                for (int y=-1;y<=1;y++){
-                                    for (int x=-1;x<=1;x++){
-                                        if (tuileAligne+y>=0 && tuileAligne+y < environnement.getInfoTuile()[1] && tuileAcolonne+x>=0 && tuileAcolonne+x < environnement.getInfoTuile()[1]){
-                                            tuilePositionEListe = environnement.getInfoTuile()[1]*(tuileAligne+y)+(tuileAcolonne+x);
-                                            setImageAtIndex(tuilePositionEListe, "file:src/main/resources/com/example/dernierespoirsae/images/Grass_burned.png");
-
-                                        }
-                                    }
-                                }
-                                ((Zamikaze) environnement.getListActeurs().get(i)).meurt();
-                            }
-                        }
+                    if (environnement.getListActeurs().get(i) instanceof Ennemi) {
+                        ((Ennemi) environnement.getListActeurs().get(i)).agit();
 
                     }
                 }
+
+//                    if (environnement.getListActeurs().get(i) instanceof Zamikaze){
+//
+//                        Rectangle joueur = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
+//
+//                        //verifie si un acteur est dans un rayon de 'zoneDegat' autours du joueur
+//                        if ((environnement.getJoueur().getY() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY() && ((environnement.getJoueur().getY() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getY()) && (environnement.getJoueur().getX() + joueur.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getX() && ((environnement.getJoueur().getX() - joueur.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
+//                            ((Zamikaze) environnement.getListActeurs().get(i)).explose(temps);
+//
+//                            if (((Zamikaze) environnement.getListActeurs().get(i)).aExploser()){//Si le Zamikaze explose
+////                                //TODO---0000000000000000000000000000000000000000000000000000
+////                                int tuileAcolonne = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
+////                int tuileAligne = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
+////                int tuilePositionEListe; //recupere la position de l'ennemi dans la liste
+////                addGifToPane(environnement.getListActeurs().get(i).getX(), environnement.getListActeurs().get(i).getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif",480);
+////
+////                for (int y = -1; y <= 1; y++) {
+////                    for (int x = -1; x <= 1; x++) {
+////                        if (tuileAligne + y >= 0 && tuileAligne + y < environnement.getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < environnement.getInfoTuile()[1]) {
+////                            tuilePositionEListe = environnement.getInfoTuile()[1] * (tuileAligne + y) + (tuileAcolonne + x);
+////                            setImageAtIndex(tuilePositionEListe, "file:src/main/resources/com/example/dernierespoirsae/images/Grass_burned.png");
+////                        }
+////                    }
+////                }
+////                ((Zamikaze) environnement.getListActeurs().get(i)).meurt();
+////                //Faire un ajout de l'acteur dans une observable liste et dès que la liste détecte un ajout, il fait l'animation
+////                environnement.getListActeurs().get(i).meurtOuVie();
+////                                //TODO---0000000000000000000000000000000000000000000000000000
+//                            }
+//                        }
+//
+//                    }
+
+
+                //BaveZmort
                 for (int i = 0; i < environnement.getListActeurs().size(); i++) {
                     if (environnement.getListActeurs().get(i) instanceof BaveZmort){
                         ((BaveZmort) environnement.getListActeurs().get(i)).attaque(temps);
@@ -266,32 +278,4 @@ public class Controleur implements Initializable {
         persoPane.requestFocus();
     }
 
-    public void setImageAtIndex(int index, String imagePath) {
-        // Obtenir le nœud à l'index spécifique
-        Node node = terrainPane.getChildren().get(index);
-
-        // Vérifier si le nœud est bien une instance d'ImageView
-        if (node instanceof ImageView) {
-            ImageView imageView = (ImageView) node;
-
-            // Définir la nouvelle image
-            Image image = new Image(imagePath);
-            imageView.setImage(image);
-        }
-    }
-    public void addGifToPane(int x, int y,int taille, String image) {
-        // Charger le GIF
-        Image gifImage = new Image(image);
-
-        // Créer un ImageView pour contenir le GIF
-        ImageView imageView = new ImageView(gifImage);
-
-        // Définir la position et la taille du ImageView
-        imageView.setX((int) x-((double) taille /2));
-        imageView.setY(y-taille+15+15);
-        imageView.setFitWidth(taille);
-        imageView.setFitHeight(taille);
-        persoPane.getChildren().add(imageView);
-
-    }
 }

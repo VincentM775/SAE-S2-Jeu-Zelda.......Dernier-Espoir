@@ -3,7 +3,7 @@ package com.example.dernierespoirsae.modele.Acteurs;
 import com.example.dernierespoirsae.modele.Environnement;
 import java.util.ArrayList;
 
-public class Ennemi extends Acteur {
+public abstract class Ennemi extends Acteur {
 
     private int attentePourDeplacement = 0;
     private int nombreDePixelDeplacer = 10; // Distance totale à parcourir en pixels
@@ -174,13 +174,19 @@ public class Ennemi extends Acteur {
     }
 
     public boolean joueurPresent(){
+        return (joueurPresentDansRayonTuile(this.porteeDeVue));
+    }
+    public boolean joueurPresentDansRayonTuile(int rayonTuile){
+        return(joueurPresentDansRayonPixel(rayonTuile*getEnvironnement().getInfoTuile()[0]));
+    }
+    public boolean joueurPresentDansRayonPixel(int rayonPixel){
         //On récupère les numéros de ligne et de colonne sur la map
-        int aColonne = getX()/getEnvironnement().getInfoTuile()[0];
-        int aLigne = getY()/getEnvironnement().getInfoTuile()[0];
+        int aX = getX();
+        int aY = getY();
 
         //On renvoie true si le joueur se trouve dans la portée de l'ennemi
-        return (Math.abs(getEnvironnement().getJoueur().getX()/getEnvironnement().getInfoTuile()[0]-aColonne)<=this.porteeDeVue
-            &&Math.abs(getEnvironnement().getJoueur().getY()/getEnvironnement().getInfoTuile()[0]-aLigne)<=this.porteeDeVue);
+        return (Math.abs(getEnvironnement().getJoueur().getX()-aX)<=rayonPixel
+                &&Math.abs(getEnvironnement().getJoueur().getY()-aY)<=rayonPixel);
     }
 
     public int getAttentePourDeplacement() {
@@ -206,4 +212,5 @@ public class Ennemi extends Acteur {
     public int getDy() {
         return dy;
     }
+    public abstract void agit();
 }
