@@ -7,10 +7,11 @@ import javafx.scene.layout.Pane;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
-    private Pane persoPane;
+    private Pane persoPane, barreViePane;
 
-    public ObservateurActeurs(Pane pane) {
+    public ObservateurActeurs(Pane pane, Pane barreViePane) {
         this.persoPane = pane;
+        this.barreViePane = barreViePane;
     }
 
     @Override
@@ -20,9 +21,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
             //Parcours la liste des acteurs ajoutés a la liste et le créer a l'affichage
             for(int i = 0; i < acteurs.getAddedSize(); i++){
-
                 //Crée l'affichage de l'acteur i ajouté
-                new VueActeur(persoPane, acteurs.getAddedSubList().get(i));
+                new VueActeur(persoPane, acteurs.getAddedSubList().get(i), barreViePane);
             }
 
             //Parcours la liste des acteurs supprimés a la liste et le supprime a l'affichage
@@ -30,6 +30,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
                 //Supprime l'affiche de l'acteur
                 this.persoPane.getChildren().remove(this.persoPane.lookup("#"+acteurs.getRemoved().get(i).getId()));
+                this.persoPane.getChildren().remove(this.persoPane.lookup("#"+"barre"+acteurs.getRemoved().get(i).getId()));
+
             }
         }
     }

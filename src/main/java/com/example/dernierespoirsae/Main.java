@@ -8,10 +8,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    public static int longeur = 1100;
+    public static int largeur = 600;
     @Override
     public void start(Stage stage) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vueDernierEspoir.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1100,600);
+        Scene scene = new Scene(fxmlLoader.load(),longeur,largeur);
+        scene.getStylesheets().add(getClass().getResource("dernierEspoir.css").toExternalForm());
         stage.setTitle("Dernier Espoir");
         stage.setScene((scene));
         stage.show();

@@ -27,11 +27,13 @@ public abstract class Acteur {
     private int largeTuile;
     private int nbTuile;
     private Collision collision;
+    private IntegerProperty maxVie;
 
     public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
+        this.maxVie = new SimpleIntegerProperty(vie); // Initialiser maxVie à la valeur de vie initiale
         this.environnement = environnement;
         this.vitesse = vitesse;
         this.vie = new SimpleIntegerProperty(vie);
@@ -47,6 +49,12 @@ public abstract class Acteur {
         this.armes = FXCollections.observableArrayList();
     }
 
+    public int getMaxVie() {
+        return maxVie.get();
+    }
+    public IntegerProperty maxVie() {
+        return maxVie;
+    }
     public int getVitesse() {
         return vitesse;
     }
@@ -59,7 +67,7 @@ public abstract class Acteur {
         return vie.getValue();
     }
 
-    public IntegerProperty vieProperty() {
+    public IntegerProperty getVieProperty() {
         return vie;
     }
 

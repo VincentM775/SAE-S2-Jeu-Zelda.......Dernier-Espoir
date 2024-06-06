@@ -1,4 +1,5 @@
 package com.example.dernierespoirsae.controleur;
+import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.Observateur.*;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
@@ -28,7 +29,7 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane terrainPane;
     @FXML
-    private Pane persoPane;
+    private Pane persoPane, barreViePane;
     @FXML
     private Pane principalPane;
     private VueInventaire vueInventaire;
@@ -61,7 +62,7 @@ public class Controleur implements Initializable {
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane, barreViePane);
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -140,6 +141,9 @@ public class Controleur implements Initializable {
         //Ajout du BFS dans l'environnement
         this.environnement.setBfs(this.bfs);
 
+        this.principalPane.setTranslateX(Main.largeur/2 - joueur.getX()); //Centrer la vu sur le joueur
+        this.principalPane.setTranslateY(Main.largeur/2 - joueur.getY() - 20);
+
         //Demarrage de la gameLoop
         initAnimation();
         gameLoop.play();
@@ -181,9 +185,6 @@ public class Controleur implements Initializable {
 
                                //Enlève 10 pv a l'acteur
                                environnement.getListActeurs().get(i).perdPV(10);
-
-                               //Vérifie si l'acteur doit mourir, si Oui il le supprime de l'environnement
-                               environnement.getListActeurs().get(i).meurtOuVie();
                            }
                        }
                    }
