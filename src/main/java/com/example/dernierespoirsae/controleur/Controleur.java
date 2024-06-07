@@ -1,4 +1,5 @@
 package com.example.dernierespoirsae.controleur;
+
 import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.Observateur.*;
 import com.example.dernierespoirsae.algo.BFS;
@@ -173,7 +174,7 @@ public class Controleur implements Initializable {
 
                    Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
 
-                   if (temps % 50 == 0) {
+                   if (temps % 5 == 0) {
 
                        //Si un acteur est dans un rayon de 'rayonInteraction' autours du joueur alors
                        if ((environnement.getJoueur().getY() + rectangle.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
@@ -183,8 +184,8 @@ public class Controleur implements Initializable {
 
                            if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
 
-                               //Enlève 10 pv a l'acteur
-                               environnement.getListActeurs().get(i).perdPV(10);
+                               //Enlève 4 pv a l'acteur
+                               environnement.getListActeurs().get(i).perdPV(4);
                            }
                        }
                    }
