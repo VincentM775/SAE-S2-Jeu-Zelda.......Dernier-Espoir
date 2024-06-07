@@ -6,12 +6,11 @@ import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Rectangle;
 
-public class VueZamikaze extends VueActeur{
+public class VueZamikaze extends VueZombie{
 
-    public VueZamikaze(Pane persoPane, TilePane terrainPane, Acteur acteur, Environnement environnement) {
-        super(persoPane, terrainPane, acteur, environnement);
+    public VueZamikaze(Pane persoPane,Pane barreViePane, TilePane terrainPane, Acteur acteur, Environnement environnement) {
+        super(persoPane,barreViePane, terrainPane, acteur, environnement);
         ChangeListener<Boolean> explosion = ((obs,old,nouv)-> explosion());
         ((Zamikaze)acteur).getAExploseeProperty().addListener(explosion);
 

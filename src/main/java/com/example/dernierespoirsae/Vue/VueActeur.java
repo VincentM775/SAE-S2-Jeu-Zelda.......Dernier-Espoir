@@ -22,13 +22,15 @@ public abstract class VueActeur {
     private TilePane terrainPane;
     private Environnement environnement;
     private Acteur acteur;
+    private ProgressBar barreVie;
 
-    public VueActeur(Pane persoPane,TilePane terrainPane,Pane barreViePane, Acteur acteur,Environnement environnement) {
+    public VueActeur(Pane persoPane,Pane barreViePane,TilePane terrainPane, Acteur acteur,Environnement environnement) {
         this.persoPane = persoPane;
         this.terrainPane=terrainPane;
         this.barreViePane = barreViePane;
         this.environnement = environnement;
         this.acteur = acteur;
+        this.barreVie = new ProgressBar();
         creerRectangle(acteur);
         creerBarreVie(acteur);
     }
@@ -95,9 +97,6 @@ public abstract class VueActeur {
 
 
     public void creerBarreVie(Acteur acteur) {
-
-        ProgressBar barreVie = new ProgressBar();
-
         NumberBinding progressBinding = Bindings.createDoubleBinding(
                 () -> acteur.getVieProperty().get() / (double) acteur.getMaxVie(),
                 acteur.getVieProperty(), acteur.maxVie()
@@ -107,22 +106,9 @@ public abstract class VueActeur {
 
         barreVie.setId("barre"+acteur.getId());
 
-        if (acteur instanceof Ennemi) {
-
-            barreVie.getStyleClass().add("health-bar-ennemi");
-            barreVie.translateXProperty().bind(acteur.xProperty().subtract(20 - acteur.getHitBox().getLongueur() / 2));
-            barreVie.translateYProperty().bind(acteur.yProperty().subtract(15));
-            persoPane.getChildren().add(barreVie);
-
-        }
-        else if(acteur instanceof Joueur) {
-
-            barreVie.getStyleClass().add("health-bar-joueur");
-            this.barreViePane.getChildren().add(barreVie);
-            barreVie.translateXProperty().setValue(0);
-            barreVie.translateYProperty().setValue(0);
-        }
+        definitionbarreDeVie();
     }
+    public abstract void definitionbarreDeVie();
 
     public Environnement getEnvironnement() {
         return environnement;
@@ -138,5 +124,13 @@ public abstract class VueActeur {
 
     public Acteur getActeur() {
         return acteur;
+    }
+
+    public Pane getBarreViePane() {
+        return barreViePane;
+    }
+
+    public ProgressBar getBarreVie() {
+        return barreVie;
     }
 }

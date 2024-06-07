@@ -1,6 +1,5 @@
 package com.example.dernierespoirsae.controleur;
 
-import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.Observateur.*;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
@@ -11,8 +10,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -167,7 +164,7 @@ public class Controleur implements Initializable {
                 //A modifier
                 environnement.setTemps(environnement.getTemps()+1);
 
-               int rayonInteraction = 1;//Nombre de pixel
+               int rayonInteraction = 25;//Nombre de pixel
 
                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
@@ -183,6 +180,7 @@ public class Controleur implements Initializable {
 
                                //Enlève 4 pv a l'acteur
                                environnement.getListActeurs().get(i).perdPV(4);
+                               environnement.getListActeurs().get(i).meurtOuVie();
                            }
                        }
                    }

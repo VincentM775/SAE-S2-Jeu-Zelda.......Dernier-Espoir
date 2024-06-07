@@ -1,5 +1,6 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
+import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.collections.FXCollections;
@@ -10,7 +11,7 @@ public class Joueur extends Acteur {
     private ObservableList<Arme> armes;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(500,500, "Johnny", environnement, 20, 4, 7, longTuile, largeTuile, nbTuile, 15, 15);
+        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 20, 4, 7, longTuile, largeTuile, nbTuile, 15, 15);
         this.armes = FXCollections.observableArrayList();
     }
 

@@ -31,10 +31,9 @@
             </center>
         </BorderPane>
     </right>
-    <top>
-        <HBox fx:id="barreVieBox"/>
-    </top>
-    <left>
-        <Pane fx:id="barreViePane"/>
-    </left>
+
+    <HBox fx:id="barreVieBox"/>
+
+    <Pane fx:id="barreViePane"/>
+
 </BorderPane>
