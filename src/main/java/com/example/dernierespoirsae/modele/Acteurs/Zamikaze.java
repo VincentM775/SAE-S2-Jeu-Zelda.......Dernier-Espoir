@@ -18,33 +18,34 @@ public class Zamikaze extends Ennemi {
         int tuileAcolonne;
         int tuileAligne;
 
-        if (joueurPresentDansRayonPixel(40)) {
+        if (temps%5==0) {
+            if (joueurPresentDansRayonPixel(40)) {
 
-            if (this.compteurTemps == 0) {
-                this.compteurTemps = temps;
-                this.compteurTemps += 75;
-            }
+                if (this.compteurTemps == 0) {
+                    this.compteurTemps = temps;
+                    this.compteurTemps += 35;
+                }
 
-            if (temps >= this.compteurTemps) {
-                tuileAcolonne = getX() / getEnvironnement().getInfoTuile()[0];
-                tuileAligne = getY() / getEnvironnement().getInfoTuile()[0];
+                if (temps >= this.compteurTemps) {
+                    tuileAcolonne = getX() / getEnvironnement().getInfoTuile()[0];
+                    tuileAligne = getY() / getEnvironnement().getInfoTuile()[0];
 
-                for (int y = -1; y <= 1; y++) {
-                    for (int x = -1; x <= 1; x++) {
-                        if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                            getEnvironnement().getTerrain().getListTuiles().remove(caseAExploser(y, x)); //case à remplacer selon x et y
-                            getEnvironnement().getTerrain().getListTuiles().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
-                            setaExplosee(true);
+                    for (int y = -1; y <= 1; y++) {
+                        for (int x = -1; x <= 1; x++) {
+                            if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
+                                getEnvironnement().getTerrain().getListTuiles().remove(caseAExploser(y, x)); //case à remplacer selon x et y
+                                getEnvironnement().getTerrain().getListTuiles().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
+                                setaExplosee(true);
 //                        getEnvironnement().getJoueur().perdPV(10); //Le joueur prend des dégâts
 
+                            }
                         }
                     }
+                    this.compteurTemps = 0;
                 }
-                this.compteurTemps = 0;
+            } else {
+                this.compteurTemps = 0; //Si le joueur n'est plus dans la zone d'explosion, on réinitialise le compteur à 0
             }
-        }
-        else {
-            this.compteurTemps = 0; //Si le joueur n'est plus dans la zone d'explosion, on réinitialise le compteur à 0
         }
     }
     public int caseAExploser(int caseY,int caseX){
@@ -53,10 +54,6 @@ public class Zamikaze extends Ennemi {
 
     public void meurt() {
         this.perdPV(this.getVie()); //Zamikaze se suicide
-    }
-
-    public boolean aExploser(){
-        return this.aExplosee.getValue();
     }
 
     public void setaExplosee(boolean aExplosee) {
