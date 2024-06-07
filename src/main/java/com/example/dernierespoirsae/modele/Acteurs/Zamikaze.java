@@ -33,8 +33,8 @@ public class Zamikaze extends Ennemi {
                     for (int y = -1; y <= 1; y++) {
                         for (int x = -1; x <= 1; x++) {
                             if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                                getEnvironnement().getTerrain().getListTuiles().remove(caseAExploser(y, x)); //case à remplacer selon x et y
-                                getEnvironnement().getTerrain().getListTuiles().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
+                                getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
+                                getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
                                 setaExplosee(true);
                             }
                         }

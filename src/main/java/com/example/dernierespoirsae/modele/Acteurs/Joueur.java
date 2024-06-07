@@ -64,7 +64,6 @@ public class Joueur extends Acteur {
         for (int i = 0; i < getEnvironnement().getListArmes().size(); i++) {
             if (estPresentDansRayonPixel(30,getEnvironnement().getListArmes().get(i).getX(),getEnvironnement().getListArmes().get(i).getY())){
                 if (getTouche().contains("R")) {
-                    getEnvironnement().getJoueur().getInventaire().getArmes().add(getEnvironnement().getListArmes().get(i));
                     getInventaire().getArmes().add(getEnvironnement().getListArmes().get(i));
                     getEnvironnement().getListArmes().remove(i);
                 }

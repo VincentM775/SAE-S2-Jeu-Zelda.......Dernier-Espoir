@@ -95,7 +95,7 @@ public class Projectile {
         int[][] directions = {{0, 0},{5, 0},{5, 5},{0, 5}};
         for (int[] tab : directions){
             tuileATester = (prochaineValY+tab[0])/environnement.getInfoTuile()[0]*environnement.getInfoTuile()[1]+(prochaineValX+tab[1])/environnement.getInfoTuile()[0];
-            if (environnement.getTerrain().getListTuiles().get(tuileATester)==1)
+            if (environnement.getTerrain().getTerrain().get(tuileATester)==1)
                 flag=true;
         }
 

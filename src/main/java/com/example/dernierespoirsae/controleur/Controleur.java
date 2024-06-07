@@ -43,6 +43,7 @@ public class Controleur implements Initializable {
     private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
+        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/dernierespoirsae/terrain.json");
 
         //creation de l'environement
         this.environnement = new Environnement(32, 100, 100);
@@ -72,7 +73,7 @@ public class Controleur implements Initializable {
         this.vueInventaire = new VueInventaire(inventairePane);
 
         //Initialisation de la vue Terrain
-        VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
+        VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2());
 
         //Initialise un observateur pour une liste d'arme
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
@@ -102,7 +103,7 @@ public class Controleur implements Initializable {
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Affiche le terrain
-        terrain.afficherTerrain();
+//        terrain.afficherTerrain();
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
