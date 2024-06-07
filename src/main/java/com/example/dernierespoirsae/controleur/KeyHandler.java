@@ -28,6 +28,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         // Mise à jour de la direction du joueur en fonction des touches enfoncées
         String direction = "";
+        String touche = "";
 
         if (pressedKeys.contains(KeyCode.Z)) {
             direction += "up";
@@ -41,8 +42,15 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (pressedKeys.contains(KeyCode.D)) {
             direction += "right";
         }
+        if (pressedKeys.contains(KeyCode.R)) {
+            touche += "R";
+        }
+        if (pressedKeys.contains(KeyCode.SPACE)) {
+            touche += " ";
+        }
 
         // Set de la nouvelle direction pour le joueur
         environnement.getJoueur().setDirection(direction);
+        environnement.getJoueur().setTouche(touche);
     }
 }

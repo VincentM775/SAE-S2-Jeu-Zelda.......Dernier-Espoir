@@ -10,6 +10,11 @@ public class MasticatorZ extends Ennemi {
 
     @Override
     public void agit() {
-
+        seDeplacer();
+//        if (joueurPresent()){
+//            getEnvironnement().getJoueur().perdPV(1);
+//        }
     }
+    @Override
+    public void enleverEffet() {} //S'il y a des effets a enlever au moment de mourir, c'est à mettre ici
 }

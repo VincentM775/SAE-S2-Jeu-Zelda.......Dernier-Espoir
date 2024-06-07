@@ -10,6 +10,7 @@ import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.dernierespoirsae.algo.BFS;
+import javafx.scene.image.ImageView;
 
 public class Environnement{
 
@@ -97,10 +98,23 @@ public class Environnement{
     public void addBave(Bave bave){
         this.ListBave.add(bave);
     }
-    public void agit(int index){
-        //TODO A FAIRE le 06/06/2024
-        // Faire agir tout le monde
+    public void agit() {
 
+        for (int i = 0; i < getListActeurs().size(); i++) {
+            getListActeurs().get(i).agit(); //On fait agir les acteurs
+            if (getListActeurs().get(i) != getJoueur()) {
+
+
+                getListActeurs().get(i).meurtOuVie(); //Supprime les acteurs qui sont morts
+            }
+
+
+        }
+
+
+    }
+    public void unTour(){
+        agit();
     }
 
     public int getTemps() {

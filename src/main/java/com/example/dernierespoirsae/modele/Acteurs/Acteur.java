@@ -20,7 +20,7 @@ public abstract class Acteur {
     private String direction;
     private IntegerProperty vie;
     private String derniereDirection;
-    private int nombreDeDegat;
+
     private static int idStatic=0;
     private int id;
     private int longTuile;
@@ -28,8 +28,9 @@ public abstract class Acteur {
     private int nbTuile;
     private Collision collision;
     private IntegerProperty maxVie;
+    private String touche;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -37,7 +38,6 @@ public abstract class Acteur {
         this.environnement = environnement;
         this.vitesse = vitesse;
         this.vie = new SimpleIntegerProperty(vie);
-        this.nombreDeDegat = nombreDeDegat;
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
@@ -90,14 +90,7 @@ public abstract class Acteur {
         this.xProperty.setValue(x);
     }
 
-    public void meurtOuVie(){
-        if(this.vie.getValue() <= 0) {
-            if (this instanceof Ennemi)
-                environnement.getListActeurs().remove(this);
-            else if (this instanceof Joueur)
-                environnement.setJoueur(null);
-        }
-    }
+    public abstract void meurtOuVie();
     public void setY(int y){
         this.yProperty.setValue(y);
     }
@@ -130,7 +123,7 @@ public abstract class Acteur {
         return nom;
     }
 
-    public abstract boolean seDeplacer();
+    public abstract void seDeplacer();
 
     public int getLongTuile() {
         return longTuile;
@@ -172,7 +165,22 @@ public abstract class Acteur {
         return inventaire;
     }
 
-    public int getNombreDeDegat() {
-        return nombreDeDegat;
+
+    public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
+        //On récupère les numéros de ligne et de colonne sur la map
+        int aX = getX();
+        int aY = getY();
+
+        //On renvoie true si les coordonnées x et y entrée en paramètre se trouve dans la portée de l'acteur
+        return (Math.abs(x-aX)<=rayonPixel && Math.abs(y-aY)<=rayonPixel);
     }
+
+    public void setTouche(String touche) {
+        this.touche = touche;
+    }
+
+    public String getTouche() {
+        return touche;
+    }
+    public abstract void agit();
 }

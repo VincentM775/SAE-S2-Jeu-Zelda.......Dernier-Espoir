@@ -4,6 +4,7 @@ import com.example.dernierespoirsae.modele.Environnement;
 import java.util.ArrayList;
 
 public abstract class Ennemi extends Acteur {
+    private int nombreDeDegat;
 
     private int attentePourDeplacement = 0;
     private int nombreDePixelDeplacer = 10; // Distance totale à parcourir en pixels
@@ -13,12 +14,13 @@ public abstract class Ennemi extends Acteur {
     private int porteeDeVue;
 
     public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue) {
-        super(x, y, nom, environnement, vie, vitesse, nombreDeDegat, longTuile, largeTuile, nbTuile,15,15);
+        super(x, y, nom, environnement, vie, vitesse, longTuile, largeTuile, nbTuile,15,15);
         this.porteeDeVue = porteeDeVue;
+        this.nombreDeDegat=nombreDeDegat;
     }
 
     @Override
-    public boolean seDeplacer() {
+    public void seDeplacer() {
         if (joueurPresent()){
             //Si un joueur est présent dans la portée de l'ennemi
             prochaineDirection(getX(),getY()); //Grace au BFS, on cherche la prochaine direction et la set automatiquement
@@ -35,7 +37,7 @@ public abstract class Ennemi extends Acteur {
                 deplacementRestant -= Math.abs(dx) + Math.abs(dy);
             }
         }
-        return true;
+
     }
     public void suivreJoueurDansMemeCase(){
         int deltaX = getEnvironnement().getJoueur().getX() - getX(); //Calcul en X  la différence entre le x du joueur et x de l'ennemi
@@ -180,13 +182,7 @@ public abstract class Ennemi extends Acteur {
         return(joueurPresentDansRayonPixel(rayonTuile*getEnvironnement().getInfoTuile()[0]));
     }
     public boolean joueurPresentDansRayonPixel(int rayonPixel){
-        //On récupère les numéros de ligne et de colonne sur la map
-        int aX = getX();
-        int aY = getY();
-
-        //On renvoie true si le joueur se trouve dans la portée de l'ennemi
-        return (Math.abs(getEnvironnement().getJoueur().getX()-aX)<=rayonPixel
-                &&Math.abs(getEnvironnement().getJoueur().getY()-aY)<=rayonPixel);
+        return(estPresentDansRayonPixel(rayonPixel,getEnvironnement().getJoueur().getX(),getEnvironnement().getJoueur().getY()));
     }
 
     public int getAttentePourDeplacement() {
@@ -212,5 +208,16 @@ public abstract class Ennemi extends Acteur {
     public int getDy() {
         return dy;
     }
-    public abstract void agit();
+    public abstract void enleverEffet();
+
+    @Override
+    public void meurtOuVie() {
+        if (getVie() <= 0) {
+            enleverEffet();
+            getEnvironnement().getListActeurs().remove(this);
+        }
+    }
+    public int getNombreDeDegat() {
+        return nombreDeDegat;
+    }
 }

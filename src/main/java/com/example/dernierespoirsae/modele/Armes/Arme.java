@@ -62,15 +62,11 @@ public abstract class Arme {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Arme{" +
-                "type='" + type + '\'' +
-                ", id=" + id +
-                '}';
-    }
-
     public String getType() {
         return type;
+    }
+
+    public int getDegats() {
+        return degats;
     }
 }

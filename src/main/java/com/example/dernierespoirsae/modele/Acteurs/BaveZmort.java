@@ -10,12 +10,10 @@ public class BaveZmort extends Ennemi {
         super(x, y, "BaveZmort", environnement, 60, 1, 5, longTuile, largeTuile, nbTuile, 6+(int) (Math.random()*2));
         enregistrementVitesseJoueur = getEnvironnement().getJoueur().getVitesse();
     }
-    @Override
-    public boolean seDeplacer() {
+    public void seDeplacer() {
         Bave bave;
         int tuileOuIlEstAvant = (getY()/getEnvironnement().getInfoTuile()[0])*getEnvironnement().getInfoTuile()[1]+(getX()/getEnvironnement().getInfoTuile()[0]);
         int tuileOuIlEst;
-        boolean flag=false;
 
         super.seDeplacer();
 
@@ -42,15 +40,23 @@ public class BaveZmort extends Ennemi {
         if (tuileOuIlEst!=tuileOuIlEstAvant) {
             bave = new Bave(getEnvironnement(), this);
             getEnvironnement().addBave(bave);
-            flag = true;
         }
 
-        return flag;
+    }
+
+    @Override
+    public void enleverEffet() {
+        getEnvironnement().getJoueur().setVitesse(this.enregistrementVitesseJoueur);
+        for (int i=(getEnvironnement().getListBave().size()-1);i>=0;i--){
+            getEnvironnement().getListBave().remove(i);
+        }
     }
 
     @Override
     public void agit() {
-
+        seDeplacer();
+        attaque(getEnvironnement().getTemps());
+        joueurDansBave();
     }
 
     public void attaque(int temps){
@@ -65,13 +71,12 @@ public class BaveZmort extends Ennemi {
         }
         for(int i=0;i< getEnvironnement().getListProjectile().size();i++) {
 
-            if (getEnvironnement().getListProjectile().get(i) instanceof Balle) {
-                val = getEnvironnement().getListProjectile().get(i).avance();
+            val = getEnvironnement().getListProjectile().get(i).avance();
 
-                if (getEnvironnement().getListProjectile().get(i).testProjectileArriverSurJoueur() || !val) {
-                    getEnvironnement().getListProjectile().remove(i);
-                }
+            if (getEnvironnement().getListProjectile().get(i).testProjectileArriverSurJoueur() || !val) {
+                getEnvironnement().getListProjectile().remove(i);
             }
+
         }
     }
     public void joueurDansBave(){
