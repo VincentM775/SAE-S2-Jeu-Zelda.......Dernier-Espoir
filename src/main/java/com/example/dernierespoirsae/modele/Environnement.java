@@ -49,8 +49,8 @@ public class Environnement{
         return this.acteurs;
     }
 
-    public Acteur getJoueur() {
-        return this.joueur;
+    public Joueur getJoueur() {
+        return (Joueur) this.joueur;
     }
 
     public Terrain getTerrain() {

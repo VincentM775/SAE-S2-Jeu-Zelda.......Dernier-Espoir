@@ -15,7 +15,6 @@ public abstract class Acteur {
     private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
-    private Inventaire inventaire;
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
@@ -45,7 +44,6 @@ public abstract class Acteur {
         this.id=idStatic++;
         this.direction = "null";
         this.derniereDirection="null";
-        this.inventaire = new Inventaire();
         this.armes = FXCollections.observableArrayList();
     }
 
@@ -166,10 +164,6 @@ public abstract class Acteur {
 
     public void setArmes(ObservableList<Arme> armes) {
         this.armes = armes;
-    }
-
-    public Inventaire getInventaire() {
-        return inventaire;
     }
 
     public int getNombreDeDegat() {

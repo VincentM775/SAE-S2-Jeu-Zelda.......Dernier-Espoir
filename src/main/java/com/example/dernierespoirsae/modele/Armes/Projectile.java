@@ -1,6 +1,7 @@
 package com.example.dernierespoirsae.modele.Armes;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -107,9 +108,13 @@ public class Projectile {
         int caseAX = 0;
         int caseAY = 0 ;
         for (int i=0;i< environnement.getListActeurs().size();i++){
-            if (environnement.getListActeurs().get(i) != acteurQuiALancer) {
+            if (environnement.getListActeurs().get(i) != acteurQuiALancer && environnement.getListActeurs().get(i) instanceof Joueur)
+            {
                 caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
                 caseAY = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
+                if((caseAX==prochaineValX && caseAY==prochaineValY)){
+                    environnement.getJoueur().getInventaire().getArmes().remove(0);
+                }
             }
         }
         return (caseAX==prochaineValX && caseAY==prochaineValY);

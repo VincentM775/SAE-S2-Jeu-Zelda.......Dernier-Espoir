@@ -58,7 +58,7 @@ public class BaveZmort extends Ennemi {
         boolean val;
 
         if (joueurPresent()){
-            if (temps % 20==0 ){
+            if (temps % 30==0 ){
                 bave = new Balle(getNombreDeDegat(),getX() + (15 / 2)+2-(15/2),getY() + (15 / 2)+2- (18/2) ,getEnvironnement(),this);
                 getEnvironnement().addProjectile(bave);
             }

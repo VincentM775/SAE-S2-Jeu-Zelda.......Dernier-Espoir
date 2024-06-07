@@ -42,7 +42,6 @@ public abstract class VueActeur {
         rectangle.translateYProperty().bind(acteur.yProperty());
         rectangle.setId(String.valueOf(acteur.getId()));
         persoPane.getChildren().add(rectangle);
-        System.out.println(definitionCouleur());
         //Modifie la couleur du rectangle selon ce qu'il est
         switch (definitionCouleur()) {
             case 0:

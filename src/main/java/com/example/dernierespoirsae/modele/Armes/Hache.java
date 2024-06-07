@@ -2,7 +2,7 @@ package com.example.dernierespoirsae.modele.Armes;
 
 public class Hache extends Arme {
 
-    private static int quantiteStatic = 1;
+    private static int quantiteStatic = 0;
     private int quantite;
 
     public Hache(int x, int y) {
@@ -11,8 +11,8 @@ public class Hache extends Arme {
     }
 
     @Override
-    public void incremeterQuantiteInventaire(){
-        this.quantite = quantiteStatic++;
+    public void incremeterDecremeterQuantiteInventaire(int val){
+        this.quantite = quantiteStatic+=val;
     }
 
     @Override

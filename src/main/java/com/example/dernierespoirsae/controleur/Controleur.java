@@ -56,7 +56,7 @@ public class Controleur implements Initializable {
         this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
 
         //Creation du joueur
-        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventairePane);
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
@@ -67,9 +67,6 @@ public class Controleur implements Initializable {
 
         //Ajout du joueur a l'environnement
         environnement.setJoueur(joueur);
-
-        //Initialisation de la vueInventaire
-        this.vueInventaire = new VueInventaire(inventairePane);
 
         //Initialisation de la vue Terrain
         VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
@@ -113,7 +110,7 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur2);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(60,150, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
@@ -205,8 +202,7 @@ public class Controleur implements Initializable {
                         //Supprime l'arme de la liste d'armes contenue dans l'environnement
                         environnement.getListArmes().remove(i);
 
-                        //Affiche cette arme dans l'inventaire
-                        this.vueInventaire.addViewArmeInventaire(environnement.getJoueur().getInventaire().getArmes().get(dernierElement));
+                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
                     }
                 }
                 rayonInteraction = 20;

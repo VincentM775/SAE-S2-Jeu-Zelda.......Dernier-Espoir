@@ -3,24 +3,23 @@ package com.example.dernierespoirsae.modele.Acteurs;
 import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
 public class Joueur extends Acteur {
 
-    private ObservableList<Arme> armes;
 
-    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
+    private Inventaire inventaire;
+
+    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 20, 4, 7, longTuile, largeTuile, nbTuile, 15, 15);
-        this.armes = FXCollections.observableArrayList();
+        this.inventaire = new Inventaire(inventairePane);
     }
 
-    public ObservableList<Arme> getArmes() {
-        return armes;
-    }
-
-    public void setArmes(ObservableList<Arme> armes) {
-        this.armes = armes;
+    public Inventaire getInventaire() {
+        return this.inventaire;
     }
 
     @Override
@@ -44,7 +43,6 @@ public class Joueur extends Acteur {
             dx += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
-
         setX(getX() + dx);
         setY(getY() + dy);
         return true;

@@ -26,7 +26,8 @@ public abstract class Arme {
         this.yProperty = new SimpleIntegerProperty(y);
     }
 
-    public abstract void incremeterQuantiteInventaire();
+    public abstract void incremeterDecremeterQuantiteInventaire(int val);
+
 
     public abstract int getQuantite();
 
