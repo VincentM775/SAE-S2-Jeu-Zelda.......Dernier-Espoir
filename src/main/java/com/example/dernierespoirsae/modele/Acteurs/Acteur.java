@@ -28,6 +28,7 @@ public abstract class Acteur {
     private Collision collision;
     private IntegerProperty maxVie;
     private String touche;
+    private String clickSouris;
 
     public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -45,6 +46,8 @@ public abstract class Acteur {
         this.direction = "null";
         this.derniereDirection="null";
         this.armes = FXCollections.observableArrayList();
+        this.clickSouris ="";
+        this.touche = "";
     }
 
     public int getMaxVie() {
@@ -181,4 +184,12 @@ public abstract class Acteur {
         return touche;
     }
     public abstract void agit();
+
+    public void setClicks(String clickSouris) {
+        this.clickSouris = clickSouris;
+    }
+
+    public String getClickSouris() {
+        return this.clickSouris;
+    }
 }

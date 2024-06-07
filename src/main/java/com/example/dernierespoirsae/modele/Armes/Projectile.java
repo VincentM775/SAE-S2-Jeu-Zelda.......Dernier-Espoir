@@ -86,11 +86,8 @@ public class Projectile {
         return flag;
     }
     public boolean testProjectileArriverSurJoueur() {
-        if (getXProperty()>= this.jX-(this.vitesse/2) && getXProperty()<= (this.jX+this.vitesse/2) && getYProperty()>= this.jY-(this.vitesse/2) && getYProperty()<= (this.jY+this.vitesse/2)){
-            environnement.getJoueur().perdPV(1);
-            return true;
-        }
-        return false;
+        return (getXProperty()>= this.jX-(this.vitesse/2) && getXProperty()<= (this.jX+this.vitesse/2) && getYProperty()>= this.jY-(this.vitesse/2) && getYProperty()<= (this.jY+this.vitesse/2));
+
     }
     public boolean testMurSurRoute(int prochaineValX, int prochaineValY) {
         int tuileATester;
@@ -115,7 +112,7 @@ public class Projectile {
                 caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
                 caseAY = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
                 if (caseAX==prochaineValX && caseAY==prochaineValY) {
-                    environnement.getListActeurs().get(i).perdPV(5);
+                    environnement.getListActeurs().get(i).perdPV(10);
                     return true;
                 }
             }

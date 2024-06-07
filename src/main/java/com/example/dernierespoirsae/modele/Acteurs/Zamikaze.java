@@ -36,9 +36,13 @@ public class Zamikaze extends Ennemi {
                                 getEnvironnement().getTerrain().getListTuiles().remove(caseAExploser(y, x)); //case à remplacer selon x et y
                                 getEnvironnement().getTerrain().getListTuiles().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
                                 setaExplosee(true);
-//                        getEnvironnement().getJoueur().perdPV(10); //Le joueur prend des dégâts
-
                             }
+                        }
+                    }
+                    getEnvironnement().getJoueur().perdPV(400); //Le joueur prend des dégâts
+                    for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+                        if(estPresentDansRayonPixel(40,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+                            getEnvironnement().getListActeurs().get(i).perdPV(30);
                         }
                     }
                     this.compteurTemps = 0;

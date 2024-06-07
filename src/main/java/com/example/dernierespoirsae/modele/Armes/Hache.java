@@ -6,7 +6,7 @@ public class Hache extends Arme {
     private int quantite;
 
     public Hache(int x, int y) {
-        super(10, x, y,"hache");
+        super(2, x, y,"hache");
         this.quantite =0;
     }
 

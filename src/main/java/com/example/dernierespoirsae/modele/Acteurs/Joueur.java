@@ -52,6 +52,7 @@ public class Joueur extends Acteur {
             dx += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
+
         setX(getX() + dx);
         setY(getY() + dy);
     }
@@ -67,12 +68,20 @@ public class Joueur extends Acteur {
     }
 
     public void attaque(){
-        if (!getInventaire().getArmes().isEmpty()){
+        if (!getInventaire().getArmes().isEmpty()){ //Si l'inventaire d'arme n'est pas vide
+            //On parcourt tous les acteurs
             for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+                //sauf le joueur
                 if (getEnvironnement().getListActeurs().get(i) != this){
-                    if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())) {
-                        if (getTouche().contains(" ")){
-                            getEnvironnement().getListActeurs().get(i).perdPV(getInventaire().getArmes().get(0).getDegats());
+                    //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
+                    if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+                        //Si oui, on regarde si le click gauche est clické
+                        if (getClickSouris().contains("g")){
+                            getEnvironnement().getListActeurs().get(i).perdPV(10);
+                            //si oui, il l'acteur dans la zone perd 10pv x (fois) le nombre de dégâts de l'arme
+                            if (getEnvironnement().getTemps()%getInventaire().getArmes().get(0).getDegats()==0) {
+                                setClicks(""); //On réinitialise la variable des clicks
+                            }
                         }
                     }
                 }

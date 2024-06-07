@@ -35,6 +35,6 @@ public class VueZamikaze extends VueZombie{
             }
         }
         ((Zamikaze) getActeur()).meurt();
-        getActeur().meurtOuVie();
+
     }
 }
