@@ -23,10 +23,22 @@ public class Joueur extends Acteur {
     }
 
     @Override
-    public boolean seDeplacer() {
+    public void agit() {
+        seDeplacer();
+        attaque();
+        rechercheArme();
+    }
+
+    @Override
+    public void meurtOuVie() {
+        if (getVie()<=0)
+            getEnvironnement().setJoueur(null);
+    }
+
+    @Override
+    public void seDeplacer() {
         int dx = 0;
         int dy = 0;
-
         if (getDirection().contains("up") && getHitBox().collisionHaut(getVitesse())) {
             dy -= this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
@@ -43,8 +55,33 @@ public class Joueur extends Acteur {
             dx += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
+
         setX(getX() + dx);
         setY(getY() + dy);
-        return true;
+    }
+    public void rechercheArme() {
+        for (int i = 0; i < getEnvironnement().getListArmes().size(); i++) {
+            if (estPresentDansRayonPixel(30,getEnvironnement().getListArmes().get(i).getX(),getEnvironnement().getListArmes().get(i).getY())){
+                if (getTouche().contains("R")) {
+                    getEnvironnement().getJoueur().getInventaire().getArmes().add(getEnvironnement().getListArmes().get(i));
+                    getInventaire().getArmes().add(getEnvironnement().getListArmes().get(i));
+                    getEnvironnement().getListArmes().remove(i);
+                }
+            }
+        }
+    }
+
+    public void attaque(){
+        if (!getInventaire().getArmes().isEmpty()){
+            for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+                if (getEnvironnement().getListActeurs().get(i) != this){
+                    if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+                        if (getTouche().contains(" "))
+                            getEnvironnement().getListActeurs().get(i).perdPV(getInventaire().getArmes().get(0).getDegats());
+                    }
+                }
+
+            }
+        }
     }
 }

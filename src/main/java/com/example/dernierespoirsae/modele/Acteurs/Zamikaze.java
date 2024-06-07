@@ -9,7 +9,7 @@ public class Zamikaze extends Ennemi {
     private int compteurTemps=0;
     private BooleanProperty aExplosee; //Par défaut, il n'a pas explosé (0 pas explosé, 1 explosé)
     public Zamikaze(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, "Zamikaze", environnement, 100, 4, 10, longTuile, largeTuile, nbTuile, 5+(int) (Math.random()*2));
+        super(x, y, "Zamikaze", environnement, 100, 2, 10, longTuile, largeTuile, nbTuile, 5+(int) (Math.random()*2));
         this.aExplosee = new SimpleBooleanProperty(false);
     }
 
@@ -66,7 +66,11 @@ public class Zamikaze extends Ennemi {
 
     @Override
     public void agit() {
+        seDeplacer();
         testExplosion(getEnvironnement().getTemps());
     }
+
+    @Override
+    public void enleverEffet() {} //S'il y a des effets a enlever au moment de mourir, c'est à mettre ici
 }
 

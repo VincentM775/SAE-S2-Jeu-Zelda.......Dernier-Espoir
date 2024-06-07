@@ -110,7 +110,7 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur2);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(60,150, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
@@ -160,74 +160,7 @@ public class Controleur implements Initializable {
 
                 //A modifier
                 environnement.setTemps(environnement.getTemps()+1);
-
-               int rayonInteraction = 25;//Nombre de pixel
-
-               for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-
-                   if (temps % 5 == 0) {
-
-                       //Si un acteur est dans un rayon de 'rayonInteraction' autours du joueur alors
-                       if ((environnement.getJoueur().getY() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
-                               && ((environnement.getJoueur().getY() - rayonInteraction) <= environnement.getListActeurs().get(i).getY())
-                               && (environnement.getJoueur().getX() + rayonInteraction) >= environnement.getListActeurs().get(i).getX()
-                               && ((environnement.getJoueur().getX() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
-
-                           if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
-
-                               //Enlève 4 pv a l'acteur
-                               environnement.getListActeurs().get(i).perdPV(4);
-                               environnement.getListActeurs().get(i).meurtOuVie();
-                           }
-                       }
-                   }
-               }
-                //A modifier
-                for (int i = 0; i < environnement.getListArmes().size(); i++) {
-
-                    ImageView imageView = (ImageView) armePaneMap.lookup("#" + environnement.getListArmes().get(i).getId());
-
-                    //Si le joueur est entré dans un rayon de 'rayonInteraction' autour d'une arme alors
-                    if ((environnement.getJoueur().getY() + imageView.getFitWidth() + rayonInteraction) >= environnement.getListArmes().get(i).getY()
-                       && ((environnement.getJoueur().getY() - imageView.getFitWidth() - rayonInteraction) <= environnement.getListArmes().get(i).getY())
-                       && (environnement.getJoueur().getX() + imageView.getFitWidth() + rayonInteraction) >= environnement.getListArmes().get(i).getX()
-                       && ((environnement.getJoueur().getX() - imageView.getFitWidth() - rayonInteraction) <= environnement.getListArmes().get(i).getX())) {
-
-                        //Ajoute l'arme a l'inventaire
-                        environnement.getJoueur().getInventaire().getArmes().add(environnement.getListArmes().get(i));
-
-                        //Recupère la position de l'arme ajouté dans l'inventaire
-                        int dernierElement = environnement.getJoueur().getInventaire().getArmes().size() - 1;
-
-                        //Supprime l'arme de la liste d'armes contenue dans l'environnement
-                        environnement.getListArmes().remove(i);
-
-                        System.out.println(environnement.getJoueur().getInventaire().getArmes());
-                    }
-                }
-                rayonInteraction = 20;
-
-                //Code pour faire agir les ennemi
-                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-
-                    if (environnement.getListActeurs().get(i) instanceof Ennemi) {
-                        ((Ennemi) environnement.getListActeurs().get(i)).agit();
-
-                    }
-                }
-
-                //BaveZmort
-                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-                    if (environnement.getListActeurs().get(i) instanceof BaveZmort){
-                        ((BaveZmort) environnement.getListActeurs().get(i)).attaque(temps);
-                        ((BaveZmort) environnement.getListActeurs().get(i)).joueurDansBave();
-                    }
-                }
-
-                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-                    environnement.getListActeurs().get(i).seDeplacer();
-                }
-
+                environnement.unTour();
                 temps++;
             })
         );

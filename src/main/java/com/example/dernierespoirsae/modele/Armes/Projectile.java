@@ -1,7 +1,6 @@
 package com.example.dernierespoirsae.modele.Armes;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
-import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -87,7 +86,11 @@ public class Projectile {
         return flag;
     }
     public boolean testProjectileArriverSurJoueur() {
-        return (getXProperty()>= this.jX-(this.vitesse/2) && getXProperty()<= (this.jX+this.vitesse/2) && getYProperty()>= this.jY-(this.vitesse/2) && getYProperty()<= (this.jY+this.vitesse/2));
+        if (getXProperty()>= this.jX-(this.vitesse/2) && getXProperty()<= (this.jX+this.vitesse/2) && getYProperty()>= this.jY-(this.vitesse/2) && getYProperty()<= (this.jY+this.vitesse/2)){
+            environnement.getJoueur().perdPV(1);
+            return true;
+        }
+        return false;
     }
     public boolean testMurSurRoute(int prochaineValX, int prochaineValY) {
         int tuileATester;
@@ -108,16 +111,16 @@ public class Projectile {
         int caseAX = 0;
         int caseAY = 0 ;
         for (int i=0;i< environnement.getListActeurs().size();i++){
-            if (environnement.getListActeurs().get(i) != acteurQuiALancer && environnement.getListActeurs().get(i) instanceof Joueur)
-            {
+            if (environnement.getListActeurs().get(i) != acteurQuiALancer) {
                 caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
                 caseAY = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
-                if((caseAX==prochaineValX && caseAY==prochaineValY)){
-                    environnement.getJoueur().getInventaire().getArmes().remove(0);
+                if (caseAX==prochaineValX && caseAY==prochaineValY) {
+                    environnement.getListActeurs().get(i).perdPV(5);
+                    return true;
                 }
             }
         }
-        return (caseAX==prochaineValX && caseAY==prochaineValY);
+        return false;
     }
     public double getAngle() {
         int deltaX = this.jX - getXProperty();
