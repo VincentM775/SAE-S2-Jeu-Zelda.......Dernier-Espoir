@@ -133,6 +133,9 @@ public class Controleur implements Initializable {
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
+        ClickHandler clickHandler= new ClickHandler(environnement);
+        persoPane.setOnMouseClicked(clickHandler);
+
         //Initialisation du BFS
         this.bfs = new BFS(this.environnement);
 

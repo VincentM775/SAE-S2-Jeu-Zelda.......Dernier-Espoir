@@ -6,7 +6,7 @@ public class Pistolet extends Arme {
     private int quantite;
 
     public Pistolet(int x, int y) {
-        super(100, x, y,"pistolet");
+        super(6, x, y,"pistolet");
     }
 
     @Override
