@@ -165,19 +165,17 @@ public class Controleur implements Initializable {
                 //A modifier
                 environnement.setTemps(environnement.getTemps()+1);
 
-               int rayonInteraction = 5;//Nombre de pixel
+               int rayonInteraction = 1;//Nombre de pixel
 
                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
-
-                   Rectangle rectangle = (Rectangle) persoPane.lookup("#" + environnement.getListActeurs().get(i).getId());
 
                    if (temps % 50 == 0) {
 
                        //Si un acteur est dans un rayon de 'rayonInteraction' autours du joueur alors
-                       if ((environnement.getJoueur().getY() + rectangle.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
-                               && ((environnement.getJoueur().getY() - rectangle.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getY())
-                               && (environnement.getJoueur().getX() + rectangle.getWidth() + rayonInteraction) >= environnement.getListActeurs().get(i).getX()
-                               && ((environnement.getJoueur().getX() - rectangle.getWidth() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
+                       if ((environnement.getJoueur().getY() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
+                               && ((environnement.getJoueur().getY() - rayonInteraction) <= environnement.getListActeurs().get(i).getY())
+                               && (environnement.getJoueur().getX() + rayonInteraction) >= environnement.getListActeurs().get(i).getX()
+                               && ((environnement.getJoueur().getX() - rayonInteraction) <= environnement.getListActeurs().get(i).getX())) {
 
                            if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
 

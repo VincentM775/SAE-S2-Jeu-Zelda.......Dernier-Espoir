@@ -14,8 +14,7 @@
              <TilePane fx:id="terrainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="0" prefTileHeight="0.0" prefTileWidth="0.0" prefWidth="0" />
              <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
              <Pane fx:id="armePaneMap" prefHeight="200.0" prefWidth="200.0" />
-            <TilePane fx:id="animationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="0" prefTileHeight="0.0" prefTileWidth="0.0" prefWidth="0" />
-            <Pane fx:id="projectilePane" prefHeight="200.0" prefWidth="200.0" />
+             <Pane fx:id="projectilePane" prefHeight="200.0" prefWidth="200.0" />
 
          </children>
       </Pane>

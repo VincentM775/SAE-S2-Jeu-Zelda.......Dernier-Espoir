@@ -2,15 +2,13 @@ package com.example.dernierespoirsae.modele.Armes;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Projectile {
 
-    private DoubleProperty xProperty;
-    private DoubleProperty yProperty;
+    private IntegerProperty xProperty;
+    private IntegerProperty yProperty;
 
     private int degats;
 
@@ -18,19 +16,19 @@ public class Projectile {
 
     private int id;
 
-    private double jX; // valeur de x à la création de la balle
+    private int jX; // valeur de x à la création de la balle
 
-    private double jY; // valeur de y à la création de la balle
+    private int jY; // valeur de y à la création de la balle
 
     private int vitesse; // Vitesse de déplacement de la balle
     private Environnement environnement;
     private Acteur acteurQuiALancer;
 
-    public Projectile(int degats, double x, double y, Environnement environnement, Acteur acteurQuiALancer) {
+    public Projectile(int degats, int x, int y, Environnement environnement, Acteur acteurQuiALancer) {
         this.degats = degats;
         this.id = idStatic++;
-        this.xProperty = new SimpleDoubleProperty(x);
-        this.yProperty = new SimpleDoubleProperty(y);
+        this.xProperty = new SimpleIntegerProperty(x);
+        this.yProperty = new SimpleIntegerProperty(y);
         this.jX = environnement.getJoueur().getX();
         this.jY = environnement.getJoueur().getY();
         this.vitesse = 8;
@@ -46,27 +44,27 @@ public class Projectile {
         this.degats = degats;
     }
 
-    public double getXProperty() {
+    public int getXProperty() {
         return this.xProperty.getValue();
     }
 
-    public DoubleProperty xProperty() {
+    public IntegerProperty xProperty() {
         return this.xProperty;
     }
 
-    public double getYProperty() {
+    public int getYProperty() {
         return this.yProperty.getValue();
     }
 
-    public DoubleProperty yProperty() {
+    public IntegerProperty yProperty() {
         return this.yProperty;
     }
 
-    public void setxProperty(double x) {
+    public void setxProperty(int x) {
         this.xProperty.setValue(x);
     }
 
-    public void setyProperty(double y) {
+    public void setyProperty(int y) {
         this.yProperty.setValue(y);
     }
 
@@ -75,11 +73,11 @@ public class Projectile {
     }
     public boolean avance() {
         boolean flag=false;
-        double deltaX = this.jX - getXProperty();
-        double deltaY = this.jY - getYProperty();
+        int deltaX = this.jX - getXProperty();
+        int deltaY = this.jY - getYProperty();
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        double prochaineValX = getXProperty() + (int) (vitesse * (deltaX / distance));
-        double prochaineValY = getYProperty() + (int) (vitesse * (deltaY / distance));
+        int prochaineValX = getXProperty() + (int) (vitesse * (deltaX / distance));
+        int prochaineValY = getYProperty() + (int) (vitesse * (deltaY / distance));
         if (!(testActeurToucher(prochaineValX,prochaineValY))&&!testMurSurRoute(prochaineValX,prochaineValY)) {
             setxProperty(prochaineValX);
             setyProperty(prochaineValY);
@@ -90,24 +88,24 @@ public class Projectile {
     public boolean testProjectileArriverSurJoueur() {
         return (getXProperty()>= this.jX-(this.vitesse/2) && getXProperty()<= (this.jX+this.vitesse/2) && getYProperty()>= this.jY-(this.vitesse/2) && getYProperty()<= (this.jY+this.vitesse/2));
     }
-    public boolean testMurSurRoute(double prochaineValX, double prochaineValY) {
-        double tuileATester;
+    public boolean testMurSurRoute(int prochaineValX, int prochaineValY) {
+        int tuileATester;
         boolean flag = false;
         int[][] directions = {{0, 0},{5, 0},{5, 5},{0, 5}};
         for (int[] tab : directions){
             tuileATester = (prochaineValY+tab[0])/environnement.getInfoTuile()[0]*environnement.getInfoTuile()[1]+(prochaineValX+tab[1])/environnement.getInfoTuile()[0];
-            if (environnement.getTerrain().getListTuiles().get((int) tuileATester)==1)
+            if (environnement.getTerrain().getListTuiles().get(tuileATester)==1)
                 flag=true;
         }
 
         return flag;
     }
 
-    public boolean testActeurToucher(double prochaineValX,double prochaineValY) {
+    public boolean testActeurToucher(int prochaineValX,int prochaineValY) {
         prochaineValX = prochaineValX /environnement.getInfoTuile()[0];
         prochaineValY = prochaineValY /environnement.getInfoTuile()[0];
-        double caseAX = 0;
-        double caseAY = 0 ;
+        int caseAX = 0;
+        int caseAY = 0 ;
         for (int i=0;i< environnement.getListActeurs().size();i++){
             if (environnement.getListActeurs().get(i) != acteurQuiALancer) {
                 caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
@@ -117,8 +115,8 @@ public class Projectile {
         return (caseAX==prochaineValX && caseAY==prochaineValY);
     }
     public double getAngle() {
-        double deltaX = this.jX - getXProperty();
-        double deltaY = this.jY - getYProperty();
+        int deltaX = this.jX - getXProperty();
+        int deltaY = this.jY - getYProperty();
         double angle;
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 

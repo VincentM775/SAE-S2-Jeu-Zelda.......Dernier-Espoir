@@ -5,7 +5,7 @@ import com.example.dernierespoirsae.modele.Environnement;
 
 public class Balle extends Projectile {
 
-    public Balle(int degats, double x, double y, Environnement environnement, Acteur acteurQuiALancer) {
+    public Balle(int degats, int x, int y, Environnement environnement, Acteur acteurQuiALancer) {
         super(degats, x, y, environnement,acteurQuiALancer);
     }
 
