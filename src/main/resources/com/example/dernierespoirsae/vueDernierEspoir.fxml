@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="com.example.dernierespoirsae.controleur.Controleur">
 
    <center>
@@ -30,4 +31,10 @@
             </center>
         </BorderPane>
     </right>
+    <top>
+        <HBox fx:id="barreVieBox"/>
+    </top>
+    <left>
+        <Pane fx:id="barreViePane"/>
+    </left>
 </BorderPane>

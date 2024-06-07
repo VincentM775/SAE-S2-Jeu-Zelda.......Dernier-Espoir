@@ -1,5 +1,6 @@
 package com.example.dernierespoirsae.Observateur;
 
+import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,9 +18,8 @@ public class ObservateurPositionY implements ChangeListener<Number> {
 
     @Override
     public void changed(ObservableValue<? extends Number> obs, Number oldV, Number newV) {
-        int deplacement = newV.intValue() - oldV.intValue();
 
-        if(this.joueur.getY() > 300 && this.joueur.getY() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[2] - 300) //300 = la moitié de la largeur de la Scene
-            this.principalPane.setTranslateY(this.principalPane.getTranslateY() - deplacement);
+        if(this.joueur.getY() > Main.largeur/2 && this.joueur.getY() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[2] - Main.largeur/2) //300 = la moitié de la largeur de la Scene
+            this.principalPane.setTranslateY(Main.largeur/2-joueur.getY());
     }
 }

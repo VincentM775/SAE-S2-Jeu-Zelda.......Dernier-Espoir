@@ -13,14 +13,15 @@ import javafx.scene.layout.TilePane;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
-    private Pane persoPane;
+    private Pane persoPane,barreViePane;
     private TilePane terrainPane;
     private Environnement environnement;
 
-    public ObservateurActeurs(Pane pane,TilePane terrainPane, Environnement environnement) {
+    public ObservateurActeurs(Pane pane,Pane barreViePane,TilePane terrainPane, Environnement environnement) {
         this.persoPane = pane;
         this.environnement = environnement;
         this.terrainPane = terrainPane;
+        this.barreViePane = barreViePane;
     }
 
     @Override
@@ -30,19 +31,18 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
             //Parcours la liste des acteurs ajoutés a la liste et le créer a l'affichage
             for(int i = 0; i < acteurs.getAddedSize(); i++){
-
                 //Crée l'affichage de l'acteur i ajouté
                 if (acteurs.getAddedSubList().get(i) instanceof Joueur)
-                    new VueJoueur(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+                    new VueJoueur(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof MasticatorZ)
-                    new VueMasticatorZ(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+                    new VueMasticatorZ(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof Zamikaze)
-                    new VueZamikaze(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+                    new VueZamikaze(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof BaveZmort)
-                    new VueBaveZmort(this.persoPane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+                    new VueBaveZmort(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
             }
 
             //Parcours la liste des acteurs supprimés a la liste et le supprime a l'affichage
@@ -50,6 +50,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
                 //Supprime l'affiche de l'acteur
                 this.persoPane.getChildren().remove(this.persoPane.lookup("#"+acteurs.getRemoved().get(i).getId()));
+                this.persoPane.getChildren().remove(this.persoPane.lookup("#"+"barre"+acteurs.getRemoved().get(i).getId()));
+
             }
         }
     }

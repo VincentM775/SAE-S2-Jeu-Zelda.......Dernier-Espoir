@@ -1,4 +1,6 @@
 package com.example.dernierespoirsae.controleur;
+
+import com.example.dernierespoirsae.Main;
 import com.example.dernierespoirsae.Observateur.*;
 import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
@@ -28,7 +30,7 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane terrainPane;
     @FXML
-    private Pane persoPane;
+    private Pane persoPane, barreViePane;
     @FXML
     private Pane principalPane;
     private VueInventaire vueInventaire;
@@ -61,7 +63,7 @@ public class Controleur implements Initializable {
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,terrainPane,environnement);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement);
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -169,7 +171,7 @@ public class Controleur implements Initializable {
 
                for (int i = 0; i < environnement.getListActeurs().size(); i++) {
 
-                   if (temps % 50 == 0) {
+                   if (temps % 5 == 0) {
 
                        //Si un acteur est dans un rayon de 'rayonInteraction' autours du joueur alors
                        if ((environnement.getJoueur().getY() + rayonInteraction) >= environnement.getListActeurs().get(i).getY()
@@ -179,8 +181,8 @@ public class Controleur implements Initializable {
 
                            if(environnement.getListActeurs().get(i) != environnement.getJoueur()){
 
-                               //Enlève 10 pv a l'acteur et Vérifie si l'acteur doit mourir, si Oui il le supprime de l'environnement
-                               environnement.getListActeurs().get(i).perdPV(10);
+                               //Enlève 4 pv a l'acteur
+                               environnement.getListActeurs().get(i).perdPV(4);
                            }
                        }
                    }

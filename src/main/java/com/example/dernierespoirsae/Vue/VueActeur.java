@@ -8,6 +8,9 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -15,17 +18,19 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public abstract class VueActeur {
-    private Pane persoPane;
+    private Pane persoPane,barreViePane;
     private TilePane terrainPane;
     private Environnement environnement;
     private Acteur acteur;
 
-    public VueActeur(Pane persoPane,TilePane terrainPane, Acteur acteur,Environnement environnement) {
+    public VueActeur(Pane persoPane,TilePane terrainPane,Pane barreViePane, Acteur acteur,Environnement environnement) {
         this.persoPane = persoPane;
         this.terrainPane=terrainPane;
+        this.barreViePane = barreViePane;
         this.environnement = environnement;
         this.acteur = acteur;
         creerRectangle(acteur);
+        creerBarreVie(acteur);
     }
 
     public void creerRectangle(Acteur acteur) {
@@ -86,6 +91,37 @@ public abstract class VueActeur {
         }));
         timeline.setCycleCount(1); // Exécuter une seule fois
         timeline.play();
+    }
+
+
+    public void creerBarreVie(Acteur acteur) {
+
+        ProgressBar barreVie = new ProgressBar();
+
+        NumberBinding progressBinding = Bindings.createDoubleBinding(
+                () -> acteur.getVieProperty().get() / (double) acteur.getMaxVie(),
+                acteur.getVieProperty(), acteur.maxVie()
+        );
+
+        barreVie.progressProperty().bind(progressBinding);
+
+        barreVie.setId("barre"+acteur.getId());
+
+        if (acteur instanceof Ennemi) {
+
+            barreVie.getStyleClass().add("health-bar-ennemi");
+            barreVie.translateXProperty().bind(acteur.xProperty().subtract(20 - acteur.getHitBox().getLongueur() / 2));
+            barreVie.translateYProperty().bind(acteur.yProperty().subtract(15));
+            persoPane.getChildren().add(barreVie);
+
+        }
+        else if(acteur instanceof Joueur) {
+
+            barreVie.getStyleClass().add("health-bar-joueur");
+            this.barreViePane.getChildren().add(barreVie);
+            barreVie.translateXProperty().setValue(0);
+            barreVie.translateYProperty().setValue(0);
+        }
     }
 
     public Environnement getEnvironnement() {
