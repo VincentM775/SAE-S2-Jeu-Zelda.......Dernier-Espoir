@@ -5,8 +5,10 @@ import com.example.dernierespoirsae.modele.Armes.Bave;
 import com.example.dernierespoirsae.modele.Environnement;
 
 public class BaveZmort extends Ennemi {
+    private int enregistrementVitesseJoueur;
     public BaveZmort(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(x, y, "BaveZmort", environnement, 60, 1, 5, longTuile, largeTuile, nbTuile, 6+(int) (Math.random()*2));
+        enregistrementVitesseJoueur = getEnvironnement().getJoueur().getVitesse();
     }
     @Override
     public boolean seDeplacer() {
@@ -74,11 +76,11 @@ public class BaveZmort extends Ennemi {
     }
     public void joueurDansBave(){
         if (detectJoueurDansBave()){
-            getEnvironnement().getJoueur().setVitesse(2);
+            getEnvironnement().getJoueur().setVitesse((this.enregistrementVitesseJoueur/3));
 //            getEnvironnement().getJoueur().perdPV(1);
         }
         else{
-            getEnvironnement().getJoueur().setVitesse(4);
+            getEnvironnement().getJoueur().setVitesse(this.enregistrementVitesseJoueur);
         }
     }
     public boolean detectJoueurDansBave(){

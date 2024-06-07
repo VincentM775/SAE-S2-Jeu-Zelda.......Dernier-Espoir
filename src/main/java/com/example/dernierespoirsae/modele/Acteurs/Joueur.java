@@ -10,7 +10,7 @@ public class Joueur extends Acteur {
     private ObservableList<Arme> armes;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(547 - 15,299 - 15, "Johnny", environnement, 20, 8, 7, longTuile, largeTuile, nbTuile, 15, 15);
+        super(547 - 15,299 - 15, "Johnny", environnement, 20, 4, 7, longTuile, largeTuile, nbTuile, 15, 15);
         this.armes = FXCollections.observableArrayList();
     }
 
