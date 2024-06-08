@@ -15,7 +15,6 @@ public abstract class Acteur {
     private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
-    private Inventaire inventaire;
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
@@ -34,7 +33,7 @@ public abstract class Acteur {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
-        this.maxVie = new SimpleIntegerProperty(vie); // Initialiser maxVie à la valeur de vie initiale
+        this.maxVie = new SimpleIntegerProperty(vie); // Initialise maxVie à la valeur de vie la initiale
         this.environnement = environnement;
         this.vitesse = vitesse;
         this.vie = new SimpleIntegerProperty(vie);
@@ -161,11 +160,6 @@ public abstract class Acteur {
     public void setArmes(ObservableList<Arme> armes) {
         this.armes = armes;
     }
-
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
-
 
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map

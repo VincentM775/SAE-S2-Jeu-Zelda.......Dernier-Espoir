@@ -30,7 +30,8 @@ public class Controleur implements Initializable {
     private Pane persoPane, barreViePane;
     @FXML
     private Pane principalPane;
-    private VueInventaire vueInventaire;
+    @FXML
+    private Pane armePaneEquipee;
     @FXML
     private VBox inventairePane;
     @FXML
@@ -56,7 +57,7 @@ public class Controleur implements Initializable {
         this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
 
         //Creation du joueur
-        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventairePane);
+        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventairePane, armePaneEquipee);
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
@@ -72,7 +73,7 @@ public class Controleur implements Initializable {
         VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
 
         //Initialise un observateur pour une liste d'arme
-        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
+        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap, environnement.getJoueur());
 
         //Lie cet observateur a la liste d'arme dans l'environnement
         environnement.setListenerArmes(observateurArme);
@@ -130,8 +131,11 @@ public class Controleur implements Initializable {
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
-        ClickHandler clickHandler= new ClickHandler(environnement);
+        ClickHandler clickHandler= new ClickHandler(environnement, inventairePane);
         persoPane.setOnMouseClicked(clickHandler);
+
+        ClickHandler clickHandlerInventaire = new ClickHandler(environnement, inventairePane);
+        inventairePane.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS
         this.bfs = new BFS(this.environnement);

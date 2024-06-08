@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="com.example.dernierespoirsae.controleur.Controleur">
 
    <center>
@@ -13,10 +14,10 @@
          <children>
 
              <TilePane fx:id="terrainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="0" prefTileHeight="0.0" prefTileWidth="0.0" prefWidth="0" />
-             <Pane fx:id="armePaneMap" prefHeight="200.0" prefWidth="200.0" />
+             <Pane fx:id="armePaneMap" prefHeight="200.0" prefWidth="200.0"  />
              <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
              <Pane fx:id="projectilePane" prefHeight="200.0" prefWidth="200.0" />
-
+             <Pane fx:id="armePaneEquipee" prefHeight="200.0" prefWidth="200.0"/>
          </children>
       </Pane>
    </center>

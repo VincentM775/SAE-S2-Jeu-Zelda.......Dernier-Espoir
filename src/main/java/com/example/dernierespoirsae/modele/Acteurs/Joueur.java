@@ -1,18 +1,25 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.Main;
+import com.example.dernierespoirsae.Vue.VueArmeEquipee;
+import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class Joueur extends Acteur {
 
-
+    private Pane armePaneEquipee;
     private Inventaire inventaire;
 
-    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane) {
+    private Arme armeEquipee;
+
+    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane, Pane armePaneEquipee) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 20, 4, longTuile, largeTuile, nbTuile, 15, 15);
         this.inventaire = new Inventaire(inventairePane);
+        this.armeEquipee = null;
+        this.armePaneEquipee = armePaneEquipee;
     }
 
     public Inventaire getInventaire() {
@@ -24,6 +31,20 @@ public class Joueur extends Acteur {
         seDeplacer();
         attaque();
         rechercheArme();
+    }
+
+    public void setArmeEquipee(String typeArme)  {
+        for (int i = 0; i < inventaire.getArmes().size(); i++){
+            if(inventaire.getArmes().get(i).getType().equals(typeArme)){
+                this.armeEquipee = inventaire.getArmes().get(i);
+            }
+        }
+        VueArmeEquipee vueArmeEquipee = new VueArmeEquipee(this.armeEquipee, this.armePaneEquipee, this);
+        System.out.println(getArmeEquipee());
+    }
+
+    public Arme getArmeEquipee() {
+        return this.armeEquipee;
     }
 
     @Override
@@ -69,17 +90,23 @@ public class Joueur extends Acteur {
 
     public void attaque(){
         if (!getInventaire().getArmes().isEmpty()){ //Si l'inventaire d'arme n'est pas vide
+
             //On parcourt tous les acteurs
             for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+
                 //sauf le joueur
                 if (getEnvironnement().getListActeurs().get(i) != this){
+
                     //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
                     if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+
                         //Si oui, on regarde si le click gauche est clické
                         if (getClickSouris().contains("g")){
                             getEnvironnement().getListActeurs().get(i).perdPV(10);
+
                             //si oui, il l'acteur dans la zone perd 10pv x (fois) le nombre de dégâts de l'arme
-                            if (getEnvironnement().getTemps()%getInventaire().getArmes().get(0).getDegats()==0) {
+                            if (getEnvironnement().getTemps()%getArmeEquipee().getDegats()==0) {
+
                                 setClicks(""); //On réinitialise la variable des clicks
                             }
                         }

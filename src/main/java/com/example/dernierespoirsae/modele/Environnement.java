@@ -24,7 +24,6 @@ public class Environnement{
     private ObservableList<Arme> listArmes;
     private int temps;
 
-
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
         this.infoTuile = new int[3];
         this.infoTuile[0] = tailleTuile;

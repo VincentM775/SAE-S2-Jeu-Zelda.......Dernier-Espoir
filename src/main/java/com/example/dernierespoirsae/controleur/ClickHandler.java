@@ -1,21 +1,31 @@
 package com.example.dernierespoirsae.controleur;
 
+import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class ClickHandler implements EventHandler<MouseEvent> {
+
+    private VBox inventairePane;
+
     private final Environnement environnement;
 
-    public ClickHandler(Environnement environnement) {
+    public ClickHandler(Environnement environnement, VBox inventairePane) {
         this.environnement = environnement;
+        this.inventairePane = inventairePane;
     }
 
     @Override
     public void handle(MouseEvent mouseEvent) {
+
         environnement.getJoueur().setClicks("");
+
         String clickSouris = "";
+
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             // Ajouter "g" pour chaque clic gauche
             clickSouris += "g";
@@ -27,5 +37,24 @@ public class ClickHandler implements EventHandler<MouseEvent> {
 
         // Mettre à jour la variable clicks dans l'environnement
         environnement.getJoueur().setClicks(clickSouris);
+        setPane();
+    }
+
+    public void setPane() {
+
+        for (int i = 0; i < inventairePane.getChildren().size(); i++) {
+            // Ajouter un gestionnaire d'événements de clic de souris pour chaque Pane
+            inventairePane.getChildren().get(i).setOnMouseClicked(this::handleMouseClick);
+        }
+    }
+
+
+    private void handleMouseClick(MouseEvent event) {
+
+        // Récupére le Pane sur lequel on a cliqué
+        Pane clickedPane = (Pane) event.getSource();
+
+        environnement.getJoueur().setArmeEquipee(clickedPane.getId());
+
     }
 }
