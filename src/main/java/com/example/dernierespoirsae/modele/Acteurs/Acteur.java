@@ -3,7 +3,6 @@ package com.example.dernierespoirsae.modele.Acteurs;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;

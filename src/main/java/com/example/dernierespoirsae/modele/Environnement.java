@@ -10,7 +10,6 @@ import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.dernierespoirsae.algo.BFS;
-import javafx.scene.image.ImageView;
 
 public class Environnement{
 

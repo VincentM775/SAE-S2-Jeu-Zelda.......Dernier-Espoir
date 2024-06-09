@@ -74,6 +74,9 @@ public class VueInventaire {
             //Stock l'image de la Hache dans une imageView pour pouvoir les afficher
             ImageView imageView = new ImageView(imageArme);
 
+            //Gère le style de l'emplacement de chaque arme
+            emplacement.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-background-color: #77B5FE; -fx-border-radius: 10; -fx-background-radius: 10" );
+
             //Ajoute ce Pane a la vue Inventaire
             this.inventairePane.getChildren().add(emplacement);
 
@@ -99,13 +102,16 @@ public class VueInventaire {
             //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
             if (labelExiste != null) {
 
-                labelExiste.setText(String.valueOf(arme.getQuantite()));
+                labelExiste.setText("x"+arme.getQuantite());
             }
             else { // Si le label n'existe pas, en créer un nouveau
 
                 Label label = new Label();
                 label.setId(idLabel);
-                label.setText(String.valueOf(arme.getQuantite()));
+                label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+                label.setTranslateY(58);
+                label.setTranslateX(75);
+                label.setText("x"+arme.getQuantite());
                 pane.getChildren().add(label);
             }
         }

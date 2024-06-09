@@ -33,10 +33,13 @@ public class VueArmeEquipee {
         imageView.setId(String.valueOf(this.arme.getId()));
 
         //Associe la position de l'arme a l'image
-        imageView.translateXProperty().bind(joueur.xProperty());
-        imageView.translateXProperty().bind(joueur.yProperty());
+        imageView.xProperty().bind(joueur.xProperty());
+        imageView.yProperty().bind(joueur.yProperty());
 
         //Ajoute l'image a la Pane armePane qui sera affiché dans la fenêtre
+        if(this.armePaneEquipee.getChildren().size()==1){
+            this.armePaneEquipee.getChildren().remove(0);
+        }
         this.armePaneEquipee.getChildren().add(imageView);
     }
 }

@@ -39,8 +39,7 @@ public class Joueur extends Acteur {
                 this.armeEquipee = inventaire.getArmes().get(i);
             }
         }
-        VueArmeEquipee vueArmeEquipee = new VueArmeEquipee(this.armeEquipee, this.armePaneEquipee, this);
-        System.out.println(getArmeEquipee());
+        new VueArmeEquipee(this.armeEquipee, this.armePaneEquipee, this);
     }
 
     public Arme getArmeEquipee() {
@@ -101,7 +100,7 @@ public class Joueur extends Acteur {
                     if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
 
                         //Si oui, on regarde si le click gauche est clické
-                        if (getClickSouris().contains("g")){
+                        if (getClickSouris().contains("g") && getArmeEquipee() != null){
                             getEnvironnement().getListActeurs().get(i).perdPV(10);
 
                             //si oui, il l'acteur dans la zone perd 10pv x (fois) le nombre de dégâts de l'arme

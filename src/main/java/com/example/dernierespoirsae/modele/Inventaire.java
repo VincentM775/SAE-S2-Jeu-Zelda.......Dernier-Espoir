@@ -16,15 +16,6 @@ public class Inventaire {
         armes.addListener(observateurInventaire);
     }
 
-    public boolean exisite(Arme arme){
-        boolean existe = false;
-        if(this.armes.contains(arme)){
-            System.out.println("caca");
-            existe = true;
-        }
-        return existe;
-    }
-
     public ObservableList<Arme> getArmes() {
         return armes;
     }
