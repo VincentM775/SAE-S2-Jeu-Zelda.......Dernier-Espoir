@@ -113,6 +113,8 @@ public class Controleur implements Initializable {
         Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
+        PNJ roger = new RogerPNJ(300, 300, environnement, (int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), principalPane);
+
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
         environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
 

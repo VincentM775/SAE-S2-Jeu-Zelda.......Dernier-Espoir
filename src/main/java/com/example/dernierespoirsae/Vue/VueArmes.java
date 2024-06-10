@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class VueArmes {
+public class
+VueArmes {
     private Arme arme;
     private Pane armePaneMap;
     public VueArmes(Arme arme, Pane armePaneMap) {

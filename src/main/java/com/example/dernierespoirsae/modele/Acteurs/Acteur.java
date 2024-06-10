@@ -8,6 +8,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
 
 public abstract class Acteur {
 
@@ -15,7 +16,6 @@ public abstract class Acteur {
     private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
-    private Inventaire inventaire;
     private Environnement environnement;
     private String direction;
     private IntegerProperty vie;
@@ -29,8 +29,9 @@ public abstract class Acteur {
     private IntegerProperty maxVie;
     private String touche;
     private String clickSouris;
+    private Pane principalPane;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox, Pane principalPane) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -48,6 +49,7 @@ public abstract class Acteur {
         this.armes = FXCollections.observableArrayList();
         this.clickSouris ="";
         this.touche = "";
+        this.principalPane = principalPane;
     }
 
     public int getMaxVie() {
@@ -161,11 +163,6 @@ public abstract class Acteur {
     public void setArmes(ObservableList<Arme> armes) {
         this.armes = armes;
     }
-
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
-
 
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map
