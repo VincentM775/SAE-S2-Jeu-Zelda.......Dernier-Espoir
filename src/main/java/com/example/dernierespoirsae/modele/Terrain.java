@@ -34,22 +34,10 @@ public class Terrain {
         }
     }
 
-//    public ObservableList<Integer> getListTuiles() {
-//        return this.terrain;
-//    }
-
     public boolean estObstacle(int val){
 
         return !(this.terrain.get(val)==0 || this.terrain.get(val)==2);
     }
-
-//    public void setTerrain(ArrayList<Integer> terrain) {
-//        this.terrain = (ObservableList<Integer>) terrain;
-//    }
-
-//    public ObservableList<Integer> getTerrain() {
-//        return terrain;
-//    }
 
     public void setTerrain(ArrayList<Integer> terrain) {
         this.terrain = terrain;

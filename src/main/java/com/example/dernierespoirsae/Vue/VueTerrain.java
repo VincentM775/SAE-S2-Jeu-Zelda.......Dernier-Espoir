@@ -1,5 +1,6 @@
 package com.example.dernierespoirsae.Vue;
 
+import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Terrain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,14 +15,16 @@ public class VueTerrain {
     private TilePane terrainPane;
     private Image[] tiles;
     private ArrayList<Integer> m2;
+    private Environnement environnement;
 
-    public VueTerrain(Terrain terrain, TilePane terrainPane,ArrayList<Integer> m1, ArrayList<Integer> m2) {
+    public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> m1, ArrayList<Integer> m2, Environnement environnement) {
         this.terrainPane = terrainPane;
         this.terrain = terrain;
         this.m2=m2;
+        this.environnement = environnement;
         terrain.setTerrain(m1);
 
-        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/images/passages.png", 320, 520, false, false);
+        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png", 1792, 736, false, false);
 
         int tileWidth = 32;
         int tileHeight = 32;
@@ -39,8 +42,7 @@ public class VueTerrain {
     }
 
     public void afficherTerrain() {
-        ArrayList<Integer> m1 = terrain.getTerrain();
-        this.terrain.setTerrain(m1);
+        ArrayList<Integer> m1 = terrain.getTerrain(); //On récupère la map sans le sol (que les colision)
 
         for (int i = 0; i < m1.size(); i++) {
             ImageView imageView = new ImageView();
@@ -50,39 +52,45 @@ public class VueTerrain {
             int tileIndex = m1.get(i);
             int tileIndex2 = m2.get(i);
             if (tileIndex >= 1 && tileIndex <= tiles.length) // Assurez-vous que tileIndex est dans les limites
-                imageView.setImage(tiles[tileIndex - 1]);
+                imageView.setImage(tiles[tileIndex]);
             if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
                 imageView2 = new ImageView();
                 imageView2.setId(""+i);
-                imageView2.setImage(tiles[tileIndex2 - 1]);
+                imageView2.setImage(tiles[tileIndex2]);
             }
-            if (tileIndex2 != 0)
+            if (tileIndex2 != 0) {
                 this.terrainPane.getChildren().add(new StackPane(imageView2, imageView));
+            }
             else this.terrainPane.getChildren().add(new StackPane(imageView));
         }
     }
 
-//    public void afficherTerrain() {
-//
-//        Image pelouse = new Image("file:src/main/resources/com/example/dernierespoirsae/images/Grass_02_v2.png");
-//        Image mur = new Image("file:src/main/resources/com/example/dernierespoirsae/images/mur.png");
-//
-//        for (int x = 0; x < this.terrain.getListTuiles().size(); x++) {
-//
-//            ImageView imageView = new ImageView();
-//
-//            switch (this.terrain.getListTuiles().get(x)) {
-//                case 0:
-//                    imageView.setImage(pelouse);
-//                    break;
-//                case 1:
-//                    imageView.setImage(mur);
-//            }
-//
-//            imageView.setFitWidth(32);
-//            imageView.setFitHeight(32);
-//
-//            terrainPane.getChildren().add(imageView);
-//        }
-//    }
+    public Image obtenirImageTerrain(int ligne, int colonne) {
+        // Obtenez l'index de la tuile dans la liste représentant le terrain
+        int index = ligne * environnement.getInfoTuile()[1] + colonne;
+
+        // Assurez-vous que l'index est valide
+        if (index >= 0 && index < terrain.getTerrain().size()) {
+            // Obtenez l'index de la tuile dans la liste représentant le terrain
+            int tileIndex = m2.get(index);
+
+            // Assurez-vous que tileIndex est dans les limites
+            if (tileIndex >= 1 && tileIndex <= tiles.length) {
+                // Retournez l'image correspondante à l'index
+                return tiles[tileIndex];
+            }
+        }
+
+        // Si l'index est invalide ou si l'image correspondante n'est pas trouvée, retournez null
+        return null;
+
+    }
+
+    public ArrayList<Integer> getM2() {
+        return m2;
+    }
+
+    public Image[] getTiles() {
+        return tiles;
+    }
 }

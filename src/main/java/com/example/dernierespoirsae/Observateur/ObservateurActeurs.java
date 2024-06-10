@@ -16,12 +16,14 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     private Pane persoPane,barreViePane;
     private TilePane terrainPane;
     private Environnement environnement;
+    private VueTerrain vueTerrain;
 
-    public ObservateurActeurs(Pane pane,Pane barreViePane,TilePane terrainPane, Environnement environnement) {
+    public ObservateurActeurs(Pane pane,Pane barreViePane,TilePane terrainPane, Environnement environnement,VueTerrain vueTerrain) {
         this.persoPane = pane;
         this.environnement = environnement;
         this.terrainPane = terrainPane;
         this.barreViePane = barreViePane;
+        this.vueTerrain = vueTerrain;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                     new VueMasticatorZ(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof Zamikaze)
-                    new VueZamikaze(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+                    new VueZamikaze(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement,this.vueTerrain);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof BaveZmort)
                     new VueBaveZmort(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);

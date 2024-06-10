@@ -13,7 +13,7 @@ public class Main extends Application {
     public static int largeur = 600;
     @Override
     public void start(Stage stage) throws IOException{
-        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/images/passages.png");
+        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png");
         double originalWidth = tileset.getWidth();
         double originalHeight = tileset.getHeight();
         System.out.println("Original Width: " + originalWidth);

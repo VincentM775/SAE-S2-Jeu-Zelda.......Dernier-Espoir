@@ -89,8 +89,8 @@ public abstract class Ennemi extends Acteur {
             newColonne = tuileEcolonneDansNvTab + direction[1];
 
             if (newLigne >= 0 && newLigne < tabDesDistances.length && newColonne >= 0 && newColonne < tabDesDistances[0].length) {
-                 if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1) {
-                    cheminOuAller.add(direction);//les directions où aller
+                if (tabDesDistances[newLigne][newColonne]==tabDesDistances[tuileEligneDansNvTab][tuileEcolonneDansNvTab]-1) {
+                     cheminOuAller.add(direction);//les directions où aller
                 }
             }
         }

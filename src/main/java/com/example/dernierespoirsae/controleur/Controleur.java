@@ -43,7 +43,7 @@ public class Controleur implements Initializable {
     private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
-        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/dernierespoirsae/terrain.json");
+        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/dernierespoirsae/terrain0.json");
 
         //creation de l'environement
         this.environnement = new Environnement(32, 100, 100);
@@ -59,9 +59,12 @@ public class Controleur implements Initializable {
         //Creation du joueur
         Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
+        //Initialisation de la vue Terrain
+        VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2(),environnement);
+
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement,vueTerrain);
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -71,9 +74,6 @@ public class Controleur implements Initializable {
 
         //Initialisation de la vueInventaire
         this.vueInventaire = new VueInventaire(inventairePane);
-
-        //Initialisation de la vue Terrain
-        VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2());
 
         //Initialise un observateur pour une liste d'arme
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
@@ -114,14 +114,14 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur2);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(470,400, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
         environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
 
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
-        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane));
+        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane,vueTerrain));
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);

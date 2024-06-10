@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class LoadJSON {
 
-    private ArrayList<Integer> map;
-    private ArrayList<Integer> map2;
+    private ArrayList<Integer> terrainSol;
+    private ArrayList<Integer> terrainColision;
     private int PrefColumns;
     private int PrefRows;
 
@@ -45,15 +45,15 @@ public class LoadJSON {
             e.printStackTrace();
         }
 
-        this.map = elementsMap2;
-        this.map2 = elementsMap;
+        this.terrainSol = elementsMap2;
+        this.terrainColision = elementsMap;
     }
 
     public ArrayList<Integer> getMap() {
-        return map;
+        return terrainSol;
     }
     public ArrayList<Integer> getMap2() {
-        return map2;
+        return terrainColision;
     }
     public int getPrefColumns() {
         return PrefColumns;

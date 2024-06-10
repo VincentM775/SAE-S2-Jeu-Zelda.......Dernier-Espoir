@@ -12,6 +12,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -59,18 +60,11 @@ public abstract class VueActeur {
         }
     }
     public abstract int definitionCouleur();
-    public void setImageAtIndex(int index, String imagePath) {
-        // Obtenir le nœud à l'index spécifique
-        Node node = terrainPane.getChildren().get(index);
-
-        // Vérifier si le nœud est bien une instance d'ImageView
-        if (node instanceof ImageView) {
-            ImageView imageView = (ImageView) node;
-
-            // Définir la nouvelle image
-            Image image = new Image(imagePath);
-            imageView.setImage(image);
-        }
+    public void setImageAtIndex(int index, Image image) {
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(getEnvironnement().getInfoTuile()[0]);
+        imageView.setFitHeight(getEnvironnement().getInfoTuile()[0]);
+        terrainPane.getChildren().set(index, imageView);
     }
     public void addGifToPane(int x, int y,int taille, String image, double gifDurationMs) {
         // Charger le GIF
