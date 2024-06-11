@@ -97,12 +97,17 @@ public class Environnement{
         this.listBave.add(bave);
     }
     public void agit() {
+
         for (int i = 0; i < getListActeurs().size(); i++) {
             getListActeurs().get(i).agit(); //On fait agir les acteurs
 
             if (getListActeurs().get(i) != getJoueur()) {
                 getListActeurs().get(i).meurtOuVie(); //Supprime les acteurs qui sont morts
             }
+        }
+        //Faire agir les projectiles
+        for(int i=0;i< getListProjectile().size();i++) {
+            getListProjectile().get(i).agit();
         }
     }
     public void unTour(){

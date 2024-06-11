@@ -1,5 +1,6 @@
 package com.example.dernierespoirsae.modele.Armes;
 
+import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -9,22 +10,17 @@ public abstract class Arme {
     private int degats;
     private static int idStatic=0;
     private int id;
+    private Environnement environnement;
 
-    public Arme(int degats, String type) {
+    public Arme(int degats,int x,int y, String type, Environnement environnement) {
         this.type = type;
         this.degats = degats;
         this.id = idStatic++;
-        this.xProperty = new SimpleIntegerProperty();
-        this.yProperty = new SimpleIntegerProperty();
-    }
-
-    public Arme(int degats, int x, int y, String type) {
-        this.degats = degats;
-        this.id = idStatic++;
-        this.type = type;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
+        this.environnement = environnement;
     }
+
 
     public abstract void incremeterDecremeterQuantiteInventaire(int val);
 
@@ -69,5 +65,10 @@ public abstract class Arme {
 
     public int getDegats() {
         return degats;
+    }
+    public abstract void attaquer();
+
+    public Environnement getEnvironnement() {
+        return environnement;
     }
 }

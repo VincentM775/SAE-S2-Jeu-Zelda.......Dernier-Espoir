@@ -22,7 +22,7 @@ public class ObservateurInventaire implements ListChangeListener<Arme> {
         while (Arme.next()){ //Tant qu'il y a un acteur dans la liste des armes ayant été ajouté/supprimé
             for(int i = 0; i < Arme.getAddedSize(); i++){
 
-                //Incremete la quantitée de l'arme d'1
+                //Incremete la quantitée de l'arme
                 Arme.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
                 //Affiche l'arme dans la vueInventaire
                 new VueInventaire(inventaireVBox, Arme.getAddedSubList().get(i), inventaire);

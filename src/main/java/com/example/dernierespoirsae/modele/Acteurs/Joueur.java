@@ -6,8 +6,11 @@ import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class Joueur extends Acteur {
 
@@ -94,20 +97,14 @@ public class Joueur extends Acteur {
 
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
+//                armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
+//                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
+//                    armePaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
+//                }));
+//                timeline.setCycleCount(1); // Exécuter une seule fois
+//                timeline.play();
 
-                //Pour chacun des acteurs de la map
-                for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
-
-                    //sauf le joueur
-                    if (getEnvironnement().getListActeurs().get(i) != this) {
-
-                        //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
-                        if (estPresentDansRayonPixel(32, getEnvironnement().getListActeurs().get(i).getX(), getEnvironnement().getListActeurs().get(i).getY())) {
-                            //Fait perdre a l'acteur a coté du quelle on est autant de pv que l'atme équipée fait de dégat
-                            getEnvironnement().getListActeurs().get(i).perdPV(getArmeEquipeeProperty().getValue().getDegats());
-                        }
-                    }
-                }
+                getArmeEquipeeProperty().getValue().attaquer(); //On utilise notre arme
                 setClicks("");
             }
         }

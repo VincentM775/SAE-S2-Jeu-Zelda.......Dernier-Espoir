@@ -1,7 +1,9 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.modele.Armes.Balle;
+import com.example.dernierespoirsae.modele.Armes.BalleBave;
 import com.example.dernierespoirsae.modele.Armes.Bave;
+import com.example.dernierespoirsae.modele.Armes.Projectile;
 import com.example.dernierespoirsae.modele.Environnement;
 
 public class BaveZmort extends Ennemi {
@@ -60,24 +62,14 @@ public class BaveZmort extends Ennemi {
     }
 
     public void attaque(int temps){
-        Balle bave;
-        boolean val;
-
+        Projectile balleBave;
         if (joueurPresent()){
             if (temps % 30==0 ){
-                bave = new Balle(getNombreDeDegat(),getX() + (15 / 2)+2-(15/2),getY() + (15 / 2)+2- (18/2) ,getEnvironnement(),this);
-                getEnvironnement().addProjectile(bave);
+                balleBave = new BalleBave(getNombreDeDegat(),getEnvironnement(),this);
+                getEnvironnement().addProjectile(balleBave);
             }
         }
-        for(int i=0;i< getEnvironnement().getListProjectile().size();i++) {
 
-            val = getEnvironnement().getListProjectile().get(i).avance();
-
-            if (getEnvironnement().getListProjectile().get(i).testProjectileArriverSurJoueur() || !val) {
-                getEnvironnement().getListProjectile().remove(i);
-            }
-
-        }
     }
     public void joueurDansBave(){
         if (detectJoueurDansBave()){

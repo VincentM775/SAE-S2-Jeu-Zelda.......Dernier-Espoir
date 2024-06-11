@@ -14,14 +14,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException{
         Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png");
-        tileset.getWidth();
-        tileset.getHeight();
+        double originalWidth = tileset.getWidth();
+        double originalHeight = tileset.getHeight();
+        System.out.println("Original Width: " + originalWidth); //A LAISSER
+        System.out.println("Original Height: " + originalHeight); //A LAISSER
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vueDernierEspoir.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),longeur,largeur);
         scene.getStylesheets().add(getClass().getResource("dernierEspoir.css").toExternalForm());
         stage.setTitle("Dernier Espoir");
         stage.setScene((scene));
         stage.show();
+
     }
 
     public static void main(String[] args) {

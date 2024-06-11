@@ -24,7 +24,10 @@ public abstract class Acteur {
     private Collision collision;
     private IntegerProperty maxVie;
     private String touche;
-    private String clickSouris;
+    private StringProperty clickSouris;
+    private int xDeLaSouris;
+    private int yDeLaSouris;
+
 
     public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox,int correctinXbox, int correctinYbox) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -41,9 +44,10 @@ public abstract class Acteur {
         this.id=idStatic++;
         this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
-        //this.armes = FXCollections.observableArrayList();
-        this.clickSouris ="";
+        this.clickSouris = new SimpleStringProperty("");
         this.touche = "";
+        this.xDeLaSouris = 0;
+        this.yDeLaSouris = 0;
     }
 
     public int getMaxVie() {
@@ -172,11 +176,30 @@ public abstract class Acteur {
     public abstract void agit();
 
     public void setClicks(String clickSouris) {
-        this.clickSouris = clickSouris;
+        this.clickSouris.setValue(clickSouris);
     }
 
     public String getClickSouris() {
+        return this.clickSouris.getValue();
+    }
+
+    public StringProperty clickSourisProperty() {
         return this.clickSouris;
     }
 
+    public int getxDeLaSouris() {
+        return xDeLaSouris;
+    }
+
+    public int getyDeLaSouris() {
+        return yDeLaSouris;
+    }
+
+    public void setyDeLaSouris(int yDeLaSouris) {
+        this.yDeLaSouris = yDeLaSouris;
+    }
+
+    public void setxDeLaSouris(int xDeLaSouris) {
+        this.xDeLaSouris = xDeLaSouris;
+    }
 }

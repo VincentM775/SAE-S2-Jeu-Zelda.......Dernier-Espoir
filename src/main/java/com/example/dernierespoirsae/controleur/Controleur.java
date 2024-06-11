@@ -86,14 +86,14 @@ public class Controleur implements Initializable {
         environnement.setListenerArmeEnvironnement(observateurArme);
 
         //Creer des haches
-        Arme hache = new Hache(60,150);
-        Arme hache1 = new Hache(80,50);
-        Arme hache3 = new Hache(100,200);
+        Arme hache = new Hache(60,150,environnement);
+        Arme hache1 = new Hache(80,50,environnement);
+        Arme hache3 = new Hache(100,200,environnement);
 
         //Creer un pistolet
-        Arme pistolet = new Pistolet(800,300);
-        Arme pistolet1 = new Pistolet(300,1000);
-        Arme pistolet2 = new Pistolet(900,300);
+        Arme pistolet = new Pistolet(800,300,environnement);
+        Arme pistolet1 = new Pistolet(300,1000,environnement);
+        Arme pistolet2 = new Pistolet(900,300,environnement);
 
         //Ajoute les armes a l'environnement
         environnement.getListArmeEnvironnement().add(hache);
@@ -124,18 +124,19 @@ public class Controleur implements Initializable {
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
         environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane,vueTerrain));
 
-        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
-        joueur.xProperty().addListener(listenerX);
+        ObservateurPositionX obsX = new ObservateurPositionX(principalPane, joueur);
+        ObservateurPositionY obsY = new ObservateurPositionY(principalPane, joueur);
 
-        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
-        joueur.yProperty().addListener(listenerY);
+        joueur.xProperty().addListener(obsX);
+
+        joueur.yProperty().addListener(obsY);
 
         //Initialialisation du keyHandler pour la gestions des entrées clavier utilisateur
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
-        ClickHandler clickHandler= new ClickHandler(environnement);
+        ClickHandler clickHandler= new ClickHandler(environnement,obsX,obsY);
         fenetre.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS

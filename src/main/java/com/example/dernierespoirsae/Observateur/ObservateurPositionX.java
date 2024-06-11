@@ -19,7 +19,12 @@ public class ObservateurPositionX implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> obs, Number oldV, Number newV) {
 
-        if(this.joueur.getX() > Main.longeur/2 && this.joueur.getX() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[1] - Main.longeur/2)
-            this.principalPane.setTranslateX((double) Main.longeur /2-joueur.getX());
+        if (this.joueur.getX() > Main.longeur / 2 && this.joueur.getX() < this.joueur.getEnvironnement().getInfoTuile()[0] * this.joueur.getEnvironnement().getInfoTuile()[1] - Main.longeur / 2){
+            this.principalPane.setTranslateX((double) Main.longeur / 2 - joueur.getX());
+
+        }
+    }
+    public int getX(){
+        return (int)this.principalPane.getTranslateX();
     }
 }
