@@ -18,9 +18,9 @@ public class Environnement{
     private BFS bfs;
     private int[] infoTuile;
     private ObservableList<Acteur> acteurs;
-    private ObservableList<Projectile> Listprojectile;
-    private ObservableList<Bave> ListBave;
-    private ObservableList<Arme> listArmes;
+    private ObservableList<Projectile> listprojectile;
+    private ObservableList<Bave> listBave;
+    private ObservableList<Arme> listArmeEnvironnement;
     private int temps;
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -29,11 +29,11 @@ public class Environnement{
         this.infoTuile[1] = nombreDeTuileLongueur; //nombre de colonnes
         this.infoTuile[2] = nombreDeTuileLargeur; //nombre de lignes
         this.terrain = new Terrain();
-        this.listArmes = FXCollections.observableArrayList();
+        this.listArmeEnvironnement = FXCollections.observableArrayList();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
-        this.Listprojectile = FXCollections.observableArrayList();
-        this.ListBave = FXCollections.observableArrayList();
+        this.listprojectile = FXCollections.observableArrayList();
+        this.listBave = FXCollections.observableArrayList();
         temps=0;
     }
 
@@ -41,8 +41,8 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ObservableList<Arme> getListArmes() {
-        return this.listArmes;
+    public ObservableList<Arme> getListArmeEnvironnement() {
+        return this.listArmeEnvironnement;
     }
     public ObservableList<Acteur> getListActeurs(){
         return this.acteurs;
@@ -65,8 +65,8 @@ public class Environnement{
         acteurs.addListener(acteursObserve);
     }
 
-    public void setListenerArmes(ObservateurArmes armesObserve){
-        listArmes.addListener(armesObserve);
+    public void setListenerArmeEnvironnement(ObservateurArmes armesObserve){
+        listArmeEnvironnement.addListener(armesObserve);
     }
 
     public int[] getInfoTuile() {
@@ -82,19 +82,19 @@ public class Environnement{
     }
 
     public ObservableList<Projectile> getListProjectile() {
-        return Listprojectile;
+        return listprojectile;
     }
 
     public void addProjectile(Projectile projectile){
-        this.Listprojectile.add(projectile);
+        this.listprojectile.add(projectile);
     }
 
     public ObservableList<Bave> getListBave() {
-        return ListBave;
+        return listBave;
     }
 
     public void addBave(Bave bave){
-        this.ListBave.add(bave);
+        this.listBave.add(bave);
     }
     public void agit() {
         for (int i = 0; i < getListActeurs().size(); i++) {

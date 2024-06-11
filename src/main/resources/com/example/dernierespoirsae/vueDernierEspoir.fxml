@@ -21,7 +21,7 @@
     <right>
         <BorderPane>
             <center>
-                <VBox alignment="CENTER" fx:id="inventairePane" layoutX="989.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: black; -fx-border-width: 1;">
+                <VBox alignment="CENTER" fx:id="inventaireVBox" layoutX="989.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: black; -fx-border-width: 1;">
                     <children>
                     </children>
                 </VBox>

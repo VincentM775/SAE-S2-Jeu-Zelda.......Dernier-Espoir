@@ -11,12 +11,12 @@ import javafx.scene.layout.VBox;
 
 public class VueInventaire {
 
-    private VBox inventairePane;
-    Inventaire inventaire;
+    private VBox inventaireVBox;
+    private Inventaire inventaire;
 
-    public VueInventaire(VBox inventairePane, Arme arme, Inventaire inventaire) {
+    public VueInventaire(VBox inventaireVBox, Arme arme, Inventaire inventaire) {
 
-        this.inventairePane = inventairePane;
+        this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
 
         addViewArmeInventaire(arme);
@@ -30,8 +30,8 @@ public class VueInventaire {
      * uniquement s'il n'en existe pas déjà, dans ce cas, on réaffiche pas l'arme mais on met à jour la quantité
      */
     public void addViewArmeInventaire(Arme arme) {
-
         Pane emplacement = new Pane();
+        emplacement.setOnMouseClicked(event -> setClick(emplacement));
         Label labelExiste = null;
         String idLabel = "labelNb" + arme.getType();
         Pane pane = null;
@@ -42,12 +42,12 @@ public class VueInventaire {
          */
 
         //Parcours les cases de type Pane de l'inventaire
-        for (int i = 0; i < inventairePane.getChildren().size(); i++) {
+        for (int i = 0; i < inventaireVBox.getChildren().size(); i++) {
 
-             //Si un Pane correspond à l'arme alors on met à jour le label dans ce Pane
-           if (String.valueOf(inventairePane.getChildren().get(i).getId()).equals( arme.getType()) ) {
+            //Si un Pane correspond à l'arme alors on met à jour le label dans ce Pane
+            if (String.valueOf(inventaireVBox.getChildren().get(i).getId()).equals( arme.getType()) ) {
 
-                pane = (Pane) inventairePane.getChildren().get(i);
+                pane = (Pane) inventaireVBox.getChildren().get(i);
 
                 // Cherche le label dans le Pane
                 for (Node node : pane.getChildren()) { //Utilisation d'un objet de type Node car on se sait pas a ce moment de quel type sont les Children du Pane
@@ -78,7 +78,7 @@ public class VueInventaire {
             emplacement.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-background-color: #77B5FE; -fx-border-radius: 10; -fx-background-radius: 10" );
 
             //Ajoute ce Pane a la vue Inventaire
-            this.inventairePane.getChildren().add(emplacement);
+            this.inventaireVBox.getChildren().add(emplacement);
 
             //Défini la taille de l'image dans le Pane
             imageView.setFitWidth(80);
@@ -99,20 +99,24 @@ public class VueInventaire {
     //Cette methode modifie de Label affiché pour indiqué la quantité de l'arme dans l'inventaire
     public void modifierLabel(Arme arme, String idLabel, Label labelExiste, Pane pane) {
 
-            //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
-            if (labelExiste != null) {
+        //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
+        if (labelExiste != null) {
 
-                labelExiste.setText("x"+arme.getQuantite());
-            }
-            else { // Si le label n'existe pas, en créer un nouveau
-
-                Label label = new Label();
-                label.setId(idLabel);
-                label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
-                label.setTranslateY(58);
-                label.setTranslateX(75);
-                label.setText("x"+arme.getQuantite());
-                pane.getChildren().add(label);
-            }
+            labelExiste.setText("x"+arme.getQuantite());
         }
+        else { // Si le label n'existe pas, en créer un nouveau
+
+            Label label = new Label();
+            label.setId(idLabel);
+            label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+            label.setTranslateY(58);
+            label.setTranslateX(75);
+            label.setText("x"+arme.getQuantite());
+            pane.getChildren().add(label);
+        }
+    }
+    public void setClick(Pane emplacement){
+        if(this.inventaire.getEnvironnement().getJoueur().getClickSouris().equals("d"))
+            this.inventaire.getEnvironnement().getJoueur().setArmeEquipee(emplacement.getId());
+    }
 }

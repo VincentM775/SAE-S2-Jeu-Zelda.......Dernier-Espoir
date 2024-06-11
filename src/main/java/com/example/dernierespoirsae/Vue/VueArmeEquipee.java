@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 public class VueArmeEquipee extends VueArme{
 
     private Joueur joueur;
-    private  Pane armePaneEquipee;
+    private Pane armePaneEquipee;
 
     public VueArmeEquipee(Arme arme, Joueur joueur, Pane armePaneEquipee) {
         super(arme);

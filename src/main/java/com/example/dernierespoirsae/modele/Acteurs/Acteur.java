@@ -1,18 +1,14 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
-import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public abstract class Acteur {
 
-    private ObservableList<Arme> armes;
     private int vitesse; // Vitesse de déplacement de l'acteur
     private IntegerProperty xProperty, yProperty;
     private String nom;
@@ -45,7 +41,7 @@ public abstract class Acteur {
         this.id=idStatic++;
         this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
-        this.armes = FXCollections.observableArrayList();
+        //this.armes = FXCollections.observableArrayList();
         this.clickSouris ="";
         this.touche = "";
     }
@@ -157,14 +153,6 @@ public abstract class Acteur {
         return direction;
     }
 
-    public ObservableList<Arme> getArmes() {
-        return armes;
-    }
-
-    public void setArmes(ObservableList<Arme> armes) {
-        this.armes = armes;
-    }
-
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map
         int aX = getX();
@@ -190,6 +178,5 @@ public abstract class Acteur {
     public String getClickSouris() {
         return this.clickSouris;
     }
-
 
 }

@@ -32,7 +32,7 @@ public class Controleur implements Initializable {
     @FXML
     private Pane armePaneEquipee;
     @FXML
-    private VBox inventairePane;
+    private VBox inventaireVBox;
     @FXML
     private Pane armePaneMap;
     @FXML
@@ -57,7 +57,10 @@ public class Controleur implements Initializable {
         this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
 
         //Creation du joueur
-        Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventairePane, armePaneEquipee);
+        Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventaireVBox, armePaneEquipee);
+
+        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
+        joueur.getInventaire().getListeArmeInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
         VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2(),environnement);
@@ -65,6 +68,10 @@ public class Controleur implements Initializable {
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
         ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement,vueTerrain);
+
+        joueur.getArmeEquipeeProperty().addListener((observable, oldValue, newValue) -> {
+            new VueArmeEquipee(joueur.getArmeEquipeeProperty().getValue(),joueur, this.armePaneEquipee);
+        });
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -76,7 +83,7 @@ public class Controleur implements Initializable {
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
 
         //Lie cet observateur a la liste d'arme dans l'environnement
-        environnement.setListenerArmes(observateurArme);
+        environnement.setListenerArmeEnvironnement(observateurArme);
 
         //Creer des haches
         Arme hache = new Hache(60,150);
@@ -89,18 +96,15 @@ public class Controleur implements Initializable {
         Arme pistolet2 = new Pistolet(900,300);
 
         //Ajoute les armes a l'environnement
-        environnement.getListArmes().add(hache);
-        environnement.getListArmes().add(pistolet);
-        environnement.getListArmes().add(hache1);
-        environnement.getListArmes().add(hache3);
-        environnement.getListArmes().add(pistolet1);
-        environnement.getListArmes().add(pistolet2);
+        environnement.getListArmeEnvironnement().add(hache);
+        environnement.getListArmeEnvironnement().add(pistolet);
+        environnement.getListArmeEnvironnement().add(hache1);
+        environnement.getListArmeEnvironnement().add(hache3);
+        environnement.getListArmeEnvironnement().add(pistolet1);
+        environnement.getListArmeEnvironnement().add(pistolet2);
 
         //Génére un terrain avec des tuile aléatoire
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
-
-        //Affiche le terrain
-//        terrain.afficherTerrain();
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
@@ -131,7 +135,7 @@ public class Controleur implements Initializable {
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
-        ClickHandler clickHandler= new ClickHandler(environnement, inventairePane);
+        ClickHandler clickHandler= new ClickHandler(environnement);
         fenetre.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS
@@ -146,9 +150,9 @@ public class Controleur implements Initializable {
     }
 
     private void initAnimation() {
-        gameLoop = new Timeline();
-        temps=0;
-        gameLoop.setCycleCount(Timeline.INDEFINITE);
+        this.gameLoop = new Timeline();
+        this.temps=0;
+        this.gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
@@ -161,12 +165,12 @@ public class Controleur implements Initializable {
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
-                environnement.setTemps(environnement.getTemps()+1);
-                environnement.unTour();
-                temps++;
+                this.environnement.setTemps(this.environnement.getTemps()+1);
+                this.environnement.unTour();
+                this.temps++;
             })
         );
-        gameLoop.getKeyFrames().add(kf);
+        this.gameLoop.getKeyFrames().add(kf);
     }
 
 
