@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Projectile {
 
+    private int initialX;
+    private int initialY;
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
 
@@ -16,26 +18,30 @@ public abstract class Projectile {
 
     private int id;
 
-    private int ouAllerX; // valeur de x à la création de la balle
+    private int ouAllerX; // valeur de x où il faut aller
 
-    private int ouAllerY; // valeur de y à la création de la balle
+    private int ouAllerY; // valeur de y où il faut aller
 
     private int vitesse; // Vitesse de déplacement de la balle
     private Environnement environnement;
     private Acteur acteurQuiALancer;
     private boolean estVivant;
+    private int portee;
 
-    public Projectile(int degats, Environnement environnement, Acteur acteurQuiALancer) {
+    public Projectile(int degats, Environnement environnement, Acteur acteurQuiALancer, int vitesse, int portee) {
         this.environnement = environnement;
         this.degats = degats;
         this.id = idStatic++;
         this.xProperty = new SimpleIntegerProperty(acteurQuiALancer.getX()+28/2);
         this.yProperty = new SimpleIntegerProperty(acteurQuiALancer.getY()+28/2);
+        this.initialX = this.xProperty.get();
+        this.initialY = this.yProperty.get();
         this.ouAllerX = jeVaisEnX();
         this.ouAllerY = jeVaisEnY();
-        this.vitesse = 8;
+        this.vitesse = vitesse;
         this.acteurQuiALancer = acteurQuiALancer;
         this.estVivant = true;
+        this.portee = portee;
     }
 
     public int getDegats() {
@@ -79,7 +85,13 @@ public abstract class Projectile {
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         int prochaineValX = getXProperty() + (int) (vitesse * (deltaX / distance));
         int prochaineValY = getYProperty() + (int) (vitesse * (deltaY / distance));
-        if (!testMurSurRoute(prochaineValX,prochaineValY)) {
+
+        // Calculer la distance parcourue depuis la position initiale
+        int totalDeltaX = prochaineValX - initialX;
+        int totalDeltaY = prochaineValY - initialY;
+        double distanceParcourue = Math.sqrt(totalDeltaX * totalDeltaX + totalDeltaY * totalDeltaY);
+
+        if (!testMurSurRoute(prochaineValX,prochaineValY)&&distanceParcourue<=portee) {
             if (!getEnvironnement().getListActeurs().isEmpty()) {
                 testActeurToucher(prochaineValX, prochaineValY);
                 setxProperty(prochaineValX);
@@ -113,7 +125,7 @@ public abstract class Projectile {
                 caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
                 caseAY = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
                 if (caseAX==prochaineValX && caseAY==prochaineValY) {
-                    environnement.getListActeurs().get(i).perdPV(10);
+                    environnement.getListActeurs().get(i).perdPV(getDegats());
 
                 }
             }
@@ -149,7 +161,16 @@ public abstract class Projectile {
     public int getVitesse() {
         return vitesse;
     }
-    public abstract void agit();
+    public void agit(){
+        if (getEstVivant()) {
+            if (!testProjectileArriverSurJoueur()) {
+                avance();
+            }
+            else setEstVivant(false);
+        }
+        else getEnvironnement().getListProjectile().remove(this);
+
+    }
 
     public void setEstVivant(boolean estVivant) {
         this.estVivant = estVivant;

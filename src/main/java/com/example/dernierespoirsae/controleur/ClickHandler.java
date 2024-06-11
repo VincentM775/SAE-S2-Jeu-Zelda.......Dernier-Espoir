@@ -1,5 +1,7 @@
 package com.example.dernierespoirsae.controleur;
 
+import com.example.dernierespoirsae.Observateur.ObservateurPositionX;
+import com.example.dernierespoirsae.Observateur.ObservateurPositionY;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
@@ -12,10 +14,14 @@ public class ClickHandler implements EventHandler<MouseEvent> {
     private VBox inventairePane;
 
     private final Environnement environnement;
+    private ObservateurPositionX obsX;
+    private ObservateurPositionY obsY;
 
-    public ClickHandler(Environnement environnement, VBox inventairePane) {
+    public ClickHandler(Environnement environnement, VBox inventairePane, ObservateurPositionX obsX, ObservateurPositionY obsY) {
         this.environnement = environnement;
         this.inventairePane = inventairePane;
+        this.obsX = obsX;
+        this.obsY = obsY;
     }
 
     @Override
@@ -28,8 +34,8 @@ public class ClickHandler implements EventHandler<MouseEvent> {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             // Ajouter "g" pour chaque clic gauche
             clickSouris += "g";
-            environnement.getJoueur().setxDeLaSouris((int) mouseEvent.getX());
-            environnement.getJoueur().setyDeLaSouris((int) mouseEvent.getY());
+            environnement.getJoueur().setxDeLaSouris((int) mouseEvent.getX() + Math.abs(this.obsX.getX()));
+            environnement.getJoueur().setyDeLaSouris((int) mouseEvent.getY() + Math.abs(this.obsY.getY()));
 
 
         }

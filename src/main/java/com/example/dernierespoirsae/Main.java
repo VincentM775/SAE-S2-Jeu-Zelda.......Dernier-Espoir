@@ -16,8 +16,8 @@ public class Main extends Application {
         Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png");
         double originalWidth = tileset.getWidth();
         double originalHeight = tileset.getHeight();
-        System.out.println("Original Width: " + originalWidth);
-        System.out.println("Original Height: " + originalHeight);
+        System.out.println("Original Width: " + originalWidth); //A LAISSER
+        System.out.println("Original Height: " + originalHeight); //A LAISSER
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vueDernierEspoir.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),longeur,largeur);

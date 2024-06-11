@@ -220,4 +220,8 @@ public abstract class Ennemi extends Acteur {
     public int getNombreDeDegat() {
         return nombreDeDegat;
     }
+
+    public int getPorteeDeVue() {
+        return porteeDeVue;
+    }
 }

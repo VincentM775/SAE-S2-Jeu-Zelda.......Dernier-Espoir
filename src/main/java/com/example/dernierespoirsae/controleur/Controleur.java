@@ -120,18 +120,19 @@ public class Controleur implements Initializable {
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
         environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane,vueTerrain));
 
-        ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
-        joueur.xProperty().addListener(listenerX);
+        ObservateurPositionX obsX = new ObservateurPositionX(principalPane, joueur);
+        ObservateurPositionY obsY = new ObservateurPositionY(principalPane, joueur);
 
-        ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
-        joueur.yProperty().addListener(listenerY);
+        joueur.xProperty().addListener(obsX);
+
+        joueur.yProperty().addListener(obsY);
 
         //Initialialisation du keyHandler pour la gestions des entrées clavier utilisateur
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
-        ClickHandler clickHandler= new ClickHandler(environnement, inventairePane);
+        ClickHandler clickHandler= new ClickHandler(environnement, inventairePane,obsX,obsY);
         fenetre.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS
