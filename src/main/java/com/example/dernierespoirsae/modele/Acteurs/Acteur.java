@@ -28,7 +28,7 @@ public abstract class Acteur {
     private Collision collision;
     private IntegerProperty maxVie;
     private String touche;
-    private String clickSouris;
+    private StringProperty clickSouris;
     private int xDeLaSouris;
     private int yDeLaSouris;
 
@@ -49,7 +49,7 @@ public abstract class Acteur {
         this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
         this.armes = FXCollections.observableArrayList();
-        this.clickSouris ="";
+        this.clickSouris = new SimpleStringProperty("");
         this.touche = "";
         this.xDeLaSouris = 0;
         this.yDeLaSouris = 0;
@@ -189,10 +189,14 @@ public abstract class Acteur {
     public abstract void agit();
 
     public void setClicks(String clickSouris) {
-        this.clickSouris = clickSouris;
+        this.clickSouris.setValue(clickSouris);
     }
 
     public String getClickSouris() {
+        return this.clickSouris.getValue();
+    }
+
+    public StringProperty clickSourisProperty() {
         return this.clickSouris;
     }
 
