@@ -13,8 +13,8 @@ public abstract class Ennemi extends Acteur {
     private int deplacementRestant = 0;
     private int porteeDeVue;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue) {
-        super(x, y, nom, environnement, vie, vitesse, longTuile, largeTuile, nbTuile,15,15);
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue,int longBox,int largeBox,int correctinXbox,int correctinYbox) {
+        super(x, y, nom, environnement, vie, vitesse, longTuile, largeTuile, nbTuile,longBox,largeBox,correctinXbox,correctinYbox);
         this.porteeDeVue = porteeDeVue;
         this.nombreDeDegat=nombreDeDegat;
     }
@@ -112,8 +112,8 @@ public abstract class Ennemi extends Acteur {
             deplacement(getVitesse()); //on le fait avancer
 
             if (ancienneCooX==getX() && ancienneCooY == getY()) { //on regarde qu'il a bien avancer
-                positionX = positionX + 15;
-                positionY = positionY + 14;
+                positionX = positionX + 28;
+                positionY = positionY + 27;
                 prochaineDirection(positionX,positionY); //Pour éviter qu'il reste bloqué, on lui donne la position de son coin opposé
             }
             this.setDirection("null"); //On remet la position à null pour qu'il arrête d'avancer dans la gameLoop

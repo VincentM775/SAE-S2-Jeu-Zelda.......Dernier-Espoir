@@ -13,9 +13,15 @@ public class VueJoueur extends VueActeur{
     }
 
     @Override
-    public int definitionCouleur() {
-        return 0;
+    public String imageACreer() {
+        return "file:src/main/resources/com/example/dernierespoirsae/images/joueur0.png";
     }
+
+    @Override
+    public int[] placementImage() {
+        return new int[]{6, 12};
+    }
+
 
     @Override
     public void definitionbarreDeVie() {

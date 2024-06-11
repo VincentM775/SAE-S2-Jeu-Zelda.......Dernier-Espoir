@@ -11,7 +11,7 @@ public class Joueur extends Acteur {
     private ObservableList<Arme> armes;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 15, 15);
+        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26,0,0);
         this.armes = FXCollections.observableArrayList();
     }
 
@@ -56,6 +56,9 @@ public class Joueur extends Acteur {
             dx += this.getVitesse();
             getEnvironnement().getBfs().lancementBFS();
         }
+//        if (getDirection().contains("") || getDirection().contains("leftright") || getDirection().contains("updown") || ) {
+//
+//        }
 
         setX(getX() + dx);
         setY(getY() + dy);

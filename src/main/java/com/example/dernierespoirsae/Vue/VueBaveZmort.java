@@ -14,8 +14,11 @@ public class VueBaveZmort extends VueZombie{
     }
 
     @Override
-    public int definitionCouleur() {
-        return 3;
+    public String imageACreer() {
+        return "file:src/main/resources/com/example/dernierespoirsae/images/bavezmort0.png";
     }
-
+    @Override
+    public int[] placementImage() {
+        return new int[]{0, 0};
+    }
 }

@@ -52,11 +52,11 @@ public class VueTerrain {
             int tileIndex = m1.get(i);
             int tileIndex2 = m2.get(i);
             if (tileIndex >= 1 && tileIndex <= tiles.length) // Assurez-vous que tileIndex est dans les limites
-                imageView.setImage(tiles[tileIndex]);
+                imageView.setImage(tiles[tileIndex-6]);
             if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
                 imageView2 = new ImageView();
                 imageView2.setId(""+i);
-                imageView2.setImage(tiles[tileIndex2]);
+                imageView2.setImage(tiles[tileIndex2-6]);
             }
             if (tileIndex2 != 0) {
                 this.terrainPane.getChildren().add(new StackPane(imageView2, imageView));
@@ -66,15 +66,15 @@ public class VueTerrain {
     }
 
     public Image obtenirImageTerrain(int ligne, int colonne) {
-        // Obtenez l'index de la tuile dans la liste représentant le terrain
         int index = ligne * environnement.getInfoTuile()[1] + colonne;
+        int tileIndex;
 
-        // Assurez-vous que l'index est valide
+        // si index est valide
         if (index >= 0 && index < terrain.getTerrain().size()) {
-            // Obtenez l'index de la tuile dans la liste représentant le terrain
-            int tileIndex = m2.get(index);
+            // recupère l'index de la tuile dans la liste représentant le terrain
+             tileIndex = m2.get(index)-6;
 
-            // Assurez-vous que tileIndex est dans les limites
+            // si que tileIndex est dans les limites
             if (tileIndex >= 1 && tileIndex <= tiles.length) {
                 // Retournez l'image correspondante à l'index
                 return tiles[tileIndex];
