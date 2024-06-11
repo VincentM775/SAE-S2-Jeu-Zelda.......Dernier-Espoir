@@ -1,54 +1,52 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.Main;
-import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
+import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 public class Joueur extends Acteur {
 
     private Inventaire inventaire;
-    private ObjectProperty<Arme> armeEquipee;
+    private ObjectProperty<Objets> objetsEquipee;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane, Pane armePaneEquipee) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26,0,0);
         this.inventaire = new Inventaire(environnement);
-        this.armeEquipee =  new SimpleObjectProperty<>();
+        this.objetsEquipee =  new SimpleObjectProperty<>();
     }
 
     public Inventaire getInventaire() {
         return this.inventaire;
     }
 
-    public ObjectProperty<Arme> getArmeEquipeeProperty() {
-        return armeEquipee;
+    public ObjectProperty<Objets> getArmeEquipeeProperty() {
+        return objetsEquipee;
     }
-    public Arme getArmeEquipee() {
-        return armeEquipee.getValue();
+    public Objets getArmeEquipee() {
+        return objetsEquipee.getValue();
     }
 
-    public void setArmeEquipee(Arme armeEquipee) {
-        this.armeEquipee.set(armeEquipee);
+    public void setArmeEquipee(Objets objetsEquipe) {
+        this.objetsEquipee.set(objetsEquipe);
     }
 
     @Override
     public void agit() {
         seDeplacer();
         attaque();
-        rechercheArme();
+        rechercheObjets();
     }
 
     public void setArmeEquipee(String typeArme)  {
-        for (int i = 0; i < inventaire.getListeArmeInventaire().size(); i++){
-            if(inventaire.getListeArmeInventaire().get(i).getType().equals(typeArme)){
-                setArmeEquipee(inventaire.getListeArmeInventaire().get(i));
+        for (int i = 0; i < inventaire.getListeObjetsInventaire().size(); i++){
+            if(inventaire.getListeObjetsInventaire().get(i).getType().equals(typeArme)){
+                setArmeEquipee(inventaire.getListeObjetsInventaire().get(i));
             }
         }
     }
@@ -83,11 +81,11 @@ public class Joueur extends Acteur {
         setX(getX() + dx);
         setY(getY() + dy);
     }
-    public void rechercheArme() {
+    public void rechercheObjets() {
         for (int i = 0; i < getEnvironnement().getListArmeEnvironnement().size(); i++) {
             if (estPresentDansRayonPixel(30,getEnvironnement().getListArmeEnvironnement().get(i).getX(),getEnvironnement().getListArmeEnvironnement().get(i).getY())){
                 if (getTouche().contains("R")) {
-                    getInventaire().getListeArmeInventaire().add(getEnvironnement().getListArmeEnvironnement().get(i));
+                    getInventaire().getListeObjetsInventaire().add(getEnvironnement().getListArmeEnvironnement().get(i));
                     getEnvironnement().getListArmeEnvironnement().remove(i);
                 }
             }
@@ -100,15 +98,17 @@ public class Joueur extends Acteur {
 
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
+//                if (getArmeEquipee() instanceof Arme) {
 //                armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
 //                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
 //                    armePaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
 //                }));
 //                timeline.setCycleCount(1); // Exécuter une seule fois
 //                timeline.play();
-                setArmeALattaque(true);
-                getArmeEquipee().attaquer(); //On utilise notre arme
-                setClicks("");
+                    setArmeALattaque(true);
+                    ((Arme) getArmeEquipee()).attaquer(); //On utilise notre arme
+                    setClicks("");
+//                }
             }
         }
     }

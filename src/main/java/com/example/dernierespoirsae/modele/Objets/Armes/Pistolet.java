@@ -1,4 +1,4 @@
-package com.example.dernierespoirsae.modele.Armes;
+package com.example.dernierespoirsae.modele.Objets.Armes;
 
 import com.example.dernierespoirsae.modele.Environnement;
 

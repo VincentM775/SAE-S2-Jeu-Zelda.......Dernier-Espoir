@@ -2,15 +2,11 @@ package com.example.dernierespoirsae.Observateur;
 
 import com.example.dernierespoirsae.Vue.VueBalle;
 import com.example.dernierespoirsae.Vue.VueBave;
-import com.example.dernierespoirsae.modele.Armes.Balle;
-import com.example.dernierespoirsae.modele.Armes.BalleBave;
-import com.example.dernierespoirsae.modele.Armes.Projectile;
-import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.Objets.Armes.Balle;
+import com.example.dernierespoirsae.modele.Objets.Armes.BalleBave;
+import com.example.dernierespoirsae.modele.Objets.Armes.Projectile;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.beans.binding.Bindings;
 
 public class ObservateurProjectile implements ListChangeListener<Projectile> {
     private Pane projectilePane;

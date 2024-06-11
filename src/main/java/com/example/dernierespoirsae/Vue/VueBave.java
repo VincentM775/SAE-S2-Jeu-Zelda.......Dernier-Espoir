@@ -1,6 +1,6 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Armes.Projectile;
+import com.example.dernierespoirsae.modele.Objets.Armes.Projectile;
 import javafx.scene.layout.Pane;
 
 public class VueBave extends VueProjectile{

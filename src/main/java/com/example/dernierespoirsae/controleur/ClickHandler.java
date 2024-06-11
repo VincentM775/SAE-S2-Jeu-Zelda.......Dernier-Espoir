@@ -32,8 +32,6 @@ public class ClickHandler implements EventHandler<MouseEvent> {
             clickSouris += "g";
             environnement.getJoueur().setxDeLaSouris((int) mouseEvent.getX() + Math.abs(this.obsX.getX()));
             environnement.getJoueur().setyDeLaSouris((int) mouseEvent.getY() + Math.abs(this.obsY.getY()));
-
-
         }
         if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             // Ajouter "d" pour chaque clic droit

@@ -1,7 +1,6 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Armes.Balle;
-import com.example.dernierespoirsae.modele.Armes.Projectile;
+import com.example.dernierespoirsae.modele.Objets.Armes.Projectile;
 import javafx.beans.binding.Bindings;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

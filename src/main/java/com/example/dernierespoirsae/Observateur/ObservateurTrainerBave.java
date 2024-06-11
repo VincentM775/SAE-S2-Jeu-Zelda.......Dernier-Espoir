@@ -1,11 +1,9 @@
 package com.example.dernierespoirsae.Observateur;
 
-import com.example.dernierespoirsae.Vue.VueActeur;
 import com.example.dernierespoirsae.Vue.VueTerrain;
-import com.example.dernierespoirsae.modele.Armes.Bave;
+import com.example.dernierespoirsae.modele.Objets.Armes.Bave;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;

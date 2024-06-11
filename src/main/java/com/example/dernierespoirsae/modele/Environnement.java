@@ -3,10 +3,11 @@ package com.example.dernierespoirsae.modele;
 import com.example.dernierespoirsae.Observateur.ObservateurActeurs;
 import com.example.dernierespoirsae.Observateur.ObservateurArmes;
 import com.example.dernierespoirsae.modele.Acteurs.*;
-import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
-import com.example.dernierespoirsae.modele.Armes.Bave;
-import com.example.dernierespoirsae.modele.Armes.Projectile;
+import com.example.dernierespoirsae.modele.Objets.Armes.Bave;
+import com.example.dernierespoirsae.modele.Objets.Armes.Projectile;
+import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.dernierespoirsae.algo.BFS;
@@ -20,7 +21,7 @@ public class Environnement{
     private ObservableList<Acteur> acteurs;
     private ObservableList<Projectile> listprojectile;
     private ObservableList<Bave> listBave;
-    private ObservableList<Arme> listArmeEnvironnement;
+    private ObservableList<Objets> listObjetsEnvironnement;
     private int temps;
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -29,7 +30,7 @@ public class Environnement{
         this.infoTuile[1] = nombreDeTuileLongueur; //nombre de colonnes
         this.infoTuile[2] = nombreDeTuileLargeur; //nombre de lignes
         this.terrain = new Terrain();
-        this.listArmeEnvironnement = FXCollections.observableArrayList();
+        this.listObjetsEnvironnement = FXCollections.observableArrayList();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
         this.listprojectile = FXCollections.observableArrayList();
@@ -41,8 +42,8 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ObservableList<Arme> getListArmeEnvironnement() {
-        return this.listArmeEnvironnement;
+    public ObservableList<Objets> getListArmeEnvironnement() {
+        return this.listObjetsEnvironnement;
     }
     public ObservableList<Acteur> getListActeurs(){
         return this.acteurs;
@@ -66,7 +67,7 @@ public class Environnement{
     }
 
     public void setListenerArmeEnvironnement(ObservateurArmes armesObserve){
-        listArmeEnvironnement.addListener(armesObserve);
+        listObjetsEnvironnement.addListener(armesObserve);
     }
 
     public int[] getInfoTuile() {

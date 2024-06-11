@@ -1,7 +1,8 @@
 package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteurs.Joueur;
-import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -14,8 +15,8 @@ public class VueArmeEquipee extends VueArme{
     private Joueur joueur;
     private Pane armePaneEquipee;
 
-    public VueArmeEquipee(Arme arme, Joueur joueur, Pane armePaneEquipee) {
-        super(arme);
+    public VueArmeEquipee(Objets objets, Joueur joueur, Pane armePaneEquipee) {
+        super(objets);
         this.joueur = joueur;
         this.armePaneEquipee = armePaneEquipee;
         creeViewArme();

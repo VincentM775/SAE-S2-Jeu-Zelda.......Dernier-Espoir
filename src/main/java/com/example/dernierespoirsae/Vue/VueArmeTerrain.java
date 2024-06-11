@@ -1,6 +1,7 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
+import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -8,8 +9,8 @@ public class VueArmeTerrain extends VueArme{
 
     private Pane armePaneMap;
 
-    public VueArmeTerrain(Arme arme, Pane armePaneMap) {
-        super(arme);
+    public VueArmeTerrain(Objets objets, Pane armePaneMap) {
+        super(objets);
         this.armePaneMap = armePaneMap;
         creeViewArme();
     }

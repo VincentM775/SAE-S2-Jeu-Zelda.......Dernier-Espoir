@@ -5,10 +5,9 @@ import com.example.dernierespoirsae.algo.BFS;
 import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
 import com.example.dernierespoirsae.modele.Acteurs.*;
-import com.example.dernierespoirsae.modele.Armes.*;
+import com.example.dernierespoirsae.modele.Objets.Armes.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -60,7 +59,7 @@ public class Controleur implements Initializable {
         Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventaireVBox, armePaneEquipee);
 
         ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
-        joueur.getInventaire().getListeArmeInventaire().addListener(observateurInventaire);
+        joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
         VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2(),environnement);
