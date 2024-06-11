@@ -43,6 +43,7 @@ public class Controleur implements Initializable {
     private BFS bfs;
 
     public void initialize(URL location, ResourceBundle ressource) {
+        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/dernierespoirsae/terrain0.json");
 
         //creation de l'environement
         this.environnement = new Environnement(32, 100, 100);
@@ -58,9 +59,12 @@ public class Controleur implements Initializable {
         //Creation du joueur
         Acteur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventairePane, armePaneEquipee);
 
+        //Initialisation de la vue Terrain
+        VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2(),environnement);
+
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
-        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement);
+        ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement,vueTerrain);
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -99,7 +103,7 @@ public class Controleur implements Initializable {
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Affiche le terrain
-        terrain.afficherTerrain();
+//        terrain.afficherTerrain();
 
         //Création d'un premier zombie MasticartorZ
         Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
@@ -110,14 +114,14 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur2);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(470,400, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
         environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
 
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
-        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane));
+        environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane,vueTerrain));
 
         ChangeListener<Number> listenerX = new ObservateurPositionX(principalPane, joueur);
         joueur.xProperty().addListener(listenerX);
@@ -160,8 +164,6 @@ public class Controleur implements Initializable {
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
-
-                //A modifier
                 environnement.setTemps(environnement.getTemps()+1);
                 environnement.unTour();
                 temps++;
@@ -169,6 +171,7 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
 
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();

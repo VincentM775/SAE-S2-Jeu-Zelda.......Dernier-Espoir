@@ -10,8 +10,6 @@ public abstract class VueZombie extends VueActeur{
         super(persoPane, barreViePane, terrainPane, acteur, environnement);
     }
 
-    @Override
-    public abstract int definitionCouleur();
 
     @Override
     public void definitionbarreDeVie() {

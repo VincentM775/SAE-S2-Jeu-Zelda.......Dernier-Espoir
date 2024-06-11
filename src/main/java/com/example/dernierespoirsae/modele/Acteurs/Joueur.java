@@ -16,7 +16,7 @@ public class Joueur extends Acteur {
     private Arme armeEquipee;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane, Pane armePaneEquipee) {
-        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 20, 4, longTuile, largeTuile, nbTuile, 15, 15);
+        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26,0,0);
         this.inventaire = new Inventaire(inventairePane);
         this.armeEquipee = null;
         this.armePaneEquipee = armePaneEquipee;

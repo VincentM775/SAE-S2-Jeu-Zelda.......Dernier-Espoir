@@ -5,17 +5,24 @@ import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.util.jar.Manifest;
 
 public abstract class VueActeur {
     private Pane persoPane,barreViePane;
@@ -31,47 +38,30 @@ public abstract class VueActeur {
         this.environnement = environnement;
         this.acteur = acteur;
         this.barreVie = new ProgressBar();
-        creerRectangle(acteur);
+        creerImage(acteur);
         creerBarreVie(acteur);
     }
 
-    public void creerRectangle(Acteur acteur) {
+    public void creerImage(Acteur acteur) {
+        String imagePath = imageACreer();
 
-        Rectangle rectangle = new Rectangle(15, 15);
-        rectangle.translateXProperty().bind(acteur.xProperty());
-        rectangle.translateYProperty().bind(acteur.yProperty());
-        rectangle.setId(String.valueOf(acteur.getId()));
-        persoPane.getChildren().add(rectangle);
+        ImageView imageView = new ImageView(new Image(imagePath));
 
-        //Modifie la couleur du rectangle selon ce qu'il est
-        switch (definitionCouleur()) {
-            case 0:
-                rectangle.setFill(Color.BLUE);
-                break;
-            case 1:
-                rectangle.setFill(Color.BLACK);
-                break;
-            case 2:
-                rectangle.setFill(Color.RED);
-                break;
-            case 3:
-                rectangle.setFill(Color.YELLOW);
-                break;
-        }
+        imageView.translateXProperty().bind(acteur.xProperty().subtract(placementImage()[0]));
+        imageView.translateYProperty().bind((acteur.yProperty().subtract(placementImage()[1])));
+
+        imageView.setId(String.valueOf(acteur.getId()));
+        persoPane.getChildren().add(imageView);
     }
-    public abstract int definitionCouleur();
-    public void setImageAtIndex(int index, String imagePath) {
-        // Obtenir le nœud à l'index spécifique
-        Node node = terrainPane.getChildren().get(index);
+    public abstract String imageACreer();
+    public abstract int[] placementImage();
 
-        // Vérifier si le nœud est bien une instance d'ImageView
-        if (node instanceof ImageView) {
-            ImageView imageView = (ImageView) node;
 
-            // Définir la nouvelle image
-            Image image = new Image(imagePath);
-            imageView.setImage(image);
-        }
+    public void setImageAtIndex(int index, Image image) {
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(getEnvironnement().getInfoTuile()[0]);
+        imageView.setFitHeight(getEnvironnement().getInfoTuile()[0]);
+        terrainPane.getChildren().set(index, imageView);
     }
     public void addGifToPane(int x, int y,int taille, String image, double gifDurationMs) {
         // Charger le GIF

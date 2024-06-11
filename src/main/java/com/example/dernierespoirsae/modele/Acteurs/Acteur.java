@@ -5,6 +5,8 @@ import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,7 +17,7 @@ public abstract class Acteur {
     private IntegerProperty xProperty, yProperty;
     private String nom;
     private Environnement environnement;
-    private String direction;
+    private StringProperty direction;
     private IntegerProperty vie;
     private String derniereDirection;
     private static int idStatic=0;
@@ -28,7 +30,7 @@ public abstract class Acteur {
     private String touche;
     private String clickSouris;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox,int correctinXbox, int correctinYbox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -41,7 +43,7 @@ public abstract class Acteur {
         this.nbTuile = nbTuile;
         this.collision = new Collision(longBox, largeBox, this);
         this.id=idStatic++;
-        this.direction = "null";
+        this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
         this.armes = FXCollections.observableArrayList();
         this.clickSouris ="";
@@ -145,10 +147,13 @@ public abstract class Acteur {
     }
 
     public void setDirection(String direction) {
-        this.direction = direction;
+        this.direction.setValue(direction);
     }
 
     public String getDirection() {
+        return direction.getValue();
+    }
+    public StringProperty getDirectionProperty() {
         return direction;
     }
 
@@ -185,4 +190,6 @@ public abstract class Acteur {
     public String getClickSouris() {
         return this.clickSouris;
     }
+
+
 }

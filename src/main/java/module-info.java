@@ -6,6 +6,7 @@ module com.example.dernierespoirsae {
 
     requires org.controlsfx.controls;
     requires org.json;
+    requires json.simple;
 
     opens com.example.dernierespoirsae to javafx.fxml;
     exports com.example.dernierespoirsae;
