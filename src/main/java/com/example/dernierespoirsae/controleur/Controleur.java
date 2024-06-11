@@ -72,9 +72,6 @@ public class Controleur implements Initializable {
         //Ajout du joueur a l'environnement
         environnement.setJoueur(joueur);
 
-        //Initialisation de la vue Terrain
-        VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
-
         //Initialise un observateur pour une liste d'arme
         ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
 

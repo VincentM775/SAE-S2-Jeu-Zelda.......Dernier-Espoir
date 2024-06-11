@@ -38,7 +38,6 @@ public class VueTerrain {
             }
         }
         afficherTerrain();
-
     }
 
     public void afficherTerrain() {
