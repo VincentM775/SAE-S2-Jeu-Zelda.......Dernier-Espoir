@@ -10,7 +10,8 @@ import com.example.dernierespoirsae.modele.Armes.Projectile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.dernierespoirsae.algo.BFS;
-import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 
 public class Environnement{
 
@@ -19,9 +20,10 @@ public class Environnement{
     private BFS bfs;
     private int[] infoTuile;
     private ObservableList<Acteur> acteurs;
-    private ObservableList<Projectile> Listprojectile;
-    private ObservableList<Bave> ListBave;
+    private ObservableList<Projectile> listProjectile;
+    private ObservableList<Bave> listBave;
     private ObservableList<Arme> listArmes;
+    private ArrayList<PNJ> listPNJ;
     private int temps;
 
 
@@ -34,8 +36,9 @@ public class Environnement{
         this.listArmes = FXCollections.observableArrayList();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
-        this.Listprojectile = FXCollections.observableArrayList();
-        this.ListBave = FXCollections.observableArrayList();
+        this.listProjectile = FXCollections.observableArrayList();
+        this.listBave = FXCollections.observableArrayList();
+        this.listPNJ = new ArrayList<>();
         temps=0;
     }
 
@@ -84,19 +87,19 @@ public class Environnement{
     }
 
     public ObservableList<Projectile> getListProjectile() {
-        return Listprojectile;
+        return listProjectile;
     }
 
     public void addProjectile(Projectile projectile){
-        this.Listprojectile.add(projectile);
+        this.listProjectile.add(projectile);
     }
 
     public ObservableList<Bave> getListBave() {
-        return ListBave;
+        return listBave;
     }
 
     public void addBave(Bave bave){
-        this.ListBave.add(bave);
+        this.listBave.add(bave);
     }
     public void agit() {
         for (int i = 0; i < getListActeurs().size(); i++) {
@@ -117,5 +120,9 @@ public class Environnement{
 
     public void setTemps(int temps) {
         this.temps = temps;
+    }
+
+    public ArrayList<PNJ> getListPNJ() {
+        return listPNJ;
     }
 }

@@ -29,9 +29,10 @@ public abstract class Acteur {
     private IntegerProperty maxVie;
     private String touche;
     private String clickSouris;
-    private Pane principalPane;
+    private int longBox;
+    private int hautBox;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox, Pane principalPane) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int hautBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -42,14 +43,15 @@ public abstract class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
-        this.collision = new Collision(longBox, largeBox, this);
+        this.longBox = longBox;
+        this.hautBox = hautBox;
+        this.collision = new Collision(longBox, hautBox, this);
         this.id=idStatic++;
         this.direction = "null";
         this.derniereDirection="null";
         this.armes = FXCollections.observableArrayList();
         this.clickSouris ="";
         this.touche = "";
-        this.principalPane = principalPane;
     }
 
     public int getMaxVie() {
@@ -166,8 +168,8 @@ public abstract class Acteur {
 
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map
-        int aX = getX();
-        int aY = getY();
+        int aX = getX() + longBox/2;
+        int aY = getY() + hautBox/2;
 
         //On renvoie true si les coordonnées x et y entrée en paramètre se trouve dans la portée de l'acteur
         return (Math.abs(x-aX)<=rayonPixel && Math.abs(y-aY)<=rayonPixel);

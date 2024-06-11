@@ -24,6 +24,7 @@ public class Joueur extends Acteur {
         seDeplacer();
         attaque();
         rechercheArme();
+        interragirPNJ();
     }
 
     @Override
@@ -84,6 +85,16 @@ public class Joueur extends Acteur {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    public void interragirPNJ(){
+        if(getTouche().contains("R")){
+            for(int i = 0; i < getEnvironnement().getListPNJ().size(); i++) {
+                if(estPresentDansRayonPixel(32, getEnvironnement().getListPNJ().get(i).getX(), getEnvironnement().getListPNJ().get(i).getY())) {
+                    getEnvironnement().getListPNJ().get(i).interaction();
                 }
             }
         }

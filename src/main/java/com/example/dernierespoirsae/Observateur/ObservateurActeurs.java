@@ -43,6 +43,9 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
                 else if (acteurs.getAddedSubList().get(i) instanceof BaveZmort)
                     new VueBaveZmort(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
+
+                else if (acteurs.getAddedSubList().get(i) instanceof PNJ)
+                    new VuePNJ(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
             }
 
             //Parcours la liste des acteurs supprimés a la liste et le supprime a l'affichage

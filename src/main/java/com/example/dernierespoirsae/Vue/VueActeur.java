@@ -56,6 +56,9 @@ public abstract class VueActeur {
             case 3:
                 rectangle.setFill(Color.YELLOW);
                 break;
+            case 5:
+                rectangle.setFill(Color.PINK);
+                break;
         }
     }
     public abstract int definitionCouleur();
@@ -127,5 +130,9 @@ public abstract class VueActeur {
 
     public ProgressBar getBarreVie() {
         return barreVie;
+    }
+
+    public Pane getBarreViePane() {
+        return barreViePane;
     }
 }
