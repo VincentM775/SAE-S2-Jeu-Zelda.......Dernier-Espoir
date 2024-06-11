@@ -28,6 +28,10 @@ public class ClickHandler implements EventHandler<MouseEvent> {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             // Ajouter "g" pour chaque clic gauche
             clickSouris += "g";
+            environnement.getJoueur().setxDeLaSouris((int) mouseEvent.getX());
+            environnement.getJoueur().setyDeLaSouris((int) mouseEvent.getY());
+
+
         }
         if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             // Ajouter "d" pour chaque clic droit

@@ -5,14 +5,16 @@ import com.example.dernierespoirsae.Vue.VueArmeEquipee;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class Joueur extends Acteur {
 
     private Pane armePaneEquipee;
     private Inventaire inventaire;
-
     private Arme armeEquipee;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane, Pane armePaneEquipee) {
@@ -94,20 +96,13 @@ public class Joueur extends Acteur {
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
                 armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
+                    armePaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
+                }));
+                timeline.setCycleCount(1); // Exécuter une seule fois
+                timeline.play();
 
-                //Pour chacun des acteurs de la map
-                for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
-
-                    //sauf le joueur
-                    if (getEnvironnement().getListActeurs().get(i) != this) {
-
-                        //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
-                        if (estPresentDansRayonPixel(32, getEnvironnement().getListActeurs().get(i).getX(), getEnvironnement().getListActeurs().get(i).getY())) {
-                            //Fait perdre a l'acteur a coté du quelle on est autant de pv que l'atme équipée fait de dégat
-                            getEnvironnement().getListActeurs().get(i).perdPV(getArmeEquipee().getDegats());
-                        }
-                    }
-                }
+                getEnvironnement().getJoueur().getArmeEquipee().attaquer(); //On utilise notre arme
                 setClicks("");
             }
         }

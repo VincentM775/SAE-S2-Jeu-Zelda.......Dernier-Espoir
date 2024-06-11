@@ -22,7 +22,7 @@ public class ObservateurInventaire implements ListChangeListener<Arme> {
         while (Arme.next()){ //Tant qu'il y a un acteur dans la liste des armes ayant été ajouté/supprimé
             for(int i = 0; i < Arme.getAddedSize(); i++){
 
-                //Incremete la quantitée de l'arme d'1
+                //Incremete la quantitée de l'arme
                 Arme.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
 
                 //Affiche l'arme dans la vueInventaire
@@ -36,9 +36,10 @@ public class ObservateurInventaire implements ListChangeListener<Arme> {
 
                 //Si le joueur n'a plus d'arme de ce type dans l'inventaire alors le Pane associé est suprimée
                 if(Arme.getRemoved().get(i).getQuantite()==0){
-
                     inventairePane.getChildren().remove(inventairePane.lookup("#"+Arme.getRemoved().get(i).getType()));
+
                 } //Sinon On créer un objet VueInventaire qui va s'occuper de decremeter le label
+
                 else new VueInventaire(inventairePane, Arme.getRemoved().get(i), inventaire);
 
             }
