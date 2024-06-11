@@ -30,6 +30,9 @@ public class Joueur extends Acteur {
     public ObjectProperty<Arme> getArmeEquipeeProperty() {
         return armeEquipee;
     }
+    public Arme getArmeEquipee() {
+        return armeEquipee.getValue();
+    }
 
     public void setArmeEquipee(Arme armeEquipee) {
         this.armeEquipee.set(armeEquipee);
@@ -93,7 +96,7 @@ public class Joueur extends Acteur {
 
     public void attaque(){
 
-        if (getArmeEquipeeProperty() != null){ //Si on est équipé d'une arme
+        if (getArmeEquipee() != null){ //Si on est équipé d'une arme
 
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
@@ -103,8 +106,8 @@ public class Joueur extends Acteur {
 //                }));
 //                timeline.setCycleCount(1); // Exécuter une seule fois
 //                timeline.play();
-
-                getArmeEquipeeProperty().getValue().attaquer(); //On utilise notre arme
+                setArmeALattaque(true);
+                getArmeEquipee().attaquer(); //On utilise notre arme
                 setClicks("");
             }
         }

@@ -2,10 +2,7 @@ package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public abstract class Acteur {
 
@@ -24,10 +21,11 @@ public abstract class Acteur {
     private Collision collision;
     private IntegerProperty maxVie;
     private String touche;
-    private StringProperty clickSouris;
+    private String clickSouris;
     private int xDeLaSouris;
     private int yDeLaSouris;
 
+    private BooleanProperty armeALattaque;
 
     public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox,int correctinXbox, int correctinYbox) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -44,10 +42,11 @@ public abstract class Acteur {
         this.id=idStatic++;
         this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
-        this.clickSouris = new SimpleStringProperty("");
+        this.clickSouris = "";
         this.touche = "";
         this.xDeLaSouris = 0;
         this.yDeLaSouris = 0;
+        this.armeALattaque = new SimpleBooleanProperty(false);
     }
 
     public int getMaxVie() {
@@ -176,14 +175,10 @@ public abstract class Acteur {
     public abstract void agit();
 
     public void setClicks(String clickSouris) {
-        this.clickSouris.setValue(clickSouris);
+        this.clickSouris=clickSouris;
     }
 
     public String getClickSouris() {
-        return this.clickSouris.getValue();
-    }
-
-    public StringProperty clickSourisProperty() {
         return this.clickSouris;
     }
 
@@ -201,5 +196,17 @@ public abstract class Acteur {
 
     public void setxDeLaSouris(int xDeLaSouris) {
         this.xDeLaSouris = xDeLaSouris;
+    }
+
+    public BooleanProperty armeALattaqueProperty() {
+        return armeALattaque;
+    }
+
+    public void setArmeALattaque(boolean armeALattaque) {
+        this.armeALattaque.set(armeALattaque);
+    }
+
+    public boolean isArmeALattaque() {
+        return armeALattaque.getValue();
     }
 }

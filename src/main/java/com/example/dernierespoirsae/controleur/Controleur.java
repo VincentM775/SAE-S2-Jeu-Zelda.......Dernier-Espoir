@@ -119,7 +119,7 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur3);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
-        environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,environnement));
+        environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane));
 
         //Créer le lien entre la liste Des flaques de baves et la class observableBave
         environnement.getListBave().addListener(new ObservateurTrainerBave(this.environnement,this.terrainPane,vueTerrain));
