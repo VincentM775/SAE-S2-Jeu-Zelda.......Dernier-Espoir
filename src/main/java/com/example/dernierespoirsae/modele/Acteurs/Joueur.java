@@ -39,7 +39,7 @@ public class Joueur extends Acteur {
                 this.armeEquipee = inventaire.getArmes().get(i);
             }
         }
-        new VueArmeEquipee(this.armeEquipee, this.armePaneEquipee, this);
+        new VueArmeEquipee(this.armeEquipee,this, this.armePaneEquipee);
     }
 
     public Arme getArmeEquipee() {
@@ -88,29 +88,27 @@ public class Joueur extends Acteur {
     }
 
     public void attaque(){
-        if (!getInventaire().getArmes().isEmpty()){ //Si l'inventaire d'arme n'est pas vide
 
-            //On parcourt tous les acteurs
-            for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+        if (getArmeEquipee() != null){ //Si on est équipé d'une arme
 
-                //sauf le joueur
-                if (getEnvironnement().getListActeurs().get(i) != this){
+            //Si oui, on regarde si le click gauche est clické
+            if (getClickSouris().contains("g")){
+                armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
 
-                    //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
-                    if (estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+                //Pour chacun des acteurs de la map
+                for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
 
-                        //Si oui, on regarde si le click gauche est clické
-                        if (getClickSouris().contains("g") && getArmeEquipee() != null){
-                            getEnvironnement().getListActeurs().get(i).perdPV(10);
+                    //sauf le joueur
+                    if (getEnvironnement().getListActeurs().get(i) != this) {
 
-                            //si oui, il l'acteur dans la zone perd 10pv x (fois) le nombre de dégâts de l'arme
-                            if (getEnvironnement().getTemps()%getArmeEquipee().getDegats()==0) {
-
-                                setClicks(""); //On réinitialise la variable des clicks
-                            }
+                        //On regarde si l'acteur parcouru est dans un rayon de 32px autour du joueur
+                        if (estPresentDansRayonPixel(32, getEnvironnement().getListActeurs().get(i).getX(), getEnvironnement().getListActeurs().get(i).getY())) {
+                            //Fait perdre a l'acteur a coté du quelle on est autant de pv que l'atme équipée fait de dégat
+                            getEnvironnement().getListActeurs().get(i).perdPV(getArmeEquipee().getDegats());
                         }
                     }
                 }
+                setClicks("");
             }
         }
     }

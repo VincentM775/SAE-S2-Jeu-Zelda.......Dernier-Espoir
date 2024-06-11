@@ -10,14 +10,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -27,9 +26,9 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane terrainPane;
     @FXML
-    private Pane persoPane, barreViePane;
+    private Pane persoPane, barreViePane, principalPane;
     @FXML
-    private Pane principalPane;
+    private BorderPane fenetre;
     @FXML
     private Pane armePaneEquipee;
     @FXML
@@ -73,7 +72,7 @@ public class Controleur implements Initializable {
         VueTerrain terrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane);
 
         //Initialise un observateur pour une liste d'arme
-        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap, environnement.getJoueur());
+        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
 
         //Lie cet observateur a la liste d'arme dans l'environnement
         environnement.setListenerArmes(observateurArme);
@@ -126,16 +125,13 @@ public class Controleur implements Initializable {
         ChangeListener<Number> listenerY = new ObservateurPositionY(principalPane, joueur);
         joueur.yProperty().addListener(listenerY);
 
-        //Initialialisation du keyHandler pour les gestions des entrée clavier utilisateur
+        //Initialialisation du keyHandler pour la gestions des entrées clavier utilisateur
         KeyHandler keyHandler = new KeyHandler(environnement);
         persoPane.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         persoPane.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
 
         ClickHandler clickHandler= new ClickHandler(environnement, inventairePane);
-        persoPane.setOnMouseClicked(clickHandler);
-
-        ClickHandler clickHandlerInventaire = new ClickHandler(environnement, inventairePane);
-        inventairePane.setOnMouseClicked(clickHandler);
+        fenetre.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS
         this.bfs = new BFS(this.environnement);
@@ -173,7 +169,6 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
 
     public void mouseClicked(MouseEvent mouseEvent) {
         persoPane.requestFocus();

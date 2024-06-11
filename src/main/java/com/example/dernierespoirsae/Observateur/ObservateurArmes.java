@@ -1,7 +1,6 @@
 package com.example.dernierespoirsae.Observateur;
 
-import com.example.dernierespoirsae.Vue.VueArmes;
-import com.example.dernierespoirsae.modele.Acteurs.Joueur;
+import com.example.dernierespoirsae.Vue.VueArmeTerrain;
 import com.example.dernierespoirsae.modele.Armes.Arme;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
@@ -9,11 +8,9 @@ import javafx.scene.layout.Pane;
 public class ObservateurArmes implements ListChangeListener<Arme> {
 
     private Pane armePaneMap;
-    private Joueur joueur;
 
-    public ObservateurArmes(Pane armePaneMap, Joueur joueur) {
+    public ObservateurArmes(Pane armePaneMap) {
         this.armePaneMap = armePaneMap;
-        this.joueur = joueur;
     }
 
     @Override
@@ -23,7 +20,7 @@ public class ObservateurArmes implements ListChangeListener<Arme> {
             for(int i = 0; i < Arme.getAddedSize(); i++){
 
                 //Crée l'affichage de l'arme i ajouté
-                new VueArmes(Arme.getAddedSubList().get(i), armePaneMap, joueur);
+                new VueArmeTerrain(Arme.getAddedSubList().get(i), this.armePaneMap);
             }
             for(int i = 0; i < Arme.getRemovedSize(); i++){
 

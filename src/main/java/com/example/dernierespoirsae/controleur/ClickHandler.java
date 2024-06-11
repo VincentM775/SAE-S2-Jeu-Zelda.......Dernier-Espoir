@@ -1,6 +1,5 @@
 package com.example.dernierespoirsae.controleur;
 
-import com.example.dernierespoirsae.modele.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
@@ -37,24 +36,22 @@ public class ClickHandler implements EventHandler<MouseEvent> {
 
         // Mettre à jour la variable clicks dans l'environnement
         environnement.getJoueur().setClicks(clickSouris);
-        setPane();
+        setPane(clickSouris);
     }
 
-    public void setPane() {
+    public void setPane(String clickSouris) {
 
         for (int i = 0; i < inventairePane.getChildren().size(); i++) {
             // Ajouter un gestionnaire d'événements de clic de souris pour chaque Pane
-            inventairePane.getChildren().get(i).setOnMouseClicked(this::handleMouseClick);
-        }
+            inventairePane.getChildren().get(i).setOnMouseClicked(event -> handleMouseClick(event, clickSouris));        }
     }
 
-
-    private void handleMouseClick(MouseEvent event) {
+    private void handleMouseClick(MouseEvent event, String clickSouris ) {
 
         // Récupére le Pane sur lequel on a cliqué
         Pane clickedPane = (Pane) event.getSource();
-
-        environnement.getJoueur().setArmeEquipee(clickedPane.getId());
-
+        if(clickSouris.equals("d"))
+            environnement.getJoueur().setArmeEquipee(clickedPane.getId());
     }
+
 }
