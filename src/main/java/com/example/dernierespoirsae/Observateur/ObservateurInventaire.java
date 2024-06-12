@@ -1,10 +1,12 @@
 package com.example.dernierespoirsae.Observateur;
 
 import com.example.dernierespoirsae.Vue.VueInventaireArmes;
+import com.example.dernierespoirsae.Vue.VueInventaireObjetAvecQuantite;
 import com.example.dernierespoirsae.Vue.VueInventaireObjets;
 import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjets;
+import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjetsAvecQuantite;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.VBox;
@@ -36,6 +38,13 @@ public class ObservateurInventaire implements ListChangeListener<Objets> {
                     objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
                     //Affiche l'arme dans la vueInventaire
                     new VueInventaireObjets(inventaireVBox, (AutreObjets) objet.getAddedSubList().get(i), inventaire);
+                }
+                else if (objet.getAddedSubList().get(i) instanceof AutreObjetsAvecQuantite){
+                    //Incremete la quantitée de l'arme
+//                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(objet.getAddedSubList().get(i).getQuantite());
+                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
+                    //Affiche l'arme dans la vueInventaire
+                    new VueInventaireObjetAvecQuantite(inventaireVBox, (AutreObjetsAvecQuantite) objet.getAddedSubList().get(i), inventaire);
                 }
             }
 

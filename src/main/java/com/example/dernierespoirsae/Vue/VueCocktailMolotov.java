@@ -3,14 +3,14 @@ package com.example.dernierespoirsae.Vue;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 import javafx.scene.layout.Pane;
 
-public class VueBave extends VueProjectile{
+public class VueCocktailMolotov extends VueProjectile {
 
-    public VueBave(Pane projectilePane, Projectile projectile) {
+    public VueCocktailMolotov(Pane projectilePane, Projectile projectile) {
         super(projectilePane, projectile);
     }
 
     @Override
     public String nomFichierVue() {
-        return "file:src/main/resources/com/example/dernierespoirsae/images/bave_projectile.png";
+        return "file:src/main/resources/com/example/dernierespoirsae/images/cocktailMolotov.png";
     }
 }

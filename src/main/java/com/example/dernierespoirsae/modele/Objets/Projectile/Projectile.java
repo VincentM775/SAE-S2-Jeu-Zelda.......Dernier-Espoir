@@ -1,4 +1,4 @@
-package com.example.dernierespoirsae.modele.Objets.Armes;
+package com.example.dernierespoirsae.modele.Objets.Projectile;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
@@ -99,6 +99,7 @@ public abstract class Projectile {
                 setyProperty(prochaineValY);
         }
         else {
+            effet();
             setEstVivant(false);
         }
     }
@@ -131,8 +132,8 @@ public abstract class Projectile {
         }
         return false;
     }
-    public boolean testProjectileArriverSurJoueur() {
-        return (getXProperty()>= getjX()-(getVitesse()/2) && getXProperty()<= (getjX()+getVitesse()/2) && getYProperty()>= this.getjY()-(getVitesse()/2) && getYProperty()<= (this.getjY()+getVitesse()/2));
+    public boolean testProjectileArriverSurCoord() {
+        return (getXProperty()>= getouAllerX()-(getVitesse()/2) && getXProperty()<= (getouAllerX()+getVitesse()/2) && getYProperty()>= this.getouAllerY()-(getVitesse()/2) && getYProperty()<= (this.getouAllerY()+getVitesse()/2));
     }
     public double getAngle() {
         int deltaX = this.ouAllerX - getXProperty();
@@ -150,11 +151,11 @@ public abstract class Projectile {
         return (angle + 90);
     }
 
-    public int getjX() {
+    public int getouAllerX() {
         return this.ouAllerX;
     }
 
-    public int getjY() {
+    public int getouAllerY() {
         return this.ouAllerY;
     }
 
@@ -163,10 +164,13 @@ public abstract class Projectile {
     }
     public void agit(){
         if (getEstVivant()) {
-            if (!testProjectileArriverSurJoueur()) {
+            if (!testProjectileArriverSurCoord()) {
                 avance();
             }
-            else setEstVivant(false);
+            else{
+                effet();
+                setEstVivant(false);
+            }
         }
         else getEnvironnement().getListProjectile().remove(this);
 
@@ -184,4 +188,5 @@ public abstract class Projectile {
     }
     public abstract int jeVaisEnX();
     public abstract int jeVaisEnY();
+    public abstract void effet();
 }

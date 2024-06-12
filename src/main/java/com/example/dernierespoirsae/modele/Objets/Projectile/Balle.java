@@ -1,4 +1,4 @@
-package com.example.dernierespoirsae.modele.Objets.Armes;
+package com.example.dernierespoirsae.modele.Objets.Projectile;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
@@ -18,5 +18,8 @@ public class Balle extends Projectile {
     public int jeVaisEnY() {
         return getEnvironnement().getJoueur().getyDeLaSouris();
     }
+
+    @Override
+    public void effet() {} //Cette balle n'a aucun effet sur la map ou autres
 
 }

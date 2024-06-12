@@ -1,6 +1,8 @@
 package com.example.dernierespoirsae.modele.Objets.Armes;
 
 import com.example.dernierespoirsae.modele.Environnement;
+import Balle;
+import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 
 public class Pistolet extends Arme {
 

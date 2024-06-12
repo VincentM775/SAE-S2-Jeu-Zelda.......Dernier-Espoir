@@ -3,7 +3,7 @@ package com.example.dernierespoirsae.modele.Objets.AutreObjets;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 
-public class BoiteDeMunition extends AutreObjets {
+public class BoiteDeMunition extends AutreObjetsAvecQuantite {
     private int quantite;
     private static int quantiteStatic=0;
 

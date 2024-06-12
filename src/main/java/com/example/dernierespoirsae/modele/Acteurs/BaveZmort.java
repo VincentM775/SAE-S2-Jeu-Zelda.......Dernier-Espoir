@@ -1,8 +1,8 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
-import com.example.dernierespoirsae.modele.Objets.Armes.BalleBave;
+import BalleBave;
 import com.example.dernierespoirsae.modele.Objets.Armes.Bave;
-import com.example.dernierespoirsae.modele.Objets.Armes.Projectile;
+import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 import com.example.dernierespoirsae.modele.Environnement;
 
 public class BaveZmort extends Ennemi {
