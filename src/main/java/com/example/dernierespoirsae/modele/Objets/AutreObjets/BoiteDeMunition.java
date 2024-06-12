@@ -20,4 +20,9 @@ public class BoiteDeMunition extends AutreObjets {
     public int getQuantite() {
         return this.quantite;
     }
+
+    @Override
+    public void agirAvecJoueur() {
+        getEnvironnement().getJoueur().setQuantiteMunitions(getEnvironnement().getJoueur().getQuantiteMunitions()+getQuantiteObjets());
+    }
 }

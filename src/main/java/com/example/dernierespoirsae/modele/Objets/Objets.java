@@ -52,4 +52,5 @@ public abstract class Objets {
     public int getId() {
         return id;
     }
+    public abstract void agirAvecJoueur();
 }

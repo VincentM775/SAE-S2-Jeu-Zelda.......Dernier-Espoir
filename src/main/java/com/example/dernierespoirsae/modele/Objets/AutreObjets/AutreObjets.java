@@ -17,6 +17,11 @@ public abstract class AutreObjets extends Objets {
     @Override
     public abstract int getQuantite();
 
+    @Override
+    public abstract void agirAvecJoueur();
+
+
+
     public int getQuantiteObjets() {
         return quantiteObjets;
     }

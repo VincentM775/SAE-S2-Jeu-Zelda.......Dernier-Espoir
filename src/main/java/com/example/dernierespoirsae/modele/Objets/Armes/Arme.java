@@ -22,4 +22,7 @@ public abstract class Arme extends Objets {
         return degats;
     }
     public abstract void attaquer();
+
+    @Override
+    public void agirAvecJoueur() {} //les armes n'agissent pas
 }
