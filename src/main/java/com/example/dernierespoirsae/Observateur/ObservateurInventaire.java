@@ -32,19 +32,18 @@ public class ObservateurInventaire implements ListChangeListener<Objets> {
                     //Affiche l'arme dans la vueInventaire
                     new VueInventaireArmes(inventaireVBox, objet.getAddedSubList().get(i), inventaire);
                 }
-                else if (objet.getAddedSubList().get(i) instanceof AutreObjets){
-                    //Incremete la quantitée de l'arme
-//                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(objet.getAddedSubList().get(i).getQuantite());
-                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
-                    //Affiche l'arme dans la vueInventaire
-                    new VueInventaireObjets(inventaireVBox, (AutreObjets) objet.getAddedSubList().get(i), inventaire);
-                }
+
                 else if (objet.getAddedSubList().get(i) instanceof AutreObjetsAvecQuantite){
                     //Incremete la quantitée de l'arme
-//                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(objet.getAddedSubList().get(i).getQuantite());
                     objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
                     //Affiche l'arme dans la vueInventaire
                     new VueInventaireObjetAvecQuantite(inventaireVBox, (AutreObjetsAvecQuantite) objet.getAddedSubList().get(i), inventaire);
+                }
+                else if (objet.getAddedSubList().get(i) instanceof AutreObjets){
+                    //Incremete la quantitée de l'arme
+                    objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
+                    //Affiche l'arme dans la vueInventaire
+                    new VueInventaireObjets(inventaireVBox, (AutreObjets) objet.getAddedSubList().get(i), inventaire);
                 }
             }
 

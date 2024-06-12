@@ -1,7 +1,7 @@
 package com.example.dernierespoirsae.modele.Acteurs;
 
-import BalleBave;
 import com.example.dernierespoirsae.modele.Objets.Armes.Bave;
+import com.example.dernierespoirsae.modele.Objets.Projectile.BalleBave;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 import com.example.dernierespoirsae.modele.Environnement;
 
