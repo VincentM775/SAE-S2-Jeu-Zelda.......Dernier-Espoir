@@ -1,25 +1,24 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public abstract class VueArme {
+public abstract class VueObjet {
     private Objets objets;
 
-    public VueArme(Objets objets) {
+    public VueObjet(Objets objets) {
         this.objets = objets;
     }
 
-    public void creeViewArme() {
+    public void creeViewObjet() {
 
         //Recuperation de l'image de l'arme a afficher
-        Image imageArme = new Image("file:src/main/resources/com/example/dernierespoirsae/images/"+objets.getType()+".png");
+        Image imageObjet = new Image("file:src/main/resources/com/example/dernierespoirsae/images/"+objets.getType()+".png");
 
         //Ajout de cette image a imageView pour pouvoir l'afficher
-        ImageView imageView = new ImageView(imageArme);
+        ImageView imageView = new ImageView(imageObjet);
 
         //Definition des dimentions
         imageView.setFitWidth(20);
@@ -38,7 +37,7 @@ public abstract class VueArme {
     public abstract void ajoutImagePane(ImageView imageView);
     public abstract void setPotitionArme(ImageView imageView);
 
-    public Objets getArme() {
+    public Objets getObjets() {
         return objets;
     }
 }

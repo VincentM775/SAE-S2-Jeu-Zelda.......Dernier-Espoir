@@ -6,6 +6,8 @@ import com.example.dernierespoirsae.Vue.*;
 import com.example.dernierespoirsae.modele.*;
 import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Objets.Armes.*;
+import com.example.dernierespoirsae.modele.Objets.AutreObjets.BoiteDeMunition;
+import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -33,7 +35,7 @@ public class Controleur implements Initializable {
     @FXML
     private VBox inventaireVBox;
     @FXML
-    private Pane armePaneMap;
+    private Pane objetPaneMap;
     @FXML
     private Pane projectilePane;
     private Environnement environnement;
@@ -56,7 +58,7 @@ public class Controleur implements Initializable {
         this.terrainPane.setPrefHeight(this.environnement.getInfoTuile()[2] * this.environnement.getInfoTuile()[0]);
 
         //Creation du joueur
-        Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns(), inventaireVBox, armePaneEquipee);
+        Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
         ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
         joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
@@ -69,7 +71,7 @@ public class Controleur implements Initializable {
         ObservateurActeurs observateurActeurs = new ObservateurActeurs(persoPane,barreViePane,terrainPane,environnement,vueTerrain);
 
         joueur.getArmeEquipeeProperty().addListener((observable, oldValue, newValue) -> {
-            new VueArmeEquipee(joueur.getArmeEquipeeProperty().getValue(),joueur, this.armePaneEquipee);
+            new VueObjetEquipee(joueur.getArmeEquipeeProperty().getValue(),joueur, this.armePaneEquipee);
         });
 
         //Lie l'observateur d'acteur a l'environnement
@@ -79,30 +81,38 @@ public class Controleur implements Initializable {
         environnement.setJoueur(joueur);
 
         //Initialise un observateur pour une liste d'arme
-        ObservateurArmes observateurArme = new ObservateurArmes(armePaneMap);
+        ObservateurObjets observateurArme = new ObservateurObjets(objetPaneMap);
 
         //Lie cet observateur a la liste d'arme dans l'environnement
         environnement.setListenerArmeEnvironnement(observateurArme);
 
         //Creer des haches
-        Arme hache = new Hache(60,150,environnement);
-        Arme hache1 = new Hache(80,50,environnement);
-        Arme hache3 = new Hache(100,200,environnement);
+        Objets hache = new Hache(60,150,environnement);
+        Objets hache1 = new Hache(80,50,environnement);
+        Objets hache3 = new Hache(100,200,environnement);
 
         //Creer un pistolet
-        Arme pistolet = new Pistolet(800,300,environnement);
-        Arme pistolet1 = new Pistolet(300,1000,environnement);
-        Arme pistolet2 = new Pistolet(900,300,environnement);
+        Objets pistolet = new Pistolet(800,300,environnement);
+        Objets pistolet1 = new Pistolet(300,1000,environnement);
+        Objets pistolet2 = new Pistolet(900,300,environnement);
 
-        //Ajoute les armes a l'environnement
-        environnement.getListArmeEnvironnement().add(hache);
-        environnement.getListArmeEnvironnement().add(pistolet);
-        environnement.getListArmeEnvironnement().add(hache1);
-        environnement.getListArmeEnvironnement().add(hache3);
-        environnement.getListArmeEnvironnement().add(pistolet1);
-        environnement.getListArmeEnvironnement().add(pistolet2);
+        //Crer une boite de munition
+        Objets boiteMunition = new BoiteDeMunition(environnement, 200,300);
+        Objets boiteMunitio2 = new BoiteDeMunition(environnement, 200,400);
+        Objets boiteMunitio3 = new BoiteDeMunition(environnement, 200,470);
 
-        //Génére un terrain avec des tuile aléatoire
+        //Ajoute les Objets à l'environnement
+        environnement.getlistObjetsEnvironnement().add(hache);
+        environnement.getlistObjetsEnvironnement().add(hache1);
+        environnement.getlistObjetsEnvironnement().add(hache3);
+        environnement.getlistObjetsEnvironnement().add(pistolet);
+        environnement.getlistObjetsEnvironnement().add(pistolet1);
+        environnement.getlistObjetsEnvironnement().add(pistolet2);
+        environnement.getlistObjetsEnvironnement().add(boiteMunition);
+        environnement.getlistObjetsEnvironnement().add(boiteMunitio2);
+        environnement.getlistObjetsEnvironnement().add(boiteMunitio3);
+
+        //Génére un terrain avec des tuiles aléatoires
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Création d'un premier zombie MasticartorZ

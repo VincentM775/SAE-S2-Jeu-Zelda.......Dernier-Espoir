@@ -1,7 +1,7 @@
 package com.example.dernierespoirsae.modele;
 
 import com.example.dernierespoirsae.Observateur.ObservateurActeurs;
-import com.example.dernierespoirsae.Observateur.ObservateurArmes;
+import com.example.dernierespoirsae.Observateur.ObservateurObjets;
 import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
@@ -42,7 +42,7 @@ public class Environnement{
         this.acteurs.add(acteur);
     }
 
-    public ObservableList<Objets> getListArmeEnvironnement() {
+    public ObservableList<Objets> getlistObjetsEnvironnement() {
         return this.listObjetsEnvironnement;
     }
     public ObservableList<Acteur> getListActeurs(){
@@ -66,8 +66,8 @@ public class Environnement{
         acteurs.addListener(acteursObserve);
     }
 
-    public void setListenerArmeEnvironnement(ObservateurArmes armesObserve){
-        listObjetsEnvironnement.addListener(armesObserve);
+    public void setListenerArmeEnvironnement(ObservateurObjets objetsObserve){
+        listObjetsEnvironnement.addListener(objetsObserve);
     }
 
     public int[] getInfoTuile() {

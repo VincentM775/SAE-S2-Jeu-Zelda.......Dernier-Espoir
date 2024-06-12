@@ -1,7 +1,6 @@
 package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Acteurs.Joueur;
-import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,18 +9,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class VueArmeEquipee extends VueArme{
+public class VueObjetEquipee extends VueObjet {
 
     private Joueur joueur;
-    private Pane armePaneEquipee;
+    private Pane objetPaneEquipee;
 
-    public VueArmeEquipee(Objets objets, Joueur joueur, Pane armePaneEquipee) {
+    public VueObjetEquipee(Objets objets, Joueur joueur, Pane objetPaneEquipee) {
         super(objets);
         this.joueur = joueur;
-        this.armePaneEquipee = armePaneEquipee;
-        creeViewArme();
-        ChangeListener<Boolean> effetAttaque = ((obs, old, nouv)-> effetAttaque() );
-        joueur.armeALattaqueProperty().addListener(effetAttaque);
+        this.objetPaneEquipee = objetPaneEquipee;
+        creeViewObjet();
+        ChangeListener<Boolean> effetUtilisation = ((obs, old, nouv)-> effetUtilisation() );
+        joueur.armeALattaqueProperty().addListener(effetUtilisation);
     }
 
     @Override
@@ -32,15 +31,15 @@ public class VueArmeEquipee extends VueArme{
 
     @Override
     public void ajoutImagePane(ImageView imageView){
-        if(this.armePaneEquipee.getChildren().size()==1){
-            this.armePaneEquipee.getChildren().remove(0);
+        if(this.objetPaneEquipee.getChildren().size()==1){
+            this.objetPaneEquipee.getChildren().remove(0);
         }
-        this.armePaneEquipee.getChildren().add(imageView);
+        this.objetPaneEquipee.getChildren().add(imageView);
     }
-    public void effetAttaque(){
-        armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
+    public void effetUtilisation(){
+        objetPaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
-            armePaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
+            objetPaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
             joueur.setArmeALattaque(false);
         }));
         timeline.setCycleCount(1); // Exécuter une seule fois

@@ -14,11 +14,13 @@ public class Joueur extends Acteur {
 
     private Inventaire inventaire;
     private ObjectProperty<Objets> objetsEquipee;
+    private int quantiteMunitions;
 
-    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile, VBox inventairePane, Pane armePaneEquipee) {
-        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26,0,0);
+    public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
+        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
         this.inventaire = new Inventaire(environnement);
         this.objetsEquipee =  new SimpleObjectProperty<>();
+        this.quantiteMunitions = 0;
     }
 
     public Inventaire getInventaire() {
@@ -82,34 +84,33 @@ public class Joueur extends Acteur {
         setY(getY() + dy);
     }
     public void rechercheObjets() {
-        for (int i = 0; i < getEnvironnement().getListArmeEnvironnement().size(); i++) {
-            if (estPresentDansRayonPixel(30,getEnvironnement().getListArmeEnvironnement().get(i).getX(),getEnvironnement().getListArmeEnvironnement().get(i).getY())){
+        for (int i = 0; i < getEnvironnement().getlistObjetsEnvironnement().size(); i++) {
+            if (estPresentDansRayonPixel(30,getEnvironnement().getlistObjetsEnvironnement().get(i).getX(),getEnvironnement().getlistObjetsEnvironnement().get(i).getY())){
                 if (getTouche().contains("R")) {
-                    getInventaire().getListeObjetsInventaire().add(getEnvironnement().getListArmeEnvironnement().get(i));
-                    getEnvironnement().getListArmeEnvironnement().remove(i);
+                    getInventaire().getListeObjetsInventaire().add(getEnvironnement().getlistObjetsEnvironnement().get(i));
+                    getEnvironnement().getlistObjetsEnvironnement().remove(i);
                 }
             }
         }
     }
 
     public void attaque(){
-
         if (getArmeEquipee() != null){ //Si on est équipé d'une arme
-
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
-//                if (getArmeEquipee() instanceof Arme) {
-//                armePaneEquipee.getChildren().get(0).rotateProperty().setValue(60);
-//                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
-//                    armePaneEquipee.getChildren().get(0).rotateProperty().setValue(0);
-//                }));
-//                timeline.setCycleCount(1); // Exécuter une seule fois
-//                timeline.play();
                     setArmeALattaque(true);
                     ((Arme) getArmeEquipee()).attaquer(); //On utilise notre arme
                     setClicks("");
-//                }
+
             }
         }
+    }
+
+    public int getQuantiteMunitions() {
+        return quantiteMunitions;
+    }
+
+    public void setQuantiteMunitions(int quantiteMunitions) {
+        this.quantiteMunitions = quantiteMunitions;
     }
 }

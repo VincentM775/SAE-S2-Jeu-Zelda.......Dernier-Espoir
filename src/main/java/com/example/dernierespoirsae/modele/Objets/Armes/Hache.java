@@ -24,12 +24,14 @@ public class Hache extends Arme {
 
     @Override
     public void attaquer() {
+        boolean flag = true;
         //on parcours tout les acteurs
-        for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+        for (int i=0; i<getEnvironnement().getListActeurs().size() && flag;i++){
             //sauf le joueur
             if (getEnvironnement().getListActeurs().get(i) != getEnvironnement().getJoueur()) {
                 if(getEnvironnement().getJoueur().estPresentDansRayonPixel(32,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
                     getEnvironnement().getListActeurs().get(i).perdPV(getDegats());
+                    flag = false;
                 }
             }
         }

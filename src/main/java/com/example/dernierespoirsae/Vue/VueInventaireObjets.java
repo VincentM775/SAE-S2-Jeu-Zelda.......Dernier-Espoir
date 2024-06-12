@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.Vue;
 
 import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Inventaire;
+import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjets;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -10,17 +11,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class VueInventaire {
+public class VueInventaireObjets {
 
     private VBox inventaireVBox;
     private Inventaire inventaire;
 
-    public VueInventaire(VBox inventaireVBox, Objets objets, Inventaire inventaire) {
-
+    public VueInventaireObjets(VBox inventaireVBox, AutreObjets objets, Inventaire inventaire) {
         this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
-
-        addViewArmeInventaire(objets);
+        addViewAutreObjetsInventaire(objets);
     }
 
     /**
@@ -30,7 +29,7 @@ public class VueInventaire {
      *                                              - Un label indiquant sa quantitée
      * uniquement s'il n'en existe pas déjà, dans ce cas, on réaffiche pas l'arme mais on met à jour la quantité
      */
-    public void addViewArmeInventaire(Objets objets) {
+    public void addViewAutreObjetsInventaire(AutreObjets objets) {
         Pane emplacement = new Pane();
         emplacement.setOnMouseClicked(event -> setClick(emplacement));
         Label labelExiste = null;
@@ -39,13 +38,13 @@ public class VueInventaire {
 
         /*
         Cette boucle permet de vérifier en parcourant tout les Panes de la VBox si un label est présent dedans. Si c'est le cas
-        on inject ce label dans labelExiste, sinon il reste a null.
+        on injecte ce label dans labelExiste, sinon il reste a null.
          */
 
         //Parcours les cases de type Pane de l'inventaire
         for (int i = 0; i < inventaireVBox.getChildren().size(); i++) {
 
-            //Si un Pane correspond à l'arme alors on met à jour le label dans ce Pane
+            //Si un Pane correspond à l'objet alors on met à jour le label dans ce Pane
             if (String.valueOf(inventaireVBox.getChildren().get(i).getId()).equals( objets.getType()) ) {
 
                 pane = (Pane) inventaireVBox.getChildren().get(i);
@@ -67,15 +66,16 @@ public class VueInventaire {
             sert de repère permettant de savoir, s'il existe que l'arme est déjà affichée et donc de ne pas la réafficher)
             alors on créer et affiche l'image de l'arme.
          */
+        System.out.println(objets.getQuantite());
         if (objets.getQuantite() == 1 && labelExiste == null) {
 
-            //Charger l'image de l'arme
-            Image imageArme = new Image("file:src/main/resources/com/example/dernierespoirsae/images/" + objets.getType() + ".png");
+            //Charger l'image de l'objet
+            Image imageObjet = new Image("file:src/main/resources/com/example/dernierespoirsae/images/" + objets.getType() + ".png");
 
-            //Stock l'image de la Hache dans une imageView pour pouvoir les afficher
-            ImageView imageView = new ImageView(imageArme);
+            //Stock l'image de l'objet dans une imageView pour pouvoir les afficher
+            ImageView imageView = new ImageView(imageObjet);
 
-            //Gère le style de l'emplacement de chaque arme
+            //Gère le style de l'emplacement de chaque objet
             emplacement.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-background-color: #77B5FE; -fx-border-radius: 10; -fx-background-radius: 10" );
 
             //Ajoute ce Pane a la vue Inventaire
@@ -90,7 +90,8 @@ public class VueInventaire {
 
             //Ajoute l'image et le label a la Pane
             emplacement.getChildren().add(imageView);
-
+//            objets.incremeterDecremeterQuantiteInventaire(objets.getQuantiteObjets());
+            modifierLabel(objets, idLabel, labelExiste, pane);
         }
         else { //Sinon, l'arme est affichée et on modifie le label associé
             modifierLabel(objets, idLabel, labelExiste, pane);
@@ -98,24 +99,24 @@ public class VueInventaire {
     }
 
     //Cette methode modifie de Label affiché pour indiqué la quantité de l'arme dans l'inventaire
-    public void modifierLabel(Objets objets, String idLabel, Label labelExiste, Pane pane) {
+    public void modifierLabel(AutreObjets objets, String idLabel, Label labelExiste, Pane pane) {
 
         //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
         if (labelExiste != null) {
-
-            labelExiste.setText("x"+objets.getQuantite());
+            String textNombre = labelExiste.getText().substring(1);
+            labelExiste.setText("x"+(Integer.parseInt(textNombre)+objets.getQuantiteObjets()));
         }
         else { // Si le label n'existe pas, en créer un nouveau
-
             Label label = new Label();
             label.setId(idLabel);
             label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             label.setTranslateY(58);
             label.setTranslateX(75);
-            label.setText("x"+objets.getQuantite());
+            label.setText("x"+(objets.getQuantiteObjets()+objets.getQuantiteObjets()));
             pane.getChildren().add(label);
         }
     }
+
     public void setClick(Pane emplacement){
         if(this.inventaire.getEnvironnement().getJoueur().getClickSouris().equals("d"))
             this.inventaire.getEnvironnement().getJoueur().setArmeEquipee(emplacement.getId());

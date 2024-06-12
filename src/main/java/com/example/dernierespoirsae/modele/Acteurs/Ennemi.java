@@ -13,8 +13,8 @@ public abstract class Ennemi extends Acteur {
     private int deplacementRestant = 0;
     private int porteeDeVue;
 
-    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue,int longBox,int largeBox,int correctinXbox,int correctinYbox) {
-        super(x, y, nom, environnement, vie, vitesse, longTuile, largeTuile, nbTuile,longBox,largeBox,correctinXbox,correctinYbox);
+    public Ennemi(int x, int y, String nom, Environnement environnement, int vie, int vitesse, int nombreDeDegat, int longTuile, int largeTuile, int nbTuile, int porteeDeVue,int longBox,int largeBox) {
+        super(x, y, nom, environnement, vie, vitesse, longTuile, largeTuile, nbTuile,longBox,largeBox);
         this.porteeDeVue = porteeDeVue;
         this.nombreDeDegat=nombreDeDegat;
     }

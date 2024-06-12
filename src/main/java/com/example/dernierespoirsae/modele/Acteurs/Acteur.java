@@ -27,7 +27,7 @@ public abstract class Acteur {
 
     private BooleanProperty armeALattaque;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox,int correctinXbox, int correctinYbox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;

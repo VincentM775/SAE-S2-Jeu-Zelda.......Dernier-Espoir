@@ -24,7 +24,10 @@ public class Pistolet extends Arme {
 
     @Override
     public void attaquer() {
-        Projectile projectile = new Balle(getDegats(),getEnvironnement(),getEnvironnement().getJoueur());
-        getEnvironnement().getListProjectile().add(projectile);
+        if (getEnvironnement().getJoueur().getQuantiteMunitions()>0) {
+            Projectile projectile = new Balle(getDegats(), getEnvironnement(), getEnvironnement().getJoueur());
+            getEnvironnement().getListProjectile().add(projectile);
+            getEnvironnement().getJoueur().setQuantiteMunitions(getEnvironnement().getJoueur().getQuantiteMunitions()-1);
+        }
     }
 }

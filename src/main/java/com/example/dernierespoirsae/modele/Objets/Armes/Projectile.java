@@ -91,12 +91,12 @@ public abstract class Projectile {
         int totalDeltaY = prochaineValY - initialY;
         double distanceParcourue = Math.sqrt(totalDeltaX * totalDeltaX + totalDeltaY * totalDeltaY);
 
-        if (!testMurSurRoute(prochaineValX,prochaineValY)&&distanceParcourue<=portee) {
-            if (!getEnvironnement().getListActeurs().isEmpty()) {
-                testActeurToucher(prochaineValX, prochaineValY);
+        if ((!testMurSurRoute(prochaineValX,prochaineValY)&&distanceParcourue<=portee)
+            && !getEnvironnement().getListActeurs().isEmpty()
+            && !testActeurToucher(prochaineValX, prochaineValY)) {
+
                 setxProperty(prochaineValX);
                 setyProperty(prochaineValY);
-            }
         }
         else {
             setEstVivant(false);
@@ -115,21 +115,21 @@ public abstract class Projectile {
         return flag;
     }
 
-    public void testActeurToucher(int prochaineValX,int prochaineValY) {
-        prochaineValX = prochaineValX /environnement.getInfoTuile()[0];
-        prochaineValY = prochaineValY /environnement.getInfoTuile()[0];
+    public boolean testActeurToucher(int prochaineValX,int prochaineValY) {
         int caseAX = 0;
         int caseAY = 0;
         for (int i=0;i< environnement.getListActeurs().size();i++){
             if (environnement.getListActeurs().get(i) != acteurQuiALancer) {
-                caseAX = environnement.getListActeurs().get(i).getX() / environnement.getInfoTuile()[0];
-                caseAY = environnement.getListActeurs().get(i).getY() / environnement.getInfoTuile()[0];
-                if (caseAX==prochaineValX && caseAY==prochaineValY) {
+                caseAX = environnement.getListActeurs().get(i).getX() ;
+                caseAY = environnement.getListActeurs().get(i).getY() ;
+                if (prochaineValX >=caseAX && prochaineValX <= caseAX+environnement.getListActeurs().get(i).getHitBox().getLongueur()
+                && prochaineValY >= caseAY && prochaineValY <= caseAY+environnement.getListActeurs().get(i).getHitBox().getHauteur()){
                     environnement.getListActeurs().get(i).perdPV(getDegats());
-
+                    return true;
                 }
             }
         }
+        return false;
     }
     public boolean testProjectileArriverSurJoueur() {
         return (getXProperty()>= getjX()-(getVitesse()/2) && getXProperty()<= (getjX()+getVitesse()/2) && getYProperty()>= this.getjY()-(getVitesse()/2) && getYProperty()<= (this.getjY()+getVitesse()/2));

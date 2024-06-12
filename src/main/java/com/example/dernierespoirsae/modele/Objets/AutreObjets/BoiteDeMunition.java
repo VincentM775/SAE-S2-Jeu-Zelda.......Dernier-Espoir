@@ -3,14 +3,12 @@ package com.example.dernierespoirsae.modele.Objets.AutreObjets;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 
-public class BoiteDeMunition extends Objets {
-    private int quantiteDeMunition;
+public class BoiteDeMunition extends AutreObjets {
     private int quantite;
     private static int quantiteStatic=0;
 
-    public BoiteDeMunition( Environnement environnement,int x, int y,String type) {
-        super(environnement,x,y,type);
-        this.quantiteDeMunition = (int) (Math.random()*7+5); //Nombre aléatoire entre 5 inclus et 12 exclus
+    public BoiteDeMunition( Environnement environnement,int x, int y) {
+        super(environnement,x,y,"boiteDeMunitions",(int) (Math.random()*7+5));
         this.quantite=0;
     }
     @Override
@@ -20,8 +18,6 @@ public class BoiteDeMunition extends Objets {
 
     @Override
     public int getQuantite() {
-        return 0;
+        return this.quantite;
     }
-
-
 }
