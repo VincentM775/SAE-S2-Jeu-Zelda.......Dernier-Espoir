@@ -8,8 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Arme extends Objets {
     private int degats;
 
-    public Arme(int degats,int x,int y, String type, Environnement environnement) {
-        super(environnement,x,y,type);
+    public Arme(int degats,int x,int y, String type, Environnement environnement,int quantiteObjet,boolean objetUnique) {
+        super(environnement,x,y,type, quantiteObjet, objetUnique);
         this.degats = degats;
     }
 
@@ -17,12 +17,9 @@ public abstract class Arme extends Objets {
         this.degats = degats;
     }
 
-
     public int getDegats() {
         return degats;
     }
     public abstract void attaquer();
 
-    @Override
-    public void agirAvecJoueur() {} //les armes n'agissent pas
 }

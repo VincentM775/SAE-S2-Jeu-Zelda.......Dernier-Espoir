@@ -5,7 +5,7 @@ import com.example.dernierespoirsae.Vue.VueBave;
 import com.example.dernierespoirsae.Vue.VueCocktailMolotov;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Balle;
 import com.example.dernierespoirsae.modele.Objets.Projectile.BalleBave;
-import com.example.dernierespoirsae.modele.Objets.Projectile.CocktailMolotov;
+import com.example.dernierespoirsae.modele.Objets.Projectile.CocktailM;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
@@ -28,7 +28,7 @@ public class ObservateurProjectile implements ListChangeListener<Projectile> {
                 if (projectile.getAddedSubList().get(i) instanceof Balle) {
                     new VueBalle(projectilePane,projectile.getAddedSubList().get(i));
                 }
-                if (projectile.getAddedSubList().get(i) instanceof CocktailMolotov) {
+                if (projectile.getAddedSubList().get(i) instanceof CocktailM) {
                     new VueCocktailMolotov(projectilePane,projectile.getAddedSubList().get(i));
                 }
             }

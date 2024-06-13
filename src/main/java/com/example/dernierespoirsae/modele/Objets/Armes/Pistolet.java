@@ -10,7 +10,7 @@ public class Pistolet extends Arme {
     private int quantite;
 
     public Pistolet(int x, int y, Environnement environnement) {
-        super(50, x, y,"pistolet",environnement);
+        super(50, x, y,"pistolet",environnement,1,true);
         this.quantite = 0;
     }
 
@@ -22,6 +22,16 @@ public class Pistolet extends Arme {
     @Override
     public int getQuantite() {
         return quantite;
+    }
+
+    @Override
+    public void agirAvecJoueur() {
+
+    }
+
+    @Override
+    public void agir() {
+        attaquer();
     }
 
     @Override

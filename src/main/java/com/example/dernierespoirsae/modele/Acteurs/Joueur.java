@@ -102,7 +102,7 @@ public class Joueur extends Acteur {
             //Si oui, on regarde si le click gauche est clické
             if (getClickSouris().contains("g")){
                     setArmeALattaque(true);
-                    ((Arme) getArmeEquipee()).attaquer(); //On utilise notre arme
+                    getArmeEquipee().agir(); //On utilise notre arme
                     setClicks("");
 
             }

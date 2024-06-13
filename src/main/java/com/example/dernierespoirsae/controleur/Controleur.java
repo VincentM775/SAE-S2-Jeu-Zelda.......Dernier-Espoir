@@ -7,9 +7,7 @@ import com.example.dernierespoirsae.modele.*;
 import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Objets.Armes.*;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.BoiteDeMunition;
-import com.example.dernierespoirsae.modele.Objets.AutreObjets.ObjetCocktailMolotov;
 import com.example.dernierespoirsae.modele.Objets.Objets;
-import com.example.dernierespoirsae.modele.Objets.Projectile.CocktailMolotov;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -102,7 +100,7 @@ public class Controleur implements Initializable {
         Objets boiteMunition = new BoiteDeMunition(environnement, 200,300);
         Objets boiteMunitio2 = new BoiteDeMunition(environnement, 200,400);
         Objets boiteMunitio3 = new BoiteDeMunition(environnement, 200,470);
-        Objets cocktailMolotov = new ObjetCocktailMolotov(environnement, 250,200);
+        Objets cocktailMolotov = new CocktailMolotov(environnement, 250,200);
 
         //Ajoute les Objets à l'environnement
         environnement.getlistObjetsEnvironnement().add(hache);

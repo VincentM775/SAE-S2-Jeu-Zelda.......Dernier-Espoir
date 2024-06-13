@@ -8,7 +8,7 @@ public class Hache extends Arme {
     private int quantite;
 
     public Hache(int x, int y, Environnement environnement) {
-        super(20, x, y,"hache", environnement);
+        super(20, x, y,"hache", environnement,1,true);
         this.quantite =0;
     }
 
@@ -20,6 +20,16 @@ public class Hache extends Arme {
     @Override
     public int getQuantite() {
         return quantite;
+    }
+
+    @Override
+    public void agirAvecJoueur() {
+
+    }
+
+    @Override
+    public void agir() {
+        attaquer();
     }
 
     @Override

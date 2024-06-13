@@ -10,12 +10,16 @@ public abstract class Objets {
     private IntegerProperty xProperty, yProperty;
     private String type;
     private static int idStatic=0;
-    public Objets(Environnement environnement,int x, int y, String type){
+    private int quantiteObjets;
+    private boolean objetUnique;
+    public Objets(Environnement environnement,int x, int y, String type,int quantiteObjets, boolean objetUnique){
         this.environnement = environnement;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.type = type;
         this.id = idStatic++;
+        this.quantiteObjets = quantiteObjets;
+        this.objetUnique = objetUnique;
     }
     public Environnement getEnvironnement() {
         return environnement;
@@ -53,4 +57,16 @@ public abstract class Objets {
         return id;
     }
     public abstract void agirAvecJoueur();
+    public abstract void agir();
+    public int getQuantiteObjets() {
+        return quantiteObjets;
+    }
+
+    public void setQuantiteObjets(int quantiteObjets) {
+        this.quantiteObjets = quantiteObjets;
+    }
+
+    public boolean getObjetUnique() {
+        return objetUnique;
+    }
 }

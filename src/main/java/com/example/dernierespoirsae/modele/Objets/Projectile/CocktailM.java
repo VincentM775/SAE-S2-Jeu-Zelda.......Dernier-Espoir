@@ -3,9 +3,9 @@ package com.example.dernierespoirsae.modele.Objets.Projectile;
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
 
-public class CocktailMolotov extends Projectile{
-    public CocktailMolotov(int degats, Environnement environnement, Acteur acteurQuiALancer, int vitesse, int portee) {
-        super(degats, environnement, acteurQuiALancer, vitesse, portee);
+public class CocktailM extends Projectile{
+    public CocktailM(int degats, Environnement environnement, Acteur acteurQuiALancer) {
+        super(degats, environnement, acteurQuiALancer, 12, 320);
     }
 
     @Override
