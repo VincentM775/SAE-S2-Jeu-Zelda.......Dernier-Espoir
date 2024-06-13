@@ -21,12 +21,12 @@ public abstract class VueProjectile {
         imageView.setFitHeight(15);
 
         // Lier les propriétés de position
-        imageView.translateXProperty().bind(projectile.xProperty());
-        imageView.translateYProperty().bind(projectile.yProperty());
+        imageView.translateXProperty().bind(projectile.getxProperty());
+        imageView.translateYProperty().bind(projectile.getyProperty());
 
         // Lier la propriété de rotation
         // Lier la propriété de rotation
-        imageView.rotateProperty().bind(Bindings.createDoubleBinding(() -> projectile.getAngle(), projectile.xProperty(), projectile.yProperty()));
+        imageView.rotateProperty().bind(Bindings.createDoubleBinding(() -> projectile.getAngle(), projectile.getxProperty(), projectile.getyProperty()));
 
         projectilePane.getChildren().add(imageView);
         imageView.setId(""+projectile.getId());
