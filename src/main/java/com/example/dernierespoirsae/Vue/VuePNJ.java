@@ -43,8 +43,8 @@ public class VuePNJ extends VueActeur{
 
     public void enInteraction(){
         if(((PNJ)getActeur()).getEnInteraction()) {
-            messagePNJ.setTranslateX(getActeur().getX());
-            messagePNJ.setTranslateY(getActeur().getY());
+            messagePNJ.setTranslateX(getActeur().getX() - 150);
+            messagePNJ.setTranslateY(getActeur().getY() - 30);
             messagePNJ.setText(((PNJ) getActeur()).getTexte());
             messagePNJ.setVisible(true);
             Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), event -> {

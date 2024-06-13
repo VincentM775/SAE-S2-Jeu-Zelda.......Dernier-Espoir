@@ -14,11 +14,11 @@ public class RogerPNJ extends PNJ{
 
     @Override
     public String texte() {
-        return "coucou bg";
+        return "Je sais où trouver une arme à feu !\nRends-toi dans le sud-ouest de la ville,\nelle devrait se trouver dans une petite cabane";
     }
 
     @Override
     public String textePremiereInteraction() {
-        return "Arghhh t qui frerot ??!";
+        return "Oh ! Un autre survivant ! Mon nom est Roger, et toi ?";
     }
 }
