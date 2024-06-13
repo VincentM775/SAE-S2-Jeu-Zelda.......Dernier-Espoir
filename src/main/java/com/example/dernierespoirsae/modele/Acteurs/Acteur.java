@@ -165,14 +165,6 @@ public abstract class Acteur {
         return direction;
     }
 
-    public ObservableList<Arme> getArmes() {
-        return armes;
-    }
-
-    public void setArmes(ObservableList<Arme> armes) {
-        this.armes = armes;
-    }
-
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map
         int aX = getX() + longBox/2;

@@ -86,11 +86,11 @@ public class Environnement{
     }
 
     public ObservableList<Projectile> getListProjectile() {
-        return listprojectile;
+        return listProjectile;
     }
 
     public void addProjectile(Projectile projectile){
-        this.listprojectile.add(projectile);
+        this.listProjectile.add(projectile);
     }
 
     public ObservableList<Bave> getListBave() {

@@ -24,8 +24,13 @@ public class VuePNJ extends VueActeur{
     }
 
     @Override
-    public int definitionCouleur() {
-        return 5;
+    public String imageACreer() {
+        return "file:src/main/resources/com/example/dernierespoirsae/images/zamikaze0.png";
+    }
+
+    @Override
+    public int[] placementImage() {
+        return new int[]{0, 0};
     }
 
     @Override
