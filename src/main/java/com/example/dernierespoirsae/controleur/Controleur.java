@@ -60,7 +60,7 @@ public class Controleur implements Initializable {
         //Creation du joueur
         Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
-        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
+        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire(), joueur);
         joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
@@ -130,7 +130,7 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur3);
 
         PNJ roger = new RogerPNJ(300, 300, environnement, (int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
-        environnement.getListPNJ().add(roger);
+//        environnement.getListPNJ().add(roger);
         environnement.addActeurs(roger);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile

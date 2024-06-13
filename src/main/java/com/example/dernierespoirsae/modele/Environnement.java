@@ -22,7 +22,6 @@ public class Environnement{
     private ObservableList<Bave> listBave;
     private ObservableList<Objets> listObjetsEnvironnement;
     private ObservableList<Projectile> listProjectile;
-    private ArrayList<PNJ> listPNJ;
     private int temps;
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -36,7 +35,6 @@ public class Environnement{
         this.joueur = null;
         this.listProjectile = FXCollections.observableArrayList();
         this.listBave = FXCollections.observableArrayList();
-        this.listPNJ = new ArrayList<>();
         temps=0;
     }
 
@@ -100,7 +98,6 @@ public class Environnement{
         this.listBave.add(bave);
     }
     public void agit() {
-
         for (int i = 0; i < getListActeurs().size(); i++) {
             getListActeurs().get(i).agit(); //On fait agir les acteurs
 
@@ -125,7 +122,4 @@ public class Environnement{
         this.temps = temps;
     }
 
-    public ArrayList<PNJ> getListPNJ() {
-        return listPNJ;
-    }
 }

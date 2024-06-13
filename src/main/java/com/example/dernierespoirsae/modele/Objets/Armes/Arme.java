@@ -2,18 +2,11 @@ package com.example.dernierespoirsae.modele.Objets.Armes;
 
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Objets;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Arme extends Objets {
     private int degats;
-
-    public Arme(int degats,int x,int y, String type, Environnement environnement,int quantiteObjet,boolean objetUnique) {
+    public Arme(int degats, int x, int y, String type, Environnement environnement, int quantiteObjet, boolean objetUnique) {
         super(environnement,x,y,type, quantiteObjet, objetUnique);
-        this.degats = degats;
-    }
-
-    public void setDegats(int degats) {
         this.degats = degats;
     }
 
@@ -21,5 +14,8 @@ public abstract class Arme extends Objets {
         return degats;
     }
     public abstract void attaquer();
+
+
+
 
 }

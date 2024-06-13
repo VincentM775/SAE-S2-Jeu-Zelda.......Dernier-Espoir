@@ -14,7 +14,9 @@ public class RogerPNJ extends PNJ{
 
     @Override
     public String texte() {
-        return "Je sais où trouver une arme à feu !\nRends-toi dans le sud-ouest de la ville,\nelle devrait se trouver dans une petite cabane";
+        return "Je sais où trouver une arme à feu !" +
+                "\nRends-toi dans le sud-ouest de la ville," +
+                "\nelle devrait se trouver dans une petite cabane";
     }
 
     @Override

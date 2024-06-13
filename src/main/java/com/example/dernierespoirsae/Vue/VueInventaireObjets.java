@@ -1,5 +1,6 @@
 package com.example.dernierespoirsae.Vue;
 
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjets;
@@ -16,9 +17,12 @@ public class VueInventaireObjets {
     private VBox inventaireVBox;
     private Inventaire inventaire;
 
-    public VueInventaireObjets(VBox inventaireVBox, AutreObjets objets, Inventaire inventaire) {
+    private Joueur joueur;
+
+    public VueInventaireObjets(VBox inventaireVBox, Objets objets, Inventaire inventaire, Joueur joueur) {
         this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
+        this.joueur = joueur;
         addViewAutreObjetsInventaire(objets);
     }
 
@@ -29,7 +33,7 @@ public class VueInventaireObjets {
      *                                              - Un label indiquant sa quantitée
      * uniquement s'il n'en existe pas déjà, dans ce cas, on réaffiche pas l'arme mais on met à jour la quantité
      */
-    public void addViewAutreObjetsInventaire(AutreObjets objets) {
+    public void addViewAutreObjetsInventaire(Objets objets) {
         Pane emplacement = new Pane();
         emplacement.setOnMouseClicked(event -> setClick(emplacement));
         Label labelExiste = null;
@@ -90,6 +94,18 @@ public class VueInventaireObjets {
             //Ajoute l'image et le label a la Pane
             emplacement.getChildren().add(imageView);
 
+            if (!objets.getObjetUnique()){
+                //labelExiste = new Label();
+                labelExiste.setId(idLabel);
+                labelExiste.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+                labelExiste.setTranslateY(58);
+                labelExiste.setTranslateX(75);
+                if (!objets.getObjetUnique()){
+                    labelExiste.setText("x"+ objets.getQuantiteObjets());
+                }
+                else labelExiste.setText("x"+objets.getQuantite());
+                emplacement.getChildren().add(labelExiste);
+            }
         }
         else { //Sinon, l'arme est affichée et on modifie le label associé
             modifierLabel(objets, idLabel, labelExiste, pane);
@@ -97,12 +113,23 @@ public class VueInventaireObjets {
     }
 
     //Cette methode modifie de Label affiché pour indiqué la quantité de l'arme dans l'inventaire
-    public void modifierLabel(AutreObjets objets, String idLabel, Label labelExiste, Pane pane) {
+    public void modifierLabel(Objets objets, String idLabel, Label labelExiste, Pane pane) {
 
         //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
         if (labelExiste != null) {
 
-            labelExiste.setText("x"+objets.getQuantite());
+            if (!objets.getObjetUnique()){
+                String texteNombre = labelExiste.getText().substring(1);
+                labelExiste.setText("x"+ Integer.parseInt(texteNombre)+ objets.getQuantiteObjets());
+            }
+            else {
+                String texteNombre = labelExiste.getText().substring(1);
+
+                labelExiste.setText("x"+ Integer.parseInt(texteNombre)+ objets.getQuantiteObjets());
+            }
+
+            pane.getChildren().add(labelExiste);
+
         }
         else { // Si le label n'existe pas, en créer un nouveau
             Label label = new Label();
@@ -110,7 +137,11 @@ public class VueInventaireObjets {
             label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             label.setTranslateY(58);
             label.setTranslateX(75);
-            label.setText("x"+objets.getQuantite());
+            if (!objets.getObjetUnique()){
+                label.setText("x"+ objets.getQuantiteObjets());
+            }
+            else label.setText("x"+objets.getQuantite());
+
             pane.getChildren().add(label);
         }
     }

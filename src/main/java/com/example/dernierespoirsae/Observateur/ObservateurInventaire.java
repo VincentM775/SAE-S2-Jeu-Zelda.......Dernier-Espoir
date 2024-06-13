@@ -1,7 +1,7 @@
 package com.example.dernierespoirsae.Observateur;
 
-import com.example.dernierespoirsae.Vue.VueInventaireArmes;
 import com.example.dernierespoirsae.Vue.VueInventaireObjets;
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjets;
@@ -12,11 +12,14 @@ import javafx.scene.layout.VBox;
 public class ObservateurInventaire implements ListChangeListener<Objets> {
 
     private VBox inventaireVBox;
-    public Inventaire inventaire;
+    private Inventaire inventaire;
 
-    public ObservateurInventaire(VBox inventaireVBox,Inventaire inventaire) {
+    private Joueur joueur;
+
+    public ObservateurInventaire(VBox inventaireVBox,Inventaire inventaire, Joueur joueur) {
         this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
+        this.joueur = joueur;
     }
 
     @Override
@@ -28,13 +31,13 @@ public class ObservateurInventaire implements ListChangeListener<Objets> {
                     //Incremete la quantitée de l'arme
                     objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
                     //Affiche l'arme dans la vueInventaire
-                    new VueInventaireArmes(inventaireVBox, objet.getAddedSubList().get(i), inventaire);
+                    new VueInventaireObjets(inventaireVBox,objet.getAddedSubList().get(i), inventaire, joueur);
                 }
                 else if (objet.getAddedSubList().get(i) instanceof AutreObjets){
                     //Incremete la quantitée de l'arme
                     objet.getAddedSubList().get(i).incremeterDecremeterQuantiteInventaire(1);
                     //Affiche l'arme dans la vueInventaire
-                    new VueInventaireObjets(inventaireVBox, (AutreObjets) objet.getAddedSubList().get(i), inventaire);
+                    new VueInventaireObjets(inventaireVBox, objet.getAddedSubList().get(i), inventaire, joueur);
                 }
             }
 
@@ -48,7 +51,7 @@ public class ObservateurInventaire implements ListChangeListener<Objets> {
 
                     inventaireVBox.getChildren().remove(inventaireVBox.lookup("#"+objet.getRemoved().get(i).getType()));
                 } //Sinon On créer un objet VueInventaire qui va s'occuper de decremeter le label
-                else new VueInventaireArmes(inventaireVBox, objet.getRemoved().get(i), inventaire);
+                else new VueInventaireObjets(inventaireVBox, objet.getRemoved().get(i), inventaire, joueur);
 
             }
         }

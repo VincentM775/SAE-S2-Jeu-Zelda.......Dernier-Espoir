@@ -58,6 +58,7 @@ public abstract class Objets {
     }
     public abstract void agirAvecJoueur();
     public abstract void agir();
+
     public int getQuantiteObjets() {
         return quantiteObjets;
     }

@@ -34,7 +34,11 @@ public abstract class PNJ extends Acteur{
 
     @Override
     public void agit() {
-        //??
+        if(getEnvironnement().getJoueur().getTouche().contains("R")){
+            if(estPresentDansRayonPixel(45, getEnvironnement().getJoueur().getX(), getEnvironnement().getJoueur().getY())) {
+                interaction();
+            }
+        }
     }
 
     public void interaction() {
