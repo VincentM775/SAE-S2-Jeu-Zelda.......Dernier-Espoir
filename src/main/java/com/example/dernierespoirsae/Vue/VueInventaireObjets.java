@@ -1,9 +1,10 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.AutreObjets;
-import com.example.dernierespoirsae.modele.Objets.Objets;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,11 +16,19 @@ public class VueInventaireObjets {
 
     private VBox inventaireVBox;
     private Inventaire inventaire;
+    private Joueur joueur;
+    private IntegerProperty quantite;
 
-    public VueInventaireObjets(VBox inventaireVBox, AutreObjets objets, Inventaire inventaire) {
+
+    public VueInventaireObjets(VBox inventaireVBox, AutreObjets objets, Inventaire inventaire, Joueur joueur) {
         this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
+        this.joueur = joueur;
+        System.out.println();
+        this.quantite.bind(joueur.quantiteMunitionsProperty());
+
         addViewAutreObjetsInventaire(objets);
+        //this.quantite =  new SimpleIntegerProperty();
     }
 
     /**
@@ -32,33 +41,8 @@ public class VueInventaireObjets {
     public void addViewAutreObjetsInventaire(AutreObjets objets) {
         Pane emplacement = new Pane();
         emplacement.setOnMouseClicked(event -> setClick(emplacement));
-        Label labelExiste = null;
+        Label labelExiste;
         String idLabel = "labelNb" + objets.getType();
-        Pane pane = null;
-
-        /*
-        Cette boucle permet de vérifier en parcourant tout les Panes de la VBox si un label est présent dedans. Si c'est le cas
-        on injecte ce label dans labelExiste, sinon il reste a null.
-         */
-
-        //Parcours les cases de type Pane de l'inventaire
-        for (int i = 0; i < inventaireVBox.getChildren().size(); i++) {
-
-            //Si un Pane correspond à l'objet alors on met à jour le label dans ce Pane
-            if (String.valueOf(inventaireVBox.getChildren().get(i).getId()).equals( objets.getType()) ) {
-
-                pane = (Pane) inventaireVBox.getChildren().get(i);
-
-                // Cherche le label dans le Pane
-                for (Node node : pane.getChildren()) { //Utilisation d'un objet de type Node car on se sait pas a ce moment de quel type sont les Children du Pane
-
-                    //Si le Pane a un Label
-                    if (idLabel.equals(node.getId())) {
-                        labelExiste = (Label) node;
-                    }
-                }
-            }
-        }
 
         /*
             S'il n'y a qu'une arme dans l'inventaire ET que labelExiste vaut null (Signifiant qu'un label n'a pas déjà été ajouté
@@ -67,7 +51,7 @@ public class VueInventaireObjets {
             alors on créer et affiche l'image de l'arme.
          */
         System.out.println(objets.getQuantite());
-        if (objets.getQuantite() == 1 && labelExiste == null) {
+        if (objets.getQuantite() ==1) {
 
             //Charger l'image de l'objet
             Image imageObjet = new Image("file:src/main/resources/com/example/dernierespoirsae/images/" + objets.getType() + ".png");
@@ -90,31 +74,44 @@ public class VueInventaireObjets {
 
             //Ajoute l'image et le label a la Pane
             emplacement.getChildren().add(imageView);
-//            objets.incremeterDecremeterQuantiteInventaire(objets.getQuantiteObjets());
-            modifierLabel(objets, idLabel, labelExiste, pane);
-        }
-        else { //Sinon, l'arme est affichée et on modifie le label associé
-            modifierLabel(objets, idLabel, labelExiste, pane);
-        }
-    }
-
-    //Cette methode modifie de Label affiché pour indiqué la quantité de l'arme dans l'inventaire
-    public void modifierLabel(AutreObjets objets, String idLabel, Label labelExiste, Pane pane) {
-
-        //Si le label n'est pas null, c'est qu'il existait dans l'affichage, dans ce cas, on le met à jour
-        if (labelExiste != null) {
-            String textNombre = labelExiste.getText().substring(1);
-            labelExiste.setText("x"+(Integer.parseInt(textNombre)+objets.getQuantiteObjets()));
-        }
-        else { // Si le label n'existe pas, en créer un nouveau
             Label label = new Label();
             label.setId(idLabel);
             label.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             label.setTranslateY(58);
-            label.setTranslateX(75);
-            label.setText("x"+(objets.getQuantiteObjets()+objets.getQuantiteObjets()));
-            pane.getChildren().add(label);
+            label.setTranslateX(65);
+            label.setText(("x"+(objets.getQuantiteObjets())+getQuantite()));
+            emplacement.getChildren().add(label);
         }
+        else { //Sinon, l'arme est affichée et on modifie le label associé
+
+            for (int i = 0; i < inventaireVBox.getChildren().size(); i++) {
+
+                //Si un Pane correspond à l'objet alors on met à jour le label dans ce Pane
+                if (String.valueOf(inventaireVBox.getChildren().get(i).getId()).equals( objets.getType()) ) {
+
+                    Pane pane = (Pane) inventaireVBox.getChildren().get(i);
+
+                    // Cherche le label dans le Pane
+                    for (Node node : pane.getChildren()) { //Utilisation d'un objet de type Node car on se sait pas a ce moment de quel type sont les Children du Pane
+
+                        //Si le Pane a un Label
+                        if (idLabel.equals(node.getId())) {
+                            labelExiste = (Label) node;
+                            String textNombre = labelExiste.getText().substring(1);
+                            labelExiste.setText(("x"+(Integer.parseInt(textNombre))+ getQuantite()));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public int getQuantite() {
+        return quantite.getValue();
+    }
+
+    public IntegerProperty quantiteProperty() {
+        return quantite;
     }
 
     public void setClick(Pane emplacement){

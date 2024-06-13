@@ -1,7 +1,6 @@
 package com.example.dernierespoirsae.modele.Objets.AutreObjets;
 
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Objets.Objets;
 
 public class BoiteDeMunition extends AutreObjets {
     private int quantite;

@@ -5,22 +5,22 @@ import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.Objets;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class Joueur extends Acteur {
 
     private Inventaire inventaire;
     private ObjectProperty<Objets> objetsEquipee;
-    private int quantiteMunitions;
+    private IntegerProperty quantiteMunitions;
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
         this.inventaire = new Inventaire(environnement);
         this.objetsEquipee =  new SimpleObjectProperty<>();
-        this.quantiteMunitions = 0;
+        this.quantiteMunitions = new SimpleIntegerProperty(0);
     }
 
     public Inventaire getInventaire() {
@@ -108,10 +108,15 @@ public class Joueur extends Acteur {
     }
 
     public int getQuantiteMunitions() {
+        return quantiteMunitions.get();
+    }
+
+    public IntegerProperty quantiteMunitionsProperty() {
+        System.out.println(quaen coursntiteMunitions);
         return quantiteMunitions;
     }
 
     public void setQuantiteMunitions(int quantiteMunitions) {
-        this.quantiteMunitions = quantiteMunitions;
+        this.quantiteMunitions.set(getQuantiteMunitions());
     }
 }

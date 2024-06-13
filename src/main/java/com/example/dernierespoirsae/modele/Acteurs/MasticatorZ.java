@@ -13,7 +13,6 @@ public class MasticatorZ extends Ennemi {
         seDeplacer();
         if (joueurPresent()){
             if (joueurPresentDansRayonPixel(17))
-//                if (getEnvironnement().getTemps()%20==0)
                     getEnvironnement().getJoueur().perdPV(getNombreDeDegat());
         }
     }
