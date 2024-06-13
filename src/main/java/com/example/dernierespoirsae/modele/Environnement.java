@@ -10,6 +10,7 @@ import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.dernierespoirsae.algo.BFS;
+import java.util.ArrayList;
 
 public class Environnement{
 
@@ -18,9 +19,10 @@ public class Environnement{
     private BFS bfs;
     private int[] infoTuile;
     private ObservableList<Acteur> acteurs;
-    private ObservableList<Projectile> listprojectile;
     private ObservableList<Bave> listBave;
     private ObservableList<Objets> listObjetsEnvironnement;
+    private ObservableList<Projectile> listProjectile;
+    private ArrayList<PNJ> listPNJ;
     private int temps;
 
     public Environnement(int tailleTuile,int nombreDeTuileLongueur,int nombreDeTuileLargeur){
@@ -32,8 +34,9 @@ public class Environnement{
         this.listObjetsEnvironnement = FXCollections.observableArrayList();
         this.acteurs = FXCollections.observableArrayList();
         this.joueur = null;
-        this.listprojectile = FXCollections.observableArrayList();
+        this.listProjectile = FXCollections.observableArrayList();
         this.listBave = FXCollections.observableArrayList();
+        this.listPNJ = new ArrayList<>();
         temps=0;
     }
 
@@ -82,11 +85,11 @@ public class Environnement{
     }
 
     public ObservableList<Projectile> getListProjectile() {
-        return listprojectile;
+        return listProjectile;
     }
 
     public void addProjectile(Projectile projectile){
-        this.listprojectile.add(projectile);
+        this.listProjectile.add(projectile);
     }
 
     public ObservableList<Bave> getListBave() {
@@ -120,5 +123,9 @@ public class Environnement{
 
     public void setTemps(int temps) {
         this.temps = temps;
+    }
+
+    public ArrayList<PNJ> getListPNJ() {
+        return listPNJ;
     }
 }

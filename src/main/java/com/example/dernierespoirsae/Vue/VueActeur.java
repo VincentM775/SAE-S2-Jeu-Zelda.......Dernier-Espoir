@@ -116,11 +116,11 @@ public abstract class VueActeur {
         return acteur;
     }
 
-    public Pane getBarreViePane() {
-        return barreViePane;
-    }
-
     public ProgressBar getBarreVie() {
         return barreVie;
+    }
+
+    public Pane getBarreViePane() {
+        return barreViePane;
     }
 }

@@ -44,6 +44,7 @@ public class Joueur extends Acteur {
     public void agit() {
         seDeplacer();
         attaque();
+        interragirPNJ();
         rechercheObjets();
     }
 
@@ -122,5 +123,15 @@ public class Joueur extends Acteur {
 
     public void setQuantiteCocktailMolotov(int cocktailMolotov) {
         this.quantiteCocktailMolotov = cocktailMolotov;
+    }
+
+    public void interragirPNJ(){
+        if(getTouche().contains("R")){
+            for(int i = 0; i < getEnvironnement().getListPNJ().size(); i++) {
+                if(estPresentDansRayonPixel(32, getEnvironnement().getListPNJ().get(i).getX(), getEnvironnement().getListPNJ().get(i).getY())) {
+                    getEnvironnement().getListPNJ().get(i).interaction();
+                }
+            }
+        }
     }
 }
