@@ -3,6 +3,12 @@ package com.example.dernierespoirsae.modele.Acteurs;
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
 import javafx.beans.property.*;
+import com.example.dernierespoirsae.modele.Inventaire;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
 
 public abstract class Acteur {
 
@@ -24,10 +30,11 @@ public abstract class Acteur {
     private String clickSouris;
     private int xDeLaSouris;
     private int yDeLaSouris;
-
     private BooleanProperty armeALattaque;
+    private int longBox;
+    private int hautBox;
 
-    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int largeBox) {
+    public Acteur(int x,int y, String nom, Environnement environnement, int vie, int vitesse, int longTuile, int largeTuile, int nbTuile, int longBox, int hautBox) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.nom = nom;
@@ -38,7 +45,9 @@ public abstract class Acteur {
         this.longTuile = longTuile;
         this.largeTuile = largeTuile;
         this.nbTuile = nbTuile;
-        this.collision = new Collision(longBox, largeBox, this);
+        this.longBox = longBox;
+        this.hautBox = hautBox;
+        this.collision = new Collision(longBox, hautBox, this);
         this.id=idStatic++;
         this.direction = new SimpleStringProperty("null");
         this.derniereDirection="null";
@@ -156,10 +165,18 @@ public abstract class Acteur {
         return direction;
     }
 
+    public ObservableList<Arme> getArmes() {
+        return armes;
+    }
+
+    public void setArmes(ObservableList<Arme> armes) {
+        this.armes = armes;
+    }
+
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
         //On récupère les numéros de ligne et de colonne sur la map
-        int aX = getX();
-        int aY = getY();
+        int aX = getX() + longBox/2;
+        int aY = getY() + hautBox/2;
 
         //On renvoie true si les coordonnées x et y entrée en paramètre se trouve dans la portée de l'acteur
         return (Math.abs(x-aX)<=rayonPixel && Math.abs(y-aY)<=rayonPixel);
@@ -175,7 +192,7 @@ public abstract class Acteur {
     public abstract void agit();
 
     public void setClicks(String clickSouris) {
-        this.clickSouris=clickSouris;
+        this.clickSouris = clickSouris;
     }
 
     public String getClickSouris() {
