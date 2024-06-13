@@ -15,6 +15,8 @@ public class Joueur extends Acteur {
     private Inventaire inventaire;
     private ObjectProperty<Objets> objetsEquipee;
     private int quantiteMunitions;
+    private int quantiteCocktailMolotov;
+
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
@@ -113,5 +115,12 @@ public class Joueur extends Acteur {
 
     public void setQuantiteMunitions(int quantiteMunitions) {
         this.quantiteMunitions = quantiteMunitions;
+    }
+    public int getQuantiteCocktailMolotov() {
+        return quantiteCocktailMolotov;
+    }
+
+    public void setQuantiteCocktailMolotov(int cocktailMolotov) {
+        this.quantiteCocktailMolotov = cocktailMolotov;
     }
 }

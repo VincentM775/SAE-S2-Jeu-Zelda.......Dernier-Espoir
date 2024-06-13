@@ -19,7 +19,7 @@ public class Main extends Application {
         System.out.println("Original Width: " + originalWidth); //A LAISSER
         System.out.println("Original Height: " + originalHeight); //A LAISSER
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vueDernierEspoir.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/dernierespoirsae/vueDernierEspoir.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),longeur,largeur);
         scene.getStylesheets().add(getClass().getResource("dernierEspoir.css").toExternalForm());
         stage.setTitle("Dernier Espoir");
