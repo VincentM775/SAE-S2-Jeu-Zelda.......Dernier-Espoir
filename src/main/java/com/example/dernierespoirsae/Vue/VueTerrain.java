@@ -14,15 +14,17 @@ public class VueTerrain {
     private Terrain terrain;
     private TilePane terrainPane;
     private Image[] tiles;
-    private ArrayList<Integer> m2;
+    private ArrayList<Integer> terrainFond;
+    private ArrayList<Integer> terrainAutres;
     private Environnement environnement;
 
-    public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> m1, ArrayList<Integer> m2, Environnement environnement) {
+    public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> terrainColision, ArrayList<Integer> terrainFond,ArrayList<Integer> terrainAutres, Environnement environnement) {
         this.terrainPane = terrainPane;
         this.terrain = terrain;
-        this.m2=m2;
+        this.terrainFond=terrainFond;
+        this.terrainAutres = terrainAutres;
         this.environnement = environnement;
-        terrain.setTerrain(m1);
+        terrain.setTerrain(terrainColision);
 
         Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png", 1792, 736, false, false);
 
@@ -41,26 +43,44 @@ public class VueTerrain {
     }
 
     public void afficherTerrain() {
-        ArrayList<Integer> m1 = terrain.getTerrain(); //On récupère la map sans le sol (que les colision)
+        ArrayList<Integer> mapColision = terrain.getTerrain(); //On récupère la map sans le sol (que les colision)
 
-        for (int i = 0; i < m1.size(); i++) {
+        for (int i = 0; i < mapColision.size(); i++) {
             ImageView imageView = new ImageView();
             ImageView imageView2 = null;
+            ImageView imageView3 = null;
             imageView.setId(""+i);
 
-            int tileIndex = m1.get(i);
-            int tileIndex2 = m2.get(i);
+            int tileIndex = mapColision.get(i);
+            int tileIndex2 = terrainAutres.get(i);
+            int tileIndex3 = terrainFond.get(i);
+
             if (tileIndex >= 1 && tileIndex <= tiles.length) // Assurez-vous que tileIndex est dans les limites
                 imageView.setImage(tiles[tileIndex-6]);
+
             if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
                 imageView2 = new ImageView();
-                imageView2.setId(""+i);
-                imageView2.setImage(tiles[tileIndex2-6]);
+                imageView2.setImage(tiles[tileIndex3-6]);
             }
+            if (tileIndex3 >= 1 && tileIndex3 <= tiles.length) {
+                imageView3 = new ImageView();
+                imageView3.setImage(tiles[tileIndex3-6]);
+            }
+
+            StackPane stackpane = new StackPane();
+//            stackpane1.getChildren().add()
+
             if (tileIndex2 != 0) {
-                this.terrainPane.getChildren().add(new StackPane(imageView2, imageView));
+                stackpane.getChildren().add(imageView2);
+//                (new StackPane(imageView2, imageView));
             }
-            else this.terrainPane.getChildren().add(new StackPane(imageView));
+            if (tileIndex3 != 0) {
+                stackpane.getChildren().add(imageView3);
+//                this.terrainPane.getChildren().add(new StackPane(imageView2, imageView));
+            }
+            stackpane.getChildren().add(imageView);
+//                this.terrainPane.getChildren().add(new StackPane(imageView));
+            this.terrainPane.getChildren().add(stackpane);
         }
     }
 
@@ -71,7 +91,7 @@ public class VueTerrain {
         // si index est valide
         if (index >= 0 && index < terrain.getTerrain().size()) {
             // recupère l'index de la tuile dans la liste représentant le terrain
-             tileIndex = m2.get(index)-6;
+             tileIndex = terrainFond.get(index)-6;
 
             // si que tileIndex est dans les limites
             if (tileIndex >= 1 && tileIndex <= tiles.length) {
@@ -85,11 +105,15 @@ public class VueTerrain {
 
     }
 
-    public ArrayList<Integer> getM2() {
-        return m2;
+    public ArrayList<Integer> getTerrainFond() {
+        return terrainFond;
     }
 
     public Image[] getTiles() {
         return tiles;
+    }
+
+    public ArrayList<Integer> getTerrainAutres() {
+        return terrainAutres;
     }
 }

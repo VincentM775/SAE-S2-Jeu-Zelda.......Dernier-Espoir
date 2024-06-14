@@ -11,8 +11,9 @@ import java.util.ArrayList;
 
 public class LoadJSON {
 
-    private ArrayList<Integer> terrainSol;
     private ArrayList<Integer> terrainColision;
+    private ArrayList<Integer> terrainAutres;
+    private ArrayList<Integer> terrainFond;
     private int PrefColumns;
     private int PrefRows;
 
@@ -21,40 +22,55 @@ public class LoadJSON {
     }
 
     public void loadMap(String filename) {
-        ArrayList<Integer> elementsMap = new ArrayList<>();
-        ArrayList<Integer> elementsMap2 = new ArrayList<>();
+        ArrayList<Integer> elementsMapFond = new ArrayList<>();
+        ArrayList<Integer> elementsMapAutres = new ArrayList<>();
+        ArrayList<Integer> elementsMapColision = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
         try (FileReader reader = new FileReader(filename)) {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             JSONArray layersArray = (JSONArray) jsonObject.get("layers");
-            JSONObject firstLayer = (JSONObject) layersArray.get(0);
-            JSONObject firstLayer2 = (JSONObject) layersArray.get(1);
-            JSONArray dataArray = (JSONArray) firstLayer.get("data");
-            JSONArray dataArray2 = (JSONArray) firstLayer2.get("data");
-            this.PrefColumns = (int) (long) firstLayer.get("height");
-            this.PrefRows = (int) (long) firstLayer.get("width");
 
-            for (Object data : dataArray) {
-                elementsMap.add(Math.toIntExact((Long) data));
+            JSONObject terrainFond = (JSONObject) layersArray.get(0);
+            JSONObject terrainAutres = (JSONObject) layersArray.get(1);
+            JSONObject terrainColision = (JSONObject) layersArray.get(2);
+
+
+            JSONArray dataArrayFond = (JSONArray) terrainFond.get("data");
+            JSONArray dataArrayAutres = (JSONArray) terrainAutres.get("data");
+            JSONArray dataArrayColision = (JSONArray) terrainColision.get("data");
+
+            this.PrefColumns = (int) (long) terrainFond.get("height");
+            this.PrefRows = (int) (long) terrainFond.get("width");
+
+            for (Object data : dataArrayFond) {
+                elementsMapFond.add(Math.toIntExact((Long) data));
             }
-            for (Object data : dataArray2) {
-                elementsMap2.add(Math.toIntExact((Long) data));
+            for (Object data : dataArrayAutres) {
+                elementsMapAutres.add(Math.toIntExact((Long) data));
+            }
+            for (Object data : dataArrayColision) {
+                elementsMapColision.add(Math.toIntExact((Long) data));
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+        this.terrainFond = elementsMapFond;
+        this.terrainAutres = elementsMapAutres;
+        this.terrainColision = elementsMapColision;
 
-        this.terrainSol = elementsMap2;
-        this.terrainColision = elementsMap;
     }
 
-    public ArrayList<Integer> getMap() {
-        return terrainSol;
-    }
-    public ArrayList<Integer> getMap2() {
+    public ArrayList<Integer> getMapColision() {
         return terrainColision;
     }
+    public ArrayList<Integer> getMapFond() {
+        return terrainFond;
+    }
+    public ArrayList<Integer> getMapAutres() {
+        return terrainAutres;
+    }
+
     public int getPrefColumns() {
         return PrefColumns;
     }
