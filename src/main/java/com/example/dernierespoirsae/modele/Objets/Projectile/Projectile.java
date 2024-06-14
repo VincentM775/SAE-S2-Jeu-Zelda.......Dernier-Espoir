@@ -56,7 +56,7 @@ public abstract class Projectile {
         return this.xProperty.getValue();
     }
 
-    public IntegerProperty xProperty() {
+    public IntegerProperty getxProperty() {
         return this.xProperty;
     }
 
@@ -64,7 +64,7 @@ public abstract class Projectile {
         return this.yProperty.getValue();
     }
 
-    public IntegerProperty yProperty() {
+    public IntegerProperty getyProperty() {
         return this.yProperty;
     }
 
@@ -189,4 +189,12 @@ public abstract class Projectile {
     public abstract int jeVaisEnX();
     public abstract int jeVaisEnY();
     public abstract void effet();
+
+    public int getInitialX() {
+        return initialX;
+    }
+
+    public int getInitialY() {
+        return initialY;
+    }
 }

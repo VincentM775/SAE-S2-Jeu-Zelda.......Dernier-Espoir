@@ -5,12 +5,16 @@ import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.EstPresentRayon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 public class CocktailM extends Projectile{
+    private BooleanProperty arriver;
     private BooleanProperty aExplosee;
     public CocktailM(int degats, Environnement environnement, Acteur acteurQuiALancer) {
-        super(degats, environnement, acteurQuiALancer, 12, 320);
+        super(degats, environnement, acteurQuiALancer, 8, 320);
         this.aExplosee = new SimpleBooleanProperty(false);
+
     }
 
     @Override
@@ -33,10 +37,12 @@ public class CocktailM extends Projectile{
                 if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
                     getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
                     getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
-                    setaExplosee(true);
+
                 }
             }
         }
+        setaExplosee(true);
+
         //mettre des dégats au acteur présent dans la zone
         for (int i=0;i< getEnvironnement().getListActeurs().size();i++){
             if (EstPresentRayon.estPresentDansRayonPixel(64,getX(),getY(),0,0,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){

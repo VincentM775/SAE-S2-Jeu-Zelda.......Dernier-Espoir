@@ -8,7 +8,7 @@ public class BoiteDeMunition extends AutreObjets {
     private static int quantiteStatic=0;
 
     public BoiteDeMunition( Environnement environnement,int x, int y) {
-        super(environnement,x,y,"boiteDeMunitions",(int) (Math.random()*7+5),false);
+        super(environnement,x,y,"boiteDeMunitions",(int) (Math.random()*8+5),false);
         this.quantite=0;
     }
     @Override

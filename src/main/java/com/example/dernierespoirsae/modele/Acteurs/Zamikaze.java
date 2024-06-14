@@ -40,7 +40,8 @@ public class Zamikaze extends Ennemi {
                         }
                     }
                     getEnvironnement().getJoueur().perdPV(400); //Le joueur prend des dégâts
-                    for (int i=0; i<getEnvironnement().getListActeurs().size();i++){
+
+                    for (int i=0; i<getEnvironnement().getListActeurs().size();i++){ //Fais perdre des dégats à tout les acteurs présent de l'explosion
                         if(estPresentDansRayonPixel(40,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
                             getEnvironnement().getListActeurs().get(i).perdPV(30);
                         }
