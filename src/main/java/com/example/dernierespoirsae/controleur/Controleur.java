@@ -74,6 +74,8 @@ public class Controleur implements Initializable {
             new VueObjetEquipee(joueur.getArmeEquipeeProperty().getValue(),joueur, this.armePaneEquipee);
         });
 
+
+
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
 
