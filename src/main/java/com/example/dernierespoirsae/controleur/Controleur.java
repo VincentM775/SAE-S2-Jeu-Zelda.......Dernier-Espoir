@@ -11,6 +11,9 @@ import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -42,9 +45,36 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private BFS bfs;
+    private Button boutonRelance;
+    private ImageView background;
 
     public void initialize(URL location, ResourceBundle ressource) {
+
+        boutonRelance = new Button();
+        boutonRelance.setOnAction(actionEvent -> {
+            relance();
+            stopfreeze();
+        });
+        boutonRelance.setTranslateX(505);
+        boutonRelance.setTranslateY(275);
+        boutonRelance.getStyleClass().add("boutonLancement");
+        boutonRelance.setText("Jouer !");
+        boutonRelance.setDisable(false);
+        boutonRelance.setVisible(true);
+        principalPane.getChildren().add(boutonRelance);
+        background = new ImageView(new Image("file:src/main/resources/com/example/dernierespoirsae/images/background.jpg",1100, 1000, false, false));
+        principalPane.getChildren().add(background);
+        background.setTranslateY(-100);
+        boutonRelance.toFront();
+        inventaireVBox.setVisible(false);
+    }
+
+    public void lancement(){
+
         LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/dernierespoirsae/terrain0.json");
+
+        inventaireVBox.setVisible(true);
+        barreViePane.setVisible(true);
 
         //creation de l'environement
         this.environnement = new Environnement(32, 100, 100);
@@ -160,9 +190,7 @@ public class Controleur implements Initializable {
         //Ajout du BFS dans l'environnement
         this.environnement.setBfs(this.bfs);
 
-        //Demarrage de la gameLoop
         initAnimation();
-        gameLoop.play();
     }
 
     private void initAnimation() {
@@ -176,22 +204,52 @@ public class Controleur implements Initializable {
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{
+                if(environnement.getJoueur().getVie() <= 0){
+                    clear();
+                    boutonRelance.setDisable(false);
+                    boutonRelance.setVisible(true);
+                    inventaireVBox.setVisible(false);
+                    barreViePane.setVisible(false);
+                    background.setVisible(true);
+                    gameLoop.stop();
+                }
+                else {
+                    this.environnement.setTemps(this.environnement.getTemps() + 1);
+                    this.environnement.unTour();
+                    this.temps++;
+                }
 
 //                    if(temps==10){
 //                        System.out.println("boucle fini");
 //                        gameLoop.stop();
 //                    }
-                this.environnement.setTemps(this.environnement.getTemps()+1);
-                this.environnement.unTour();
-                this.temps++;
             })
         );
         this.gameLoop.getKeyFrames().add(kf);
     }
 
 
-    public void mouseClicked(MouseEvent mouseEvent) {
+//    public void mouseClicked(MouseEvent mouseEvent) {
+//        persoPane.requestFocus();
+//    }
+
+    public void relance(){
+        clear();
+        lancement();
+    }
+
+    public void clear(){
+        persoPane.getChildren().clear();
+        terrainPane.getChildren().clear();
+        inventaireVBox.getChildren().clear();
+        this.environnement = null;
+        boutonRelance.setVisible(false);
+        background.setVisible(false);
+    }
+
+    public void stopfreeze(){
         persoPane.requestFocus();
+        gameLoop.play();
     }
 
 }

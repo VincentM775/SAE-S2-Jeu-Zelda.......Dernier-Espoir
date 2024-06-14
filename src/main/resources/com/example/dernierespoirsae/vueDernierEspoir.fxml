@@ -8,7 +8,7 @@
 
 <BorderPane fx:id="fenetre" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="com.example.dernierespoirsae.controleur.Controleur">
    <center>
-      <Pane fx:id="principalPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40">
+      <Pane fx:id="principalPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40">
          <children>
              <TilePane fx:id="terrainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="0" prefTileHeight="0.0" prefTileWidth="0.0" prefWidth="0" />
              <Pane fx:id="objetPaneMap" prefHeight="200.0" prefWidth="200.0"  />
