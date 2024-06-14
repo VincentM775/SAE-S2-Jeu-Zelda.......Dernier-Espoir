@@ -7,8 +7,6 @@ import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class Joueur extends Acteur {
 

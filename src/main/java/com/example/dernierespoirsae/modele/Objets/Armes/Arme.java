@@ -2,8 +2,6 @@ package com.example.dernierespoirsae.modele.Objets.Armes;
 
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Objets;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Arme extends Objets {
     private int degats;

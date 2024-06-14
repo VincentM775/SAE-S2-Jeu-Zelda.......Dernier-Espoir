@@ -40,7 +40,7 @@ public class ObservateurInventaire implements ListChangeListener<Objets> {
             }
 
             for(int i = 0; i < objet.getRemovedSize(); i++){
-
+                System.out.println(inventaire.getListeObjetsInventaire());
                 //Decremete la quantitée l'arme d'un
                 objet.getRemoved().get(i).incremeterDecremeterQuantiteInventaire(-1);
 

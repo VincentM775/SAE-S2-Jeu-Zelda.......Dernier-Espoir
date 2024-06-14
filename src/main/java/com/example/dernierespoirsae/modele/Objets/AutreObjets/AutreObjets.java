@@ -5,22 +5,19 @@ import com.example.dernierespoirsae.modele.Objets.Objets;
 
 public abstract class AutreObjets extends Objets {
     private int quantiteObjets;
-    public AutreObjets(Environnement environnement, int x, int y, String type,int quantiteObjets) {
+    public AutreObjets(Environnement environnement, int x, int y, String type, int quantiteObjets) {
         super(environnement, x, y, type);
-        this.quantiteObjets = quantiteObjets;
+        this.quantiteObjets += quantiteObjets;
     }
 
     @Override
     public abstract void incremeterDecremeterQuantiteInventaire(int val);
-
 
     @Override
     public abstract int getQuantite();
 
     @Override
     public abstract void agirAvecJoueur();
-
-
 
     public int getQuantiteObjets() {
         return quantiteObjets;

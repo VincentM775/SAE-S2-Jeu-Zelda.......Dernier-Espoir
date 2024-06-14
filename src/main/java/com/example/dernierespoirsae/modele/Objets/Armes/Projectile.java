@@ -161,6 +161,7 @@ public abstract class Projectile {
     public int getVitesse() {
         return vitesse;
     }
+
     public void agit(){
         if (getEstVivant()) {
             if (!testProjectileArriverSurJoueur()) {

@@ -1,14 +1,13 @@
 package com.example.dernierespoirsae.modele.Objets.AutreObjets;
 
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Objets.Objets;
 
 public class BoiteDeMunition extends AutreObjets {
     private int quantite;
     private static int quantiteStatic=0;
 
     public BoiteDeMunition( Environnement environnement,int x, int y) {
-        super(environnement,x,y,"boiteDeMunitions",(int) (Math.random()*7+5));
+        super(environnement,x,y,"boiteDeMunitions", (int) (Math.random()*7+5));/*(int) (Math.random()*7+5)*/
         this.quantite=0;
     }
     @Override
