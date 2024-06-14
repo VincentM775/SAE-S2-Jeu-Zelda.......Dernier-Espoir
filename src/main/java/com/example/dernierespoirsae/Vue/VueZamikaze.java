@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class VueZamikaze extends VueZombie{
     private VueTerrain vueTerrain;
 
-    public VueZamikaze(Pane persoPane,Pane barreViePane, TilePane terrainPane, Acteur acteur, Environnement environnement, VueTerrain vueTerrain) {
+    public VueZamikaze(Pane persoPane,Pane barreViePane, TilePane terrainPane, Zamikaze acteur, Environnement environnement, VueTerrain vueTerrain) {
         super(persoPane,barreViePane, terrainPane, acteur, environnement);
         this.vueTerrain = vueTerrain;
         ChangeListener<Boolean> explosion = ((obs,old,nouv)-> explosion());
-        ((Zamikaze)acteur).getAExploseeProperty().addListener(explosion);
+        acteur.getAExploseeProperty().addListener(explosion);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class VueZamikaze extends VueZombie{
         int tuileAligne = getActeur().getY() / getEnvironnement().getInfoTuile()[0];
         int tuilePositionEListe; // récupère la position de l'ennemi dans la liste
 
-        addGifToPane(getActeur().getX(), getActeur().getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif", 480);
+        ModifVue.addGifToPane(getActeur().getX(), getActeur().getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif", 480,getPersoPane());
 
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
@@ -47,7 +47,7 @@ public class VueZamikaze extends VueZombie{
                     vueTerrain.getM2().set(tuilePositionEListe, 121+6); // 121 représente une tuile brûlée dans le modèle
 
                     // Utiliser setImageAtIndex pour mettre à jour l'image de la tuile
-                    setImageAtIndex(tuilePositionEListe, vueTerrain.getTiles()[121]);
+                    ModifVue.setImageAtIndex(tuilePositionEListe, vueTerrain.getTiles()[121],getEnvironnement(),getTerrainPane());
                 }
             }
         }

@@ -21,6 +21,8 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/dernierespoirsae/vueDernierEspoir.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),longeur,largeur);
+//        stage.setMaxHeight(largeur + 37);
+//        stage.setMaxWidth(longeur);
         scene.getStylesheets().add(getClass().getResource("dernierEspoir.css").toExternalForm());
         stage.setTitle("Dernier Espoir");
         stage.setScene((scene));

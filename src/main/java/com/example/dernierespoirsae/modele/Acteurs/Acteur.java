@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.modele.Acteurs;
 
 import com.example.dernierespoirsae.modele.Collision;
 import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.EstPresentRayon;
 import javafx.beans.property.*;
 import com.example.dernierespoirsae.modele.Inventaire;
 import javafx.beans.property.IntegerProperty;
@@ -166,12 +167,7 @@ public abstract class Acteur {
     }
 
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
-        //On récupère les numéros de ligne et de colonne sur la map
-        int aX = getX() + longBox/2;
-        int aY = getY() + hautBox/2;
-
-        //On renvoie true si les coordonnées x et y entrée en paramètre se trouve dans la portée de l'acteur
-        return (Math.abs(x-aX)<=rayonPixel && Math.abs(y-aY)<=rayonPixel);
+        return EstPresentRayon.estPresentDansRayonPixel(rayonPixel,getX(),getY(),longBox,largeTuile,x,y);
     }
 
     public void setTouche(String touche) {
@@ -215,7 +211,15 @@ public abstract class Acteur {
         this.armeALattaque.set(armeALattaque);
     }
 
-    public boolean isArmeALattaque() {
+    public boolean getArmeALattaque() {
         return armeALattaque.getValue();
+    }
+
+    public int getLongBox() {
+        return longBox;
+    }
+
+    public int getHautBox() {
+        return hautBox;
     }
 }

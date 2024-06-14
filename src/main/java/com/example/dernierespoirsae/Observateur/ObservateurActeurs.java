@@ -41,7 +41,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                     new VueMasticatorZ(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof Zamikaze)
-                    new VueZamikaze(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement,this.vueTerrain);
+                    new VueZamikaze(this.persoPane,barreViePane,this.terrainPane, (Zamikaze) acteurs.getAddedSubList().get(i),this.environnement,this.vueTerrain);
 
                 else if (acteurs.getAddedSubList().get(i) instanceof BaveZmort)
                     new VueBaveZmort(this.persoPane,barreViePane,this.terrainPane, acteurs.getAddedSubList().get(i),this.environnement);

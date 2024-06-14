@@ -56,36 +56,6 @@ public abstract class VueActeur {
     public abstract String imageACreer();
     public abstract int[] placementImage();
 
-
-    public void setImageAtIndex(int index, Image image) {
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(getEnvironnement().getInfoTuile()[0]);
-        imageView.setFitHeight(getEnvironnement().getInfoTuile()[0]);
-        terrainPane.getChildren().set(index, imageView);
-    }
-    public void addGifToPane(int x, int y,int taille, String image, double gifDurationMs) {
-        // Charger le GIF
-        Image gifImage = new Image(image);
-
-        // Créer un ImageView pour contenir le GIF
-        ImageView imageView = new ImageView(gifImage);
-
-        // Définir la position et la taille du ImageView
-        imageView.setX((int) x-((double) taille /2));
-        imageView.setY(y-taille+15+15);
-        imageView.setFitWidth(taille);
-        imageView.setFitHeight(taille);
-        persoPane.getChildren().add(imageView);
-
-        // Supprimer le GIF après la durée totale
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(gifDurationMs), event -> {
-            persoPane.getChildren().remove(imageView);
-        }));
-        timeline.setCycleCount(1); // Exécuter une seule fois
-        timeline.play();
-    }
-
-
     public void creerBarreVie(Acteur acteur) {
         NumberBinding progressBinding = Bindings.createDoubleBinding(
                 () -> acteur.getVieProperty().get() / (double) acteur.getMaxVie(),

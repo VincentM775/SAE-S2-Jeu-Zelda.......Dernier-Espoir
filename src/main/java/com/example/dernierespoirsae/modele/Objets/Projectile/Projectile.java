@@ -52,19 +52,19 @@ public abstract class Projectile {
         this.degats = degats;
     }
 
-    public int getXProperty() {
+    public int getX() {
         return this.xProperty.getValue();
     }
 
-    public IntegerProperty xProperty() {
+    public IntegerProperty getxProperty() {
         return this.xProperty;
     }
 
-    public int getYProperty() {
+    public int getY() {
         return this.yProperty.getValue();
     }
 
-    public IntegerProperty yProperty() {
+    public IntegerProperty getyProperty() {
         return this.yProperty;
     }
 
@@ -80,11 +80,11 @@ public abstract class Projectile {
         return id;
     }
     public void avance() {
-        int deltaX = this.ouAllerX - getXProperty();
-        int deltaY = this.ouAllerY - getYProperty();
+        int deltaX = this.ouAllerX - getX();
+        int deltaY = this.ouAllerY - getY();
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        int prochaineValX = getXProperty() + (int) (vitesse * (deltaX / distance));
-        int prochaineValY = getYProperty() + (int) (vitesse * (deltaY / distance));
+        int prochaineValX = getX() + (int) (vitesse * (deltaX / distance));
+        int prochaineValY = getY() + (int) (vitesse * (deltaY / distance));
 
         // Calculer la distance parcourue depuis la position initiale
         int totalDeltaX = prochaineValX - initialX;
@@ -94,7 +94,6 @@ public abstract class Projectile {
         if ((!testMurSurRoute(prochaineValX,prochaineValY)&&distanceParcourue<=portee)
             && !getEnvironnement().getListActeurs().isEmpty()
             && !testActeurToucher(prochaineValX, prochaineValY)) {
-
                 setxProperty(prochaineValX);
                 setyProperty(prochaineValY);
         }
@@ -110,8 +109,9 @@ public abstract class Projectile {
         int[][] directions = {{0, 0},{5, 0},{5, 5},{0, 5}};
         for (int[] tab : directions){
             tuileATester = (prochaineValY+tab[0])/environnement.getInfoTuile()[0]*environnement.getInfoTuile()[1]+(prochaineValX+tab[1])/environnement.getInfoTuile()[0];
-            if (environnement.getTerrain().getTerrain().get(tuileATester)!=0)
-                flag=true;
+            if (environnement.getTerrain().estObstacle(tuileATester)) {
+                flag = true;
+            }
         }
         return flag;
     }
@@ -125,7 +125,7 @@ public abstract class Projectile {
                 caseAY = environnement.getListActeurs().get(i).getY() ;
                 if (prochaineValX >=caseAX && prochaineValX <= caseAX+environnement.getListActeurs().get(i).getHitBox().getLongueur()
                 && prochaineValY >= caseAY && prochaineValY <= caseAY+environnement.getListActeurs().get(i).getHitBox().getHauteur()){
-                    environnement.getListActeurs().get(i).perdPV(getDegats());
+                    getEnvironnement().getListActeurs().get(i).perdPV(getDegats()); //On met de gros dégats à l'ennemi toucher
                     return true;
                 }
             }
@@ -133,11 +133,11 @@ public abstract class Projectile {
         return false;
     }
     public boolean testProjectileArriverSurCoord() {
-        return (getXProperty()>= getouAllerX()-(getVitesse()/2) && getXProperty()<= (getouAllerX()+getVitesse()/2) && getYProperty()>= this.getouAllerY()-(getVitesse()/2) && getYProperty()<= (this.getouAllerY()+getVitesse()/2));
+        return (getX()>= getouAllerX()-(getVitesse()/2) && getX()<= (getouAllerX()+getVitesse()/2) && getY()>= this.getouAllerY()-(getVitesse()/2) && getY()<= (this.getouAllerY()+getVitesse()/2));
     }
     public double getAngle() {
-        int deltaX = this.ouAllerX - getXProperty();
-        int deltaY = this.ouAllerY - getYProperty();
+        int deltaX = this.ouAllerX - getX();
+        int deltaY = this.ouAllerY - getY();
         double angle;
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
@@ -189,4 +189,12 @@ public abstract class Projectile {
     public abstract int jeVaisEnX();
     public abstract int jeVaisEnY();
     public abstract void effet();
+
+    public int getInitialX() {
+        return initialX;
+    }
+
+    public int getInitialY() {
+        return initialY;
+    }
 }
