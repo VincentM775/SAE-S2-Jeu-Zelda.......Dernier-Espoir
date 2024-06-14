@@ -1,9 +1,7 @@
 package com.example.dernierespoirsae.Vue;
 
-import com.example.dernierespoirsae.modele.Acteurs.Zamikaze;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Projectile.CocktailM;
-import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -25,7 +23,7 @@ public class VueCocktailMolotov extends VueProjectile {
         int tuileAligne = getProjectile().getY() / getEnvironnement().getInfoTuile()[0];
         int tuilePositionEListe; // récupère la position de l'ennemi dans la liste
 
-        ModifVue.addGifToPane(getProjectile().getX(), getProjectile().getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif", 480,getPersoPane());
+        ModifVue.addGifToPane(getProjectile().getX(), getProjectile().getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosionFeu.gif", 480,getPersoPane());
 
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
@@ -43,6 +41,5 @@ public class VueCocktailMolotov extends VueProjectile {
                 }
             }
         }
-//        getProjectile().meurt();
     }
 }

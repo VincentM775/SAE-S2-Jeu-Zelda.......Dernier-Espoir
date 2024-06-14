@@ -125,7 +125,7 @@ public abstract class Projectile {
                 caseAY = environnement.getListActeurs().get(i).getY() ;
                 if (prochaineValX >=caseAX && prochaineValX <= caseAX+environnement.getListActeurs().get(i).getHitBox().getLongueur()
                 && prochaineValY >= caseAY && prochaineValY <= caseAY+environnement.getListActeurs().get(i).getHitBox().getHauteur()){
-                    environnement.getListActeurs().get(i).perdPV(getDegats());
+                    getEnvironnement().getListActeurs().get(i).perdPV(getDegats()); //On met de gros dégats à l'ennemi toucher
                     return true;
                 }
             }

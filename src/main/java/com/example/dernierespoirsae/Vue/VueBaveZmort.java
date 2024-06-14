@@ -5,7 +5,6 @@ import com.example.dernierespoirsae.modele.Environnement;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 
-
 public class VueBaveZmort extends VueZombie{
 
 

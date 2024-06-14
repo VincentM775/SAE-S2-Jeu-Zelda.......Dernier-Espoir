@@ -2,6 +2,7 @@ package com.example.dernierespoirsae.modele.Objets.Projectile;
 
 import com.example.dernierespoirsae.modele.Acteurs.Acteur;
 import com.example.dernierespoirsae.modele.Environnement;
+import com.example.dernierespoirsae.modele.EstPresentRayon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -36,14 +37,12 @@ public class CocktailM extends Projectile{
                 }
             }
         }
-        //TODO Il faut regarder les 8 cases autour de lui + là où il est et compter celle qui sont le sol et des arbres.
-        // Il faut remplacer toute ces cases par de la brulure
-        // Mettre un effet de feu côté vue
-        // choisir de facon aléatoire entre 1case et le max de cases compter au début et laisser des flammes
-        // à ces cases pendant 4000 ms au même endroit.
-        // Faire des dégâts quand un acteur va dans les flammes
-        // Incrémenter / desincrémenter le nombre de cocktailMolotov dans Joueur
-        // et même choses côté vue
+        //mettre des dégats au acteur présent dans la zone
+        for (int i=0;i< getEnvironnement().getListActeurs().size();i++){
+            if (EstPresentRayon.estPresentDansRayonPixel(64,getX(),getY(),0,0,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+                getEnvironnement().getListActeurs().get(i).perdPV(getDegats()); //On met de gros dégats à l'ennemi toucher
+            }
+        }
     }
     public int caseAExploser(int caseY,int caseX){
         return (((getY()/getEnvironnement().getInfoTuile()[0])+caseY)*getEnvironnement().getInfoTuile()[1]+(getX()/getEnvironnement().getInfoTuile()[0])+caseX);
