@@ -12,7 +12,7 @@ public abstract class Objets {
     private static int idStatic=0;
     private IntegerProperty quantiteObjets;
     private boolean objetUnique;
-    public Objets(Environnement environnement,int x, int y, String type,int quantiteObjets, boolean objetUnique){
+    public Objets(Environnement environnement,int x, int y, String type, int quantiteObjets, boolean objetUnique){
         this.environnement = environnement;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
@@ -20,6 +20,7 @@ public abstract class Objets {
         this.id = idStatic++;
         this.quantiteObjets = new SimpleIntegerProperty();
         this.objetUnique = objetUnique;
+        setQuantiteObjets(quantiteObjets);
     }
     public Environnement getEnvironnement() {
         return environnement;
@@ -48,7 +49,8 @@ public abstract class Objets {
         this.yProperty.set(y);
     }
     public abstract void incremeterDecremeterQuantiteInventaire(int val);
-    public abstract int getQuantite();
+
+    public abstract IntegerProperty quantiteProperty();
 
     public String getType() {
         return type;
@@ -71,7 +73,7 @@ public abstract class Objets {
         this.quantiteObjets.set(quantiteObjets);
     }
 
-    public boolean getObjetUnique() {
+    public boolean ObjetUnique() {
         return objetUnique;
     }
 }

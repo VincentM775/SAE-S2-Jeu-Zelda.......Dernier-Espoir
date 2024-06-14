@@ -1,24 +1,25 @@
 package com.example.dernierespoirsae.modele.Objets.Armes;
 
 import com.example.dernierespoirsae.modele.Environnement;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Hache extends Arme {
 
     private static int quantiteStatic = 0;
-    private int quantite;
+    private IntegerProperty quantite;
 
     public Hache(int x, int y, Environnement environnement) {
         super(20, x, y,"hache", environnement,1,true);
-        this.quantite =0;
+        this.quantite = new SimpleIntegerProperty();
     }
 
     @Override
     public void incremeterDecremeterQuantiteInventaire(int val){
-        this.quantite = quantiteStatic+=val;
+        this.quantite.setValue(quantiteStatic += val);
     }
 
-    @Override
-    public int getQuantite() {
+    public IntegerProperty quantiteProperty() {
         return quantite;
     }
 

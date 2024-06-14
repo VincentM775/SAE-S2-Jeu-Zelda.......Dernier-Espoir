@@ -13,6 +13,7 @@ public abstract class Arme extends Objets {
     public int getDegats() {
         return degats;
     }
+
     public abstract void attaquer();
 
 

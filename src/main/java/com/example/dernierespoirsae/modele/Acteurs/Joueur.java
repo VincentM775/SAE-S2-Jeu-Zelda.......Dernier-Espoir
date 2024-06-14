@@ -87,9 +87,9 @@ public class Joueur extends Acteur {
         setY(getY() + dy);
     }
     public void rechercheObjets() {
-        for (int i = 0; i < getEnvironnement().getlistObjetsEnvironnement().size(); i++) {
-            if (estPresentDansRayonPixel(30,getEnvironnement().getlistObjetsEnvironnement().get(i).getX(),getEnvironnement().getlistObjetsEnvironnement().get(i).getY())){
-                if (getTouche().contains("R")) {
+        if (getTouche().contains("R")) {
+            for (int i = 0; i < getEnvironnement().getlistObjetsEnvironnement().size(); i++) {
+                if (estPresentDansRayonPixel(30,getEnvironnement().getlistObjetsEnvironnement().get(i).getX(),getEnvironnement().getlistObjetsEnvironnement().get(i).getY())){
                     getEnvironnement().getlistObjetsEnvironnement().get(i).agirAvecJoueur();
                     getInventaire().getListeObjetsInventaire().add(getEnvironnement().getlistObjetsEnvironnement().get(i));
                     getEnvironnement().getlistObjetsEnvironnement().remove(i);
@@ -125,13 +125,4 @@ public class Joueur extends Acteur {
         this.quantiteCocktailMolotov = cocktailMolotov;
     }
 
-//    public void interragirPNJ(){
-//        if(getTouche().contains("R")){
-//            for(int i = 0; i < getEnvironnement().getListPNJ().size(); i++) {
-//                if(estPresentDansRayonPixel(32, getEnvironnement().getListPNJ().get(i).getX(), getEnvironnement().getListPNJ().get(i).getY())) {
-//                    getEnvironnement().getListPNJ().get(i).interaction();
-//                }
-//            }
-//        }
-//    }
 }

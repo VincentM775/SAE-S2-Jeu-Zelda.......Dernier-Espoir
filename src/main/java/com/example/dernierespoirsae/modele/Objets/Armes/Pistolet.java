@@ -3,24 +3,26 @@ package com.example.dernierespoirsae.modele.Objets.Armes;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Balle;
 import com.example.dernierespoirsae.modele.Objets.Projectile.Projectile;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Pistolet extends Arme {
 
     private static int quantiteStatic = 0;
-    private int quantite;
+    private IntegerProperty quantite;
 
     public Pistolet(int x, int y, Environnement environnement) {
         super(50, x, y,"pistolet",environnement,1,true);
-        this.quantite = 0;
+        this.quantite = new SimpleIntegerProperty();
     }
 
     @Override
     public void incremeterDecremeterQuantiteInventaire(int val){
-        this.quantite = quantiteStatic+=val;
+        this.quantite.set(quantiteStatic+=val);
     }
 
     @Override
-    public int getQuantite() {
+    public IntegerProperty quantiteProperty() {
         return quantite;
     }
 

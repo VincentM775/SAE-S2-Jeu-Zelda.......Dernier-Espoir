@@ -1,24 +1,25 @@
 package com.example.dernierespoirsae.modele.Objets.AutreObjets;
 
 import com.example.dernierespoirsae.modele.Environnement;
-import com.example.dernierespoirsae.modele.Objets.Objets;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class BoiteDeMunition extends AutreObjets {
-    private int quantite;
+    private IntegerProperty quantite;
     private static int quantiteStatic=0;
 
     public BoiteDeMunition( Environnement environnement,int x, int y) {
         super(environnement,x,y,"boiteDeMunitions",(int) (Math.random()*7+5),false);
-        this.quantite=0;
+        this.quantite = new SimpleIntegerProperty();
     }
     @Override
     public void incremeterDecremeterQuantiteInventaire(int val){
-        this.quantite = quantiteStatic+=val;
+        this.quantite.setValue( quantiteStatic+=val);
     }
 
     @Override
-    public int getQuantite() {
-        return this.quantite;
+    public IntegerProperty quantiteProperty() {
+        return quantite;
     }
 
     @Override

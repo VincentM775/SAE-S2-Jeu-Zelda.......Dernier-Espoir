@@ -60,7 +60,7 @@ public class Controleur implements Initializable {
         //Creation du joueur
         Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
-        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire(), joueur);
+        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
         joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
@@ -73,8 +73,6 @@ public class Controleur implements Initializable {
         joueur.getArmeEquipeeProperty().addListener((observable, oldValue, newValue) -> {
             new VueObjetEquipee(joueur.getArmeEquipeeProperty().getValue(),joueur, this.armePaneEquipee);
         });
-
-
 
         //Lie l'observateur d'acteur a l'environnement
         environnement.setListenerActeurs(observateurActeurs);
@@ -90,13 +88,9 @@ public class Controleur implements Initializable {
 
         //Creer des haches
         Objets hache = new Hache(60,150,environnement);
-        Objets hache1 = new Hache(80,50,environnement);
-        Objets hache3 = new Hache(100,200,environnement);
 
         //Creer un pistolet
         Objets pistolet = new Pistolet(800,300,environnement);
-        Objets pistolet1 = new Pistolet(300,1000,environnement);
-        Objets pistolet2 = new Pistolet(900,300,environnement);
 
         //Crer une boite de munition
         Objets boiteMunition = new BoiteDeMunition(environnement, 200,300);
@@ -106,11 +100,7 @@ public class Controleur implements Initializable {
 
         //Ajoute les Objets à l'environnement
         environnement.getlistObjetsEnvironnement().add(hache);
-        environnement.getlistObjetsEnvironnement().add(hache1);
-        environnement.getlistObjetsEnvironnement().add(hache3);
         environnement.getlistObjetsEnvironnement().add(pistolet);
-        environnement.getlistObjetsEnvironnement().add(pistolet1);
-        environnement.getlistObjetsEnvironnement().add(pistolet2);
         environnement.getlistObjetsEnvironnement().add(boiteMunition);
         environnement.getlistObjetsEnvironnement().add(boiteMunitio2);
         environnement.getlistObjetsEnvironnement().add(boiteMunitio3);
@@ -132,7 +122,7 @@ public class Controleur implements Initializable {
         environnement.addActeurs(acteur3);
 
         PNJ roger = new RogerPNJ(300, 300, environnement, (int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
-//        environnement.getListPNJ().add(roger);
+//      environnement.getListPNJ().add(roger);
         environnement.addActeurs(roger);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
