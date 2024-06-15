@@ -73,12 +73,25 @@ public class VueTerrain {
         }
     }
 
-    public Image obtenirImageTerrain(int ligne, int colonne) {
+    public Image obtenirImageTerrainFond(int ligne, int colonne) {
         int index = ligne * environnement.getInfoTuile()[1] + colonne;
         int tileIndex;
 
         if (index >= 0 && index < terrainFond.size()) {
             tileIndex = terrainFond.get(index) - 1;
+            if (tileIndex >= 0 && tileIndex < tiles.length) {
+                return tiles[tileIndex];
+            }
+        }
+
+        return null;
+    }
+    public Image obtenirImageTerrainAutres(int ligne, int colonne) {
+        int index = ligne * environnement.getInfoTuile()[1] + colonne;
+        int tileIndex;
+
+        if (index >= 0 && index < terrainAutres.size()) {
+            tileIndex = terrainAutres.get(index) - 1;
             if (tileIndex >= 0 && tileIndex < tiles.length) {
                 return tiles[tileIndex];
             }
