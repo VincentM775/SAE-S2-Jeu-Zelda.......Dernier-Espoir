@@ -52,9 +52,11 @@ public class Joueur extends Acteur {
     }
 
     public void setArmeEquipee(String typeArme)  {
-        for (int i = 0; i < inventaire.getListeObjetsInventaire().size(); i++){
-            if(inventaire.getListeObjetsInventaire().get(i).getType().equals(typeArme)){
-                setArmeEquipee(inventaire.getListeObjetsInventaire().get(i));
+        if( ! typeArme.equals("boiteDeMunitions")){
+            for (int i = 0; i < inventaire.getListeObjetsInventaire().size(); i++){
+                if(inventaire.getListeObjetsInventaire().get(i).getType().equals(typeArme)){
+                    setArmeEquipee(inventaire.getListeObjetsInventaire().get(i));
+                }
             }
         }
     }

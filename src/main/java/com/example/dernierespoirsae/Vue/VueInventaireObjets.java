@@ -3,6 +3,7 @@ package com.example.dernierespoirsae.Vue;
 import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.Armes.CocktailMolotov;
+import com.example.dernierespoirsae.modele.Objets.AutreObjets.BoiteDeMunition;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Label;
