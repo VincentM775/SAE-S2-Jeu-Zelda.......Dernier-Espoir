@@ -5,7 +5,9 @@ import com.example.dernierespoirsae.modele.Objets.Armes.Arme;
 import com.example.dernierespoirsae.modele.Environnement;
 import com.example.dernierespoirsae.modele.Inventaire;
 import com.example.dernierespoirsae.modele.Objets.Objets;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -14,15 +16,16 @@ public class Joueur extends Acteur {
 
     private Inventaire inventaire;
     private ObjectProperty<Objets> objetsEquipee;
-    private int quantiteMunitions;
-    private int quantiteCocktailMolotov;
+    private IntegerProperty quantiteMunitions;
+    private IntegerProperty quantiteCocktailMolotov;
 
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
         super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
         this.inventaire = new Inventaire(environnement);
         this.objetsEquipee =  new SimpleObjectProperty<>();
-        this.quantiteMunitions = 0;
+        this.quantiteMunitions = new SimpleIntegerProperty(0);
+        this.quantiteCocktailMolotov = new SimpleIntegerProperty(0);
     }
 
     public Inventaire getInventaire() {
@@ -101,28 +104,39 @@ public class Joueur extends Acteur {
     public void attaque(){
         if (getArmeEquipee() != null){ //Si on est équipé d'une arme
             //Si oui, on regarde si le click gauche est clické
-            if (getClickSouris().contains("g")){
-                    setArmeALattaque(true);
-                    getArmeEquipee().agir(); //On utilise notre arme
-                    setClicks("");
-
+            if (getClickSouris().contains("g")) {
+                setArmeALattaque(true);
+                getArmeEquipee().agir(); //On utilise notre arme
+                setClicks("");
             }
         }
     }
 
+    public Objets getObjetsEquipee() {
+        return objetsEquipee.get();
+    }
+
+    public ObjectProperty<Objets> objetsEquipeeProperty() {
+        return objetsEquipee;
+    }
+
     public int getQuantiteMunitions() {
+        return quantiteMunitions.get();
+    }
+
+    public IntegerProperty quantiteMunitionsProperty() {
         return quantiteMunitions;
     }
 
-    public void setQuantiteMunitions(int quantiteMunitions) {
-        this.quantiteMunitions = quantiteMunitions;
-    }
     public int getQuantiteCocktailMolotov() {
+        return quantiteCocktailMolotov.get();
+    }
+
+    public IntegerProperty quantiteCocktailMolotovProperty() {
         return quantiteCocktailMolotov;
     }
 
-    public void setQuantiteCocktailMolotov(int cocktailMolotov) {
-        this.quantiteCocktailMolotov = cocktailMolotov;
+    public void setQuantiteCocktailMolotov(int quantiteCocktailMolotov) {
+        this.quantiteCocktailMolotov.set(quantiteCocktailMolotov);
     }
-
 }

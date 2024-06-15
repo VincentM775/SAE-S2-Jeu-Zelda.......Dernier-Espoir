@@ -1,9 +1,10 @@
 package com.example.dernierespoirsae.Vue;
 
+import com.example.dernierespoirsae.modele.Acteurs.Joueur;
 import com.example.dernierespoirsae.modele.Inventaire;
+import com.example.dernierespoirsae.modele.Objets.Armes.CocktailMolotov;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.beans.binding.Bindings;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,10 +15,11 @@ public class VueInventaireObjets {
 
     private VBox inventaireVBox;
     private Inventaire inventaire;
-
-    public VueInventaireObjets(VBox inventaireVBox, Objets objets, Inventaire inventaire) {
+    private Joueur joueur;
+    public VueInventaireObjets(VBox inventaireVBox, Objets objets, Inventaire inventaire, Joueur joueur) {
         this.inventaireVBox = inventaireVBox;
         this.inventaire = inventaire;
+        this.joueur = joueur;
         addViewAutreObjetsInventaire(objets);
     }
 
@@ -30,14 +32,14 @@ public class VueInventaireObjets {
      */
     public void addViewAutreObjetsInventaire(Objets objets) {
 
-        Label label = new Label();
-        String idLabel = "labelNb" + objets.getType();
 
         //On creer un nouvel emplacement dans l'inventaire
-        if (objets.quantiteProperty().getValue() == 1) {
+       if (objets.quantiteProperty().getValue() == 1) {
 
-            Pane emplacement = new Pane();
-            emplacement.setOnMouseClicked(event -> setClick(emplacement));
+           Label label = new Label();
+           String idLabel = "labelNb" + objets.getType();
+           Pane emplacement = new Pane();
+           emplacement.setOnMouseClicked(event -> setClick(emplacement));
 
             //Dans le cas ou l'objet peut être multiple dans l'inventaire
             if( ! objets.ObjetUnique() ){
@@ -46,7 +48,10 @@ public class VueInventaireObjets {
                 label.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
                 label.setTranslateY(58);
                 label.setTranslateX(75);
-                label.textProperty().bind(Bindings.convert(objets.quantiteObjetsProperty()));
+                if(objets instanceof CocktailMolotov){
+                    label.textProperty().bind(Bindings.convert(joueur.quantiteCocktailMolotovProperty()));
+
+                } else label.textProperty().bind(Bindings.convert(joueur.quantiteMunitionsProperty()));
             }
 
             emplacement.getChildren().add(label);
@@ -72,35 +77,6 @@ public class VueInventaireObjets {
 
             //Ajoute l'image et le label a la Pane
             emplacement.getChildren().add(imageView);
-
-        }
-        else { //Sinon on retrouve le Label et on l'incremente
-            {
-                Label labelExiste = null;
-                Pane pane;
-                for (int i = 0; i < inventaireVBox.getChildren().size(); i++) {
-                    if (String.valueOf(inventaireVBox.getChildren().get(i).getId()).equals(objets.getType())) {
-                        pane = (Pane) inventaireVBox.getChildren().get(i);
-                        for (Node node : pane.getChildren()) {
-                            if (idLabel.equals(node.getId())) {
-                                labelExiste = (Label) node;
-                            }
-                        }
-                    }
-                }
-
-                //On Récupère le contenue du String retrouvé pour l'additionner la nouvelle le nombre de munition
-                String texteNombre = labelExiste.getText();
-                int nouvelleQuantite = Integer.parseInt(texteNombre) + objets.quantiteObjetsProperty().get();
-                labelExiste.textProperty().unbind();
-                labelExiste.setText(String.valueOf(nouvelleQuantite));
-
-                if(!objets.ObjetUnique()) {
-                    label.textProperty().bind(Bindings.createStringBinding(
-                            () ->String.valueOf(objets.quantiteObjetsProperty().get()),
-                            objets.quantiteObjetsProperty()));
-                }
-            }
         }
     }
 

@@ -24,7 +24,7 @@ public class BoiteDeMunition extends AutreObjets {
 
     @Override
     public void agirAvecJoueur() {
-        getEnvironnement().getJoueur().setQuantiteMunitions(getEnvironnement().getJoueur().getQuantiteMunitions()+getQuantiteObjets());
+        getEnvironnement().getJoueur().quantiteMunitionsProperty().set(getEnvironnement().getJoueur().getQuantiteMunitions()+getQuantiteObjets());
     }
 
     @Override

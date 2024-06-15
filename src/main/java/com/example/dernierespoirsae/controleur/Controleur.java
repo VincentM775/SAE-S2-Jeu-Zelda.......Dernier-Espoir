@@ -90,7 +90,7 @@ public class Controleur implements Initializable {
         //Creation du joueur
         Joueur joueur = new Joueur(environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
 
-        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire());
+        ObservateurInventaire observateurInventaire =new ObservateurInventaire(inventaireVBox, joueur.getInventaire(), joueur);
         joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
