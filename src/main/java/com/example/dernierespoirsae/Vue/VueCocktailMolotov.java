@@ -34,7 +34,7 @@ public class VueCocktailMolotov extends VueProjectile {
                     tuilePositionEListe = getEnvironnement().getInfoTuile()[1] * (tuileAligne + y) + (tuileAcolonne + x);
 
                     // Mettre à jour le modèle
-                    getVueTerrain().getM2().set(tuilePositionEListe, 121+6); // 121 représente une tuile brûlée dans le modèle
+                    getVueTerrain().getTerrainAutres().set(tuilePositionEListe, 121+6); // 121 représente une tuile brûlée dans le modèle
 
                     // Utiliser setImageAtIndex pour mettre à jour l'image de la tuile
                     ModifVue.setImageAtIndex(tuilePositionEListe, getVueTerrain().getTiles()[121],getEnvironnement(),getTerrainPane());

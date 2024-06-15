@@ -94,7 +94,7 @@ public class Controleur implements Initializable {
         joueur.getInventaire().getListeObjetsInventaire().addListener(observateurInventaire);
 
         //Initialisation de la vue Terrain
-        VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMap(), loadJSON.getMap2(),environnement);
+        VueTerrain vueTerrain =  new VueTerrain(environnement.getTerrain(), this.terrainPane,loadJSON.getMapColision(), loadJSON.getMapFond(),loadJSON.getMapAutres(),environnement);
 
         /* ObservateurActeurs est une methode qui va observer les changement (ajout ou supression)
         *  dans la liste d'acteur de l'environement (qui est une liste Observable) */
