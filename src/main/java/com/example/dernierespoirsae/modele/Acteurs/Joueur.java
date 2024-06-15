@@ -19,7 +19,7 @@ public class Joueur extends Acteur {
 
 
     public Joueur(Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(Main.longeur/2,Main.largeur/2, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
+        super(1408,1088, "Johnny", environnement, 1000, 4, longTuile, largeTuile, nbTuile, 20, 26);
         this.inventaire = new Inventaire(environnement);
         this.objetsEquipee =  new SimpleObjectProperty<>();
         this.quantiteMunitions = 0;

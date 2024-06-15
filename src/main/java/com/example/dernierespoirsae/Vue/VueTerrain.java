@@ -16,17 +16,19 @@ public class VueTerrain {
     private Image[] tiles;
     private ArrayList<Integer> terrainFond;
     private ArrayList<Integer> terrainAutres;
+    private ArrayList<Integer> terrainColision;
     private Environnement environnement;
 
-    public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> terrainColision, ArrayList<Integer> terrainFond,ArrayList<Integer> terrainAutres, Environnement environnement) {
+    public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> terrainColision, ArrayList<Integer> terrainFond, ArrayList<Integer> terrainAutres, Environnement environnement) {
         this.terrainPane = terrainPane;
         this.terrain = terrain;
-        this.terrainFond=terrainFond;
+        this.terrainColision = terrainColision;
+        this.terrainFond = terrainFond;
         this.terrainAutres = terrainAutres;
         this.environnement = environnement;
         terrain.setTerrain(terrainColision);
 
-        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png", 1792, 736, false, false);
+        Image tileset = new Image("file:src/main/resources/com/example/dernierespoirsae/tiles.png", 1792, 1120, false, false);
 
         int tileWidth = 32;
         int tileHeight = 32;
@@ -43,44 +45,31 @@ public class VueTerrain {
     }
 
     public void afficherTerrain() {
-        ArrayList<Integer> mapColision = terrain.getTerrain(); //On récupère la map sans le sol (que les colision)
+        for (int i = 0; i < terrainFond.size(); i++) {
+            ImageView imageViewFond = null;
+            ImageView imageViewAutres = null;
+            ImageView imageViewColision = null;
 
-        for (int i = 0; i < mapColision.size(); i++) {
-            ImageView imageView = new ImageView();
-            ImageView imageView2 = null;
-            ImageView imageView3 = null;
-            imageView.setId(""+i);
+            int tileIndexFond = terrainFond.get(i);
+            int tileIndexAutres = terrainAutres.get(i);
+            int tileIndexColision = terrainColision.get(i);
 
-            int tileIndex = mapColision.get(i);
-            int tileIndex2 = terrainAutres.get(i);
-            int tileIndex3 = terrainFond.get(i);
-
-            if (tileIndex >= 1 && tileIndex <= tiles.length) // Assurez-vous que tileIndex est dans les limites
-                imageView.setImage(tiles[tileIndex-6]);
-
-            if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
-                imageView2 = new ImageView();
-                imageView2.setImage(tiles[tileIndex3-6]);
+            if (tileIndexFond >= 1 && tileIndexFond <= tiles.length) {
+                imageViewFond = new ImageView(tiles[tileIndexFond - 1]);
             }
-            if (tileIndex3 >= 1 && tileIndex3 <= tiles.length) {
-                imageView3 = new ImageView();
-                imageView3.setImage(tiles[tileIndex3-6]);
+            if (tileIndexAutres >= 1 && tileIndexAutres <= tiles.length) {
+                imageViewAutres = new ImageView(tiles[tileIndexAutres - 1]);
+            }
+            if (tileIndexColision >= 1 && tileIndexColision <= tiles.length) {
+                imageViewColision = new ImageView(tiles[tileIndexColision - 1]);
             }
 
-            StackPane stackpane = new StackPane();
-//            stackpane1.getChildren().add()
+            StackPane stackPane = new StackPane();
+            if (imageViewFond != null) stackPane.getChildren().add(imageViewFond);
+            if (imageViewAutres != null) stackPane.getChildren().add(imageViewAutres);
+            if (imageViewColision != null) stackPane.getChildren().add(imageViewColision);
 
-            if (tileIndex2 != 0) {
-                stackpane.getChildren().add(imageView2);
-//                (new StackPane(imageView2, imageView));
-            }
-            if (tileIndex3 != 0) {
-                stackpane.getChildren().add(imageView3);
-//                this.terrainPane.getChildren().add(new StackPane(imageView2, imageView));
-            }
-            stackpane.getChildren().add(imageView);
-//                this.terrainPane.getChildren().add(new StackPane(imageView));
-            this.terrainPane.getChildren().add(stackpane);
+            this.terrainPane.getChildren().add(stackPane);
         }
     }
 
@@ -88,21 +77,14 @@ public class VueTerrain {
         int index = ligne * environnement.getInfoTuile()[1] + colonne;
         int tileIndex;
 
-        // si index est valide
-        if (index >= 0 && index < terrain.getTerrain().size()) {
-            // recupère l'index de la tuile dans la liste représentant le terrain
-             tileIndex = terrainFond.get(index)-6;
-
-            // si que tileIndex est dans les limites
-            if (tileIndex >= 1 && tileIndex <= tiles.length) {
-                // Retournez l'image correspondante à l'index
+        if (index >= 0 && index < terrainFond.size()) {
+            tileIndex = terrainFond.get(index) - 1;
+            if (tileIndex >= 0 && tileIndex < tiles.length) {
                 return tiles[tileIndex];
             }
         }
 
-        // Si l'index est invalide ou si l'image correspondante n'est pas trouvée, retournez null
         return null;
-
     }
 
     public ArrayList<Integer> getTerrainFond() {
