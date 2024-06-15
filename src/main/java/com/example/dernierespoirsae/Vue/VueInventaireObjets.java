@@ -22,39 +22,42 @@ public class VueInventaireObjets {
     }
 
     /**
-     * @param objets -> L'arme associée a l'image à la Pane mère
+     * @param objets -> L'objet associée a l'image à la Pane mère
      *             <p>
-     * Cette methode créer un Pane qui contient:    - L'affichage de l'arme
+     * Cette methode créer un Pane qui contient:    - L'affichage de l'objet
      *                                              - Un label indiquant sa quantitée
-     * uniquement s'il n'en existe pas déjà, dans ce cas, on réaffiche pas l'arme mais on met à jour la quantité
+     * uniquement s'il n'en existe pas déjà, dans ce cas, on réaffiche pas l'objet mais on met à jour la quantité
      */
     public void addViewAutreObjetsInventaire(Objets objets) {
 
-        String idLabel = "labelNb" + objets.getType();
         Label label = new Label();
+        String idLabel = "labelNb" + objets.getType();
 
         //On creer un nouvel emplacement dans l'inventaire
         if (objets.quantiteProperty().getValue() == 1) {
 
             Pane emplacement = new Pane();
             emplacement.setOnMouseClicked(event -> setClick(emplacement));
-            label.setId(idLabel);
-            label.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-            label.setTranslateY(58);
-            label.setTranslateX(75);
 
-            if(!objets.ObjetUnique())
+            //Dans le cas ou l'objet peut être multiple dans l'inventaire
+            if( ! objets.ObjetUnique() ){
+
+                label.setId(idLabel);
+                label.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                label.setTranslateY(58);
+                label.setTranslateX(75);
                 label.textProperty().bind(Bindings.convert(objets.quantiteObjetsProperty()));
+            }
 
             emplacement.getChildren().add(label);
 
-            //Charger l'image de l'arme
+            //Charger l'image de l'objet
             Image imageObjet = new Image("file:src/main/resources/com/example/dernierespoirsae/images/" + objets.getType() + ".png");
 
             //Stock l'image de l'objet dans une imageView pour pouvoir les afficher
             ImageView imageView = new ImageView(imageObjet);
 
-            //Gère le style de l'emplacement de chaque arme
+            //Gère le style de l'emplacement de chaque objet
             emplacement.setStyle("-fx-border-width: 1; -fx-border-color: black; -fx-background-color: #77B5FE; -fx-border-radius: 10; -fx-background-radius: 10" );
 
             //Ajoute ce Pane a la vue Inventaire
@@ -64,15 +67,14 @@ public class VueInventaireObjets {
             imageView.setFitWidth(80);
             imageView.setFitHeight(80);
 
-            //Attribue a ce Pane le type de l'arme qu'elle contient a l'ID
+            //Attribue a ce Pane le type de l'objet qu'elle contient a l'ID
             emplacement.setId(objets.getType());
 
             //Ajoute l'image et le label a la Pane
             emplacement.getChildren().add(imageView);
 
         }
-        //Sinon on retrouve le Label et on l'incremente
-        else {
+        else { //Sinon on retrouve le Label et on l'incremente
             {
                 Label labelExiste = null;
                 Pane pane;
@@ -87,7 +89,7 @@ public class VueInventaireObjets {
                     }
                 }
 
-                //On Récupère le contenue du String retrouveé pour l'additionner la nouvelle le nombre de munition
+                //On Récupère le contenue du String retrouvé pour l'additionner la nouvelle le nombre de munition
                 String texteNombre = labelExiste.getText();
                 int nouvelleQuantite = Integer.parseInt(texteNombre) + objets.quantiteObjetsProperty().get();
                 labelExiste.textProperty().unbind();
