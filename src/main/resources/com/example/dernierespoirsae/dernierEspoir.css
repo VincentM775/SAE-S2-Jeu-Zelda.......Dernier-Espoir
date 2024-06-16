@@ -1,0 +1,57 @@
+.health-bar-ennemi{
+
+    -fx-pref-height: 10px;
+    -fx-pref-width: 40px;
+    -fx-border-radius: 5px;
+    -fx-bordure-color: red;
+
+}
+
+.health-bar-ennemi .track {
+    -fx-background-color: transparent;
+}
+
+.health-bar-ennemi .bar {
+    -fx-background-color: red;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 1px;
+}
+
+.health-bar-joueur{
+
+    -fx-pref-height: 30px;
+    -fx-pref-width: 180px;
+    -fx-border-radius: 5px;
+    -fx-bordure-color: red;
+
+}
+
+.health-bar-joueur .track {
+    -fx-background-color: black;
+    -fx-border-radius: 30px;
+    -fx-pref-height: 45px;
+}
+
+.health-bar-joueur .bar {
+    -fx-background-color: green;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 1px;
+}
+
+
+.messagePNJ{
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    }
+
+.boutonLancement{
+    -fx-pref-height: 50px;
+    -fx-pref-width: 100px;
+    -fx-background-radius: 30px;
+    -fx-background-color: #00466d;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+}

@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
+<BorderPane fx:id="fenetre" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="com.example.dernierespoirsae.controleur.Controleur">
+   <center>
+      <Pane fx:id="principalPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40">
+         <children>
+             <TilePane fx:id="terrainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="0" prefTileHeight="0.0" prefTileWidth="0.0" prefWidth="0" />
+             <Pane fx:id="objetPaneMap" prefHeight="200.0" prefWidth="200.0"  />
+             <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0"/>
+             <Pane fx:id="armePaneEquipee" prefHeight="200.0" prefWidth="200.0"/>
+             <Pane fx:id="projectilePane" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </Pane>
+   </center>
+    <right>
+        <BorderPane>
+            <center>
+                <VBox alignment="CENTER" fx:id="inventaireVBox" layoutX="989.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: black; -fx-border-width: 1;">
+                    <children>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </right>
 
-<Pane fx:id="premierPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dernierespoirsae.controleur.Controleur">
-   <children>
-      <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="25" prefHeight="600.0" prefTileHeight="40.0" prefTileWidth="40.0" prefWidth="1000.0" />
-      <Pane fx:id="persoPane" prefHeight="200.0" prefWidth="200.0" />
-   </children>
-</Pane>
+    <HBox fx:id="barreVieBox"/>
+    <Pane fx:id="barreViePane"/>
+
+</BorderPane>
