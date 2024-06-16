@@ -126,7 +126,7 @@ public class Controleur implements Initializable {
         Objets boiteMunition = new BoiteDeMunition(environnement, 200,300);
         Objets boiteMunitio2 = new BoiteDeMunition(environnement, 200,400);
         Objets boiteMunitio3 = new BoiteDeMunition(environnement, 200,470);
-        Objets cocktailMolotov = new CocktailMolotov(environnement, 250,200);
+        Objets cocktailMolotov = new CocktailMolotov(environnement, 1408,1088);
 
         //Ajoute les Objets à l'environnement
         environnement.getlistObjetsEnvironnement().add(hache);

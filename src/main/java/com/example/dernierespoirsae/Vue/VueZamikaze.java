@@ -32,6 +32,7 @@ public class VueZamikaze extends VueZombie{
         int tuileAcolonne = getActeur().getX() / getEnvironnement().getInfoTuile()[0];
         int tuileAligne = getActeur().getY() / getEnvironnement().getInfoTuile()[0];
         int tuilePositionEListe; // récupère la position de l'ennemi dans la liste
+        int val;
 
         ModifVue.addGifToPane(getActeur().getX(), getActeur().getY(), 96, "file:src/main/resources/com/example/dernierespoirsae/images/explosion.gif", 480,getPersoPane());
 
@@ -40,14 +41,16 @@ public class VueZamikaze extends VueZombie{
 
                 if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] &&
                         tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
+                    val = (tuileAligne + y) * getEnvironnement().getInfoTuile()[1] + (tuileAcolonne + x);
+                    if (getEnvironnement().getTerrain().getTerrain().get(val) == 2) {
+                        tuilePositionEListe = getEnvironnement().getInfoTuile()[1] * (tuileAligne + y) + (tuileAcolonne + x);
 
-                    tuilePositionEListe = getEnvironnement().getInfoTuile()[1] * (tuileAligne + y) + (tuileAcolonne + x);
+                        // Mettre à jour le modèle
+                        vueTerrain.getTerrainAutres().set(tuilePositionEListe, 121 +1); // 121 représente une tuile brûlée dans le modèle
 
-                    // Mettre à jour le modèle
-                    vueTerrain.getTerrainAutres().set(tuilePositionEListe, 121+6); // 121 représente une tuile brûlée dans le modèle
-
-                    // Utiliser setImageAtIndex pour mettre à jour l'image de la tuile
-                    ModifVue.setImageAtIndex(tuilePositionEListe, vueTerrain.getTiles()[121],getEnvironnement(),getTerrainPane());
+                        // Utiliser setImageAtIndex pour mettre à jour l'image de la tuile
+                        ModifVue.setImageAtIndex(tuilePositionEListe, vueTerrain.getTiles()[121], getEnvironnement(), getTerrainPane());
+                    }
                 }
             }
         }

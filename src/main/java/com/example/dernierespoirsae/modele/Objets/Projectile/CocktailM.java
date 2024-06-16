@@ -31,13 +31,16 @@ public class CocktailM extends Projectile{
     public void effet() {
         int tuileAcolonne = getX() / getEnvironnement().getInfoTuile()[0];
         int tuileAligne = getY() / getEnvironnement().getInfoTuile()[0];
+        int val;
 
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                    getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
-                    getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
-
+                    val = (tuileAligne+y)*getEnvironnement().getInfoTuile()[1]+(tuileAcolonne+x);
+                    if(getEnvironnement().getTerrain().estArbres(val)) {
+                        getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
+                        getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y //LE PROBLEME EST LA
+                    }
                 }
             }
         }

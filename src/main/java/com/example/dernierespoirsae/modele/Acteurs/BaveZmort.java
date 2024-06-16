@@ -43,7 +43,7 @@ public class BaveZmort extends Ennemi {
             getEnvironnement().addBave(bave);
         }
 
-    }
+    }           
 
     @Override
     public void enleverEffet() {

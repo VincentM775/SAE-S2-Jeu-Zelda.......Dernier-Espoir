@@ -15,9 +15,8 @@ public class Zamikaze extends Ennemi {
 
 
     public void testExplosion(int temps){
-        int tuileAcolonne;
-        int tuileAligne;
-
+        int tuileAcolonne,tuileAligne;
+        int val;
         if (temps%5==0) {
             if (joueurPresentDansRayonPixel(40)) {
 
@@ -33,12 +32,15 @@ public class Zamikaze extends Ennemi {
                     for (int y = -1; y <= 1; y++) {
                         for (int x = -1; x <= 1; x++) {
                             if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                                getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
-                                getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
-                                setaExplosee(true);
+                                val = (tuileAligne+y)*getEnvironnement().getInfoTuile()[1]+(tuileAcolonne+x);
+                                if(getEnvironnement().getTerrain().estArbres(val)) {
+                                    getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
+                                    getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y
+                                }
                             }
                         }
                     }
+                    setaExplosee(true);
                     getEnvironnement().getJoueur().perdPV(400); //Le joueur prend des dégâts
 
                     for (int i=0; i<getEnvironnement().getListActeurs().size();i++){ //Fais perdre des dégats à tout les acteurs présent de l'explosion
