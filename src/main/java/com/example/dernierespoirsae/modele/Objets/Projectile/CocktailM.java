@@ -35,7 +35,7 @@ public class CocktailM extends Projectile{
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                    if(getEnvironnement().getTerrain().estArbres(valDansListe(y,x))) {
+                    if(getEnvironnement().getTerrain().estDestructible(valDansListe(y,x))) {
                         getEnvironnement().getTerrain().getTerrain().remove(valDansListe(y, x)); //case à remplacer selon x et y
                         getEnvironnement().getTerrain().getTerrain().add(valDansListe(y, x), 2); //case à remplacer selon x et y
                     }

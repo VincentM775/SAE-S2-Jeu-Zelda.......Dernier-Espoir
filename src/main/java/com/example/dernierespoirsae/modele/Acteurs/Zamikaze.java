@@ -32,7 +32,7 @@ public class Zamikaze extends Ennemi {
                     for (int y = -1; y <= 1; y++) {
                         for (int x = -1; x <= 1; x++) {
                             if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                                if(getEnvironnement().getTerrain().estArbres(caseAExploser(y,x))) {
+                                if(getEnvironnement().getTerrain().estDestructible(caseAExploser(y,x))) {
                                     getEnvironnement().getTerrain().getTerrain().set(caseAExploser(y,x),2);
                                 }
                             }

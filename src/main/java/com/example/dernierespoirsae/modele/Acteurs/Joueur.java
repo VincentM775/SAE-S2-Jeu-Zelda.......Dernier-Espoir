@@ -47,7 +47,6 @@ public class Joueur extends Acteur {
     public void agit() {
         seDeplacer();
         attaque();
-//        interragirPNJ();
         rechercheObjets();
     }
 

@@ -35,10 +35,10 @@ public class VueCocktailMolotov extends VueProjectile {
                     if (getEnvironnement().getTerrain().getTerrain().get(tuilePositionEListe)==2) {
 
                         // Mettre à jour le modèle
-                        getVueTerrain().getTerrainAutres().set(tuilePositionEListe, 121 + 1); // 121 représente une tuile brûlée dans le modèle
+                        getVueTerrain().getTerrainAutres().set(tuilePositionEListe, 65 + 1); // 121 représente une tuile brûlée dans le modèle
 
                         // Utiliser setImageAtIndex pour mettre à jour l'image de la tuile
-                        ModifVue.setImageAtIndex(tuilePositionEListe, getVueTerrain().getTiles()[121], getEnvironnement(), getTerrainPane());
+                        ModifVue.setImageAtIndex(tuilePositionEListe, getVueTerrain().getTiles()[65], getEnvironnement(), getTerrainPane());
                     }
                 }
             }
