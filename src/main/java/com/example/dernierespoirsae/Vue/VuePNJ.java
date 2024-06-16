@@ -14,6 +14,7 @@ import javafx.util.Duration;
 public class VuePNJ extends VueActeur{
 
     private Label messagePNJ;
+    private Acteur acteur;
 
     public VuePNJ(Pane persoPane, Pane barreViePane, TilePane terrainPane, Acteur acteur, Environnement environnement) {
         super(persoPane, barreViePane, terrainPane, acteur, environnement);
@@ -22,10 +23,9 @@ public class VuePNJ extends VueActeur{
         ChangeListener<Boolean> interaction = ((obs, old, nouv)-> enInteraction());
         ((PNJ)acteur).enInteraction().addListener(interaction);
     }
-
     @Override
     public String imageACreer() {
-        return "file:src/main/resources/com/example/dernierespoirsae/images/zamikaze0.png";
+        return "file:src/main/resources/com/example/dernierespoirsae/images/"+getActeur().getNom()+".png";
     }
 
     @Override
