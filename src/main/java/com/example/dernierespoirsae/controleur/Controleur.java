@@ -146,7 +146,7 @@ public class Controleur implements Initializable {
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Création d'un premier zombie MasticartorZ
-        Ennemi acteur1 = new MasticatorZ(1536,1088, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur1 = new MasticatorZ(1600,1088, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur1);
         Ennemi acteur12 = new MasticatorZ(1600,1024, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur12);

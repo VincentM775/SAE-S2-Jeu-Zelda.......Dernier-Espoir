@@ -8,7 +8,7 @@ import com.example.dernierespoirsae.modele.Environnement;
 public class BaveZmort extends Ennemi {
     private int enregistrementVitesseJoueur;
     public BaveZmort(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, "BaveZmort", environnement, 60, 1, 0, longTuile, largeTuile, nbTuile, 6+(int) (Math.random()*2),28,28);
+        super(x, y, "BaveZmort", environnement, 60, 1, 30, longTuile, largeTuile, nbTuile, 6+(int) (Math.random()*2),28,28);
         enregistrementVitesseJoueur = getEnvironnement().getJoueur().getVitesse();
     }
     public void seDeplacer() {
