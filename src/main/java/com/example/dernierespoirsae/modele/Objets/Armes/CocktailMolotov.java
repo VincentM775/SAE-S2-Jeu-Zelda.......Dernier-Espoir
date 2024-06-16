@@ -27,10 +27,14 @@ public class CocktailMolotov extends Arme {
 
     @Override
     public void attaquer() {
-        if (getEnvironnement().getJoueur().getQuantiteCocktailMolotov() >0) {
-            Projectile projectile = new CocktailM(getDegats(), getEnvironnement(), getEnvironnement().getJoueur());
-            getEnvironnement().getListProjectile().add(projectile);
-            getEnvironnement().getJoueur().quantiteCocktailMolotovProperty().set(getEnvironnement().getJoueur().getQuantiteCocktailMolotov()-1);
+        if (getEnvironnement().getJoueur().getClickSouris().contains("g")) {
+            if (getEnvironnement().getJoueur().getQuantiteCocktailMolotov() > 0) {
+                getEnvironnement().getJoueur().setArmeALattaque(true);
+                Projectile projectile = new CocktailM(getDegats(), getEnvironnement(), getEnvironnement().getJoueur());
+                getEnvironnement().getListProjectile().add(projectile);
+                getEnvironnement().getJoueur().quantiteCocktailMolotovProperty().set(getEnvironnement().getJoueur().getQuantiteCocktailMolotov() - 1);
+            }
+            getEnvironnement().getJoueur().setClicks("");
         }
     }
     @Override

@@ -31,8 +31,8 @@ public class ObservateurTrainerBave implements ListChangeListener<Bave> {
             for (int i = 0; i < bave.getAddedSize(); i++) {
                 int ligne = bave.getAddedSubList().get(i).getLigne();
                 int colonne = bave.getAddedSubList().get(i).getColonne();
-                Image terrainFondImage = vueTerrain.obtenirImageTerrainFond(ligne, colonne); // Obtenez l'image du terrain pour cette tuile
-                Image terrainAutresImage = vueTerrain.obtenirImageTerrainAutres(ligne, colonne); // Obtenez l'image du terrain pour cette tuile
+                Image terrainFondImage = vueTerrain.obtenirImageTerrainFond(ligne, colonne,-1); // Obtenez l'image du terrain pour cette tuile
+                Image terrainAutresImage = vueTerrain.obtenirImageTerrainAutres(ligne, colonne,-1); // Obtenez l'image du terrain pour cette tuile
 
                 int tuileDansListe = ligne * environnement.getInfoTuile()[1] + colonne;
                 setImageAtIndex(tuileDansListe, baveImage, terrainFondImage,terrainAutresImage);
@@ -42,9 +42,9 @@ public class ObservateurTrainerBave implements ListChangeListener<Bave> {
             for (int i = 0; i < bave.getRemovedSize(); i++) {
                 int ligne = bave.getRemoved().get(i).getLigne();
                 int colonne = bave.getRemoved().get(i).getColonne();
-                Image terrainAutresImage = vueTerrain.obtenirImageTerrainFond(ligne, colonne); // Obtenez l'image du terrain pour cette tuile
+                Image terrainAutresImage = vueTerrain.obtenirImageTerrainFond(ligne, colonne,-1); // Obtenez l'image du terrain pour cette tuile
 
-                Image terrainFondImage = vueTerrain.obtenirImageTerrainAutres(ligne, colonne); // Obtenez l'image du terrain pour cette tuile
+                Image terrainFondImage = vueTerrain.obtenirImageTerrainAutres(ligne, colonne,-1); // Obtenez l'image du terrain pour cette tuile
                 int tuileDansListe = ligne * environnement.getInfoTuile()[1] + colonne;
                 // Remplacer l'image de la bave par l'image du terrain
                 setImageAtIndex(tuileDansListe, terrainFondImage, terrainFondImage,terrainAutresImage);

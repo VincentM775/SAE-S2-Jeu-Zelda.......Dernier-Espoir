@@ -28,14 +28,14 @@ public abstract class VueObjet {
         imageView.setId(String.valueOf(this.objets.getId()));
 
         //Associe la position de l'arme a l'image
-        setPotitionArme(imageView);
+        setPositionArme(imageView);
 
         //Ajoute l'image a la Pane armePane qui sera affiché dans la fenêtre
         ajoutImagePane(imageView);
     }
 
     public abstract void ajoutImagePane(ImageView imageView);
-    public abstract void setPotitionArme(ImageView imageView);
+    public abstract void setPositionArme(ImageView imageView);
 
     public Objets getObjets() {
         return objets;

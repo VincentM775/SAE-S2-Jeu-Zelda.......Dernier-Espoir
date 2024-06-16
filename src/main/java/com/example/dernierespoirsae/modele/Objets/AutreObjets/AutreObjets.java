@@ -7,6 +7,5 @@ public abstract class AutreObjets extends Objets {
 
     public AutreObjets(Environnement environnement, int x, int y, String type,int quantiteObjet,boolean objetUnique) {
         super(environnement, x, y, type, quantiteObjet,objetUnique);
-
     }
 }

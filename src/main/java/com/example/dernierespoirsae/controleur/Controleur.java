@@ -7,9 +7,11 @@ import com.example.dernierespoirsae.modele.*;
 import com.example.dernierespoirsae.modele.Acteurs.*;
 import com.example.dernierespoirsae.modele.Objets.Armes.*;
 import com.example.dernierespoirsae.modele.Objets.AutreObjets.BoiteDeMunition;
+import com.example.dernierespoirsae.modele.Objets.AutreObjets.PiedDeBiche;
 import com.example.dernierespoirsae.modele.Objets.Objets;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -111,10 +113,10 @@ public class Controleur implements Initializable {
         environnement.setJoueur(joueur);
 
         //Initialise un observateur pour une liste d'arme
-        ObservateurObjets observateurArme = new ObservateurObjets(objetPaneMap);
+        ObservateurObjets observateurObjets = new ObservateurObjets(objetPaneMap,environnement,vueTerrain,terrainPane);
 
         //Lie cet observateur a la liste d'arme dans l'environnement
-        environnement.setListenerArmeEnvironnement(observateurArme);
+        environnement.setListenerArmeEnvironnement(observateurObjets);
 
         //Creer des haches
         Objets hache = new Hache(60,150,environnement);
@@ -127,6 +129,7 @@ public class Controleur implements Initializable {
         Objets boiteMunitio2 = new BoiteDeMunition(environnement, 200,400);
         Objets boiteMunitio3 = new BoiteDeMunition(environnement, 200,470);
         Objets cocktailMolotov = new CocktailMolotov(environnement, 1408,1088);
+        PiedDeBiche piedDeBiche = new PiedDeBiche(environnement,1344,1088);
 
         //Ajoute les Objets à l'environnement
         environnement.getlistObjetsEnvironnement().add(hache);
@@ -135,6 +138,7 @@ public class Controleur implements Initializable {
         environnement.getlistObjetsEnvironnement().add(boiteMunitio2);
         environnement.getlistObjetsEnvironnement().add(boiteMunitio3);
         environnement.getlistObjetsEnvironnement().add(cocktailMolotov);
+        environnement.getlistObjetsEnvironnement().add(piedDeBiche);
 
         //Génére un terrain avec des tuiles aléatoires
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);

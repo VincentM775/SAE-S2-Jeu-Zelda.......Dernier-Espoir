@@ -33,7 +33,11 @@ public class Pistolet extends Arme {
 
     @Override
     public void agir() {
-        attaquer();
+        if (getEnvironnement().getJoueur().getClickSouris().contains("g")) {
+            getEnvironnement().getJoueur().setArmeALattaque(true);
+            attaquer();
+            getEnvironnement().getJoueur().setClicks("");
+        }
     }
 
     @Override

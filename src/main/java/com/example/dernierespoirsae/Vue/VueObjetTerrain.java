@@ -15,7 +15,7 @@ public class VueObjetTerrain extends VueObjet{
     }
 
     @Override
-    public void setPotitionArme(ImageView imageView){
+    public void setPositionArme(ImageView imageView){
         imageView.translateXProperty().setValue(getObjets().getX());
         imageView.translateYProperty().setValue(getObjets().getY());
     }

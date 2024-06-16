@@ -104,13 +104,8 @@ public class Joueur extends Acteur {
     }
 
     public void attaque(){
-        if (getArmeEquipee() != null){ //Si on est équipé d'une arme
-            //Si oui, on regarde si le click gauche est clické
-            if (getClickSouris().contains("g")) {
-                setArmeALattaque(true);
-                getArmeEquipee().agir(); //On utilise notre arme
-                setClicks("");
-            }
+        if (getArmeEquipee() != null){ //Test si on a un objet d'équiper
+            getArmeEquipee().agir();
         }
     }
 

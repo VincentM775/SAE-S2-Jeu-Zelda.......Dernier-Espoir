@@ -31,29 +31,27 @@ public class CocktailM extends Projectile{
     public void effet() {
         int tuileAcolonne = getX() / getEnvironnement().getInfoTuile()[0];
         int tuileAligne = getY() / getEnvironnement().getInfoTuile()[0];
-        int val;
 
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 if (tuileAligne + y >= 0 && tuileAligne + y < getEnvironnement().getInfoTuile()[1] && tuileAcolonne + x >= 0 && tuileAcolonne + x < getEnvironnement().getInfoTuile()[1]) {
-                    val = (tuileAligne+y)*getEnvironnement().getInfoTuile()[1]+(tuileAcolonne+x);
-                    if(getEnvironnement().getTerrain().estArbres(val)) {
-                        getEnvironnement().getTerrain().getTerrain().remove(caseAExploser(y, x)); //case à remplacer selon x et y
-                        getEnvironnement().getTerrain().getTerrain().add(caseAExploser(y, x), 2); //case à remplacer selon x et y //LE PROBLEME EST LA
+                    if(getEnvironnement().getTerrain().estArbres(valDansListe(y,x))) {
+                        getEnvironnement().getTerrain().getTerrain().remove(valDansListe(y, x)); //case à remplacer selon x et y
+                        getEnvironnement().getTerrain().getTerrain().add(valDansListe(y, x), 2); //case à remplacer selon x et y
                     }
                 }
             }
         }
         setaExplosee(true);
 
-        //mettre des dégats au acteur présent dans la zone
+        //mettre des dégâts aux acteurs présents dans la zone
         for (int i=0;i< getEnvironnement().getListActeurs().size();i++){
             if (EstPresentRayon.estPresentDansRayonPixel(64,getX(),getY(),0,0,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
                 getEnvironnement().getListActeurs().get(i).perdPV(getDegats()); //On met de gros dégats à l'ennemi toucher
             }
         }
     }
-    public int caseAExploser(int caseY,int caseX){
+    public int valDansListe(int caseY,int caseX){
         return (((getY()/getEnvironnement().getInfoTuile()[0])+caseY)*getEnvironnement().getInfoTuile()[1]+(getX()/getEnvironnement().getInfoTuile()[0])+caseX);
     }
 

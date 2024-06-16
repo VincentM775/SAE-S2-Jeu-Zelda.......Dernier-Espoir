@@ -11,7 +11,6 @@ import javafx.scene.layout.TilePane;
 import java.util.ArrayList;
 
 public class VueTerrain {
-    private Terrain terrain;
     private TilePane terrainPane;
     private Image[] tiles;
     private ArrayList<Integer> terrainFond;
@@ -21,7 +20,6 @@ public class VueTerrain {
 
     public VueTerrain(Terrain terrain, TilePane terrainPane, ArrayList<Integer> terrainColision, ArrayList<Integer> terrainFond, ArrayList<Integer> terrainAutres, Environnement environnement) {
         this.terrainPane = terrainPane;
-        this.terrain = terrain;
         this.terrainColision = terrainColision;
         this.terrainFond = terrainFond;
         this.terrainAutres = terrainAutres;
@@ -73,35 +71,30 @@ public class VueTerrain {
         }
     }
 
-    public Image obtenirImageTerrainFond(int ligne, int colonne) {
-        int index = ligne * environnement.getInfoTuile()[1] + colonne;
-        int tileIndex;
+    public Image obtenirImageTerrainFond(int ligne, int colonne,int valeurDanslaListe) {
+        return retournerImageNimporteQuelterrain(this.terrainFond,ligne,colonne,valeurDanslaListe);
 
-        if (index >= 0 && index < terrainFond.size()) {
-            tileIndex = terrainFond.get(index) - 1;
+    }
+    public Image obtenirImageTerrainAutres(int ligne, int colonne,int valeurDanslaListe) {
+        return retournerImageNimporteQuelterrain(this.terrainAutres,ligne,colonne,valeurDanslaListe);
+    }
+    public Image retournerImageNimporteQuelterrain(ArrayList<Integer> terrain,int ligne, int colonne,int valeurDanslaListe){
+        int index;
+        int tileIndex;
+        if (valeurDanslaListe==-1) {
+            index = ligne * environnement.getInfoTuile()[1] + colonne;
+        }
+        else {
+            index = valeurDanslaListe;
+        }
+
+        if (index >= 0 && index < terrain.size()) {
+            tileIndex = terrain.get(index) - 1;
             if (tileIndex >= 0 && tileIndex < tiles.length) {
                 return tiles[tileIndex];
             }
         }
-
         return null;
-    }
-    public Image obtenirImageTerrainAutres(int ligne, int colonne) {
-        int index = ligne * environnement.getInfoTuile()[1] + colonne;
-        int tileIndex;
-
-        if (index >= 0 && index < terrainAutres.size()) {
-            tileIndex = terrainAutres.get(index) - 1;
-            if (tileIndex >= 0 && tileIndex < tiles.length) {
-                return tiles[tileIndex];
-            }
-        }
-
-        return null;
-    }
-
-    public ArrayList<Integer> getTerrainFond() {
-        return terrainFond;
     }
 
     public Image[] getTiles() {

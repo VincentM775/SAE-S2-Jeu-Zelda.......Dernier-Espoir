@@ -24,7 +24,7 @@ public class VueObjetEquipee extends VueObjet {
     }
 
     @Override
-    public void setPotitionArme(ImageView imageView){
+    public void setPositionArme(ImageView imageView){
         imageView.xProperty().bind(joueur.xProperty());
         imageView.yProperty().bind(joueur.yProperty());
     }
