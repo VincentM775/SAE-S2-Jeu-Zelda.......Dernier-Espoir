@@ -119,17 +119,18 @@ public class Controleur implements Initializable {
         environnement.setListenerArmeEnvironnement(observateurObjets);
 
         //Creer des haches
-        Objets hache = new Hache(60,150,environnement);
+        Objets hache = new Hache(1344,1088,environnement);
 
         //Creer un pistolet
-        Objets pistolet = new Pistolet(800,300,environnement);
+        Objets pistolet = new Pistolet(3072,288,environnement);
 
         //Crer une boite de munition
-        Objets boiteMunition = new BoiteDeMunition(environnement, 200,300);
-        Objets boiteMunitio2 = new BoiteDeMunition(environnement, 200,400);
-        Objets boiteMunitio3 = new BoiteDeMunition(environnement, 200,470);
-        Objets cocktailMolotov = new CocktailMolotov(environnement, 1408,1088);
-        PiedDeBiche piedDeBiche = new PiedDeBiche(environnement,1344,1088);
+        Objets boiteMunition = new BoiteDeMunition(environnement, 96,3008);
+        Objets boiteMunitio2 = new BoiteDeMunition(environnement, 1088,2536);
+        Objets boiteMunitio3 = new BoiteDeMunition(environnement, 3072,352);
+        Objets cocktailMolotov = new CocktailMolotov(environnement, 1088,2600);
+        Objets cocktailMolotov2 = new CocktailMolotov(environnement, 11152,2600);
+        PiedDeBiche piedDeBiche = new PiedDeBiche(environnement,128,3008);
 
         //Ajoute les Objets à l'environnement
         environnement.getlistObjetsEnvironnement().add(hache);
@@ -138,25 +139,41 @@ public class Controleur implements Initializable {
         environnement.getlistObjetsEnvironnement().add(boiteMunitio2);
         environnement.getlistObjetsEnvironnement().add(boiteMunitio3);
         environnement.getlistObjetsEnvironnement().add(cocktailMolotov);
+        environnement.getlistObjetsEnvironnement().add(cocktailMolotov2);
         environnement.getlistObjetsEnvironnement().add(piedDeBiche);
 
         //Génére un terrain avec des tuiles aléatoires
         environnement.getTerrain().generTerrain(environnement.getInfoTuile()[1] * environnement.getInfoTuile()[2]);
 
         //Création d'un premier zombie MasticartorZ
-        Ennemi acteur1 = new MasticatorZ(360,260, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur1 = new MasticatorZ(1536,1088, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur1);
+        Ennemi acteur12 = new MasticatorZ(1600,1024, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur12);
+        Ennemi acteur13 = new MasticatorZ(1504,896, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur13);
 
         //Création d'un 2e zombie LeZamikaze
-        Ennemi acteur2 = new Zamikaze(400,340, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur2 = new Zamikaze(1364,2600, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur2);
+        Ennemi acteur22 = new Zamikaze(1300,2350, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur22);
+        Ennemi acteur23 = new Zamikaze(1450,2500, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur23);
 
         //Création d'un 3e zombie le Bave-Zmort
-        Ennemi acteur3 = new BaveZmort(470,400, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        Ennemi acteur3 = new BaveZmort(1364,2350, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(acteur3);
+        Ennemi acteur32 = new BaveZmort(1172,400, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur32);
+        Ennemi acteur33 = new BaveZmort(1172,464, environnement,(int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(acteur33);
 
         PNJ roger = new RogerPNJ(1088,1088, environnement, (int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
         environnement.addActeurs(roger);
+
+        PNJ barnard = new BarnardPNJ(1300,2600, environnement, (int) this.terrainPane.getPrefTileWidth(), (int) this.terrainPane.getPrefTileHeight(), this.terrainPane.getPrefColumns());
+        environnement.addActeurs(barnard);
 
         //Créer le lien entre la liste Des Projectiles et la class observableProjectile
         environnement.getListProjectile().addListener(new ObservateurProjectile(this.projectilePane,this.persoPane,environnement,vueTerrain,terrainPane));
