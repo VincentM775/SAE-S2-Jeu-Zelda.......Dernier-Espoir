@@ -46,7 +46,7 @@ public class CocktailM extends Projectile{
 
         //mettre des dégâts aux acteurs présents dans la zone
         for (int i=0;i< getEnvironnement().getListActeurs().size();i++){
-            if (EstPresentRayon.estPresentDansRayonPixel(64,getX(),getY(),0,0,getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
+            if (EstPresentRayon.estPresentDansRayonPixel(64,getX(),getY(),getEnvironnement().getListActeurs().get(i).getX(),getEnvironnement().getListActeurs().get(i).getY())){
                 getEnvironnement().getListActeurs().get(i).perdPV(getDegats()); //On met de gros dégats à l'ennemi toucher
             }
         }

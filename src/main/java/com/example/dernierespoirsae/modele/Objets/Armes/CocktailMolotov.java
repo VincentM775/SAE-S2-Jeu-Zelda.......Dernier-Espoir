@@ -11,7 +11,7 @@ public class CocktailMolotov extends Arme {
     private static int quantiteStatic=0;
 
     public CocktailMolotov(Environnement environnement, int x, int y) {
-        super(40, x, y, "cocktailMolotov",environnement,(int) (Math.random()*7+2),false);
+        super(40, x, y, "cocktailMolotov",environnement,(int) (Math.random()*9+4),false);
         this.quantite = new SimpleIntegerProperty();
     }
 

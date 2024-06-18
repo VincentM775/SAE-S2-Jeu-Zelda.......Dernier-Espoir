@@ -167,7 +167,7 @@ public abstract class Acteur {
     }
 
     public boolean estPresentDansRayonPixel(int rayonPixel,int x,int y){
-        return EstPresentRayon.estPresentDansRayonPixel(rayonPixel,getX(),getY(),longBox,largeTuile,x,y);
+        return EstPresentRayon.estPresentDansRayonPixel(rayonPixel,getX(),getY(),x,y);
     }
 
     public void setTouche(String touche) {

@@ -5,14 +5,14 @@ import com.example.dernierespoirsae.modele.Environnement;
 public class MasticatorZ extends Ennemi {
 
     public MasticatorZ(int x, int y, Environnement environnement, int longTuile, int largeTuile, int nbTuile) {
-        super(x, y, "MasticatorZ", environnement, 100, 2, 20, longTuile, largeTuile, nbTuile, 4+(int) (Math.random()*2),28,28);
+        super(x, y, "MasticatorZ", environnement, 100, 2, 10, longTuile, largeTuile, nbTuile, 4+(int) (Math.random()*2),28,28);
     }
 
     @Override
     public void agit() {
         seDeplacer();
         if (joueurPresent()){
-            if (joueurPresentDansRayonPixel(17))
+            if (joueurPresentDansRayonPixel(30))
 //                if (getEnvironnement().getTemps()%20==0)
                     getEnvironnement().getJoueur().perdPV(getNombreDeDegat());
         }

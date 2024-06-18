@@ -8,9 +8,9 @@ public class BFS {
     private int xDebutTab;
     private int yDebutTab;
     
-    public BFS(Environnement environnement) {
+    public BFS(Environnement environnement,int ligne,int colonne) {
         this.environnement = environnement;
-        this.tableauDesDistances = new int[19][33];
+        this.tableauDesDistances = new int[ligne][colonne];
         lancementBFS();
     }
 

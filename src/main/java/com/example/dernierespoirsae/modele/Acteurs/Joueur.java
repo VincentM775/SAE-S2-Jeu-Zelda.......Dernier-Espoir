@@ -72,21 +72,20 @@ public class Joueur extends Acteur {
         int dy = 0;
         if (getDirection().contains("up") && getHitBox().collisionHaut(getVitesse())) {
             dy -= this.getVitesse();
-            getEnvironnement().getBfs().lancementBFS();
         }
         if (getDirection().contains("down") && getHitBox().collisionBas(getVitesse())) {
             dy += this.getVitesse();
-            getEnvironnement().getBfs().lancementBFS();
         }
         if (getDirection().contains("left") && getHitBox().collisionGauche(getVitesse())) {
             dx -= this.getVitesse();
-            getEnvironnement().getBfs().lancementBFS();
         }
         if (getDirection().contains("right") && getHitBox().collisionDroite(getVitesse())) {
             dx += this.getVitesse();
-            getEnvironnement().getBfs().lancementBFS();
         }
-
+        if (!getDirection().isEmpty()) {
+            if (getEnvironnement().getTemps() % 4 == 0)
+                getEnvironnement().getBfs().lancementBFS();
+        }
         setX(getX() + dx);
         setY(getY() + dy);
     }

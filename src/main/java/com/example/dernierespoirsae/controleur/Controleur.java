@@ -129,7 +129,7 @@ public class Controleur implements Initializable {
         Objets boiteMunitio2 = new BoiteDeMunition(environnement, 1088,2536);
         Objets boiteMunitio3 = new BoiteDeMunition(environnement, 3072,352);
         Objets cocktailMolotov = new CocktailMolotov(environnement, 1088,2600);
-        Objets cocktailMolotov2 = new CocktailMolotov(environnement, 11152,2600);
+        Objets cocktailMolotov2 = new CocktailMolotov(environnement, 1952,2600);
         PiedDeBiche piedDeBiche = new PiedDeBiche(environnement,128,3008);
 
         //Ajoute les Objets à l'environnement
@@ -197,7 +197,7 @@ public class Controleur implements Initializable {
         fenetre.setOnMouseClicked(clickHandler);
 
         //Initialisation du BFS
-        this.bfs = new BFS(this.environnement);
+        this.bfs = new BFS(this.environnement,19,33);
 
         //Ajout du BFS dans l'environnement
         this.environnement.setBfs(this.bfs);
@@ -212,7 +212,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
             // on définit le FPS (nbre de frame par seconde)
-            Duration.seconds((0.035)),
+            Duration.seconds((0.040)),
             // on définit ce qui se passe à chaque frame
             // c'est un eventHandler d'ou le lambda
             (ev ->{

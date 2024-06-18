@@ -15,7 +15,7 @@ public class BarnardPNJ extends PNJ{
     @Override
     public String texte() {
         return "Je sais où trouver un pied de biche pour ouvrir" +
-                "\nles portes maisons fermé. Rends toi dans la maison" +
+                "\nles portes des maisons fermé. Rends toi dans la maison" +
                 "\nvoisine à gauche, il devrait avoir une petite cabane";
     }
 
